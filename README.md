@@ -49,10 +49,14 @@ __Contact:__
 DiSalvoJoe@gmail.com  
 
 __Skills:__  
-
+- Functional Programming
+- DSL design
+- Backend Development
+- Eliciting Requirements
 
 __Interests:__  
-
+- Programming Language Design
+- Parallel Computing
 
 ## Project Background Description
 The underlying biological processes and patterns of early eye development are known for fruit flies and a few other species; however, a comprehensive model for all species has not been built. This project aims to use known rules to predict the development of any species’ eyes by applying said rules to variable biological constraints. The simulated structure can then be compared to real samples to determine if this model can be used to correctly predict eye development in other species.
