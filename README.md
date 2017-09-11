@@ -1,4 +1,4 @@
-#Senior Design Project - Eye Development Model
+# Senior Design Project - Eye Development Model
 
 ##Advisor:
 Dr. Annexstein  
