@@ -29,7 +29,10 @@ __Skills:__
 - Gpgpu
 
 __Interests:__  
-
+- NeuroBio
+- Requirements Engineering
+- Software Engineering
+- Parallel Computing
 
 ### Brian Bauer:
 __Contact:__  
