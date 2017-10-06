@@ -5,7 +5,7 @@ from epithelium_backend.Cell import Cell
 class SnapshotDisplay(wx.Frame):
     """Instantly displays the current state of an epithelium in 2D"""
     
-    def __init__(self, title: str = "Default", size: tuple[int, int] = (300, 300), cells: list[Cell] = []) -> None:
+    def __init__(self, title: str = "Default", size: tuple = (300, 300), cells: list = None) -> None:
         """
         Creates a visual representation of a list of cells in a single moment in time
         :param title: The name of this snapshot and its window
@@ -14,7 +14,12 @@ class SnapshotDisplay(wx.Frame):
         """
         super(SnapshotDisplay, self).__init__(None, title="Snapshot: "+title, size=size)
 
-        self.cells = cells  # type: list[Cell]
+        self.cells = cells  # type: list
+
+        # ensure that cells always stores a valid list.
+        # cant just use valid list as default param because of python quirk
+        if cells is None:
+            self.cells = []
 
         self.Bind(wx.EVT_PAINT, self.on_paint)
         self.Show(True)
