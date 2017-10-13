@@ -16,7 +16,7 @@ class SnapshotDisplay(object):
         self.cells = cells  # type: list
 
         # ensure that cells always stores a valid list.
-        # cant just use valid list as default param because of python quirk
+        # cant just uparamse valid list as default param because of python quirk
         if cells is None:
             self.cells = []
 

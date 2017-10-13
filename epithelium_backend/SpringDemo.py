@@ -13,6 +13,6 @@ cells = [Cell((random.random(), random.random(), 0),
 # Plot the cells as they were spawned
 snap = SnapshotDisplay("epithelium demo before ", (500, 500), cells)
 # Decompact 250 times with kind of arbitrary parameters
-decompact(cells, iterations=250, spring_constant=8, escape=1.05, dt=0.1)
+decompact(cells, iterations=250, spring_constant=1, escape=1.05, dt=0.1)
 # Plot the cells after being decompacted
 snap2 = SnapshotDisplay("epithelium demo after", (500, 500), cells)

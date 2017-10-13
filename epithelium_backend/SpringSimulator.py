@@ -11,7 +11,8 @@ def distance(cell1, cell2):
     (x2, y2, z2) = cell2.position
     return sqrt( (x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
-def minus(tup1, tup2):
+
+def minus(tup1: tuple, tup2: tuple) -> tuple:
     (x1, y1, z1) = tup1
     (x2, y2, z2) = tup2
     return (x1-x2, y1-y2, z1-z2)
@@ -21,9 +22,11 @@ def add(tup1, tup2):
     (x2, y2, z2) = tup2
     return (x1+x2, y1+y2, z1+z2)
 
+
 def multiply(tup, c):
     (x, y, z) = tup
     return (x*c, y*c, z*c)
+
 
 # Spring Simulation
 def force(cell1, cell2, spring_constant, escape):
@@ -46,6 +49,7 @@ def force(cell1, cell2, spring_constant, escape):
         spring = spring_constant*(dist - rest_length)
         return multiply(minus(cell1.position,cell2.position), -1*spring/dist)
 
+
 def compute_forces(cells, spring_constant, escape):
     """Return a map from cells to the summed forces on them.
     Naively quadratic with the number of cells."""
@@ -57,6 +61,7 @@ def compute_forces(cells, spring_constant, escape):
             # Newton's 3rd -- the force on j is the negative force on i.
             forces[cells[j]] = add(forces[cells[j]], multiply(force_on_i, -1))
     return forces
+
 
 def update_positions(cells, spring_constant, escape, dt):
     """Compute the summed force on each cell and update their positions."""
@@ -73,6 +78,7 @@ def update_positions(cells, spring_constant, escape, dt):
         # to continue moving apart.
         velocity = multiply(acceleration, dt)
         cell.position = add(cell.position, multiply(velocity, dt))
+
 
 def decompact(cells, iterations=100, spring_constant=2, escape=1.05, dt=0.1):
     for i in range(1, iterations):
