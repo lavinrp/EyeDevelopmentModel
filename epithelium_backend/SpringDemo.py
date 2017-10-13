@@ -4,9 +4,6 @@ from epithelium_backend.SpringSimulator import decompact
 import random as random
 import wx
 
-
-app = wx.App()
-
 random.seed(58293)
 # Generate 100 random cells about the origin with radii between 0.1 and 0.35
 cells = [Cell((random.random(), random.random(), 0),
@@ -18,7 +15,4 @@ snap = SnapshotDisplay("epithelium demo before ", (500, 500), cells)
 # Decompact 250 times with kind of arbitrary parameters
 decompact(cells, iterations=250, spring_constant=8, escape=1.05, dt=0.1)
 # Plot the cells after being decompacted
-snap = SnapshotDisplay("epithelium demo after", (500, 500), cells)
-
-
-app.MainLoop();
+snap2 = SnapshotDisplay("epithelium demo after", (500, 500), cells)

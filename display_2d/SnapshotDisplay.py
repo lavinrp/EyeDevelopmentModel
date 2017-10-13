@@ -2,7 +2,7 @@ import wx
 from epithelium_backend.Cell import Cell
 
 
-class SnapshotDisplay(wx.Frame):
+class SnapshotDisplay(object):
     """Instantly displays the current state of an epithelium in 2D"""
     
     def __init__(self, title: str = "Default", size: tuple = (300, 300), cells: list = None) -> None:
@@ -12,7 +12,6 @@ class SnapshotDisplay(wx.Frame):
         :param size: the dimensions of the window
         :param cells: the cells to display
         """
-        super(SnapshotDisplay, self).__init__(None, title="Snapshot: "+title, size=size)
 
         self.cells = cells  # type: list
 
@@ -21,8 +20,12 @@ class SnapshotDisplay(wx.Frame):
         if cells is None:
             self.cells = []
 
-        self.Bind(wx.EVT_PAINT, self.on_paint)
-        self.Show(True)
+        # draw
+        self.app = wx.App()  # type: wx.App
+        self.frame = wx.Frame(None, title="Snapshot: "+title, size=size)  # type: wx.Frame
+        self.frame.Bind(wx.EVT_PAINT, self.on_paint)
+        self.frame.Show(True)
+        self.app.MainLoop()
 
     def on_paint(self, e):
         """
@@ -32,7 +35,7 @@ class SnapshotDisplay(wx.Frame):
         :return: None
         """
 
-        dc = wx.PaintDC(self)
+        dc = wx.PaintDC(self.frame)
         dc.Clear()
         dc.SetPen(wx.Pen(wx.BLACK, 4))
 
