@@ -1,4 +1,3 @@
-
 class Furrow:
     """
     Simulates a morphogenetic furrow. Stores and maintains all information related to the
@@ -15,3 +14,18 @@ class Furrow:
         self.position = position  # type: float
         self.width = width  # type: float
         self.velocity = velocity  # type: float
+
+    def advance(self, distance: float = 0) -> None:
+        """
+        Moves the furrow forward by the specified amount.
+        :param distance: how far to move this Furrow
+        """
+        self.position += distance
+
+    def update(self):
+        """
+        Simulates this Furrow for one tick.
+        """
+
+        # move the furrow forward
+        self.advance(self.velocity)
