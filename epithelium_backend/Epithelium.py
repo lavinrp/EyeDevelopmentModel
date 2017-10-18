@@ -1,9 +1,10 @@
 
 
 import random
+from math import sqrt
 
 from epithelium_backend import Cell
-from epithelium_backend import SpringSimulator
+from epithelium_backend import CellCollisionHandler
 from display_2d.SnapshotDisplay import SnapshotDisplay
 
 
@@ -39,13 +40,28 @@ class Epithelium(object):
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
         """
+        # The approach: randomly place self.cell_quantity cells on a grid,
+        # then decompact them with the collision handler until they're
+        # just slightly overlapping.
+
+        # If we know the average radius of each cell, we know the average
+        # area, and therefore the approximate grid size.
+        avg_area = self.cell_avg_radius**2 * 3.14
+        # Because we allow some cell overlap, and we want the cells to start
+        # in a more compact state and decompact them, we multiply by .87
+        approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
         while self.cell_quantity > len(self.cells):
             # Use the divergence to determine the new cells' radii. Note that the cell_radius_divergence should be
             # less than cell_avg_radius
             rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
                                                                 self.cell_avg_radius + self.cell_radius_divergence)
             random_pos = (245 + random.random() * 10, 240 + random.random() * 10, 0)
+            # Questions for Bryan
+            # x = (0.5 - random()) * approx_grid_size
+            # y = (0.5 - random()) * approx_grid_size
             self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
 
         # Decompact 1000 times with kind of arbitrary parameters
-        SpringSimulator.decompact(self.cells, iterations=1000, spring_constant=1, escape=1.05, dt=0.1)
+        self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
+        for i in range(0,50):
+            self.cell_collision.handler.decompact()

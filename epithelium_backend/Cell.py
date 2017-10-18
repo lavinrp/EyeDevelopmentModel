@@ -7,11 +7,7 @@ from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 class Cell(object):
     """A single cell"""
-    def __init__(self,
-                 position: tuple = (0, 0, 0),
-                 radius: float = 1,
-                 photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
-                 support_specializations: set = set()) -> None:
+    def __init__(self, position=(0.5, 0.5, 0.0), radius=10.0, cell_types=[]):
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
@@ -21,8 +17,8 @@ class Cell(object):
         """
         self.position = position  # type: tuple
         self.radius = radius  # type: float
-        self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
-        self.support_specializations = support_specializations  # type: set
+        # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
+        # self.support_specializations = support_specializations  # type: set
 
     def passive_growth(self):
         """
@@ -62,4 +58,3 @@ class Cell(object):
         :return:
         """
         self.radius += growth_amount
-
