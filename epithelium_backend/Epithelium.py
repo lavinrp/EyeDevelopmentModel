@@ -4,12 +4,13 @@ import random
 
 from epithelium_backend import Cell
 from epithelium_backend import SpringSimulator
+from display_2d.SnapshotDisplay import SnapshotDisplay
 
 
 class Epithelium(object):
     """A collection of cells that will form an eye"""
 
-    def __init__(self, cell_quantity):
+    def __init__(self, cell_quantity) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
@@ -18,41 +19,31 @@ class Epithelium(object):
         self.cell_events = []
         self.cell_quantity = cell_quantity
 
-    def add_cell(self, cell_from_list):
+        self.create_cell_sheet()
+
+    def add_cell(self, cell_from_list) -> None:
         """
         adds a cell to the list
+        :param cell_from_list: a cell selected from self.cells
         """
         new_cell = cell_from_list.divide()
         if new_cell is not None:
             self.cells.append(new_cell)
 
-    def create_cell_sheet(self):
+    def create_cell_sheet(self) -> None:
         """
-        creates the sheet of cells, populating self.cell
+        creates the sheet of cells, populating self.cell, and then decompacts them
         """
-        print('We have added the first cell:')
 
         while self.cell_quantity > len(self.cells):
-
-            self.cells.append(Cell.Cell(position=(random.random(), random.random(), 0), radius=random.uniform(.06, .1), cell_types=[]))
+            # random_radius = 10 + (random.random() * 100)/2
+            random_radius = 10 + random.random() * 4
+            random_pos = (249 + random.random() * 5, 249 + random.random() * 5, 0)
+            self.cells.append(Cell.Cell(position=random_pos, radius=random_radius))
 
         # Plot the cells as they were spawned
-        SpringSimulator.plot(self.cells, 'before.png')
-
-        # Decompact with kind of arbitrary parameters
-        for i in range(0, 5):
-            SpringSimulator.decompact(testEpithelium.cells, iterations=300, spring_constant=1, escape=1.05, dt=0.1)
-            SpringSimulator.plot(self.cells, 'before.png')
-
-        print('We have done the mapping')
-
-        print(len(self.cells))
-
-
-if __name__ == '__main__':
-    testEpithelium = Epithelium(300)
-
-    testEpithelium.create_cell_sheet()
-
-
-
+        SnapshotDisplay("epithelium demo before ", (500, 500), self.cells)
+        # Decompact 250 times with kind of arbitrary parameters
+        SpringSimulator.decompact(self.cells, iterations=1000, spring_constant=1, escape=1.05, dt=0.1)
+        # Plot the cells after being decompacted
+        SnapshotDisplay("epithelium demo after", (500, 500), self.cells)

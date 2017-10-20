@@ -2,8 +2,8 @@
 # but simpler and more naive
 
 from math import sqrt
-from matplotlib import pyplot as plt
 from epithelium_backend.Cell import Cell
+
 
 # Vector functions on tuples
 # Sorry to reimplement the wheel; but only 20 lines.
@@ -17,6 +17,7 @@ def minus(tup1: tuple, tup2: tuple) -> tuple:
     (x1, y1, z1) = tup1
     (x2, y2, z2) = tup2
     return (x1-x2, y1-y2, z1-z2)
+
 
 def add(tup1: tuple, tup2: tuple) -> tuple:
     (x1, y1, z1) = tup1
@@ -89,7 +90,7 @@ def update_positions(cells: list, spring_constant: float, escape: float, dt: flo
 
 
 def decompact(cells: list,
-              iterations: float = 100,
+              iterations: int = 100,
               spring_constant: float = 2,
               escape: float = 1.05,
               dt:float = 0.1) -> None:
@@ -97,7 +98,7 @@ def decompact(cells: list,
     Push overlapping cells apart, with a tendency to keep them barely overlapping.
 
     :param cells: A list of cells to push apart
-    :param iteration: the number of times to compute and apply forces
+    :param iterations: the number of times to compute and apply forces
     :param spring_constant: determines spring stiffness; linearly correlated
        to the magnitude of the force cells exert on each other.
     :param escape: determines distance at which pulling forces are exerted.
@@ -116,20 +117,3 @@ def decompact(cells: list,
     """
     for i in range(1, iterations):
         update_positions(cells, spring_constant, escape, dt)
-
-
-def plot(cells, name):
-    """Plot the cells as circles as a png named `name`"""
-    plt.rcParams.update({'figure.max_open_warning': 0})
-    circles = []
-    for cell in cells:
-        (x,y,z) = cell.position
-        c = plt.Circle((x, y), cell.radius, color='b', fill=False)
-        circles.append(c)
-    fig, ax = plt.subplots()
-    ax.set_xlim((-3, 3))
-    ax.set_ylim((-3, 3))
-    for c in circles:
-        ax.add_artist(c)
-    fig.savefig(name)
-
