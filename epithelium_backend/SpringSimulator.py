@@ -90,6 +90,7 @@ def decompact(cells, iterations=100, spring_constant=2, escape=1.05, dt=0.1):
 
 def plot(cells, name):
     """Plot the cells as circles as a png named `name`"""
+    plt.rcParams.update({'figure.max_open_warning': 0})
     circles = []
     for cell in cells:
         (x,y,z) = cell.position
@@ -101,3 +102,4 @@ def plot(cells, name):
     for c in circles:
         ax.add_artist(c)
     fig.savefig(name)
+
