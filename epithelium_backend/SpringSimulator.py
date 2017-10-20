@@ -4,6 +4,7 @@
 from math import sqrt
 from epithelium_backend.Cell import Cell
 
+
 # Vector functions on tuples
 # Sorry to reimplement the wheel; but only 20 lines.
 def distance(cell1: Cell, cell2: Cell) -> float:
@@ -16,6 +17,7 @@ def minus(tup1: tuple, tup2: tuple) -> tuple:
     (x1, y1, z1) = tup1
     (x2, y2, z2) = tup2
     return (x1-x2, y1-y2, z1-z2)
+
 
 def add(tup1: tuple, tup2: tuple) -> tuple:
     (x1, y1, z1) = tup1
@@ -88,7 +90,7 @@ def update_positions(cells: list, spring_constant: float, escape: float, dt: flo
 
 
 def decompact(cells: list,
-              iterations: float = 100,
+              iterations: int = 100,
               spring_constant: float = 2,
               escape: float = 1.05,
               dt:float = 0.1) -> None:
@@ -96,7 +98,7 @@ def decompact(cells: list,
     Push overlapping cells apart, with a tendency to keep them barely overlapping.
 
     :param cells: A list of cells to push apart
-    :param iteration: the number of times to compute and apply forces
+    :param iterations: the number of times to compute and apply forces
     :param spring_constant: determines spring stiffness; linearly correlated
        to the magnitude of the force cells exert on each other.
     :param escape: determines distance at which pulling forces are exerted.
@@ -113,5 +115,6 @@ def decompact(cells: list,
        dt=0.1 is a good trade off; much higher and cells tend to be pushed too
        far apart.
     """
+
     for i in range(1, iterations):
         update_positions(cells, spring_constant, escape, dt)
