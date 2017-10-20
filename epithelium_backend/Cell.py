@@ -31,12 +31,15 @@ class Cell(object):
         half of this cell's radius. Then divides this parent cell's radius in half.
         :return:
         """
-        # Choose some radians for position of new cell
-        rand_rad = random.uniform(2.0, 4.0)
+        # Choose some radian for direction of position of new cell
+        rand_rad = random.uniform(0, 6.283)
         # Check if cell is large enough
-        if self.radius >= .2:
+        if self.radius >= 30:
+            # Find position for new cell on original cell's circle
             rand_pos = (self.position[0] + self.radius*cos(rand_rad), self.position[0] + self.radius*sin(rand_rad), 0)
             child_cell = Cell(position=rand_pos, radius=self.radius/2.0)
+            new_pos = (self.position[0] - self.radius*cos(rand_rad), self.position[0] - self.radius*sin(rand_rad), 0)
+            self.position = new_pos
             self.radius /= 2
             return child_cell
         else:
