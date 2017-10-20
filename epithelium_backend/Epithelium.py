@@ -1,5 +1,7 @@
 
 
+import random
+
 from epithelium_backend import Cell
 from epithelium_backend import SpringSimulator
 
@@ -28,19 +30,19 @@ class Epithelium(object):
         """
         creates the sheet of cells, populating self.cell
         """
-        first_cell = Cell.Cell(position=(0.2, 0.2, 0), radius=.2, cell_types=[])
-        self.cells.append(first_cell)
         print('We have added the first cell:')
 
         while self.cell_quantity > len(self.cells):
-            # Plot the cells as they were spawned
-            SpringSimulator.plot(self.cells, 'before.png')
-            for cell in self.cells:
-                # Decompact with kind of arbitrary parameters
-                SpringSimulator.decompact(testEpithelium.cells, iterations=20, spring_constant=1, escape=1.05, dt=0.1)
 
-                if self.cell_quantity > len(self.cells):
-                    self.add_cell(cell)
+            self.cells.append(Cell.Cell(position=(random.random(), random.random(), 0), radius=random.uniform(.06, .1), cell_types=[]))
+
+        # Plot the cells as they were spawned
+        SpringSimulator.plot(self.cells, 'before.png')
+
+        # Decompact with kind of arbitrary parameters
+        for i in range(0, 5):
+            SpringSimulator.decompact(testEpithelium.cells, iterations=300, spring_constant=1, escape=1.05, dt=0.1)
+            SpringSimulator.plot(self.cells, 'before.png')
 
         print('We have done the mapping')
 
@@ -48,7 +50,7 @@ class Epithelium(object):
 
 
 if __name__ == '__main__':
-    testEpithelium = Epithelium(50)
+    testEpithelium = Epithelium(300)
 
     testEpithelium.create_cell_sheet()
 
