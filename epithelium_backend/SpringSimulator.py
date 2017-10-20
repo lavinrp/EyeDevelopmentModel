@@ -8,24 +8,44 @@ from epithelium_backend.Cell import Cell
 # Vector functions on tuples
 # Sorry to reimplement the wheel; but only 20 lines.
 def distance(cell1: Cell, cell2: Cell) -> float:
+    """Calculates the distance between two cells
+    :param cell1: The first cell.
+    :param cell2: The second cell.
+    :return: The distance between the first and second cells.
+    """
     (x1, y1, z1) = cell1.position
     (x2, y2, z2) = cell2.position
     return sqrt( (x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
 
 def minus(tup1: tuple, tup2: tuple) -> tuple:
+    """Vector subtraction of two 3-tuples.
+    :param tup1: The minuend vector.
+    :param tup2: The subtrahend vector.
+    :return: The resulting difference vector.
+    """
     (x1, y1, z1) = tup1
     (x2, y2, z2) = tup2
     return (x1-x2, y1-y2, z1-z2)
 
 
 def add(tup1: tuple, tup2: tuple) -> tuple:
+    """Vector addition of two 3-tuples.
+    :param tup1: The first vector.
+    :param tup2: The second vector.
+    :return: The sum of the input vectors.
+    """
     (x1, y1, z1) = tup1
     (x2, y2, z2) = tup2
     return (x1+x2, y1+y2, z1+z2)
 
 
 def multiply(tup: tuple, c: float) -> tuple:
+    """Multiplication of a vector by a constant
+    :param tup: 3-Tuple representation of the vector
+    :param c: Constant
+    :return: The product of multiplying tup by the constant
+    """
     (x, y, z) = tup
     return (x*c, y*c, z*c)
 
@@ -54,9 +74,20 @@ def compute_forces(cells: list, spring_constant: float, escape: float) -> dict:
     """
     Compute the summed force on each cell. Naively quadratic w.r.t. cells.
 
+    :param cells: A list of cells exerting forces on each other.
+    :param spring_constant: determines spring stiffness; linearly correlated
+       to the magnitude of the force cells exert on each other.
+    :param escape: determines distance at which pulling forces are exerted.
+       If escape=1, then cells don't exert any pulling forces. If >1,
+       cells exert pulling forces until their distance is greater than
+       escape multiplied by the sum of their radii (two cells
+       touching have a distance equal to the sum of their radii).
+       A small escape, like around 1.05, will mean that cells tend to stick
+       togther and overlap maybe a little bit. A large escape tends to make
+       cells overlap a lot (since cells would exert non-local pulling forces)
     :return: a map from each cell to the summed forces on it.
     """
-    forces = {cell : (0,0,0) for cell in cells}
+    forces = {cell: (0,0,0) for cell in cells}
     for i in range(0, len(cells)):
         for j in range(i+1, len(cells)):
             force_on_i = force(cells[i], cells[j], spring_constant, escape)
@@ -70,6 +101,22 @@ def update_positions(cells: list, spring_constant: float, escape: float, dt: flo
     """
     Compute the summed force on each cell, and use that to compute
     velocities and changes in position. Update the cells' positions.
+    :param cells: The cells to update.
+    :param spring_constant: spring_constant: determines spring stiffness; linearly correlated
+       to the magnitude of the force cells exert on each other.
+    :param escape: etermines distance at which pulling forces are exerted.
+       If escape=1, then cells don't exert any pulling forces. If >1,
+       cells exert pulling forces until their distance is greater than
+       escape multiplied by the sum of their radii (two cells
+       touching have a distance equal to the sum of their radii).
+       A small escape, like around 1.05, will mean that cells tend to stick
+       togther and overlap maybe a little bit. A large escape tends to make
+       cells overlap a lot (since cells would exert non-local pulling forces)
+    :param dt: The unit of time over which to assume the force is constant
+       in each iteration. Smaller dt leads to better behavior but requires
+       more iterations (since cells are moved less with each iteration).
+       dt=0.1 is a good trade off; much higher and cells tend to be pushed too
+       far apart.
     """
     forces = compute_forces(cells, spring_constant, escape)
     for cell in cells:
@@ -93,7 +140,7 @@ def decompact(cells: list,
               iterations: int = 100,
               spring_constant: float = 2,
               escape: float = 1.05,
-              dt:float = 0.1) -> None:
+              dt: float = 0.1) -> None:
     """
     Push overlapping cells apart, with a tendency to keep them barely overlapping.
 
