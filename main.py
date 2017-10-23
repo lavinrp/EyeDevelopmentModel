@@ -1,7 +1,7 @@
 from epithelium_backend.Cell import Cell
 from display_2d.SnapshotDisplay import SnapshotDisplay
 import wx
-from eye_development_gui.eye_development_gui import main_frame
+from eye_development_gui.eye_development_gui import MainFrame
 
 if __name__ == '__main__':
 
@@ -16,6 +16,6 @@ if __name__ == '__main__':
 
     # draw
     app = wx.App()  # type: wx.App
-    frame = main_frame(None)
+    frame = MainFrame(None)
     frame.Show(True)
     app.MainLoop()

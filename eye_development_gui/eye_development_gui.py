@@ -11,10 +11,10 @@ import wx
 import wx.xrc
 
 ###########################################################################
-## Class main_frame
+## Class MainFrame
 ###########################################################################
 
-class main_frame ( wx.Frame ):
+class MainFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )

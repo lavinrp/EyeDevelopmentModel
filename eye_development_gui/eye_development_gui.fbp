@@ -42,7 +42,7 @@
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
             <property name="minimum_size"></property>
-            <property name="name">main_frame</property>
+            <property name="name">MainFrame</property>
             <property name="pos"></property>
             <property name="size">500,300</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
