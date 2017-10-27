@@ -60,20 +60,27 @@ class Epithelium(object):
         decompact_start = time.time()
         for i in range(0,5):
             print(i)
-            for j in range(0,9):
+            for j in range(0,19):
                 self.cell_collision_handler.decompact()
-            # SpringDemo.plot(self.cells, 'im/before'+(str(i+1))+'.png',grid=6)
+            # SpringDemo.plot(self.cells, 'im/before'+(str(i+1))+'.png',grid=7)
 
         end = time.time()
         # SpringDemo.plot(self.cells, 'im/before0.png',grid=7)
         print('total time = ' + str(end-start))
         print('decompaction time = ' + str(end-decompact_start))
 
-    def runR8(self):
+    def R8Demo(self):
         selector = R8Selector.R8Selector(6*0.2)
-        for cell in self.cells:
+        # i = 0
+        # j = 0
+        for cell in self.cell_collision_handler.posterior_to_anterior():
+            # if i % (len(self.cells)/10) == 0:
+            #     SpringDemo.plot(self.cells, 'im/r8'+str(j)+'.png', grid=7)
+            #     j+=1
+            # i +=1
             selector.run(self, cell)
-        SpringDemo.plot(self.cells, 'im/r8.png', grid=6)
+        # SpringDemo.plot(self.cells, 'im/r8'+str(j)+'.png', grid=7)
+        # print(i)
 
     def stats(self):
         """

@@ -172,7 +172,7 @@ class CellCollisionHandler(object):
 
             for cell1 in box:
                 for j in [right, down_left, down, down_right]:
-                    if j < len_grids:
+                    if 0 < j < len_grids:
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
 
@@ -193,6 +193,12 @@ class CellCollisionHandler(object):
         for row in range(-box_number, box_number+1):
             for col in range(-box_number, box_number+1):
                 grid = cell.bin + self.dimension*row + col
-                if grid < len(self.grids):
+                if 0 < grid < len(self.grids):
                     cells.extend(self.grids[grid])
         return filter(lambda n: distance(cell.position, n.position)<=r, cells)
+
+    def posterior_to_anterior(self):
+        for col in range(0, self.dimension):
+            for row in range(0, self.dimension):
+                for cell in self.grids[self.dimension*row+col]:
+                    yield cell
