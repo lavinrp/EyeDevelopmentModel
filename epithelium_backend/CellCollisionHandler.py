@@ -186,3 +186,13 @@ class CellCollisionHandler(object):
                 grids[g].append(cell)
                 cell.bin = g
                 self.non_empty.add(g)
+
+    def cells_within_distance(self, cell, r):
+        box_number = ceil(r/self.box_size)
+        cells = []
+        for row in range(-box_number, box_number+1):
+            for col in range(-box_number, box_number+1):
+                grid = cell.bin + self.dimension*row + col
+                if grid < len(self.grids):
+                    cells.extend(self.grids[grid])
+        return filter(lambda n: distance(cell.position, n.position)<=r, cells)

@@ -15,6 +15,7 @@ class Cell(object):
         """
         self.position = position  # type: tuple
         self.radius = radius  # type: float
+        self.photoreceptor_type = None
         # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
         # self.support_specializations = support_specializations  # type: set
 

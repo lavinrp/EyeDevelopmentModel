@@ -1,6 +1,7 @@
 from epithelium_backend import Cell
 from epithelium_backend import SpringDemo
 from epithelium_backend import CellCollisionHandler
+from epithelium_backend import R8Selector
 from math import sqrt
 from random import random
 import time as time
@@ -67,6 +68,12 @@ class Epithelium(object):
         # SpringDemo.plot(self.cells, 'im/before0.png',grid=7)
         print('total time = ' + str(end-start))
         print('decompaction time = ' + str(end-decompact_start))
+
+    def runR8(self):
+        selector = R8Selector.R8Selector(6*0.2)
+        for cell in self.cells:
+            selector.run(self, cell)
+        SpringDemo.plot(self.cells, 'im/r8.png', grid=6)
 
     def stats(self):
         """

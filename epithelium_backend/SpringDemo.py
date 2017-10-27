@@ -1,4 +1,5 @@
 from epithelium_backend.Cell import Cell
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 import matplotlib.pyplot as plt
 import random as random
 
@@ -7,7 +8,7 @@ def plot(cells, name, grid=5):
     circles = []
     for cell in cells:
         (x,y,z) = cell.position
-        c = plt.Circle((x, y), cell.radius, color='b', fill=False)
+        c = plt.Circle((x, y), cell.radius, color='b', fill=cell.photoreceptor_type==PhotoreceptorType.R8)
         circles.append(c)
     fig, ax = plt.subplots()
     fig.set_size_inches(18.5,10.5)
