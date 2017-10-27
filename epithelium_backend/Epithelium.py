@@ -51,6 +51,7 @@ class Epithelium(object):
             # and be uniformly distributed.
             x = (0.5 - random()) * approx_grid_size
             y = (0.5 - random()) * approx_grid_size
+            # radius between 0.195 - 0.205
             radius = 0.2 + ((0.5 - random()) * 0.1)
             self.cells.append(Cell.Cell((x,y,0), radius))
         self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
@@ -72,12 +73,17 @@ class Epithelium(object):
         Print stats on the collision handler. Just for testing.
         """
         ig = self.cell_collision_handler
-        ns = [len(v) for k,v in ig.nodes.items()]
-        ns.sort()
-        print('avg = ' + (str(sum(ns)/len(ns))))
-        print('max = ' + (str(max(ns))))
-        print('min = ' + (str(min(ns))))
-        print('mode = ' + (str(ns[int(len(ns)/2)])))
+        grids = ig.grids
+        non_empty = list(filter(lambda x : len(x)>0, grids))
+        print('avg = ' + str(sum(map(len, non_empty))/len(non_empty)))
+        print('filled ratio = ' + str(len(non_empty)/len(grids)))
+        print('max = ' + str(max(map(len, non_empty))))
+        # ns = [len(v) for k,v in ig.nodes.items()]
+        # ns.sort()
+        # print('avg = ' + (str(sum(ns)/len(ns))))
+        # print('max = ' + (str(max(ns))))
+        # print('min = ' + (str(min(ns))))
+        # print('mode = ' + (str(ns[int(len(ns)/2)])))
 
 
 # if __name__ == '__main__':
