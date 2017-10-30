@@ -78,7 +78,7 @@ class Epithelium(object):
             #     SpringDemo.plot(self.cells, 'im/r8'+str(j)+'.png', grid=7)
             #     j+=1
             # i +=1
-            selector.run(self, cell)
+            selector(self, cell)
         # SpringDemo.plot(self.cells, 'im/r8'+str(j)+'.png', grid=7)
         # print(i)
 
