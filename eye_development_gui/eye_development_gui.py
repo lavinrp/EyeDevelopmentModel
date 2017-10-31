@@ -7,6 +7,7 @@
 ## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
 
+from eye_development_gui.epitheliumdisplaypanel import EpitheliumDisplayPanel
 import wx
 import wx.xrc
 
@@ -31,8 +32,8 @@ class MainFrame ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.epithelium_display = wx.Panel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		fgSizer3.Add( self.epithelium_display, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_panel51 = EpitheliumDisplayPanel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		fgSizer3.Add( self.m_panel51, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer4 = wx.FlexGridSizer( 2, 0, 0, 0 )
 		fgSizer4.AddGrowableCol( 0 )

@@ -23,7 +23,7 @@
 							<option>1</option>
 							<flag>wxEXPAND | wxALL</flag>
 							<border>5</border>
-							<object class="wxPanel" name="epithelium_display">
+							<object class="wxPanel" name="m_panel51" subclass="EpitheliumDisplayPanel">
 								<style>wxTAB_TRAVERSAL</style>
 							</object>
 						</object>
