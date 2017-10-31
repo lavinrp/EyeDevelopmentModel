@@ -1,15 +1,39 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Dec 21 2016)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO "NOT" EDIT THIS FILE!
+## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
 
-from eye_development_gui.epitheliumdisplaypanel import EpitheliumDisplayPanel
+from eye_development_gui.SimulationPanelWrapper import SimulationPanelWrapper
 import wx
 import wx.xrc
+
+###########################################################################
+## Class CustomPanelHolderExample
+###########################################################################
+
+class CustomPanelHolderExample ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
+		
+		main_fg_sizer = wx.FlexGridSizer( 0, 2, 0, 0 )
+		main_fg_sizer.SetFlexibleDirection( wx.BOTH )
+		main_fg_sizer.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		self.m_panel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		main_fg_sizer.Add( self.m_panel, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		self.SetSizer( main_fg_sizer )
+		self.Layout()
+	
+	def __del__( self ):
+		pass
+	
 
 ###########################################################################
 ## Class MainFrame
@@ -20,7 +44,7 @@ class MainFrame ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -32,7 +56,7 @@ class MainFrame ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_panel51 = EpitheliumDisplayPanel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_panel51 = SimulationPanelWrapper( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer3.Add( self.m_panel51, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer4 = wx.FlexGridSizer( 2, 0, 0, 0 )
@@ -111,46 +135,6 @@ class MainFrame ( wx.Frame ):
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
-	
-	def __del__( self ):
-		pass
-	
-
-###########################################################################
-## Class MyPanel1
-###########################################################################
-
-class MyPanel1 ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
-		
-		fgSizer3 = wx.FlexGridSizer( 2, 0, 0, 0 )
-		fgSizer3.AddGrowableCol( 0 )
-		fgSizer3.AddGrowableRow( 1 )
-		fgSizer3.SetFlexibleDirection( wx.BOTH )
-		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-		
-		bSizer7 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.m_bpButton1 = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-		bSizer7.Add( self.m_bpButton1, 0, wx.ALL, 5 )
-		
-		self.m_bpButton2 = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-		bSizer7.Add( self.m_bpButton2, 0, wx.ALL, 5 )
-		
-		self.m_bpButton3 = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-		bSizer7.Add( self.m_bpButton3, 0, wx.ALL, 5 )
-		
-		
-		fgSizer3.Add( bSizer7, 1, wx.EXPAND, 5 )
-		
-		self.m_panel5 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		fgSizer3.Add( self.m_panel5, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		
-		self.SetSizer( fgSizer3 )
-		self.Layout()
 	
 	def __del__( self ):
 		pass
