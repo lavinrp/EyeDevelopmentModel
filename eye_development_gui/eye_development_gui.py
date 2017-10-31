@@ -12,30 +12,6 @@ import wx
 import wx.xrc
 
 ###########################################################################
-## Class CustomPanelHolderExample
-###########################################################################
-
-class CustomPanelHolderExample ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
-		
-		main_fg_sizer = wx.FlexGridSizer( 0, 2, 0, 0 )
-		main_fg_sizer.SetFlexibleDirection( wx.BOTH )
-		main_fg_sizer.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
-		
-		self.m_panel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		main_fg_sizer.Add( self.m_panel, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		
-		self.SetSizer( main_fg_sizer )
-		self.Layout()
-	
-	def __del__( self ):
-		pass
-	
-
-###########################################################################
 ## Class MainFrame
 ###########################################################################
 
@@ -56,8 +32,8 @@ class MainFrame ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_panel51 = SimulationPanelWrapper( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		fgSizer3.Add( self.m_panel51, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_simulation_panel = SimulationPanelWrapper( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		fgSizer3.Add( self.m_simulation_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer4 = wx.FlexGridSizer( 2, 0, 0, 0 )
 		fgSizer4.AddGrowableCol( 0 )
@@ -65,6 +41,7 @@ class MainFrame ( wx.Frame ):
 		fgSizer4.SetFlexibleDirection( wx.BOTH )
 		fgSizer4.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
+		fgSizer4.SetMinSize( wx.Size( 100,100 ) ) 
 		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer6.SetMinSize( wx.Size( 20,20 ) ) 
