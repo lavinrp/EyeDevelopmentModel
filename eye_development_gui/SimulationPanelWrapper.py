@@ -6,4 +6,3 @@ from eye_development_gui.SimulationPanelBase import SimulationPanel
 class SimulationPanelWrapper( SimulationPanel ):
 	def __init__( self, parent, a, b, c, d):
 		SimulationPanel.__init__( self, parent )
-	
