@@ -1,3 +1,4 @@
+from epithelium_backend.Cell import Cell
 
 class Furrow:
     """
@@ -32,10 +33,15 @@ class Furrow:
         """
         self.position += distance
 
-    def update(self):
+    def update(self, cells: Cell) -> None:
         """
         Simulates this Furrow for one tick.
+        :param cells: The cells that will be impacted by this update.
         """
 
         # move the furrow forward
         self.advance(self.velocity)
+
+        # run events on the cells
+        for event in self.events:
+            event(cells)
