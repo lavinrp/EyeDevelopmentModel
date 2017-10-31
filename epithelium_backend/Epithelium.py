@@ -4,7 +4,6 @@ import random
 
 from epithelium_backend import Cell
 from epithelium_backend import SpringSimulator
-from display_2d.SnapshotDisplay import SnapshotDisplay
 
 
 class Epithelium(object):
@@ -36,14 +35,9 @@ class Epithelium(object):
         """
 
         while self.cell_quantity > len(self.cells):
-            # random_radius = 10 + (random.random() * 100)/2
             random_radius = 10 + random.random() * 4
             random_pos = (249 + random.random() * 5, 249 + random.random() * 5, 0)
             self.cells.append(Cell.Cell(position=random_pos, radius=random_radius))
 
-        # Plot the cells as they were spawned
-        SnapshotDisplay("epithelium demo before ", (500, 500), self.cells)
-        # Decompact 250 times with kind of arbitrary parameters
+        # Decompact 1000 times with kind of arbitrary parameters
         SpringSimulator.decompact(self.cells, iterations=1000, spring_constant=1, escape=1.05, dt=0.1)
-        # Plot the cells after being decompacted
-        SnapshotDisplay("epithelium demo after", (500, 500), self.cells)

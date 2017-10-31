@@ -7,6 +7,7 @@
 ## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
 
+from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
 import wx
 import wx.xrc
 
@@ -42,7 +43,7 @@ class SimulationPanel ( wx.Panel ):
 		
 		main_fg_sizer.Add( control_b_sizer, 1, wx.EXPAND, 5 )
 		
-		self.m_epithelium_display = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_epithelium_display = EpitheliumDisplayPanel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		main_fg_sizer.Add( self.m_epithelium_display, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		

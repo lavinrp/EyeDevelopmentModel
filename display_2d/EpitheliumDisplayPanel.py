@@ -4,15 +4,15 @@ from epithelium_backend.Epithelium import Epithelium
 
 class EpitheliumDisplayPanel(wx.Panel):
     """Panel For real-time drawing of an epithelium"""
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, parent, a, b, c, d) -> None:
 
         # init the panel
-        super().__init__(args, kwargs)
+        super().__init__(parent, a, b, c, d)
 
         # bind the on paint event handler
         self.Bind(wx.EVT_PAINT, self.on_paint)
 
-        self.epithelium = Epithelium(1000)
+        self.epithelium = Epithelium(5)
 
     def on_paint(self, e) -> None:
         """
