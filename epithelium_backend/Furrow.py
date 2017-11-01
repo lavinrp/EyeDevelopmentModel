@@ -1,5 +1,4 @@
-import queue
-
+from epithelium_backend.Cell import Cell
 
 class Furrow:
     """
@@ -12,20 +11,20 @@ class Furrow:
                  position: float = 0,
                  width: float = 1,
                  velocity: float = 0,
-                 event_queue: queue.Queue = None) -> None:
+                 events: list = None) -> None:
         """Initialize this instance of Furrow.
         :param position: The horizontal position of this Furrow.
         :param width: The width of the furrows immediate effect.
         :param velocity: how many units the furrow moves in one 'tick'.
-        :param event_queue: Events (stored as callable objects) triggered by the progression of the furrow.
+        :param events: Specialization events (stored as callable objects) triggered by the progression of the furrow.
         """
         self.position = position  # type: float
         self.width = width  # type: float
         self.velocity = velocity  # type: float
-        self.event_queue = event_queue  # type: queue.Queue
+        self.events = events  # type: list
 
-        if self.event_queue is None:
-            self.event_queue = queue.Queue()
+        if self.events is None:
+            self.events = []
 
     def advance(self, distance: float = 0) -> None:
         """
@@ -34,10 +33,15 @@ class Furrow:
         """
         self.position += distance
 
-    def update(self):
+    def update(self, cells: Cell) -> None:
         """
         Simulates this Furrow for one tick.
+        :param cells: The cells that will be impacted by this update.
         """
 
         # move the furrow forward
         self.advance(self.velocity)
+
+        # run events on the cells
+        for event in self.events:
+            event(cells)
