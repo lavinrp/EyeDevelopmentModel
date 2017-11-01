@@ -1,4 +1,4 @@
-from epithelium_backend.Cell import Cell
+from epithelium_backend.Epithelium import Epithelium
 
 class Furrow:
     """
@@ -33,7 +33,7 @@ class Furrow:
         """
         self.position += distance
 
-    def update(self, cells: Cell) -> None:
+    def update(self, epithelium: Epithelium) -> None:
         """
         Simulates this Furrow for one tick.
         :param cells: The cells that will be impacted by this update.
@@ -44,4 +44,4 @@ class Furrow:
 
         # run events on the cells
         for event in self.events:
-            event(cells)
+            event(self.position, epithelium)
