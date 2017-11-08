@@ -34,7 +34,7 @@ class Cell(object):
         # Choose some radian for direction of position of new cell
         rand_rad = random.uniform(0, 6.283)
         # Check if cell is large enough
-        if self.radius >= 30:
+        if self.radius >= 25:
             # Find position for new cell on original cell's circle
             rand_pos = (self.position[0] + self.radius*cos(rand_rad), self.position[0] + self.radius*sin(rand_rad), 0)
             child_cell = Cell(position=rand_pos, radius=self.radius/2.0)
