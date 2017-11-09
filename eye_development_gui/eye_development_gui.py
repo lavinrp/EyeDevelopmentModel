@@ -12,13 +12,13 @@ import wx
 import wx.xrc
 
 ###########################################################################
-## Class MainFrame
+## Class MainFrameBase
 ###########################################################################
 
-class MainFrame ( wx.Frame ):
+class MainFrameBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -45,14 +45,17 @@ class MainFrame ( wx.Frame ):
 		bSizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer6.SetMinSize( wx.Size( 20,20 ) ) 
-		self.m_button4 = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer6.Add( self.m_button4, 0, wx.ALL, 5 )
+		self.ep_gen_create_button = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Create", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.ep_gen_create_button, 0, wx.ALL, 5 )
 		
-		self.m_button5 = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Save As", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer6.Add( self.m_button5, 0, wx.ALL, 5 )
+		self.ep_gen_save_button = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.ep_gen_save_button, 0, wx.ALL, 5 )
 		
-		self.m_button6 = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Load", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer6.Add( self.m_button6, 0, wx.ALL, 5 )
+		self.ep_gen_save_as_button = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Save As", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.ep_gen_save_as_button, 0, wx.ALL, 5 )
+		
+		self.ep_gen_load_button = wx.Button( self.epithelium_generation_panel, wx.ID_ANY, u"Load", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6.Add( self.ep_gen_load_button, 0, wx.ALL, 5 )
 		
 		
 		fgSizer4.Add( bSizer6, 1, wx.EXPAND, 5 )
@@ -112,8 +115,16 @@ class MainFrame ( wx.Frame ):
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
 	
 	def __del__( self ):
 		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def ep_gen_create_callback( self, event ):
+		event.Skip()
 	
 

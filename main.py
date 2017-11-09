@@ -1,5 +1,5 @@
 import wx
-from eye_development_gui.eye_development_gui import MainFrame
+from eye_development_gui.MainFrame import MainFrame
 
 if __name__ == '__main__':
     # Run the app
