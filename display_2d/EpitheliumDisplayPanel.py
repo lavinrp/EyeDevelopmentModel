@@ -11,12 +11,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     def __init__(self, parent):
         # TODO: correctly set the size of EpitheliumDisplayCanvas
         glcanvas.GLCanvas.__init__(self, parent, size=(10000, 10000), name='epithelium_display_canvas')
-        self.context = glcanvas.GLContext(self)
-        self.SetCurrent(self.context)
+
         self.Bind(wx.EVT_PAINT, self.on_draw)
-        glClearColor(0.1, 0.15, 0.1, 1.0)
 
     def on_draw(self, e):
+        self.context = glcanvas.GLContext(self)
+        self.SetCurrent(self.context)
+        glClearColor(0.1, 0.15, 0.1, 1.0)
         glClear(GL_COLOR_BUFFER_BIT)
         self.SwapBuffers()
 
