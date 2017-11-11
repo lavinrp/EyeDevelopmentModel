@@ -16,7 +16,7 @@ class Cell(object):
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
-        :param radius: The radius of the cell
+        :param radius: A multiplier of the average cell radius
         :param photoreceptor_type: The cells photoreceptor specialization
         :param support_specializations: Set of the cells non-photoreceptor specializations
         """
@@ -33,7 +33,7 @@ class Cell(object):
         """
         # Choose some radian for direction of position of new cell
         rand_rad = random.uniform(0, 6.283)
-        # Check if cell is large enough
+        # Check if cell is large enough to divide
         if self.radius >= 25:
             # Find position for new cell on original cell's circle
             rand_pos = (self.position[0] + self.radius*cos(rand_rad), self.position[0] + self.radius*sin(rand_rad), 0)
@@ -44,5 +44,5 @@ class Cell(object):
             return child_cell
         else:
             # If not large enough, grow the cell a little bit for next time
-            self.radius += rand_rad/200
+            self.radius += rand_rad/100
             return None

@@ -14,7 +14,7 @@ class Epithelium(object):
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
-        :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_magic_radius
+        :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_radius_divergence
         """
         self.cells = []
         self.cell_events = []
@@ -39,7 +39,7 @@ class Epithelium(object):
         """
 
         while self.cell_quantity > len(self.cells):
-            # random_radius = 10 + (random.random() * 100)/2
+            # Use the divergence to determine the new cells' radii
             rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
                                                                 self.cell_avg_radius + self.cell_radius_divergence)
             random_pos = (245 + random.random() * 10, 240 + random.random() * 10, 0)
