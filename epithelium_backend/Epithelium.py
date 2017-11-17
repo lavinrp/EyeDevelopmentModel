@@ -17,7 +17,6 @@ class Epithelium(object):
         :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_radius_divergence
         """
         self.cells = []
-        self.cell_events = []
         self.cell_quantity = cell_quantity
         self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = 4

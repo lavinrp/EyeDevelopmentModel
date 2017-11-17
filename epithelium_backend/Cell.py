@@ -3,7 +3,6 @@ import random
 from math import sin, cos
 
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
-from epithelium_backend.SupportCellType import SupportCellType
 
 
 class Cell(object):
@@ -25,24 +24,42 @@ class Cell(object):
         self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
         self.support_specializations = support_specializations  # type: set
 
-    def divide(self):
+    def passive_growth(self):
         """
-        If this cell's radius is large enough, divides this cell into a new cell with
-        half of this cell's radius. Then divides this parent cell's radius in half.
+        If this cell's radius is large enough, then calls spawn_new_cell or grown_cell.
+        :return:
+        """
+        # Check if cell is large enough to divide
+        if self.radius >= 25:
+            return self.spawn_new_cell()
+        else:
+            # If not large enough, grow the cell a little bit for next time
+            self.grow_cell(.01)
+            return None
+
+    def spawn_new_cell(self):
+        """
+        Divides this cell into a new cell with half of this cell's radius.
+        Then divides this parent cell's radius in half.
         :return:
         """
         # Choose some radian for direction of position of new cell
         rand_rad = random.uniform(0, 6.283)
-        # Check if cell is large enough to divide
-        if self.radius >= 25:
-            # Find position for new cell on original cell's circle
-            rand_pos = (self.position[0] + self.radius*cos(rand_rad), self.position[0] + self.radius*sin(rand_rad), 0)
-            child_cell = Cell(position=rand_pos, radius=self.radius/2.0)
-            new_pos = (self.position[0] - self.radius*cos(rand_rad), self.position[0] - self.radius*sin(rand_rad), 0)
-            self.position = new_pos
-            self.radius /= 2
-            return child_cell
-        else:
-            # If not large enough, grow the cell a little bit for next time
-            self.radius += rand_rad/100
-            return None
+        # Find position for new cell on original cell's circle
+        rand_pos = (self.position[0] + self.radius * cos(rand_rad), self.position[0] + self.radius * sin(rand_rad), 0)
+        child_cell = Cell(position=rand_pos, radius=self.radius / 2.0)
+        new_pos = (self.position[0] - self.radius * cos(rand_rad), self.position[0] - self.radius * sin(rand_rad), 0)
+        self.position = new_pos
+        self.radius /= 2
+        return child_cell
+
+    def grow_cell(self, growth_amount):
+        """
+        Increases the cell's radius by growth_amount
+        :param growth_amount:
+        :return:
+        """
+        self.radius += growth_amount
+
+    def divide(self):
+        return self.spawn_new_cell()
