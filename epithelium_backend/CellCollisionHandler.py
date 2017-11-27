@@ -1,6 +1,6 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
-from math import sqrt,ceil
+from math import sqrt,ceil,inf
 import time as time
 from epithelium_backend.Cell import Cell
 
@@ -202,3 +202,16 @@ class CellCollisionHandler(object):
             for row in range(0, self.dimension):
                 for cell in self.grids[self.dimension*row+col]:
                     yield cell
+
+    def cells_between(self, min_x, max_x):
+        max_col = self.dimension-1 if min_x==-inf else self.dimension - int((min_x + self.max_grid_size/2) / self.box_size)
+        min_col = 0 if max_x==inf else self.dimension - int((max_x + self.max_grid_size/2) / self.box_size)
+        if min_col < 0 or max_col >= self.dimension:
+            return []
+        else:
+            # This is actually from posterior to anterior
+            for col in range(min_col, max_col+1):
+                for row in range(0,self.dimension):
+                    for cell in self.grids[self.dimension*row+col]:
+                        if min_x < cell.position[0] < max_x:
+                            yield cell

@@ -31,7 +31,7 @@ class Furrow:
         Moves the furrow forward by the specified amount.
         :param distance: how far to move this Furrow
         """
-        self.position += distance
+        self.position -= distance
 
     def update(self, epithelium: Epithelium) -> None:
         """
@@ -44,4 +44,4 @@ class Furrow:
 
         # run events on the cells
         for event in self.events:
-            event(self.position, epithelium)
+            event.run(self.position, epithelium)
