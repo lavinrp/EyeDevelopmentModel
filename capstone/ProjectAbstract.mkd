@@ -1,0 +1,4 @@
+## Project Abstract:
+A major hypothesis in Neurobiology is that the drosophila (or fruit fly) has very similar genotypic expressions as that in other species. Therefore, by studying variations of the development process, we can possibly learn how other species' eyes develop.
+
+In this project, we attempt to form a solution for exploring this hypothesis in the form of a visual simulation. By simulating the Drosophila eye development process, we can alter variables controlling the mechanisms responsible, thereby allowing researchers to observe changes in the process. By focusing on both the control and efficiency researches have when adjusting the starting variables, we can run multiple variations in succession to explore the changes and compare them to other species.
