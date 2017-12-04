@@ -1,11 +1,13 @@
-##Advisor:
+## Advisor:
 
-Dr. Annexstein  
-annexsfs@ucmail.uc.edu
+### Dr. Annexstein
 
-##Team Members:
+__Contact:__  
+annexsfs@ucmail.uc.edu  
 
-###Nick Moseley:
+## Team Members:
+
+### Nick Moseley
 
 __Contact:__  
 moselenw@mail.uc.edu  
@@ -20,7 +22,7 @@ __Interests:__
 - Simulation Design and Implementation  
 - Applied Machine Learning 
 
-###Ryan Lavin:
+### Ryan Lavin
 
 __Contact:__  
 lavinrp@mail.uc.edu  
@@ -37,7 +39,7 @@ __Interests:__
 - Software Engineering  
 - Parallel Computing  
 
-###Brian Bauer:
+### Brian Bauer
 
 __Contact:__  
 bauerbp@mail.uc.edu  
@@ -51,7 +53,7 @@ __Interests:__
 - Network Analysis  
 - Biology
 
-###Joe Disalvo:
+### Joe Disalvo
 
 __Contact:__  
 DiSalvoJoe@gmail.com  
