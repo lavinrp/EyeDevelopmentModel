@@ -1,15 +1,15 @@
-##Project Background Description
+##Project Background Description:
 
 The underlying biological processes and patterns of early eye development are known for fruit flies and a few other species; however, a comprehensive model for all species has not been built. This project aims to use known rules to predict the development of any species’ eyes by applying said rules to variable biological constraints. The simulated structure can then be compared to real samples to determine if this model can be used to correctly predict eye development in other species.
 
-##Problem Statement
+##Problem Statement:
 
 Simulating the development of eyes by projecting known growth models onto variable biological constraints.
 
-##Inadequacy of Current Solutions
+##Inadequacy of Current Solutions:
 
 Existing simulations either do not adequately simulate the macro level growth of the eye, or do not adequately use what is known about current models to predict the growth of different eye types.
 
-##Project Goals and Approach
+##Project Goals and Approach:
 
 We plan to work directly with the neurology department based on an incremental delivery plan. This will allow us to quality check the rules governing the simulation and to revise as needed. To start, our group will research popular technologies based on the initial requirements of the customer. These include specification requirements such as developing a Python based simulation. Our first goal is to develop a 2-D solution. We plan to separate the behavioral simulation and the visual presentation of the project to allow for a seamless transition into a 3-D model. The final phase will be to revise and fine-tune the 3-D model based on customer review. This will mark the end of our senior design project.
