@@ -1,9 +1,12 @@
 ##Advisor:
+
 Dr. Annexstein  
 annexsfs@ucmail.uc.edu
 
 ##Team Members:
+
 ###Nick Moseley:
+
 __Contact:__  
 moselenw@mail.uc.edu  
 moselenw1@gmail.com
@@ -18,6 +21,7 @@ __Interests:__
 - Applied Machine Learning 
 
 ###Ryan Lavin:
+
 __Contact:__  
 lavinrp@mail.uc.edu  
 lavinrp@gmail.com
@@ -34,6 +38,7 @@ __Interests:__
 - Parallel Computing  
 
 ###Brian Bauer:
+
 __Contact:__  
 bauerbp@mail.uc.edu  
 baubaubrian@gmail.com
@@ -47,6 +52,7 @@ __Interests:__
 - Biology
 
 ###Joe Disalvo:
+
 __Contact:__  
 DiSalvoJoe@gmail.com  
 
