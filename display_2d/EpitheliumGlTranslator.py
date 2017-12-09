@@ -1,6 +1,7 @@
 from epithelium_backend.Epithelium import Epithelium
 import numpy
 
+
 class EpitheliumGlTranslator:
     """Translates the epithelium into data that can be displayed via OpenGL"""
 
@@ -9,11 +10,10 @@ class EpitheliumGlTranslator:
         Initializes this instance of EpitheliumGlTranslator.
         :param epithelium: The epithelium to be translated. Defaults to None.
         """
-        self.epithelium=epithelium  # type: Epithelium
+        self.epithelium = epithelium  # type: Epithelium
 
     def get_cell_centers(self) -> numpy.ndarray:
-        """Returns a numpy array containing the center possition of each cell"""
-        # TODO: add error checking for epithelium or epithelium.cells being None??
+        """Returns a numpy array containing the center position of each cell"""
 
         # gather the positions of each cell
         positions_list = []
