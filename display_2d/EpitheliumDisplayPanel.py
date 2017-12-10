@@ -23,7 +23,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SwapBuffers()
 
 
-
 class EpitheliumDisplayPanel(wx.Panel):
     """Panel For real-time drawing of an epithelium"""
     def __init__(self, parent, a, b, c, d) -> None:
