@@ -18,7 +18,9 @@ class EpitheliumGlTranslator:
         # gather the positions of each cell
         positions_list = []
         for cell in self.epithelium.cells:
-            positions_list.append(cell.position)
+            # The list will have the format [x1, y1, z1, x2, y2, z2...]
+            for i in range(3):
+                positions_list.append(cell.position[i])
 
         # convert to numpy array and return
         return numpy.array(positions_list, dtype=numpy.float32)
