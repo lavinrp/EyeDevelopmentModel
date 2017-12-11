@@ -8,7 +8,7 @@ from OpenGL.GL import GL_TRUE
 class ShaderGenerator:
     """Manages creation of OpenGL shader programs."""
 
-    def __init__(self, shader_folder_path: str="") -> None:
+    def __init__(self, shader_folder_path: str = "") -> None:
         """
         Initializes this instance of ShaderGenerator. Stores the file path to the shaders that will be used for
         shader program generation.
@@ -52,20 +52,17 @@ class ShaderGenerator:
             OpenGL.GL.shaders.compileShader(fragment_shader_string, GL_FRAGMENT_SHADER)
         )
 
-        # check for errors
-        error_found = False
-        compile_status = OpenGL.GL.glGetShaderiv(vertex_shader_string, GL_COMPILE_STATUS)
-        if compile_status != GL_TRUE:
-            self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
-            error_found = True
-        compile_status = OpenGL.GL.glGetShaderiv(fragment_shader_string, GL_COMPILE_STATUS)
-        if compile_status != GL_TRUE:
-            self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
-            error_found = True
+        # # check for errors
+        # error_found = False
+        # compile_status = OpenGL.GL.glGetShaderiv(vertex_shader_string, GL_COMPILE_STATUS)
+        # if compile_status != GL_TRUE:
+        #     self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
+        #     error_found = True
+        # compile_status = OpenGL.GL.glGetShaderiv(fragment_shader_string, GL_COMPILE_STATUS)
+        # if compile_status != GL_TRUE:
+        #     self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
+        #     error_found = True
 
-        return not error_found
+        return True  # not error_found
 
         # TODO: check for linking errors
-
-
-
