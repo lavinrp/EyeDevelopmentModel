@@ -3,8 +3,9 @@ from wx import glcanvas
 
 from OpenGL.GL import *
 
-from gl_support.ShaderGenerator import ShaderGenerator
+import numpy
 
+from gl_support.ShaderGenerator import ShaderGenerator
 from epithelium_backend.Epithelium import Epithelium
 
 
@@ -15,18 +16,49 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glcanvas.GLCanvas.__init__(self, parent, size=(10000, 10000), name='epithelium_display_canvas')
         self.context = None  # type: glcanvas.GLContext
         self.Bind(wx.EVT_PAINT, self.on_draw)
-        self.shader = None
+        self._shader = None
+        self._gl_initialized = False  # type: bool
+        self._vertex_buffer_object = None  # TODO: figure out the type of this
+        self._vertex_shader_input_position = None
+        # self._gl_translator =
 
     def on_draw(self, e):
-        self.context = glcanvas.GLContext(self)
-        self.SetCurrent(self.context)
-
         # openGL setup
-        shader_generator = ShaderGenerator(r"./display_2d/shaders")
-        self.shader = shader_generator.create_program()
+        if not self._gl_initialized:
 
-        glClearColor(0.1, 0.15, 0.1, 1.0)
+            # context setup
+            self.context = glcanvas.GLContext(self)
+            self.SetCurrent(self.context)
+
+            # shader setup
+            shader_generator = ShaderGenerator(r"./display_2d/shaders")
+            self._shader = shader_generator.create_program()
+
+            # vbo setup
+            self._vertex_buffer_object = glGenBuffers(1)
+            position = glGetAttribLocation(self._shader, "position")
+            glBindBuffer(GL_ARRAY_BUFFER, self._vertex_buffer_object)
+
+            # misc setup
+            glClearColor(0.1, 0.15, 0.1, 1.0)
+            self._gl_initialized = True
+
+        ##########################
+        triangle = [-0.5, -0.5, 0.0,
+                    0.5, -0.5, 0.0,
+                    0.0, 0.5, 0.0]
+        triangle = numpy.array(triangle, dtype=numpy.float32)
+        #########################
+
+        # pass data to shader
+        glBufferData(GL_ARRAY_BUFFER, len(triangle) * 4, triangle, GL_STATIC_DRAW)
+        glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 0, None)
+        glEnableVertexAttribArray(position)
+        glUseProgram(self._shader)
+
+        # draw
         glClear(GL_COLOR_BUFFER_BIT)
+        glDrawArrays(GL_TRIANGLES, 0, 3)
         self.SwapBuffers()
 
 
