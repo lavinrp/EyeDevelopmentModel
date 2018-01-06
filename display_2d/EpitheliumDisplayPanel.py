@@ -22,12 +22,12 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__scale = 0.1  # type: float
 
         # event handling
-        self.Bind(wx.EVT_PAINT, self.on_draw)
+        self.Bind(wx.EVT_PAINT, self.on_paint)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
 
-    def on_draw(self, e):
+    def on_paint(self, e):
         # openGL setup
         if not self.__gl_initialized:
 
@@ -36,7 +36,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             self.SetCurrent(self.context)
 
             # gl settings
-            glViewport(0, 0, 800, 800)
             glLoadIdentity()
             glClearColor(.9, .9, .9, 1)
             glMatrixMode(GL_PROJECTION)
@@ -48,14 +47,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             # finalize init
             self.__gl_initialized = True
 
-        # draw
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
-        glMatrixMode(GL_MODELVIEW)
-        draw_circle((0, 0), 0.3, True, color=(0, 1, 0, 1))
-        draw_circle((0.6, 0), 0.3, True, color=(0, 0, 1, 1))
-
-        self.SwapBuffers()
+        # display epithelium
+        self._draw_epithelium()
 
     def on_mouse_events(self, event: wx.MouseEvent):
         """Handle all mouse event logic.
@@ -108,14 +101,24 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                   self.__camera_x, self.__camera_y, 0,  # target
                   0, 1, 0)  # up vector
         print(str(self.__camera_x) + "," + str(self.__camera_y))
-        self.on_draw(None)
+        self.on_paint(None)
 
     def _set_scale(self, percent_of_current_scale):
         self.__scale *= percent_of_current_scale
         glMatrixMode(GL_PROJECTION)
         glScalef(self.__scale, self.__scale, 1)
         print(str(self.__scale))
-        self.on_draw(None)
+        self.on_paint(None)
+
+    def _draw_epithelium(self):
+        # draw
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
+
+        glMatrixMode(GL_MODELVIEW)
+        for cell in self.GetParent().epithelium.cells:
+            draw_circle((cell.position[0], cell.position[1]), cell.radius, True)
+
+        self.SwapBuffers()
 
 
 class EpitheliumDisplayPanel(wx.Panel):
