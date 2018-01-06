@@ -21,8 +21,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_y = 0  # type: float
         self.__scale = 0.1  # type: float
 
-
-
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_draw)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
@@ -76,6 +74,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         if event.ButtonUp(wx.MOUSE_BTN_LEFT):
             self.__panning = False
 
+        # mouse drag
         if event.Dragging():
             #print("dragging at: " + str(event.GetX()) + "," + str(event.GetY()))
 
@@ -83,6 +82,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             if self.__panning:
                 self._pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
                                  self.__last_mouse_position[1] - current_mouse_position[1])
+
+        # scroll wheel
+        wheel_rotation = event.GetWheelRotation()
+        if wheel_rotation > 0:
+            self._set_scale(1.1)
+        elif wheel_rotation < 0:
+            self._set_scale(0.9)
 
         # update mouse position
         self.__last_mouse_position = current_mouse_position
@@ -102,6 +108,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                   self.__camera_x, self.__camera_y, 0,  # target
                   0, 1, 0)  # up vector
         print(str(self.__camera_x) + "," + str(self.__camera_y))
+        self.on_draw(None)
+
+    def _set_scale(self, percent_of_current_scale):
+        self.__scale *= percent_of_current_scale
+        glMatrixMode(GL_PROJECTION)
+        glScalef(self.__scale, self.__scale, 1)
+        print(str(self.__scale))
         self.on_draw(None)
 
 
