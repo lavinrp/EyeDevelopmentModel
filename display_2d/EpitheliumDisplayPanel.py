@@ -14,9 +14,10 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent):
         # TODO: correctly set the size of EpitheliumDisplayCanvas
-        glcanvas.GLCanvas.__init__(self, parent, size=(500, 500), name='epithelium_display_canvas') # 10000
+        glcanvas.GLCanvas.__init__(self, parent, size=(500, 500), name='epithelium_display_canvas')
         self.context = None  # type: glcanvas.GLContext
         self.Bind(wx.EVT_PAINT, self.on_draw)
+        # self.Bind(wx.EVT_MOUSE)
         self._gl_initialized = False
 
     def on_draw(self, e):
@@ -26,14 +27,26 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             # context setup
             self.context = glcanvas.GLContext(self)
             self.SetCurrent(self.context)
+
+            # gl settings
+            glViewport(0, 0, 500, 500)
+            glLoadIdentity()
+            glClearColor(.9, .9, .9, 1)
+            glMatrixMode(GL_PROJECTION)
+            gluLookAt(0, 0, 1,
+                      0, 0, 0,
+                      0, 1, 0)
+            glScalef(0.1, 0.1, 1)
+
+            # finalize init
             self._gl_initialized = True
-            glClearColor(0.2, 0.3, 0.1, 0.5)
 
         # draw
-        glClear(GL_COLOR_BUFFER_BIT)
-        # glDrawArrays(GL_TRIANGLES, 0, 3)
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
-        draw_circle((0, 0), 0.5, True, color=(0, 1, 0, 1))
+        glMatrixMode(GL_MODELVIEW)
+        draw_circle((0, 0), 0.3, True, color=(0, 1, 0, 1))
+        draw_circle((0.6, 0), 0.3, True, color=(0, 0, 1, 1))
 
         self.SwapBuffers()
 
