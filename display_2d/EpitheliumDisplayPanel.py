@@ -91,14 +91,12 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
                   self.__camera_x, self.__camera_y, 0,  # target
                   0, 1, 0)  # up vector
-        print(str(self.__camera_x) + "," + str(self.__camera_y))
         self.on_paint(None)
 
     def _set_scale(self, percent_of_current_scale):
         self.__scale *= percent_of_current_scale
         glMatrixMode(GL_PROJECTION)
         glScalef(self.__scale, self.__scale, 1)
-        print(str(self.__scale))
         self.on_paint(None)
 
     def _draw_epithelium(self):
@@ -114,8 +112,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         glMatrixMode(GL_MODELVIEW)
+        glLineWidth(2)
         for cell in self.GetParent().epithelium.cells:
-            draw_circle((cell.position[0], cell.position[1]), cell.radius, True)
+            draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
 
         self.SwapBuffers()
 
