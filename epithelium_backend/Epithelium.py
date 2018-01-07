@@ -36,7 +36,7 @@ class Epithelium(object):
 
         while self.cell_quantity > len(self.cells):
             random_radius = 10 + random.random() * 4
-            random_pos = (249 + random.random() * 5, 249 + random.random() * 5, 0)
+            random_pos = (random.random() * 5, random.random() * 5, 0)
             self.cells.append(Cell.Cell(position=random_pos, radius=random_radius))
 
         # Decompact 1000 times with kind of arbitrary parameters
