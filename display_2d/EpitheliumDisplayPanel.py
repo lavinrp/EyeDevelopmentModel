@@ -16,10 +16,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # GL
         self.context = None  # type: glcanvas.GLContext
-        self.__gl_initialized = False  # type: bool
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
-        self.__scale = 0.1  # type: float
+        self.__scale = 0.01  # type: float
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -28,24 +27,17 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__last_mouse_position = [0, 0]  # type: list
 
     def on_paint(self, e):
-        # openGL setup
-        if not self.__gl_initialized:
+        """Callback executed when an instance of this widget repaints
 
-            # context setup
-            self.context = glcanvas.GLContext(self)
-            self.SetCurrent(self.context)
+        (re)initializes all OpenGL settings and draws the epithelium."""
 
-            # gl settings
-            glLoadIdentity()
-            glClearColor(.9, .9, .9, 1)
-            glMatrixMode(GL_PROJECTION)
-            gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
-                      self.__camera_x, self.__camera_y, 0,  # target
-                      0,                1,              0)  # up vector
-            glScalef(self.__scale, self.__scale, 1)
+        # context setup
+        self.context = glcanvas.GLContext(self)
+        self.SetCurrent(self.context)
 
-            # finalize init
-            self.__gl_initialized = True
+        # gl settings
+        glClearColor(.9, .9, .9, 1)
+        glLoadIdentity()
 
         # display epithelium
         self._draw_epithelium()
@@ -69,12 +61,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # mouse drag
         if event.Dragging():
-            #print("dragging at: " + str(event.GetX()) + "," + str(event.GetY()))
 
             # panning
             if self.__panning:
                 self._pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
-                                 self.__last_mouse_position[1] - current_mouse_position[1])
+                                 -(self.__last_mouse_position[1] - current_mouse_position[1]))
 
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
@@ -92,7 +83,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         :param delta_y: change in the y of the camera
         """
 
-        distance_modifier = 0.001  # type: float
+        distance_modifier = 0.01  # type: float
 
         self.__camera_x += delta_x * distance_modifier
         self.__camera_y += delta_y * distance_modifier
@@ -111,6 +102,14 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.on_paint(None)
 
     def _draw_epithelium(self):
+
+        # camera position
+        glMatrixMode(GL_PROJECTION)
+        gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
+                  self.__camera_x, self.__camera_y, 0,  # target
+                  0, 1, 0)  # up vector
+        glScalef(self.__scale, self.__scale, 1)
+
         # draw
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
