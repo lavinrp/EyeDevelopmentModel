@@ -9,9 +9,9 @@ from display_2d.GlDrawingPrimitives import draw_circle
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
-    def __init__(self, parent):
+    def __init__(self, parent: wx.Panel):
         # TODO: correctly set the size of EpitheliumDisplayCanvas
-        glcanvas.GLCanvas.__init__(self, parent, size=(800, 800), name='epithelium_display_canvas')
+        glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
 
         # GL
         self.context = None  # type: glcanvas.GLContext
