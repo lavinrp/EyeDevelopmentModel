@@ -33,17 +33,17 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_simulation_panel_container = wx.Panel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_epithelium_gen_display_container_panel = wx.Panel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer31 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_simulation_panel = EpitheliumDisplayPanel( self.m_simulation_panel_container, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer31.Add( self.m_simulation_panel, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_epithelium_gen_display_panel = EpitheliumDisplayPanel( self.m_epithelium_gen_display_container_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer31.Add( self.m_epithelium_gen_display_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		self.m_simulation_panel_container.SetSizer( bSizer31 )
-		self.m_simulation_panel_container.Layout()
-		bSizer31.Fit( self.m_simulation_panel_container )
-		fgSizer3.Add( self.m_simulation_panel_container, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_epithelium_gen_display_container_panel.SetSizer( bSizer31 )
+		self.m_epithelium_gen_display_container_panel.Layout()
+		bSizer31.Fit( self.m_epithelium_gen_display_container_panel )
+		fgSizer3.Add( self.m_epithelium_gen_display_container_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer4 = wx.FlexGridSizer( 2, 0, 0, 0 )
 		fgSizer4.AddGrowableCol( 0 )
@@ -109,8 +109,8 @@ class MainFrameBase ( wx.Frame ):
 		self.epithelium_generation_panel.Layout()
 		fgSizer3.Fit( self.epithelium_generation_panel )
 		self.view_selection_notebook.AddPage( self.epithelium_generation_panel, u"Epithelium Generation", True )
-		self.m_panel4 = wx.Panel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.m_panel4.Enable( False )
+		self.m_simulation_overview_panel = wx.Panel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_simulation_overview_panel.Enable( False )
 		
 		fgSizer31 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer31.AddGrowableCol( 0 )
@@ -124,10 +124,10 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer41.SetFlexibleDirection( wx.BOTH )
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_panel51 = SimulationPanelWrapper( self.m_panel4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		fgSizer41.Add( self.m_panel51, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_sim_overview_display_panel = SimulationPanelWrapper( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		fgSizer41.Add( self.m_sim_overview_display_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self.m_panel4, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
+		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
 		self.m_scrolledWindow4 = wx.ScrolledWindow( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow4.SetScrollRate( 5, 5 )
@@ -168,43 +168,43 @@ class MainFrameBase ( wx.Frame ):
 		
 		fgSizer31.Add( fgSizer41, 1, wx.EXPAND, 5 )
 		
-		self.m_staticline1 = wx.StaticLine( self.m_panel4, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		self.m_staticline1 = wx.StaticLine( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
 		fgSizer31.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
 		
 		gSizer2 = wx.GridSizer( 0, 4, 0, 0 )
 		
-		self.m_staticText10 = wx.StaticText( self.m_panel4, wx.ID_ANY, u"Cell Count", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"Cell Count", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText10.Wrap( -1 )
 		gSizer2.Add( self.m_staticText10, 0, wx.ALL, 5 )
 		
-		self.m_textCtrl4 = wx.TextCtrl( self.m_panel4, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrl4 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_textCtrl4.Enable( False )
 		
 		gSizer2.Add( self.m_textCtrl4, 0, wx.ALL, 5 )
 		
-		self.m_staticText11 = wx.StaticText( self.m_panel4, wx.ID_ANY, u"Avg. Cell Size", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText11 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"Avg. Cell Size", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText11.Wrap( -1 )
 		gSizer2.Add( self.m_staticText11, 0, wx.ALL, 5 )
 		
-		self.m_textCtrl5 = wx.TextCtrl( self.m_panel4, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrl5 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_textCtrl5.Enable( False )
 		
 		gSizer2.Add( self.m_textCtrl5, 0, wx.ALL, 5 )
 		
-		self.m_staticText12 = wx.StaticText( self.m_panel4, wx.ID_ANY, u"R8 Count", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText12 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"R8 Count", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText12.Wrap( -1 )
 		gSizer2.Add( self.m_staticText12, 0, wx.ALL, 5 )
 		
-		self.m_textCtrl6 = wx.TextCtrl( self.m_panel4, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrl6 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_textCtrl6.Enable( False )
 		
 		gSizer2.Add( self.m_textCtrl6, 0, wx.ALL, 5 )
 		
-		self.m_staticText13 = wx.StaticText( self.m_panel4, wx.ID_ANY, u"% R8", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText13 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"% R8", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText13.Wrap( -1 )
 		gSizer2.Add( self.m_staticText13, 0, wx.ALL, 5 )
 		
-		self.m_textCtrl7 = wx.TextCtrl( self.m_panel4, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_textCtrl7 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_textCtrl7.Enable( False )
 		
 		gSizer2.Add( self.m_textCtrl7, 0, wx.ALL, 5 )
@@ -213,14 +213,14 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer31.Add( gSizer2, 1, wx.EXPAND, 5 )
 		
 		
-		self.m_panel4.SetSizer( fgSizer31 )
-		self.m_panel4.Layout()
-		fgSizer31.Fit( self.m_panel4 )
-		self.view_selection_notebook.AddPage( self.m_panel4, u"Simulation Overview", False )
-		self.m_panel5 = SimulationPanelWrapper( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.m_panel5.Enable( False )
+		self.m_simulation_overview_panel.SetSizer( fgSizer31 )
+		self.m_simulation_overview_panel.Layout()
+		fgSizer31.Fit( self.m_simulation_overview_panel )
+		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", False )
+		self.m_simulation_display_panel = SimulationPanelWrapper( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_simulation_display_panel.Enable( False )
 		
-		self.view_selection_notebook.AddPage( self.m_panel5, u"Simulation", False )
+		self.view_selection_notebook.AddPage( self.m_simulation_display_panel, u"Simulation", False )
 		
 		bSizer3.Add( self.view_selection_notebook, 1, wx.EXPAND |wx.ALL, 5 )
 		

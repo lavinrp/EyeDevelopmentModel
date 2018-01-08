@@ -23,7 +23,7 @@
 							<option>1</option>
 							<flag>wxEXPAND | wxALL</flag>
 							<border>5</border>
-							<object class="wxPanel" name="m_simulation_panel_container">
+							<object class="wxPanel" name="m_epithelium_gen_display_container_panel">
 								<style>wxTAB_TRAVERSAL</style>
 								<object class="wxBoxSizer">
 									<orient>wxVERTICAL</orient>
@@ -31,7 +31,7 @@
 										<option>1</option>
 										<flag>wxEXPAND | wxALL</flag>
 										<border>5</border>
-										<object class="wxPanel" name="m_simulation_panel" subclass="EpitheliumDisplayPanel">
+										<object class="wxPanel" name="m_epithelium_gen_display_panel" subclass="EpitheliumDisplayPanel">
 											<style>wxTAB_TRAVERSAL</style>
 										</object>
 									</object>
@@ -169,7 +169,7 @@
 			<object class="notebookpage">
 				<label>Simulation Overview</label>
 				<selected>0</selected>
-				<object class="wxPanel" name="m_panel4">
+				<object class="wxPanel" name="m_simulation_overview_panel">
 					<style>wxTAB_TRAVERSAL</style>
 					<enabled>0</enabled>
 					<object class="wxFlexGridSizer">
@@ -194,7 +194,7 @@
 									<option>1</option>
 									<flag>wxEXPAND | wxALL</flag>
 									<border>5</border>
-									<object class="wxPanel" name="m_panel51" subclass="SimulationPanelWrapper">
+									<object class="wxPanel" name="m_sim_overview_display_panel" subclass="SimulationPanelWrapper">
 										<style>wxTAB_TRAVERSAL</style>
 									</object>
 								</object>
@@ -372,7 +372,7 @@
 			<object class="notebookpage">
 				<label>Simulation</label>
 				<selected>0</selected>
-				<object class="wxPanel" name="m_panel5" subclass="SimulationPanelWrapper">
+				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanelWrapper">
 					<style>wxTAB_TRAVERSAL</style>
 					<enabled>0</enabled>
 				</object>

@@ -13,7 +13,32 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
-        self.active_epithelium = Epithelium(1)
+        self.__active_epithelium = Epithelium(0)  # type: Epithelium
+
+        #  track all the panels that need to be notified when the
+        # active epithelium is changed
+        self.epithelium_listeners = [self.m_epithelium_gen_display_panel,
+                                     self.m_sim_overview_display_panel,
+                                     self.m_simulation_display_panel]  # type: list
+
+    @ property
+    def active_epithelium(self) -> Epithelium:
+        """returns the active epithelium"""
+        return self.__active_epithelium
+
+    @ active_epithelium.setter
+    def active_epithelium(self, value: Epithelium) -> None:
+        """
+        Sets the active epithelium and sets the epithelium for
+        all listeners.
+        :param value: The new active epithelium
+        :return: None
+        """
+        self.__active_epithelium = value
+
+        # notify listeners of change
+        for listener in self.epithelium_listeners:
+            listener.epithelium = self.__active_epithelium
 
     def ep_gen_input_validation(self):
         """validates all epithelium generation inputs"""
