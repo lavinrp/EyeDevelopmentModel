@@ -10,7 +10,6 @@ from display_2d.GlDrawingPrimitives import draw_circle
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent: wx.Panel):
-        # TODO: correctly set the size of EpitheliumDisplayCanvas
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
 
         # GL
@@ -53,6 +52,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # display epithelium
         self._draw_epithelium()
+
+    def on_size(self, e: wx.SizeEvent):
+        """Event handler for resizing Does not consume the size event.
+        Flags on_paint to fix aspect ratio"""
+        self.SetSize(self.GetParent().GetSize())
+        self.__resized = True
+        e.Skip()
 
     def on_mouse_events(self, event: wx.MouseEvent):
         """Handle all mouse event logic.
@@ -135,11 +141,4 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
 
         self.SwapBuffers()
-
-    def on_size(self, e: wx.SizeEvent):
-        """Event handler for resizing Does not consume the size event.
-        Flags on_paint to fix aspect ratio"""
-        self.SetSize(self.GetParent().GetSize())
-        self.__resized = True
-        e.Skip()
 
