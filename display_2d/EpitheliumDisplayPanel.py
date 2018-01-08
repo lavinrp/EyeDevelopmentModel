@@ -26,7 +26,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
 
-    def on_paint(self, e):
+    def on_paint(self, e: wx.PaintEvent):
         """Callback executed when an instance of this widget repaints
 
         (re)initializes all OpenGL settings and draws the epithelium."""
@@ -87,19 +87,25 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.__camera_x += delta_x * distance_modifier
         self.__camera_y += delta_y * distance_modifier
-        glMatrixMode(GL_PROJECTION)
-        gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
-                  self.__camera_x, self.__camera_y, 0,  # target
-                  0, 1, 0)  # up vector
         self.on_paint(None)
 
-    def _set_scale(self, percent_of_current_scale):
-        self.__scale *= percent_of_current_scale
-        glMatrixMode(GL_PROJECTION)
-        glScalef(self.__scale, self.__scale, 1)
+    def _set_scale(self, relative_scale: float) -> None:
+        """
+        Scales the displayed epithelium.
+        :param relative_scale: The new scale to display the epithelium
+        relative to the current scale. Example: 1.1 will produce a zooming effect
+        resulting in a 10% greater scale 
+        :return: 
+        """
+        self.__scale *= relative_scale
         self.on_paint(None)
 
-    def _draw_epithelium(self):
+    def _draw_epithelium(self) -> None:
+        """
+        Draws the epithelium stored by this widgets parent.
+        Draws the epithelium to a pre-selected GL context.
+        :return:
+        """
 
         # camera position
         glMatrixMode(GL_PROJECTION)
