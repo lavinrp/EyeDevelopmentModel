@@ -33,17 +33,17 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer3.SetFlexibleDirection( wx.BOTH )
 		fgSizer3.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_simulation_panel = wx.Panel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_simulation_panel_container = wx.Panel( self.epithelium_generation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer31 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_panel6 = EpitheliumDisplayPanel( self.m_simulation_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer31.Add( self.m_panel6, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_simulation_panel = EpitheliumDisplayPanel( self.m_simulation_panel_container, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer31.Add( self.m_simulation_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		self.m_simulation_panel.SetSizer( bSizer31 )
-		self.m_simulation_panel.Layout()
-		bSizer31.Fit( self.m_simulation_panel )
-		fgSizer3.Add( self.m_simulation_panel, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_simulation_panel_container.SetSizer( bSizer31 )
+		self.m_simulation_panel_container.Layout()
+		bSizer31.Fit( self.m_simulation_panel_container )
+		fgSizer3.Add( self.m_simulation_panel_container, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		fgSizer4 = wx.FlexGridSizer( 2, 0, 0, 0 )
 		fgSizer4.AddGrowableCol( 0 )
