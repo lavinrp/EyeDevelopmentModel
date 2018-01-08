@@ -8,7 +8,7 @@
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
-from eye_development_gui.SimulationPanelWrapper import SimulationPanelWrapper
+from eye_development_gui.SimulationPanel import SimulationPanel
 import wx
 import wx.xrc
 
@@ -124,7 +124,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer41.SetFlexibleDirection( wx.BOTH )
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		self.m_sim_overview_display_panel = SimulationPanelWrapper( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_sim_overview_display_panel = SimulationPanel( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer41.Add( self.m_sim_overview_display_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
@@ -217,7 +217,7 @@ class MainFrameBase ( wx.Frame ):
 		self.m_simulation_overview_panel.Layout()
 		fgSizer31.Fit( self.m_simulation_overview_panel )
 		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", False )
-		self.m_simulation_display_panel = SimulationPanelWrapper( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.m_simulation_display_panel = SimulationPanel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.m_simulation_display_panel.Enable( False )
 		
 		self.view_selection_notebook.AddPage( self.m_simulation_display_panel, u"Simulation", False )

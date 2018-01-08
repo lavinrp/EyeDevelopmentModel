@@ -194,7 +194,7 @@
 									<option>1</option>
 									<flag>wxEXPAND | wxALL</flag>
 									<border>5</border>
-									<object class="wxPanel" name="m_sim_overview_display_panel" subclass="SimulationPanelWrapper">
+									<object class="wxPanel" name="m_sim_overview_display_panel" subclass="SimulationPanel">
 										<style>wxTAB_TRAVERSAL</style>
 									</object>
 								</object>
@@ -372,7 +372,7 @@
 			<object class="notebookpage">
 				<label>Simulation</label>
 				<selected>0</selected>
-				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanelWrapper">
+				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanel">
 					<style>wxTAB_TRAVERSAL</style>
 					<enabled>0</enabled>
 				</object>

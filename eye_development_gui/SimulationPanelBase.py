@@ -15,10 +15,10 @@ import gettext
 _ = gettext.gettext
 
 ###########################################################################
-## Class SimulationPanel
+## Class SimulationPanelBase
 ###########################################################################
 
-class SimulationPanel ( wx.Panel ):
+class SimulationPanelBase ( wx.Panel ):
 	
 	def __init__( self, parent ):
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 197,181 ), style = wx.TAB_TRAVERSAL )

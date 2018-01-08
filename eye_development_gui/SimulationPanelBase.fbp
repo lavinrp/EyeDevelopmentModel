@@ -40,7 +40,7 @@
             <property name="id">wxID_ANY</property>
             <property name="maximum_size"></property>
             <property name="minimum_size"></property>
-            <property name="name">SimulationPanel</property>
+            <property name="name">SimulationPanelBase</property>
             <property name="pos"></property>
             <property name="size">197,181</property>
             <property name="subclass">; forward_declare</property>
