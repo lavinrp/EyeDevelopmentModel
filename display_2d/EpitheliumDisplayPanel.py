@@ -35,7 +35,8 @@ class EpitheliumDisplayPanel(wx.Panel):
         :param value: Reference to new epithelium.
         """
         self._epithelium = value
-        self.gl_canvas.on_paint(None)
+        if self.IsShownOnScreen():
+            self.gl_canvas.on_paint(None)
 
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
