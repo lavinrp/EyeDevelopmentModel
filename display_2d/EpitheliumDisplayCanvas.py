@@ -18,10 +18,12 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
+        self.__resized = False  # type: bool
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
+        self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
 
@@ -29,6 +31,17 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         """Callback executed when an instance of this widget repaints
 
         (re)initializes all OpenGL settings and draws the epithelium."""
+
+        # viewport
+        if self.__resized:
+            glMatrixMode(GL_PROJECTION)
+            width = self.GetSize()[0]
+            height = self.GetSize()[1]
+            glViewport(0, 0, width, height)
+            gluPerspective(45.0, float(width) / float(height), 0.1, 100.0)
+            glLoadIdentity()
+            # print(str(self.GetSize()))
+            self.__resized = False
 
         # context setup
         self.context = glcanvas.GLContext(self)
@@ -122,4 +135,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
 
         self.SwapBuffers()
+
+    def on_size(self, e: wx.SizeEvent):
+        """Event handler for resizing Does not consume the size event.
+        Flags on_paint to fix aspect ratio"""
+        self.SetSize(self.GetParent().GetSize())
+        self.__resized = True
+        e.Skip()
 
