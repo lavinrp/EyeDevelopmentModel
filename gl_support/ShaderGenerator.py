@@ -1,8 +1,9 @@
 import OpenGL.GL.shaders
+
 from OpenGL.GL import GL_VERTEX_SHADER
 from OpenGL.GL import GL_FRAGMENT_SHADER
-from OpenGL.GL import GL_COMPILE_STATUS
-from OpenGL.GL import GL_TRUE
+
+from gl_support.GlHelperFunctions import check_gl_error
 
 
 class ShaderGenerator:
@@ -18,39 +19,38 @@ class ShaderGenerator:
 
         self.shader_folder_path = shader_folder_path
 
-        # Compiled shader program
-        self.program = None
-
-        # store all compile errors here
-        self.errors = ""  # type: str
-
-    def create_program(self) -> bool:
+    def create_program(self, vertex_shader_name: str = "",
+                       fragment_shader_name: str = ""):
         """
-        Generate a shader program with the shaders that are in shader_folder_path.
-        The generated program is stored in self.program.
+        Generates shader programs with the shaders that are in shader_folder_path.
 
-        All shaders are expected to be in a file named after the type of the shader (vertex.sh, fragment.sh, etc...).
-
-        :return: True if no errors are detected when compiling the shader program. False otherwise.
+        :param vertex_shader_name: Name of the vertex shader (example: VertexShader.vert)
+        :param fragment_shader_name: Name of the fragment shader (example: FragmentShader.frag)
+        :return: If compilation was successful return the resulting shader. If there was an error return None.
         """
 
         # TODO: add support for all shader types
-        # TODO: change system to find shaders based on extension
-        #   https://stackoverflow.com/a/26531467
 
         # vertex shader
-        with open(self.shader_folder_path + r"/vertex.sh", "r") as vertex_shader_file:
+        vertex_shader_path = vertex_shader_name
+        with open(vertex_shader_path, "r") as vertex_shader_file:
             vertex_shader_string = str.encode(vertex_shader_file.read())
 
         # fragment shader
-        with open(self.shader_folder_path + r"/fragment.sh", "r") as fragment_shader_file:
+        fragment_shader_path = fragment_shader_name
+        with open(fragment_shader_path, "r") as fragment_shader_file:
             fragment_shader_string = str.encode(fragment_shader_file.read())
 
         # compile program
-        self.program = OpenGL.GL.shaders.compileProgram(
+        program = OpenGL.GL.shaders.compileProgram(
             OpenGL.GL.shaders.compileShader(vertex_shader_string, GL_VERTEX_SHADER),
             OpenGL.GL.shaders.compileShader(fragment_shader_string, GL_FRAGMENT_SHADER)
         )
+
+        # return program
+        if check_gl_error():
+            return None
+        return program
 
         # # check for errors
         # error_found = False
@@ -64,5 +64,3 @@ class ShaderGenerator:
         #     error_found = True
 
         return True  # not error_found
-
-        # TODO: check for linking errors
