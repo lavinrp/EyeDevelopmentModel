@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from display_2d.GlDrawingPrimitives import draw_circle
+from gl_support.ShaderGenerator import ShaderGenerator
 
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
@@ -18,6 +19,10 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
         self.__resized = False  # type: bool
+        self.__gl_initialized = False  # type: bool
+
+        # shader
+        self.shader_program = None
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -49,6 +54,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # gl settings
         glClearColor(.9, .9, .9, 1)
         glLoadIdentity()
+
+        if not self.__gl_initialized:
+            shader_generator = ShaderGenerator(r"display_2d/shaders")
+            self.shader_program = shader_generator.create_program("SimplePoints.vert",
+                                                                  "SimpleColor.frag")
+            self.__gl_initialized = True
+
 
         # display epithelium
         self._draw_epithelium()

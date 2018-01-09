@@ -1,5 +1,6 @@
-import OpenGL.GL.shaders
+import os
 
+import OpenGL.GL.shaders
 from OpenGL.GL import GL_VERTEX_SHADER
 from OpenGL.GL import GL_FRAGMENT_SHADER
 
@@ -32,12 +33,12 @@ class ShaderGenerator:
         # TODO: add support for all shader types
 
         # vertex shader
-        vertex_shader_path = vertex_shader_name
+        vertex_shader_path = os.path.join(self.shader_folder_path, vertex_shader_name)
         with open(vertex_shader_path, "r") as vertex_shader_file:
             vertex_shader_string = str.encode(vertex_shader_file.read())
 
         # fragment shader
-        fragment_shader_path = fragment_shader_name
+        fragment_shader_path = os.path.join(self.shader_folder_path, fragment_shader_name)
         with open(fragment_shader_path, "r") as fragment_shader_file:
             fragment_shader_string = str.encode(fragment_shader_file.read())
 
