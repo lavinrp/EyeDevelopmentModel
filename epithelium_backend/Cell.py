@@ -37,19 +37,21 @@ class Cell(object):
             self.grow_cell(.01)
             return None
 
-    def spawn_new_cell(self):
+    def divide(self):
         """
         Divides this cell into a new cell with half of this cell's radius.
         Then divides this parent cell's radius in half.
         :return:
         """
-        # Choose some radian for direction of position of new cell
+        # Choose some radian for direction of placement of new cell
         rand_rad = random.uniform(0, 6.283)
         # Find position for new cell on original cell's circle
         rand_pos = (self.position[0] + self.radius * cos(rand_rad), self.position[0] + self.radius * sin(rand_rad), 0)
         child_cell = Cell(position=rand_pos, radius=self.radius / 2.0)
+        # Find the adjusted position for the original cell for after the division
         new_pos = (self.position[0] - self.radius * cos(rand_rad), self.position[0] - self.radius * sin(rand_rad), 0)
         self.position = new_pos
+        # Divide the original cell size in half
         self.radius /= 2
         return child_cell
 
@@ -61,5 +63,3 @@ class Cell(object):
         """
         self.radius += growth_amount
 
-    def divide(self):
-        return self.spawn_new_cell()
