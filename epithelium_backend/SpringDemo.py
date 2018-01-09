@@ -10,5 +10,5 @@ if __name__ == '__main__':
     random.seed(58293)
     # Generate 100 random cells about the origin with radii between 0.1 and 0.35
 
-    testEpithelium = Epithelium(100)
+    testEpithelium = Epithelium(cell_quantity=100, cell_radius_divergence=.4)
 
