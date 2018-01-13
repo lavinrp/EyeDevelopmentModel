@@ -67,6 +67,3 @@ class MainFrame(MainFrameBase):
 
             # create epithelium from inputs
             self.active_epithelium = Epithelium(min_cell_count)
-
-        # consume the event
-        event.Skip()
