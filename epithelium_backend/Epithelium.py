@@ -6,6 +6,7 @@ from math import sqrt
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from display_2d.SnapshotDisplay import SnapshotDisplay
+import epithelium_backend.SpringDemo as SpringDemo
 
 
 class Epithelium(object):
@@ -53,15 +54,19 @@ class Epithelium(object):
         while self.cell_quantity > len(self.cells):
             # Use the divergence to determine the new cells' radii. Note that the cell_radius_divergence should be
             # less than cell_avg_radius
-            rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
-                                                                self.cell_avg_radius + self.cell_radius_divergence)
-            random_pos = (245 + random.random() * 10, 240 + random.random() * 10, 0)
-            # Questions for Bryan
-            # x = (0.5 - random()) * approx_grid_size
-            # y = (0.5 - random()) * approx_grid_size
+            # rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
+            #                                                     self.cell_avg_radius + self.cell_radius_divergence)
+            # Joe: I think that cell_radius_divergence is a percentage, like 0.5. So you want to
+            # uniformly grab radii within +/- cell_radius_divergence percent of cell_avg_radius
+            rand_radius = random.uniform(self.cell_avg_radius*(1-self.cell_radius_divergence),
+                                         self.cell_avg_radius*(1+self.cell_radius_divergence))
+            random_pos = (random.random() * approx_grid_size,
+                          random.random() * approx_grid_size,
+                          0)
             self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
 
-        # Decompact 1000 times with kind of arbitrary parameters
         self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
+        # SpringDemo.plot(self.cells, 'before')
         for i in range(0,50):
-            self.cell_collision.handler.decompact()
+            self.cell_collision_handler.decompact()
+        # SpringDemo.plot(self.cells, 'after.png')

@@ -70,10 +70,14 @@ class CellCollisionHandler(object):
         self.spring_constant = spring_constant
 
         # Grid
+        # Compute the average radius and center so we know how to partition
+        # the space.
         self.avg_radius = sum(map(lambda x : x.radius, cells))/len(cells)
+        self.center_x = sum(map(lambda x : x.position[0], cells))/len(cells)
+        self.center_y = sum(map(lambda x : x.position[1], cells))/len(cells)
         self.cell_quantity = len(cells)
-        # scary 2
         # Twice the maximum x and y coordinates we can handle.
+        # Choose a space big enough to hold 4x more cells than we have.
         self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
         # The width of each box. Chosen so that two cells can exert forces
         # on each other only if they're in adjacent boxes.
@@ -86,14 +90,29 @@ class CellCollisionHandler(object):
 
         self.fill_grid()
 
-    def bin(self, cell):
+    def bin(self, cell: Cell):
+        """Compute the row and column of the cell given its position. """
         (x,y,_) = cell.position
-        col = self.dimension - int((x + self.max_grid_size/2) / self.box_size)
-        row = int((y + self.max_grid_size/2) / self.box_size)
+        # Cells at the center should be in the middle of our space.
+        # So, we compute the distance of the cell from the center
+        # (x-self.center_x)
+        # find out how many boxes the distance corresponds to
+        # (divide by self.box_size)
+        # and use that to figure out how many steps left or right
+        # to go from the middle
+        # (add to self.dimension/2)
+        col = int(self.dimension/2 + (x-self.center_x)/self.box_size)
+        row = int(self.dimension/2 + (y-self.center_y)/self.box_size)
+        # Map the row,col to an index in our one dimensional grid vector.
         return self.dimension*row + col
 
-    def register(self, cell):
+    def register(self, cell: Cell):
+        """Add the cell to the collision handler."""
         (x,y,_) = cell.position
+        # Adding these fields here is a bit hacky.
+        # Bypassing the position tuple and using direct fields
+        # decreases the amount of memory accesses and allocations
+        # and basically doubles the speed.
         cell.x = x
         cell.y = y
         cell.next_x = x
@@ -103,11 +122,13 @@ class CellCollisionHandler(object):
         self.non_empty.add(cell.bin)
 
     def fill_grid(self):
+        """Add every cell to the collision handler."""
         self.non_empty = set()
         for cell in self.cells:
             self.register(cell)
 
-    def push_pull(self, cell1, cell2):
+    def push_pull(self, cell1: Cell, cell2: Cell):
+        """Compute the force of cell1 on cell2 and vice versa."""
         # I've broken with the physics of real springs here by
         # disregarding velocity and mass. As a result, force is equal
         # to the change in the position.  There "should" be a
