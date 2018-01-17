@@ -1,5 +1,6 @@
 from epithelium_backend.Epithelium import Epithelium
 import numpy
+import math
 
 
 class EpitheliumGlTranslator:
@@ -24,3 +25,13 @@ class EpitheliumGlTranslator:
 
         # convert to numpy array and return
         return numpy.array(positions_list, dtype=numpy.float32)
+
+    def get_line_loop_points(self, segments):
+        cell_list_points = [self.epithelium.cell_quantity * segments]
+        for cell in self.epithelium.cells:
+            for i in range(segments + 1):
+                cell_list_points[i].append(
+                    cell.position[0] + (cell.radius * math.cos(i * (2 * math.pi) / segments)),
+                    cell.position[1] + (cell.radius * math.sin(i * (2 * math.pi) / segments)),
+                    0)
+        return cell_list_points

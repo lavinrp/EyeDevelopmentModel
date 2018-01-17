@@ -1,9 +1,9 @@
-#version 120
+#version 330
 
-attribute vec4 position;
-attribute vec4 color;
+in vec4 position;
+in vec4 color;
 
-varying vec4 dstColor;
+out vec4 dstColor;
 
 void main(){
  dstColor = color;

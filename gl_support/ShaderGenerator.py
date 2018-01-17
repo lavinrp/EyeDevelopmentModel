@@ -53,15 +53,4 @@ class ShaderGenerator:
             return None
         return program
 
-        # # check for errors
-        # error_found = False
-        # compile_status = OpenGL.GL.glGetShaderiv(vertex_shader_string, GL_COMPILE_STATUS)
-        # if compile_status != GL_TRUE:
-        #     self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
-        #     error_found = True
-        # compile_status = OpenGL.GL.glGetShaderiv(fragment_shader_string, GL_COMPILE_STATUS)
-        # if compile_status != GL_TRUE:
-        #     self.errors += "\n" + OpenGL.GL.glGetShaderInfoLog(vertex_shader_string)
-        #     error_found = True
-
         return True  # not error_found
