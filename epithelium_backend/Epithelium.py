@@ -52,6 +52,7 @@ class Epithelium(object):
         # in a more compact state and decompact them, we multiply by .87
         approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
         while self.cell_quantity > len(self.cells):
+
             # Use the divergence to determine the new cells' radii. Note that the cell_radius_divergence should be
             # less than cell_avg_radius
             # rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
