@@ -1,6 +1,4 @@
-from epithelium_backend.Cell import Cell
 import matplotlib.pyplot as plt
-import random as random
 
 def plot(cells, name, grid=5):
     """Plot the cells as circles as a png named `name`"""
