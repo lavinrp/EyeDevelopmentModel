@@ -4,12 +4,6 @@ from math import sqrt,ceil
 import time as time
 from epithelium_backend.Cell import Cell
 
-def distance(tup1: tuple, tup2: tuple) -> float:
-    (x1, y1, z1) = tup1
-    (x2, y2, z2) = tup2
-    x = (x1-x2)
-    y = (y1-y2)
-    return sqrt(x*x+y*y)
 
 class CellCollisionHandler(object):
     """
@@ -72,10 +66,10 @@ class CellCollisionHandler(object):
         # Grid
         # Compute the average radius and center so we know how to partition
         # the space.
+        self.cell_quantity = len(cells)
         self.avg_radius = sum(map(lambda x : x.radius, cells))/len(cells)
         self.center_x = sum(map(lambda x : x.position[0], cells))/len(cells)
         self.center_y = sum(map(lambda x : x.position[1], cells))/len(cells)
-        self.cell_quantity = len(cells)
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
         self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
@@ -87,6 +81,9 @@ class CellCollisionHandler(object):
         self.dimension = ceil(self.max_grid_size / self.box_size)
         # The one dimensional list representing our grid.
         self.grids = [[] for x in range(0,self.dimension**2)]
+        # The set of non-empty boxes -- the only ones we need
+        # to examine when decompacting
+        self.non_empty = set()
 
         self.fill_grid()
 
@@ -123,7 +120,6 @@ class CellCollisionHandler(object):
 
     def fill_grid(self):
         """Add every cell to the collision handler."""
-        self.non_empty = set()
         for cell in self.cells:
             self.register(cell)
 

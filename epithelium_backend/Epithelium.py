@@ -36,6 +36,7 @@ class Epithelium(object):
         new_cell = cell_from_list.divide()
         if new_cell is not None:
             self.cells.append(new_cell)
+            self.cell_collision_handler.register(new_cell)
 
     def create_cell_sheet(self) -> None:
         """
@@ -53,11 +54,7 @@ class Epithelium(object):
         approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
         while self.cell_quantity > len(self.cells):
 
-            # Use the divergence to determine the new cells' radii. Note that the cell_radius_divergence should be
-            # less than cell_avg_radius
-            # rand_radius = self.cell_avg_radius * random.uniform(self.cell_avg_radius - self.cell_radius_divergence,
-            #                                                     self.cell_avg_radius + self.cell_radius_divergence)
-            # Joe: I think that cell_radius_divergence is a percentage, like 0.5. So you want to
+            # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
             # uniformly grab radii within +/- cell_radius_divergence percent of cell_avg_radius
             rand_radius = random.uniform(self.cell_avg_radius*(1-self.cell_radius_divergence),
                                          self.cell_avg_radius*(1+self.cell_radius_divergence))
@@ -66,8 +63,7 @@ class Epithelium(object):
                           0)
             self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
 
-        self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
-        # SpringDemo.plot(self.cells, 'before')
-        for i in range(0,50):
-            self.cell_collision_handler.decompact()
-        # SpringDemo.plot(self.cells, 'after.png')
+        if self.cell_quantity > 0:
+            self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
+            for i in range(0,50):
+                self.cell_collision_handler.decompact()
