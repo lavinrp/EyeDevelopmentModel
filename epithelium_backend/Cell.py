@@ -11,7 +11,7 @@ class Cell(object):
                  position: tuple = (0, 0, 0),
                  radius: float = 1,
                  photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
-                 support_specializations: set = set()) -> None:
+                 support_specializations:set = set()) -> None:
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
@@ -62,4 +62,3 @@ class Cell(object):
         :return:
         """
         self.radius += growth_amount
-
