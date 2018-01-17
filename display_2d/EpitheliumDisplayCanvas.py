@@ -125,20 +125,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         :return:
         """
 
-        # camera position
-        glMatrixMode(GL_PROJECTION)
-        gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
-                  self.__camera_x, self.__camera_y, 0,  # target
-                  0, 1, 0)  # up vector
-        glScalef(self.__scale, self.__scale, 1)
-
-        # draw
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
-        glMatrixMode(GL_MODELVIEW)
-        glLineWidth(2)
-        for cell in self.GetParent().epithelium.cells:
-            draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
-
+        test = glValidateProgram(self.shader_program)
+        #glUseProgram(self.shader_program)
+        shader_attr_position = glGetAttribLocation(self.shader_program, "position")
+        shader_attr_color = glGetAttribLocation(self.shader_program, "color")
         self.SwapBuffers()
 
