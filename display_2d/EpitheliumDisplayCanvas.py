@@ -125,7 +125,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glMatrixMode(GL_MODELVIEW)
         glLineWidth(2)
         for cell in self.GetParent().epithelium.cells:
-            draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
+            draw_circle((cell.position_x, cell.position_y), cell.radius, False)
 
         self.SwapBuffers()
 
