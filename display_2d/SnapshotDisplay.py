@@ -1,5 +1,4 @@
 import wx
-from epithelium_backend.Cell import Cell
 
 
 class SnapshotDisplay(object):

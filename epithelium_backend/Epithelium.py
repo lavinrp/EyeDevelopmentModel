@@ -1,35 +1,46 @@
+
+
+import random
+from math import sqrt
+
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
-from math import sqrt
-from random import random
-import time as time
+from display_2d.SnapshotDisplay import SnapshotDisplay
+import epithelium_backend.SpringDemo as SpringDemo
+
 
 class Epithelium(object):
     """A collection of cells that will form an eye"""
 
-    def __init__(self, cell_quantity):
+    def __init__(self, cell_quantity,
+                 cell_radius_divergence: float = .5,
+                 cell_avg_radius: float = 4) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
+        :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_avg_radius
+        :param cell_avg_radius: average cell radius
         """
         self.cells = []
-        self.cell_events = []
         self.cell_quantity = cell_quantity
-        self.cell_collision_handler = None
+        self.cell_radius_divergence = cell_radius_divergence
+        self.cell_avg_radius = cell_avg_radius
+
         self.create_cell_sheet()
 
-    def add_cell(self, cell_from_list):
+    def divide_cell(self, cell_from_list) -> None:
         """
-        adds a cell to the list
+        divides the given cell and adds it to the list
+        :param cell_from_list: a cell selected from self.cells
         """
-        if len(self.cells) < self.cell_quantity:
-            new_cell = cell_from_list.divide()
+        new_cell = cell_from_list.divide()
+        if new_cell is not None:
             self.cells.append(new_cell)
-            return new_cell
+            self.cell_collision_handler.register(new_cell)
 
-    def create_cell_sheet(self):
+    def create_cell_sheet(self) -> None:
         """
-        creates the sheet of cells, populating self.cell
+        creates the sheet of cells, populating self.cells, and then decompacts them
         """
         # The approach: randomly place self.cell_quantity cells on a grid,
         # then decompact them with the collision handler until they're
@@ -37,33 +48,22 @@ class Epithelium(object):
 
         # If we know the average radius of each cell, we know the average
         # area, and therefore the approximate grid size.
-        avg_radius = 0.2
-        avg_area = avg_radius * avg_radius * 3.14
+        avg_area = self.cell_avg_radius**2 * 3.14
         # Because we allow some cell overlap, and we want the cells to start
         # in a more compact state and decompact them, we multiply by .87
         approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
-        for i in range(0,self.cell_quantity):
-            # if approx_grid_size is 5, that means cells will be x values
-            # between -2.5 and 2.5, and y values between -2.5 and 2.5,
-            # and be uniformly distributed.
-            x = (0.5 - random()) * approx_grid_size
-            y = (0.5 - random()) * approx_grid_size
-            # radius between 0.195 - 0.205
-            radius = 0.2 + ((0.5 - random()) * 0.1)
-            self.cells.append(Cell.Cell((x,y,0), radius))
-        self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
-        for i in range(0,5):
-            for j in range(0,9):
+        while self.cell_quantity > len(self.cells):
+
+            # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
+            # uniformly grab radii within +/- cell_radius_divergence percent of cell_avg_radius
+            rand_radius = random.uniform(self.cell_avg_radius*(1-self.cell_radius_divergence),
+                                         self.cell_avg_radius*(1+self.cell_radius_divergence))
+            random_pos = (random.random() * approx_grid_size,
+                          random.random() * approx_grid_size,
+                          0)
+            self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+
+        if self.cell_quantity > 0:
+            self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
+            for i in range(0,50):
                 self.cell_collision_handler.decompact()
-
-
-    def stats(self):
-        """
-        Print stats on the collision handler. Just for testing.
-        """
-        ig = self.cell_collision_handler
-        grids = ig.grids
-        non_empty = list(filter(lambda x : len(x)>0, grids))
-        print('avg = ' + str(sum(map(len, non_empty))/len(non_empty)))
-        print('filled ratio = ' + str(len(non_empty)/len(grids)))
-        print('max = ' + str(max(map(len, non_empty))))
