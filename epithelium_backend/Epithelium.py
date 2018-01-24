@@ -5,6 +5,8 @@ from math import sqrt
 
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
+from epithelium_backend import Furrow
+from epithelium_backend import FurrowEvent
 from display_2d.SnapshotDisplay import SnapshotDisplay
 import epithelium_backend.SpringDemo as SpringDemo
 
@@ -67,3 +69,14 @@ class Epithelium(object):
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
             for i in range(0,50):
                 self.cell_collision_handler.decompact()
+
+    def neighboring_cells(self, cell, number_cells):
+        return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
+
+    def go(self):
+        furrow = Furrow.Furrow(position=max(map(lambda c: c.position[0],self.cells)),
+                               width=0,
+                               velocity=self.cell_avg_radius*6,
+                               events = FurrowEvent.FurrowEvents)
+        for i in range(0,10):
+            furrow.update(self)

@@ -28,3 +28,7 @@ class SimulationPanel(SimulationPanelBase):
         :param value: New epithelium to be displayed
         """
         self.m_epithelium_display.epithelium = value
+
+    def start_simulation_callback(self, event):
+        print('Clicked that button!')
+        self.m_epithelium_display._epithelium.go()

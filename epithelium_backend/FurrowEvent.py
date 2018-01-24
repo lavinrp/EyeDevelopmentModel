@@ -43,20 +43,18 @@ class FurrowEvent(object):
         self.last_x = left_bound
 
 def runR8Selector(field_types, epithelium, cells):
-    r8_exclusion_radius = field_types['r8_exclusion_radius']
+    r8_exclusion_radius = field_types['r8_exclusion_radius'].value
     for cell in cells:
-        neighbors = epithelium.cell_collision_handler.cells_within_distance(cell, r8_exclusion_radius)
-        neighbor_types = set(map(lambda c: c.photoreceptor_type, neighbors))
-        if PhotoreceptorType.R8 not in neighbor_types:
+        neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
+        assign = True
+        for neighbor in neighbors:
+            if neighbor.photoreceptor_type == PhotoreceptorType.R8:
+                assign = False
+        if assign:
             cell.photoreceptor_type = PhotoreceptorType.R8
 
 R8SelectionEvent = FurrowEvent(distance_from_furrow = 0,
-                               field_types = {'r8_exclusion_radius' : Integer(0),
-                                              'first' : Integer(0),
-                                              'second':Integer(0),
-                                              'third':Integer(0),
-                                              'fourth':Integer(0),
-                                              'fifth':Integer(0)},
+                               field_types = {'r8_exclusion_radius' : Integer(0)},
                                run = runR8Selector)
 
 FurrowEvents = [R8SelectionEvent]

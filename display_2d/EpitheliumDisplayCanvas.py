@@ -5,6 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from display_2d.GlDrawingPrimitives import draw_circle
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
@@ -125,7 +126,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glMatrixMode(GL_MODELVIEW)
         glLineWidth(2)
         for cell in self.GetParent().epithelium.cells:
-            draw_circle((cell.position[0], cell.position[1]), cell.radius, False)
+            draw_circle((cell.position[0], cell.position[1]), cell.radius, cell.photoreceptor_type==PhotoreceptorType.R8)
 
         self.SwapBuffers()
-

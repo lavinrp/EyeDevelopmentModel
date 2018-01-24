@@ -1,8 +1,14 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
-from math import sqrt,ceil
+from math import sqrt,ceil,inf
 import time as time
 from epithelium_backend.Cell import Cell
+
+
+def distance(p1, p2):
+    (x1,y1,z1) = p1
+    (x2,y2,z2) = p2
+    return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
 
 class CellCollisionHandler(object):
@@ -87,6 +93,12 @@ class CellCollisionHandler(object):
 
         self.fill_grid()
 
+    def compute_row(self, y):
+        return int(self.dimension/2 + (y-self.center_y)/self.box_size)
+
+    def compute_col(self, x):
+        return int(self.dimension/2 + (x-self.center_x)/self.box_size)
+
     def bin(self, cell: Cell):
         """Compute the row and column of the cell given its position. """
         (x,y,_) = cell.position
@@ -98,8 +110,8 @@ class CellCollisionHandler(object):
         # and use that to figure out how many steps left or right
         # to go from the middle
         # (add to self.dimension/2)
-        col = int(self.dimension/2 + (x-self.center_x)/self.box_size)
-        row = int(self.dimension/2 + (y-self.center_y)/self.box_size)
+        col = self.compute_col(x)
+        row = self.compute_row(y)
         # Map the row,col to an index in our one dimensional grid vector.
         return self.dimension*row + col
 
@@ -221,14 +233,17 @@ class CellCollisionHandler(object):
                     yield cell
 
     def cells_between(self, min_x, max_x):
-        max_col = self.dimension-1 if min_x==-inf else self.dimension - int((min_x + self.max_grid_size/2) / self.box_size)
-        min_col = 0 if max_x==inf else self.dimension - int((max_x + self.max_grid_size/2) / self.box_size)
-        if min_col < 0 or max_col >= self.dimension:
-            return []
-        else:
-            # This is actually from posterior to anterior
-            for col in range(min_col, max_col+1):
-                for row in range(0,self.dimension):
-                    for cell in self.grids[self.dimension*row+col]:
-                        if min_x < cell.position[0] < max_x:
-                            yield cell
+        max_col = self.dimension-1 if max_x==inf else self.compute_col(max_x)
+        min_col = 0 if min_x==-inf else self.compute_col(min_x)
+        min_col = max(0, min_col)
+        max_col = min(self.dimension-1, max_col)
+        result = []
+        for col in range(min_col, max_col+1):
+            for row in range(0,self.dimension):
+                for cell in self.grids[self.dimension*row+col]:
+                    if min_x < cell.position[0] < max_x:
+                        result.append(cell)
+        # sort posterior to anterior
+        # todo: just walk backwards, from max_col to min_col
+        result.sort(key = lambda c: -c.position[0])
+        return result
