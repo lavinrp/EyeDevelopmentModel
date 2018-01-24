@@ -9,8 +9,3 @@ class R8Selector(Event):
         self.r8_exclusion_radius = r8_exclusion_radius
 
     def __call__(self, epithelium, cells):
-        for cell in cells:
-            neighbors = epithelium.cell_collision_handler.cells_within_distance(cell, self.r8_exclusion_radius)
-            neighbor_types = set(map(lambda c: c.photoreceptor_type, neighbors))
-            if PhotoreceptorType.R8 not in neighbor_types:
-                cell.photoreceptor_type = PhotoreceptorType.R8

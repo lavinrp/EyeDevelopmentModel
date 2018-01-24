@@ -44,4 +44,4 @@ class Furrow:
 
         # run events on the cells
         for event in self.events:
-            event.run(self.position, epithelium)
+            event(self.position, epithelium)
