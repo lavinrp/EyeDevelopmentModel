@@ -6,6 +6,7 @@ from OpenGL.GLU import *
 
 from display_2d.GlDrawingPrimitives import draw_circle
 from gl_support.ShaderGenerator import ShaderGenerator
+from ctypes import c_void_p
 
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
@@ -22,7 +23,14 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # shader
         self.shader_program = None
+        self.vertexPositions = [
+            0.0, 1.0,
+            1.0, 0.0,
+            0.0, -1.0,
+            -1.0, 0.0,
+        ]
 
+        self._initialize_buffers()
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -37,7 +45,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         (re)initializes all OpenGL settings and draws the epithelium."""
 
         # context setup
-        self.context = glcanvas.GLContext(self)
+        # self.context = glcanvas.GLContext(self)
         self.SetCurrent(self.context)
 
         # gl settings
@@ -50,9 +58,32 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                   "SimpleColor.frag")
             self.__gl_initialized = True
 
+        # display epithelium BRIAN TESTING begin _draw_epithelium
 
-        # display epithelium
-        self._draw_epithelium()
+        # glUseProgram(self.shader_program)
+
+        """
+        Draws the epithelium stored by this widgets parent.
+        Draws the epithelium to a pre-selected GL context.
+        :return:
+        """
+
+        test = glValidateProgram(self.shader_program)
+        glUseProgram(self.shader_program)
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+        glEnableVertexAttribArray(0)
+        glVertexAttribPointer(0, 4, GL_FLOAT, False, 0, c_void_p(0))
+
+        glDrawArrays(GL_TRIANGLES, 0, 4)
+        # shader_attr_position = glGetAttribLocation(self.shader_program, "position")
+        # shader_attr_color = glGetAttribLocation(self.shader_program, "color")
+        glDisableVertexAttribArray(0)
+        glUseProgram(0)
+
+        self.SwapBuffers()
+
+        # end of _drawepithelium
+        # self._draw_epithelium()
 
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
@@ -126,8 +157,26 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         """
 
         test = glValidateProgram(self.shader_program)
-        #glUseProgram(self.shader_program)
-        shader_attr_position = glGetAttribLocation(self.shader_program, "position")
-        shader_attr_color = glGetAttribLocation(self.shader_program, "color")
+        glUseProgram(self.shader_program)
+
+        # shader_attr_position = glGetAttribLocation(self.shader_program, "position")
+        # shader_attr_color = glGetAttribLocation(self.shader_program, "color")
         self.SwapBuffers()
 
+    def _initialize_buffers(self):
+
+        # context setup
+        self.context = glcanvas.GLContext(self)
+        self.SetCurrent(self.context)
+
+        vao = glGenVertexArrays(1)
+        glBindVertexArray(vao)
+        self.vbo = glGenBuffers(1)
+        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+        array_type = (GLfloat * len(self.vertexPositions))
+        glBufferData(GL_ARRAY_BUFFER,
+                     len(self.vertexPositions) * 4,
+                     array_type(*self.vertexPositions),
+                     GL_STATIC_DRAW)
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0)
+        glEnableVertexAttribArray(0)
