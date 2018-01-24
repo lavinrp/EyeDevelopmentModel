@@ -31,7 +31,7 @@ class Cell(object):
         """
         # Check if cell is large enough to divide
         if self.radius >= 25:
-            return self.spawn_new_cell()
+            return self.divide()
         else:
             # If not large enough, grow the cell a little bit for next time
             self.grow_cell(.01)
