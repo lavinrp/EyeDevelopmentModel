@@ -7,7 +7,12 @@ from eye_development_gui.eye_development_gui import MainFrameBase
 import wx
 import wx.xrc
 
+## Does this belong in this namespace?
 def make_value_setter(field_type, text_control):
+    """
+    Create a callback that validates/sets the field type's value
+    when the text_control's input changes.
+    """
     def go(event):
         # If valid, sets the value to it and returns True. Otherwise returns False.
         field_type.validate(text_control.GetLineText(0))
@@ -16,13 +21,24 @@ def make_value_setter(field_type, text_control):
     return go
 
 def add_fields(window, events):
+    """
+    Dynamically generate input fields from the furrow events.
+
+    :param window: the wxform window to add the inputs to.
+    :param events: a list of furrow events to generate gui inputs from.
+    """
+    # This was copied from the dynamically generated code that wxFormBuilder spits out.
+    # I don't totally understand it.
     g_sizer = wx.GridSizer( 0, 2, 0, 0)
     for event in events:
         for param_name, field_type in event.field_types.items():
+            # The left hand side -- the label of the input
             static_text = wx.StaticText(window, wx.ID_ANY, param_name, wx.DefaultPosition, wx.DefaultSize, 0)
             static_text.Wrap(-1)
             g_sizer.Add(static_text, 0, wx.ALL, 5)
+            # The right hand side -- the input box
             text_control =  wx.TextCtrl(window , wx.ID_ANY, str(field_type.value), wx.DefaultPosition, wx.DefaultSize, 0 )
+            # Bind the input box to the field_type value
             text_control.Bind(wx.EVT_TEXT, make_value_setter(field_type, text_control))
             g_sizer.Add(text_control, 0, wx.ALL, 5)
     window.SetSizer(g_sizer)
@@ -38,7 +54,7 @@ class MainFrame(MainFrameBase):
     def __init__(self, parent):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
-        gSizer6 = wx.GridSizer( 0, 2, 0, 0)
+
         add_fields(self.m_scrolledWindow4, FurrowEvent.FurrowEvents)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium

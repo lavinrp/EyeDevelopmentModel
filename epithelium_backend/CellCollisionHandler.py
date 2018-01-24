@@ -233,17 +233,22 @@ class CellCollisionHandler(object):
                     yield cell
 
     def cells_between(self, min_x, max_x):
-        max_col = self.dimension-1 if max_x==inf else self.compute_col(max_x)
-        min_col = 0 if min_x==-inf else self.compute_col(min_x)
-        min_col = max(0, min_col)
-        max_col = min(self.dimension-1, max_col)
+        """
+        Return the list of cells between min_x and max_x, sorted from
+        posterior to anterior order.
+        """
+        max_col = min(self.dimension-1, self.compute_col(max_x))
+        min_col = max(0, self.compute_col(min_x))
         result = []
         for col in range(min_col, max_col+1):
             for row in range(0,self.dimension):
                 for cell in self.grids[self.dimension*row+col]:
+                    # The boxes are only an approxiation -- we don't
+                    # know for sure that the cell is actually within
+                    # the range.
                     if min_x < cell.position[0] < max_x:
                         result.append(cell)
-        # sort posterior to anterior
         # todo: just walk backwards, from max_col to min_col
+        # sort posterior to anterior
         result.sort(key = lambda c: -c.position[0])
         return result

@@ -126,6 +126,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glMatrixMode(GL_MODELVIEW)
         glLineWidth(2)
         for cell in self.GetParent().epithelium.cells:
+            # If the cell is an R8, fill it. Otherwise, leave it empty.
             draw_circle((cell.position[0], cell.position[1]), cell.radius, cell.photoreceptor_type==PhotoreceptorType.R8)
 
         self.SwapBuffers()

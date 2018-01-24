@@ -1,4 +1,5 @@
 # from epithelium_backend.Epithelium import Epithelium
+from math import inf
 
 class Furrow:
     """
@@ -23,6 +24,8 @@ class Furrow:
         self.velocity = velocity  # type: float
         self.events = events  # type: list
 
+        self.last_position = inf
+
         if self.events is None:
             self.events = []
 
@@ -31,6 +34,7 @@ class Furrow:
         Moves the furrow forward by the specified amount.
         :param distance: how far to move this Furrow
         """
+        self.last_position = self.position
         self.position -= distance
 
     def update(self, epithelium) -> None:
@@ -44,4 +48,4 @@ class Furrow:
 
         # run events on the cells
         for event in self.events:
-            event(self.position, epithelium)
+            event(self.last_position, self.position, epithelium)

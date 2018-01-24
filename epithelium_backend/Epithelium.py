@@ -71,9 +71,16 @@ class Epithelium(object):
                 self.cell_collision_handler.decompact()
 
     def neighboring_cells(self, cell, number_cells):
+        """
+        Return every cell within a given number of cells.
+        :param number_cells: an integer, the number of average cell radii.
+        """
         return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
 
     def go(self):
+        """
+        Start the simulation, run the furrow for 10 steps. (Just for demo).
+        """
         furrow = Furrow.Furrow(position=max(map(lambda c: c.position[0],self.cells)),
                                width=0,
                                velocity=self.cell_avg_radius*6,

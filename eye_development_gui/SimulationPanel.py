@@ -30,5 +30,5 @@ class SimulationPanel(SimulationPanelBase):
         self.m_epithelium_display.epithelium = value
 
     def start_simulation_callback(self, event):
-        print('Clicked that button!')
+        # Just for the demo.
         self.m_epithelium_display._epithelium.go()
