@@ -1,7 +1,6 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
-from math import sqrt,ceil
-import time as time
+from math import sqrt, ceil
 from epithelium_backend.Cell import Cell
 
 
