@@ -1,6 +1,7 @@
 # from epithelium_backend.Epithelium import Epithelium
 from math import inf
 
+
 class Furrow:
     """
     Simulates a morphogenetic furrow. Stores and maintains all information related to the
@@ -10,17 +11,14 @@ class Furrow:
 
     def __init__(self,
                  position: float = 0,
-                 width: float = 1,
                  velocity: float = 0,
                  events: list = None) -> None:
         """Initialize this instance of Furrow.
         :param position: The horizontal position of this Furrow.
-        :param width: The width of the furrows immediate effect.
         :param velocity: how many units the furrow moves in one 'tick'.
         :param events: Specialization events (stored as callable objects) triggered by the progression of the furrow.
         """
         self.position = position  # type: float
-        self.width = width  # type: float
         self.velocity = velocity  # type: float
         self.events = events  # type: list
 
@@ -40,7 +38,7 @@ class Furrow:
     def update(self, epithelium) -> None:
         """
         Simulates this Furrow for one tick.
-        :param cells: The cells that will be impacted by this update.
+        :param epithelium: The epithelium to be updated by this furrow.
         """
 
         # move the furrow forward
