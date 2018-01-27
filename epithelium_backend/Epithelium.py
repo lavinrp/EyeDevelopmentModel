@@ -73,6 +73,7 @@ class Epithelium(object):
     def neighboring_cells(self, cell, number_cells):
         """
         Return every cell within a given number of cells.
+        :param cell: The target cell. This cells neighbors will be returned.
         :param number_cells: an integer, the number of average cell radii.
         """
         return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
@@ -81,9 +82,8 @@ class Epithelium(object):
         """
         Start the simulation, run the furrow for 10 steps. (Just for demo).
         """
-        furrow = Furrow.Furrow(position=max(map(lambda c: c.position[0],self.cells)),
-                               width=0,
+        furrow = Furrow.Furrow(position=max(map(lambda c: c.position[0], self.cells)),
                                velocity=self.cell_avg_radius*6,
-                               events = FurrowEvent.FurrowEvents)
-        for i in range(0,10):
+                               events=FurrowEvent.FurrowEvents)
+        for i in range(0, 10):
             furrow.update(self)
