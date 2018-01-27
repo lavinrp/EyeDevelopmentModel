@@ -70,7 +70,7 @@ class Epithelium(object):
             for i in range(0,50):
                 self.cell_collision_handler.decompact()
 
-    def neighboring_cells(self, cell, number_cells):
+    def neighboring_cells(self, cell: Cell, number_cells: int):
         """
         Return every cell within a given number of cells.
         :param cell: The target cell. This cells neighbors will be returned.
