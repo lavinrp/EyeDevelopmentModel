@@ -2,7 +2,9 @@ import wx
 from wx import glcanvas
 
 from OpenGL.GL import *
+from OpenGL.arrays import vbo
 from OpenGL.GLU import *
+from numpy import array
 
 from display_2d.GlDrawingPrimitives import draw_circle
 from gl_support.ShaderGenerator import ShaderGenerator
@@ -20,14 +22,15 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
         self.__gl_initialized = False  # type: bool
+        self.vbo = None
 
         # shader
         self.shader_program = None
         self.vertexPositions = [
-            0.0, 1.0,
-            1.0, 0.0,
-            0.0, -1.0,
-            -1.0, 0.0,
+            [0.0, 1.0, 0],
+            [1.0, 0.0, 0],
+            [0.0, -1.0, 0],
+            [-1.0, 0.0, 0]
         ]
 
         # event handling
@@ -43,46 +46,39 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         (re)initializes all OpenGL settings and draws the epithelium."""
 
         if not self.__gl_initialized:
-            self._initialize_buffers()
-            shader_generator = ShaderGenerator(r"display_2d/shaders")
-            self.shader_program = shader_generator.create_program("SimplePoints.vert",
-                                                                  "SimpleColor.frag")
-            self.__gl_initialized = True
+            self._init_gl()
 
-            # context setup
-            # self.context = glcanvas.GLContext(self)
-            self.SetCurrent(self.context)
+        # self.vbo = vbo.VBO(
+        #     array(self.vertexPositions, "f")
+        # )
 
-            # gl settings
-            glClearColor(.9, .9, .9, 1)
-            glLoadIdentity()
+        self.vbo = vbo.VBO(
+            array([
+                [0, 1, 0],
+                [-1, -1, 0],
+                [1, -1, 0],
+                [2, -1, 0],
+                [4, -1, 0],
+                [4, 1, 0],
+                [2, -1, 0],
+                [4, 1, 0],
+                [2, 1, 0],
+            ], 'f')
+        )
 
-        # display epithelium BRIAN TESTING begin _draw_epithelium
-
-        # glUseProgram(self.shader_program)
-
-        """
-        Draws the epithelium stored by this widgets parent.
-        Draws the epithelium to a pre-selected GL context.
-        :return:
-        """
-
-        test = glValidateProgram(self.shader_program)
         glUseProgram(self.shader_program)
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        glEnableVertexAttribArray(0)
-        glVertexAttribPointer(0, 4, GL_FLOAT, False, 0, c_void_p(0))
 
-        glDrawArrays(GL_TRIANGLES, 0, 4)
-        # shader_attr_position = glGetAttribLocation(self.shader_program, "position")
-        # shader_attr_color = glGetAttribLocation(self.shader_program, "color")
-        glDisableVertexAttribArray(0)
-        glUseProgram(0)
+        try:
+            self.vbo.bind()
+            try:
+                glEnableClientState(GL_VERTEX_ARRAY)
+                glVertexPointerf(self.vbo)
+            finally:
+                self.vbo.unbind()
+        finally:
+            glUseProgram(0)
 
         self.SwapBuffers()
-
-        # end of _drawepithelium
-        # self._draw_epithelium()
 
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
@@ -162,20 +158,34 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # shader_attr_color = glGetAttribLocation(self.shader_program, "color")
         self.SwapBuffers()
 
+    def _init_gl(self):
+        self._initialize_buffers()
+        shader_generator = ShaderGenerator(r"display_2d/shaders")
+        self.shader_program = shader_generator.create_program("SimplePoints.vert",
+                                                              "SimpleColor.frag")
+        # context setup
+        # self.context = glcanvas.GLContext(self)
+        self.SetCurrent(self.context)
+
+        # gl settings
+        glClearColor(.9, .9, .9, 1)
+
+        self.__gl_initialized = True
+
     def _initialize_buffers(self):
 
         # context setup
         self.context = glcanvas.GLContext(self)
         self.SetCurrent(self.context)
 
-        vao = glGenVertexArrays(1)
-        glBindVertexArray(vao)
-        self.vbo = glGenBuffers(1)
-        glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
-        array_type = (GLfloat * len(self.vertexPositions))
-        glBufferData(GL_ARRAY_BUFFER,
-                     len(self.vertexPositions) * 4,
-                     array_type(*self.vertexPositions),
-                     GL_STATIC_DRAW)
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0)
-        glEnableVertexAttribArray(0)
+        # vao = glGenVertexArrays(1)
+        # glBindVertexArray(vao)
+        # self.vbo = glGenBuffers(1)
+        # glBindBuffer(GL_ARRAY_BUFFER, self.vbo)
+        # array_type = (GLfloat * len(self.vertexPositions))
+        # glBufferData(GL_ARRAY_BUFFER,
+        #              len(self.vertexPositions) * 4,
+        #              array_type(*self.vertexPositions),
+        #              GL_STATIC_DRAW)
+        # glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0)
+        # glEnableVertexAttribArray(0)
