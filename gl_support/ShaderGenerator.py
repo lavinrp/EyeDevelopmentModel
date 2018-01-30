@@ -51,7 +51,7 @@ class ShaderGenerator:
         OpenGL.GL.glEnableVertexAttribArray(0)
 
         strVertexShader = """
-        #version 120
+        #version 330
         in vec4 position;
         void main()
         {
@@ -59,7 +59,7 @@ class ShaderGenerator:
         }
         """
         strFragmentShader = """
-        #version 120
+        #version 330
         out vec4 outputColor;
         void main()
         {
