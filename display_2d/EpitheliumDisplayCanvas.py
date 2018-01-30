@@ -30,8 +30,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             -1.0, 0.0,
         ]
 
-        self._initialize_buffers()
-
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
@@ -44,19 +42,20 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         (re)initializes all OpenGL settings and draws the epithelium."""
 
-        # context setup
-        # self.context = glcanvas.GLContext(self)
-        self.SetCurrent(self.context)
-
-        # gl settings
-        glClearColor(.9, .9, .9, 1)
-        glLoadIdentity()
-
         if not self.__gl_initialized:
+            self._initialize_buffers()
             shader_generator = ShaderGenerator(r"display_2d/shaders")
             self.shader_program = shader_generator.create_program("SimplePoints.vert",
                                                                   "SimpleColor.frag")
             self.__gl_initialized = True
+
+            # context setup
+            # self.context = glcanvas.GLContext(self)
+            self.SetCurrent(self.context)
+
+            # gl settings
+            glClearColor(.9, .9, .9, 1)
+            glLoadIdentity()
 
         # display epithelium BRIAN TESTING begin _draw_epithelium
 

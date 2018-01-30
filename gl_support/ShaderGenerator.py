@@ -30,43 +30,6 @@ class ShaderGenerator:
         :return: If compilation was successful return the resulting shader. If there was an error return None.
         """
 
-        # Three vertices, with an x,y,z & w for each.
-        vertexPositions = [
-            0.0, 1.0,
-            1.0, 0.0,
-            0.0, -1.0,
-            -1.0, 0.0,
-        ]
-
-        vao = OpenGL.GL.glGenVertexArrays(1)
-        OpenGL.GL.glBindVertexArray(vao)
-        vbo = OpenGL.GL.glGenBuffers(1)
-        OpenGL.GL.glBindBuffer(OpenGL.GL.GL_ARRAY_BUFFER, vbo)
-        array_type = (OpenGL.GL.GLfloat * len(vertexPositions))
-        OpenGL.GL.glBufferData(OpenGL.GL.GL_ARRAY_BUFFER,
-                               len(vertexPositions) * 4,
-                               array_type(*vertexPositions),
-                               OpenGL.GL.GL_STATIC_DRAW)
-        OpenGL.GL.glVertexAttribPointer(0, 2, OpenGL.GL.GL_FLOAT, OpenGL.GL.GL_FALSE, 0, 0)
-        OpenGL.GL.glEnableVertexAttribArray(0)
-
-        strVertexShader = """
-        #version 330
-        in vec4 position;
-        void main()
-        {
-           gl_Position = position;
-        }
-        """
-        strFragmentShader = """
-        #version 330
-        out vec4 outputColor;
-        void main()
-        {
-           outputColor = vec4(1.0f, 1.0f, 1.0f, 1.0f);
-        }
-        """
-
         # TODO: add support for all shader types
 
         # vertex shader
@@ -79,18 +42,20 @@ class ShaderGenerator:
         with open(fragment_shader_path, "r") as fragment_shader_file:
             fragment_shader_string = str.encode(fragment_shader_file.read())
 
-        # # compile program
-        # program = OpenGL.GL.shaders.compileProgram(
-        #     OpenGL.GL.shaders.compileShader(vertex_shader_string, GL_VERTEX_SHADER),
-        #     OpenGL.GL.shaders.compileShader(fragment_shader_string, GL_FRAGMENT_SHADER)
-        # )
-        vertex_shader = OpenGL.GL.shaders.compileShader(strVertexShader, GL_VERTEX_SHADER)
+        # compile program
+        program = OpenGL.GL.shaders.compileProgram(
+            OpenGL.GL.shaders.compileShader(vertex_shader_string, GL_VERTEX_SHADER),
+            OpenGL.GL.shaders.compileShader(fragment_shader_string, GL_FRAGMENT_SHADER)
+        )
+
+        """
+        vertex_shader = OpenGL.GL.shaders.compileShader(vertex_shader_string, GL_VERTEX_SHADER)
         vert_compiled = OpenGL.GL.glGetShaderiv(vertex_shader, OpenGL.GL.GL_COMPILE_STATUS)
         if not vert_compiled:
             print("vertex compile error")
             raise RuntimeError(OpenGL.GL.glGetShaderInfoLog(vertex_shader))
 
-        fragment_shader = OpenGL.GL.shaders.compileShader(strFragmentShader, GL_FRAGMENT_SHADER)
+        fragment_shader = OpenGL.GL.shaders.compileShader(fragment_shader_string, GL_FRAGMENT_SHADER)
         frag_compiled = OpenGL.GL.glGetShaderiv(fragment_shader, OpenGL.GL.GL_COMPILE_STATUS)
         if not frag_compiled:
             print("fragment compile error")
@@ -108,11 +73,9 @@ class ShaderGenerator:
         if program_linked_message:
             print("program link message: " + program_linked_message)
 
-
+        """
 
         # return program
         if check_gl_error():
             return None
         return program
-
-        return True  # not error_found
