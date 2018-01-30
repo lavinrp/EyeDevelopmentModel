@@ -1,12 +1,8 @@
-
-
 import random
 from math import sqrt
 
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
-from display_2d.SnapshotDisplay import SnapshotDisplay
-import epithelium_backend.SpringDemo as SpringDemo
 
 
 class Epithelium(object):
