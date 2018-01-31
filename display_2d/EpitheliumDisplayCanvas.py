@@ -131,21 +131,18 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetCurrent(self.wx_context)
         self.context = ModernGL.create_context()
 
-        vert = self.context.vertex_shader('''
-            #version 330
-            in vec2 vert;
-            void main() {
-                gl_Position = vec4(vert, 0.0, 1.0);
-            }
-        ''')
+        # get shader code
+        vertex_shader_path = r"display_2d/shaders/SimplePoints.vert"
+        with open(vertex_shader_path, "r") as vertex_shader_file:
+            vertex_shader_string = str(vertex_shader_file.read())
 
-        frag = self.context.fragment_shader('''
-            #version 330
-            out vec4 color;
-            void main() {
-                color = vec4(0.30, 0.50, 1.00, 1.0);
-            }
-        ''')
+        # fragment shader
+        fragment_shader_path = r"display_2d/shaders/SimpleColor.frag"
+        with open(fragment_shader_path, "r") as fragment_shader_file:
+            fragment_shader_string = str(fragment_shader_file.read())
+
+        vert = self.context.vertex_shader(vertex_shader_string)
+        frag = self.context.fragment_shader(fragment_shader_string)
 
         program = self.context.program([vert, frag])
 
