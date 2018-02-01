@@ -19,12 +19,11 @@ class EpitheliumGlTranslator:
         # gather the positions of each cell
         positions_list = []
         for cell in self.epithelium.cells:
-            # The list will have the format [x1, y1, z1, x2, y2, z2...]
-            for i in range(3):
-                positions_list.append(cell.position[i])
-
+            # The list will have the format [x1, y1, z1, x2, y2, z2...] but no z for now
+            positions_list.append(cell.position_x)
+            positions_list.append(cell.position_y)
         # convert to numpy array and return
-        return numpy.array(positions_list, dtype=numpy.float32)
+        return numpy.array(positions_list, dtype=numpy.float16)
 
     def get_line_loop_points(self, segments):
         cell_list_points = [self.epithelium.cell_quantity * segments]

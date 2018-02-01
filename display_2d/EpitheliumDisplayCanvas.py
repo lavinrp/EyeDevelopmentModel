@@ -3,15 +3,15 @@
 import wx
 from wx import glcanvas
 import ModernGL
-
+import numpy
 import struct
-
+from gl_support import EpitheliumGlTranslator
 from numpy import array
 
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
-    def __init__(self, parent: wx.Panel):
+    def __init__(self, parent: wx.Panel, epithelium):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
 
         # GL
@@ -23,14 +23,10 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__gl_initialized = False  # type: bool
         self.vao = None
 
-        # shader
-        self.shader_program = None
-        self.vertexPositions = [
-            [0.0, 1.0, 0],
-            [1.0, 0.0, 0],
-            [0.0, -1.0, 0],
-            [-1.0, 0.0, 0]
-        ]
+        self.epithelium = epithelium
+        self.epithelium_translator = EpitheliumGlTranslator.EpitheliumGlTranslator(self.epithelium)
+        self.epithelium_cell_positions = self.epithelium_translator.get_cell_centers()
+        print(self.epithelium_cell_positions)
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -49,7 +45,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.SetCurrent(self.wx_context)
         self.context.clear(0.9, 0.9, 0.9)
-        self.vao.render()
+        self.vao.render(mode=ModernGL.POINTS)
         self.SwapBuffers()
 
     def on_size(self, e: wx.SizeEvent):
@@ -136,17 +132,26 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         with open(vertex_shader_path, "r") as vertex_shader_file:
             vertex_shader_string = str(vertex_shader_file.read())
 
+        # geometry shader
+        geometry_shader_path = r"display_2d/shaders/CircleGenerator.geom"
+        with open(geometry_shader_path, "r") as geometry_shader_file:
+            geometry_shader_string = str(geometry_shader_file.read())
+
         # fragment shader
         fragment_shader_path = r"display_2d/shaders/SimpleColor.frag"
         with open(fragment_shader_path, "r") as fragment_shader_file:
             fragment_shader_string = str(fragment_shader_file.read())
 
         vert = self.context.vertex_shader(vertex_shader_string)
+        geom = self.context.geometry_shader(geometry_shader_string)
         frag = self.context.fragment_shader(fragment_shader_string)
 
-        program = self.context.program([vert, frag])
+        program = self.context.program([vert, geom, frag])
 
-        vbo = self.context.buffer(struct.pack('6f', 0.0, 0.8, -0.6, -0.8, 0.6, -0.8))
+        numpy.array((0.0, 0.1, 0.2, -0.4))
+
+        # vbo = self.context.buffer(struct.pack('4f', 0.0, 0.1, 0.5, -0.4))
+        vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
         self.vao = self.context.simple_vertex_array(program, vbo, ['vert'])
 
         self.__gl_initialized = True

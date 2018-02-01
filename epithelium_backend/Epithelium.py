@@ -10,7 +10,7 @@ class Epithelium(object):
 
     def __init__(self, cell_quantity,
                  cell_radius_divergence: float = .5,
-                 cell_avg_radius: float = 4) -> None:
+                 cell_avg_radius: float = 1) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
@@ -61,5 +61,5 @@ class Epithelium(object):
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
-            for i in range(0,50):
+            for i in range(0, 50):
                 self.cell_collision_handler.decompact()
