@@ -1,8 +1,14 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
-from math import sqrt,ceil
+from math import sqrt,ceil,inf
 import time as time
 from epithelium_backend.Cell import Cell
+
+
+def distance(p1, p2):
+    (x1,y1,z1) = p1
+    (x2,y2,z2) = p2
+    return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
 
 class CellCollisionHandler(object):
@@ -68,8 +74,8 @@ class CellCollisionHandler(object):
         # the space.
         self.cell_quantity = len(cells)
         self.avg_radius = sum(map(lambda x : x.radius, cells))/len(cells)
-        self.center_x = sum(map(lambda x : x.position[0], cells))/len(cells)
-        self.center_y = sum(map(lambda x : x.position[1], cells))/len(cells)
+        self.center_x = sum(map(lambda x : x.position_x, cells))/len(cells)
+        self.center_y = sum(map(lambda x : x.position_y, cells))/len(cells)
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
         self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
@@ -87,33 +93,31 @@ class CellCollisionHandler(object):
 
         self.fill_grid()
 
+    def compute_row(self, y):
+        return int(self.dimension/2 + (y-self.center_y)/self.box_size)
+
+    def compute_col(self, x):
+        return int(self.dimension/2 + (x-self.center_x)/self.box_size)
+
     def bin(self, cell: Cell):
         """Compute the row and column of the cell given its position. """
-        (x,y,_) = cell.position
         # Cells at the center should be in the middle of our space.
         # So, we compute the distance of the cell from the center
-        # (x-self.center_x)
+        # (cell.position_x-self.center_x)
         # find out how many boxes the distance corresponds to
         # (divide by self.box_size)
         # and use that to figure out how many steps left or right
         # to go from the middle
         # (add to self.dimension/2)
-        col = int(self.dimension/2 + (x-self.center_x)/self.box_size)
-        row = int(self.dimension/2 + (y-self.center_y)/self.box_size)
+        col = self.compute_col(cell.position_x)
+        row = self.compute_row(cell.position_y)
         # Map the row,col to an index in our one dimensional grid vector.
         return self.dimension*row + col
 
     def register(self, cell: Cell):
         """Add the cell to the collision handler."""
-        (x,y,_) = cell.position
-        # Adding these fields here is a bit hacky.
-        # Bypassing the position tuple and using direct fields
-        # decreases the amount of memory accesses and allocations
-        # and basically doubles the speed.
-        cell.x = x
-        cell.y = y
-        cell.next_x = x
-        cell.next_y = y
+        cell.next_x = cell.position_x
+        cell.next_y = cell.position_y
         cell.bin = self.bin(cell)
         self.grids[cell.bin].append(cell)
         self.non_empty.add(cell.bin)
@@ -134,11 +138,8 @@ class CellCollisionHandler(object):
         # pushed apart and stopped colliding, we'd like them to stop
         # moving, not to continue to move apart with high velocities.
 
-        # Using three numbers instead of a tuple doubles the speed
-        # because it avoids a lot of needless memory allocations
-        # and garbage collection.
-        cxnx = cell1.x - cell2.x
-        cyny = cell1.y - cell2.y
+        cxnx = cell1.position_x - cell2.position_x
+        cyny = cell1.position_y - cell2.position_y
         dist = sqrt(cxnx*cxnx + cyny*cyny)
         # Use Hooke's Law. Cells exert pushing forces on each
         # other when they're colliding and pulling forces when
@@ -189,17 +190,56 @@ class CellCollisionHandler(object):
 
             for cell1 in box:
                 for j in [right, down_left, down, down_right]:
-                    if j < len_grids:
+                    if 0 < j < len_grids:
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
 
         for cell in self.cells:
             cell.x = cell.next_x
             cell.y = cell.next_y
-            cell.position = (cell.next_x, cell.next_y, 0)
+            cell.position_x = cell.next_x
+            cell.position_y = cell.next_y
             g = self.bin(cell)
             if g != cell.bin:
                 grids[cell.bin].remove(cell)
                 grids[g].append(cell)
                 cell.bin = g
                 self.non_empty.add(g)
+
+    def cells_within_distance(self, cell, r):
+        box_number = ceil(r/self.box_size)
+        cells = []
+        for row in range(-box_number, box_number+1):
+            for col in range(-box_number, box_number+1):
+                grid = cell.bin + self.dimension*row + col
+                if 0 < grid < len(self.grids):
+                    cells.extend(self.grids[grid])
+        return filter(lambda n: distance((cell.position_x, cell.position_y, cell.position_z),
+                                         (n.position_x, n.position_y, n.position_z)) <= r, cells)
+
+    def posterior_to_anterior(self):
+        for col in range(0, self.dimension):
+            for row in range(0, self.dimension):
+                for cell in self.grids[self.dimension*row+col]:
+                    yield cell
+
+    def cells_between(self, min_x, max_x):
+        """
+        Return the list of cells between min_x and max_x, sorted from
+        posterior to anterior order.
+        """
+        max_col = min(self.dimension-1, self.compute_col(max_x))
+        min_col = max(0, self.compute_col(min_x))
+        result = []
+        for col in range(min_col, max_col+1):
+            for row in range(0,self.dimension):
+                for cell in self.grids[self.dimension*row+col]:
+                    # The boxes are only an approxiation -- we don't
+                    # know for sure that the cell is actually within
+                    # the range.
+                    if min_x < cell.position_x < max_x:
+                        result.append(cell)
+        # todo: just walk backwards, from max_col to min_col
+        # sort posterior to anterior
+        result.sort(key=lambda c: -c.position_x)
+        return result
