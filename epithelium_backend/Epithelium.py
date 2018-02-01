@@ -3,6 +3,8 @@ from math import sqrt
 
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
+from epithelium_backend import Furrow
+from epithelium_backend.FurrowEventList import furrow_event_list
 
 
 class Epithelium(object):
@@ -21,6 +23,7 @@ class Epithelium(object):
         self.cell_quantity = cell_quantity
         self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = cell_avg_radius
+        self.cell_collision_handler = None
 
         self.create_cell_sheet()
 
@@ -63,3 +66,21 @@ class Epithelium(object):
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
             for i in range(0,50):
                 self.cell_collision_handler.decompact()
+
+    def neighboring_cells(self, cell: Cell, number_cells: int):
+        """
+        Return every cell within a given number of cells.
+        :param cell: The target cell. This cells neighbors will be returned.
+        :param number_cells: an integer, the number of average cell radii.
+        """
+        return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
+
+    def go(self):
+        """
+        Start the simulation, run the furrow for 10 steps. (Just for demo).
+        """
+        furrow = Furrow.Furrow(position=max(map(lambda c: c.position_x, self.cells)),
+                               velocity=self.cell_avg_radius*6,
+                               events=furrow_event_list)
+        for i in range(0, 10):
+            furrow.update(self)
