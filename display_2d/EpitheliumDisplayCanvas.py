@@ -7,6 +7,7 @@ import numpy
 import struct
 from gl_support import EpitheliumGlTranslator
 from numpy import array
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
@@ -155,3 +156,4 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.vao = self.context.simple_vertex_array(program, vbo, ['vert'])
 
         self.__gl_initialized = True
+

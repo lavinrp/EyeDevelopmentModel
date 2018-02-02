@@ -23,8 +23,9 @@ class Cell(object):
         self.position_y = position[1]  # type: float
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
-        self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
-        self.support_specializations = support_specializations  # type: set
+        self.photoreceptor_type = None
+        # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
+        # self.support_specializations = support_specializations  # type: set
 
     def passive_growth(self):
         """

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Dec 21 2016)
+## Python code generated with wxFormBuilder (version Jan 24 2018)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO "NOT" EDIT THIS FILE!
+## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
@@ -49,8 +49,16 @@ class SimulationPanelBase ( wx.Panel ):
 		
 		self.SetSizer( main_fg_sizer )
 		self.Layout()
+		
+		# Connect Events
+		self.m_button4.Bind( wx.EVT_BUTTON, self.start_simulation_callback )
 	
 	def __del__( self ):
 		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def start_simulation_callback( self, event ):
+		event.Skip()
 	
 
