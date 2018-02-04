@@ -52,7 +52,10 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
         Flags on_paint to fix aspect ratio"""
-        self.SetSize(self.GetParent().GetSize())
+        size = self.GetParent().GetSize()
+        self.SetSize(size)
+        if self.context:
+            self.context.viewport = (0, 0, size.width, size.height)
         e.Skip()
 
     def on_mouse_events(self, event: wx.MouseEvent):
