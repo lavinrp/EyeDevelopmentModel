@@ -5,6 +5,8 @@
 layout(points) in;
 layout(line_strip, max_vertices = MAX_VERTICES) out;
 
+uniform mat4 projection;
+
 const float PI = 3.1415926;
 
 void main()
@@ -18,8 +20,8 @@ void main()
         float aspect_ratio_offset_y = 1;
 
         // place points around center
-        vec4 offset = vec4(cos(ang) * aspect_ratio_offset_x, -sin(ang) * aspect_ratio_offset_y, 0.0, 0.0);
-        gl_Position = gl_in[0].gl_Position + offset;
+        vec4 offset = vec4(cos(ang) * aspect_ratio_offset_x, -sin(ang) * aspect_ratio_offset_y, 0.0, 1.0);
+        gl_Position = projection * (gl_in[0].gl_Position + offset);
 
         EmitVertex();
     }

@@ -3,8 +3,8 @@
 import wx
 from wx import glcanvas
 import ModernGL
+from pyrr import matrix44
 import numpy
-import struct
 from gl_support import EpitheliumGlTranslator
 from numpy import array
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
@@ -18,6 +18,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # GL
         self.wx_context = None # type:  glcanvas.GLContext
         self.context = None  # type: ModernGL.Context
+        self.__program = None  # type: ModernGL.Program
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
@@ -150,13 +151,21 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         geom = self.context.geometry_shader(geometry_shader_string)
         frag = self.context.fragment_shader(fragment_shader_string)
 
-        program = self.context.program([vert, geom, frag])
+        self.__program = self.context.program([vert, geom, frag])
 
         numpy.array((0.0, 0.1, 0.2, -0.4))
 
-        # vbo = self.context.buffer(struct.pack('4f', 0.0, 0.1, 0.5, -0.4))
         vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
-        self.vao = self.context.simple_vertex_array(program, vbo, ['vert'])
+        self.vao = self.context.simple_vertex_array(self.__program, vbo, ['vert'])
+
+        projection = matrix44.create_perspective_projection_from_bounds(0,
+                                                                        self.GetSize().width,
+                                                                        0,
+                                                                        self.GetSize().height,
+                                                                        0,
+                                                                        1)
+        self.__program.uniforms["projection"].value = tuple(projection.flatten())
+
 
         self.__gl_initialized = True
 
