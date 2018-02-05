@@ -4,6 +4,7 @@ import wx
 from wx import glcanvas
 import ModernGL
 from pyrr import matrix44
+from pyrr import vector3
 import numpy
 from gl_support import EpitheliumGlTranslator
 from numpy import array
@@ -28,7 +29,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.epithelium = epithelium
         self.epithelium_translator = EpitheliumGlTranslator.EpitheliumGlTranslator(self.epithelium)
         self.epithelium_cell_positions = self.epithelium_translator.get_cell_centers()
-        print(self.epithelium_cell_positions)
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -57,6 +57,17 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetSize(size)
         if self.context:
             self.context.viewport = (0, 0, size.width, size.height)
+
+        if self.__program:
+            projection = matrix44.create_perspective_projection_from_bounds(0,
+                                                                            self.GetSize().width,
+                                                                            0,
+                                                                            self.GetSize().height,
+                                                                            0,
+                                                                            1)
+
+            #self.__program.uniforms["projection"].value = tuple(projection.flatten())
+
         e.Skip()
 
     def on_mouse_events(self, event: wx.MouseEvent):
@@ -100,10 +111,17 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         :param delta_y: change in the y of the camera
         """
 
-        distance_modifier = 0.01  # type: float
+        distance_modifier = 1.01  # type: float
 
         self.__camera_x += delta_x * distance_modifier
         self.__camera_y += delta_y * distance_modifier
+
+        translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
+        scale = matrix44.create_from_scale((1, 1, 1))  # type: numpy.ndarray
+        model = translate * scale  # type: numpy.ndarray
+        self.__program.uniforms["model"].value = tuple(model.flatten())
+        print(self.__camera_x, self.__camera_y)
+
         self.on_paint(None)
 
     def _set_scale(self, relative_scale: float) -> None:
@@ -153,8 +171,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.__program = self.context.program([vert, geom, frag])
 
-        numpy.array((0.0, 0.1, 0.2, -0.4))
-
         vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
         self.vao = self.context.simple_vertex_array(self.__program, vbo, ['vert'])
 
@@ -164,7 +180,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                         self.GetSize().height,
                                                                         0,
                                                                         1)
-        self.__program.uniforms["projection"].value = tuple(projection.flatten())
+        #self.__program.uniforms["projection"].value = tuple(projection.flatten())
+
+        translate = matrix44.create_from_translation((0, 0, 0))  # type: numpy.ndarray
+        scale = matrix44.create_from_scale((2, 2, 2))  # type: numpy.ndarray
+        model = translate * scale  # type: numpy.ndarray
+        self.__program.uniforms["model"].value = tuple(model.flatten())
+
 
 
         self.__gl_initialized = True
