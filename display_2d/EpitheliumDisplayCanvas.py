@@ -23,6 +23,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
+        self.__scale_matrix = matrix44.create_from_scale((self.__scale, self.__scale, self.__scale)) # type: numpy.ndarray
+        self.__translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
         self.__gl_initialized = False  # type: bool
         self.vao = None
 
@@ -47,6 +49,10 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.SetCurrent(self.wx_context)
         self.context.clear(0.9, 0.9, 0.9)
+
+        model = matrix44.multiply(self.__translate, self.__scale_matrix)  # type: numpy.ndarray
+        self.__program.uniforms["model"].value = tuple(model.flatten())
+
         self.vao.render(mode=ModernGL.POINTS)
         self.SwapBuffers()
 
@@ -98,9 +104,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
         if wheel_rotation > 0:
-            self._set_scale(1.1)
+            self._set_scale(0.1)
         elif wheel_rotation < 0:
-            self._set_scale(0.9)
+            self._set_scale(-0.1)
 
         # update mouse position
         self.__last_mouse_position = current_mouse_position
@@ -113,28 +119,21 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         distance_modifier = 1.01  # type: float
 
-        self.__camera_x += delta_x / 20 * distance_modifier
-        self.__camera_y += delta_y / 20 * distance_modifier
+        self.__camera_x -= delta_x / 20 * distance_modifier
+        self.__camera_y -= delta_y / 20 * distance_modifier
 
-        translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
-        scale = matrix44.create_from_scale((1, 1, 1))  # type: numpy.ndarray
-        model = matrix44.multiply(translate, scale)  # type: numpy.ndarray
-        print(model)
-        print(translate)
-        self.__program.uniforms["model"].value = tuple(model.flatten())
-        print(self.__camera_x, self.__camera_y)
-        print(self.__program.uniforms["model"].value)
+        self.__translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
         self.on_paint(None)
 
-    def _set_scale(self, relative_scale: float) -> None:
+    def _set_scale(self, scale_delta: float) -> None:
         """
         Scales the displayed epithelium.
-        :param relative_scale: The new scale to display the epithelium
-        relative to the current scale. Example: 1.1 will produce a zooming effect
-        resulting in a 10% greater scale
+        :param scale_delta: The change in scale for display.
+        Example: 1.1 with an original scale of 2.0 will produce a new scale of 2.2.
         :return:
         """
-        self.__scale *= relative_scale
+        self.__scale += scale_delta
+        self.__scale_matrix = matrix44.create_from_scale((self.__scale, self.__scale, self.__scale)) # type: numpy.ndarray
         self.on_paint(None)
 
     def _draw_epithelium(self) -> None:
