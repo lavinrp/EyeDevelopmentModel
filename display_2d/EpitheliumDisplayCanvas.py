@@ -113,15 +113,17 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         distance_modifier = 1.01  # type: float
 
-        self.__camera_x += delta_x * distance_modifier
-        self.__camera_y += delta_y * distance_modifier
+        self.__camera_x += delta_x / 20 * distance_modifier
+        self.__camera_y += delta_y / 20 * distance_modifier
 
         translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
         scale = matrix44.create_from_scale((1, 1, 1))  # type: numpy.ndarray
-        model = translate * scale  # type: numpy.ndarray
+        model = matrix44.multiply(translate, scale)  # type: numpy.ndarray
+        print(model)
+        print(translate)
         self.__program.uniforms["model"].value = tuple(model.flatten())
         print(self.__camera_x, self.__camera_y)
-
+        print(self.__program.uniforms["model"].value)
         self.on_paint(None)
 
     def _set_scale(self, relative_scale: float) -> None:
