@@ -20,7 +20,7 @@ class EpitheliumDisplayPanel(wx.Panel):
         self._epithelium = Epithelium(10)  # type: Epithelium
 
         # create gl canvas
-        self.gl_canvas = EpitheliumDisplayCanvas(self, self._epithelium)  # type: glcanvas
+        self.gl_canvas = EpitheliumDisplayCanvas(self)  # type: glcanvas
 
     @ property
     def epithelium(self):

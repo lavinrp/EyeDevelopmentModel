@@ -13,7 +13,7 @@ from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
-    def __init__(self, parent: wx.Panel, epithelium):
+    def __init__(self, parent: wx.Panel):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
 
         # GL
@@ -26,9 +26,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__scale_matrix = matrix44.create_from_scale((self.__scale, self.__scale, self.__scale)) # type: numpy.ndarray
         self.__translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
         self.__gl_initialized = False  # type: bool
-        self.vao = None
+        self.vao = None  # type: ModernGL.VertexArray
+        self.vbo = None  # type: ModernGL.Buffer
 
-        self.epithelium = epithelium
         self.epithelium_translator = EpitheliumGlTranslator.EpitheliumGlTranslator(self.epithelium)
         self.epithelium_cell_positions = self.epithelium_translator.get_cell_centers()
 
@@ -176,8 +176,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.__program = self.context.program([vert, geom, frag])
 
-        vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
-        self.vao = self.context.simple_vertex_array(self.__program, vbo, ['vert'])
+        self.vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
+        self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
 
         projection = matrix44.create_perspective_projection_from_bounds(0,
                                                                         self.GetSize().width,
@@ -192,7 +192,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         model = translate * scale  # type: numpy.ndarray
         self.__program.uniforms["model"].value = tuple(model.flatten())
 
-
-
         self.__gl_initialized = True
 
+    @property
+    def epithelium(self):
+        return self.GetParent().epithelium
