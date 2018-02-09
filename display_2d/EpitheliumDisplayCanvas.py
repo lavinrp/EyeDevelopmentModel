@@ -104,9 +104,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
         if wheel_rotation > 0:
-            self._set_scale(0.1)
+            self._set_scale(1.1)
         elif wheel_rotation < 0:
-            self._set_scale(-0.1)
+            self._set_scale(0.9)
 
         # update mouse position
         self.__last_mouse_position = current_mouse_position
@@ -117,23 +117,27 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         :param delta_y: change in the y of the camera
         """
 
-        distance_modifier = 1.01  # type: float
+        distance_modifier = 0.2  # type: float
 
-        self.__camera_x -= delta_x / 20 * distance_modifier
-        self.__camera_y -= delta_y / 20 * distance_modifier
+        self.__camera_x -= delta_x * distance_modifier
+        self.__camera_y -= delta_y * distance_modifier
 
-        self.__translate = matrix44.create_from_translation((self.__camera_x, self.__camera_y, 0))  # type: numpy.ndarray
+        self.__translate = matrix44.create_from_translation((self.__camera_x,
+                                                             self.__camera_y,
+                                                             0))  # type: numpy.ndarray
         self.on_paint(None)
 
-    def _set_scale(self, scale_delta: float) -> None:
+    def _set_scale(self, relative_scale: float) -> None:
         """
         Scales the displayed epithelium.
-        :param scale_delta: The change in scale for display.
+        :param relative_scale: The scale of the new display represented as a fraction of the previous scale
         Example: 1.1 with an original scale of 2.0 will produce a new scale of 2.2.
         :return:
         """
-        self.__scale += scale_delta
-        self.__scale_matrix = matrix44.create_from_scale((self.__scale, self.__scale, self.__scale)) # type: numpy.ndarray
+        self.__scale *= relative_scale
+        self.__scale_matrix = matrix44.create_from_scale((self.__scale,
+                                                          self.__scale,
+                                                          self.__scale))  # type: numpy.ndarray
         self.on_paint(None)
 
     def _draw_epithelium(self) -> None:
