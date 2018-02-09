@@ -3,6 +3,20 @@ import numpy
 import math
 
 
+def get_cell_centers(epithelium: Epithelium) -> numpy.ndarray:
+    """Returns a numpy array containing the center position of each cell
+    :param epithelium: The epithelium to format for OpenGL
+    """
+    # gather the positions of each cell
+    positions_list = []
+    for cell in epithelium.cells:
+        # The list will have the format [x1, y1, z1, x2, y2, z2...] but no z for now
+        positions_list.append(cell.position_x)
+        positions_list.append(cell.position_y)
+    # convert to numpy array and return
+    return numpy.array(positions_list, dtype=numpy.float16)
+
+
 class EpitheliumGlTranslator:
     """Translates the epithelium into data that can be displayed via OpenGL"""
 
@@ -12,18 +26,6 @@ class EpitheliumGlTranslator:
         :param epithelium: The epithelium to be translated. Defaults to None.
         """
         self.epithelium = epithelium  # type: Epithelium
-
-    def get_cell_centers(self) -> numpy.ndarray:
-        """Returns a numpy array containing the center position of each cell"""
-
-        # gather the positions of each cell
-        positions_list = []
-        for cell in self.epithelium.cells:
-            # The list will have the format [x1, y1, z1, x2, y2, z2...] but no z for now
-            positions_list.append(cell.position_x)
-            positions_list.append(cell.position_y)
-        # convert to numpy array and return
-        return numpy.array(positions_list, dtype=numpy.float16)
 
     def get_line_loop_points(self, segments):
         cell_list_points = [self.epithelium.cell_quantity * segments]

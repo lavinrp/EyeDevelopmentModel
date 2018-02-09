@@ -4,9 +4,8 @@ import wx
 from wx import glcanvas
 import ModernGL
 from pyrr import matrix44
-from pyrr import vector3
 import numpy
-from gl_support import EpitheliumGlTranslator
+from gl_support.EpitheliumGlTranslator import get_cell_centers
 from numpy import array
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
@@ -29,9 +28,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.vao = None  # type: ModernGL.VertexArray
         self.vbo = None  # type: ModernGL.Buffer
 
-        self.epithelium_translator = EpitheliumGlTranslator.EpitheliumGlTranslator(self.epithelium)
-        self.epithelium_cell_positions = self.epithelium_translator.get_cell_centers()
-
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
@@ -50,8 +46,12 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetCurrent(self.wx_context)
         self.context.clear(0.9, 0.9, 0.9)
 
+        # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate, self.__scale_matrix)  # type: numpy.ndarray
         self.__program.uniforms["model"].value = tuple(model.flatten())
+
+        # update cell position
+        self.vbo.write(get_cell_centers(self.epithelium).astype('f4').tobytes())
 
         self.vao.render(mode=ModernGL.POINTS)
         self.SwapBuffers()
@@ -176,7 +176,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.__program = self.context.program([vert, geom, frag])
 
-        self.vbo = self.context.buffer(self.epithelium_cell_positions.astype('f4').tobytes())
+        self.vbo = self.context.buffer(get_cell_centers(self.epithelium).astype('f4').tobytes(), dynamic=True)
         self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
 
         projection = matrix44.create_perspective_projection_from_bounds(0,
