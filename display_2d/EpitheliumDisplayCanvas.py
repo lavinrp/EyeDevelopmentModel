@@ -6,7 +6,6 @@ import ModernGL
 from pyrr import matrix44
 import numpy
 from gl_support.EpitheliumGlTranslator import get_cell_centers
-from numpy import array
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
@@ -16,7 +15,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
 
         # GL
-        self.wx_context = None # type:  glcanvas.GLContext
+        self.wx_context = None  # type:  glcanvas.GLContext
         self.context = None  # type: ModernGL.Context
         self.__program = None  # type: ModernGL.Program
         self.__camera_x = 0  # type: float
@@ -25,9 +24,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
                                                           self.__scale))  # type: numpy.ndarray
-        self.__translate = matrix44.create_from_translation((self.__camera_x,
-                                                             self.__camera_y,
-                                                             0))  # type: numpy.ndarray
+        self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
+                                                                    self.__camera_y,
+                                                                    0))  # type: numpy.ndarray
         self.__gl_initialized = False  # type: bool
         self.vao = None  # type: ModernGL.VertexArray
         self.vbo = None  # type: ModernGL.Buffer
@@ -53,29 +52,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetCurrent(self.wx_context)
         self.context.clear(0.9, 0.9, 0.9)
 
-        # update cell position
-        cell_centers = get_cell_centers(self.epithelium)  # type: numpy.ndarray
-        cell_count = len(cell_centers)  # type: int
-        if cell_count <= self._gl_reserved_cell_count:
-            self.vbo.orphan()
-            if cell_count < self._gl_reserved_cell_count:
-                # clear the vbo so that previously drawn cells don't remain on screen
-                self.vbo.clear()
-            self.vbo.write(cell_centers.astype('f4').tobytes())
-        else:
-            # create new vao and vbo to store larger data size
-            # TODO: find a way to increase the size of the vbo without creating a new vao
-            # This is probably suboptimal performance wise (especially since we will be frequently)
-            self.vbo = self.context.buffer(get_cell_centers(self.epithelium).astype('f4').tobytes(), dynamic=True)
-            self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
-            self._gl_reserved_cell_count = len(cell_centers)
-
-        # update the model (zoom / pan)
-        model = matrix44.multiply(self.__translate, self.__scale_matrix)  # type: numpy.ndarray
-        self.__program.uniforms["model"].value = tuple(model.flatten())
-
-        self.vao.render(mode=ModernGL.POINTS)
-        self.SwapBuffers()
+        self._draw_epithelium()
 
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
@@ -143,9 +120,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_x -= delta_x * distance_modifier
         self.__camera_y -= delta_y * distance_modifier
 
-        self.__translate = matrix44.create_from_translation((self.__camera_x,
-                                                             self.__camera_y,
-                                                             0))  # type: numpy.ndarray
+        self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
+                                                                    self.__camera_y,
+                                                                    0))  # type: numpy.ndarray
         self.on_paint(None)
 
     def set_scale(self, relative_scale: float) -> None:
@@ -164,13 +141,49 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     def _draw_epithelium(self) -> None:
         """
         Draws the epithelium stored by this widgets parent.
-        Draws the epithelium to a pre-selected GL context.
+        Draws the epithelium to a pre-selected, pre-cleared, GL context.
         :return:
         """
 
+        # update cell position
+        cell_centers = get_cell_centers(self.epithelium)  # type: numpy.ndarray
+        cell_count = len(cell_centers)  # type: int
+        if cell_count <= self._gl_reserved_cell_count:
+            self.vbo.orphan()
+            if cell_count < self._gl_reserved_cell_count:
+                # clear the vbo so that previously drawn cells don't remain on screen
+                self.vbo.clear()
+            self.vbo.write(cell_centers.astype('f4').tobytes())
+        else:
+            # create new vao and vbo to store larger data size
+            # TODO: find a way to increase the size of the vbo without creating a new vao
+            # This is probably suboptimal performance wise (especially since we will be frequently)
+            self.vbo = self.context.buffer(get_cell_centers(self.epithelium).astype('f4').tobytes(), dynamic=True)
+            self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
+            self._gl_reserved_cell_count = len(cell_centers)
+
+        # update the model (zoom / pan)
+        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+        self.__program.uniforms["model"].value = tuple(model.flatten())
+
+        projection = matrix44.create_perspective_projection_from_bounds(0,
+                                                                        self.GetSize().width,
+                                                                        0,
+                                                                        self.GetSize().height,
+                                                                        0,
+                                                                        1)
+        # self.__program.uniforms["projection"].value = tuple(projection.flatten())
+
+        self.vao.render(mode=ModernGL.POINTS)
+
         self.SwapBuffers()
 
-    def _init_gl(self):
+    def _init_gl(self) -> None:
+        """
+        Initializes all internal OpenGL elements (Shader Program, gl context, etc...).
+        Sets __gl_initialized to true.
+        """
+
         # context setup
         self.wx_context = glcanvas.GLContext(self)
         self.SetCurrent(self.wx_context)
@@ -199,19 +212,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.vbo = self.context.buffer(dynamic=True, reserve=self._gl_reserved_cell_count)
         self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
-
-        projection = matrix44.create_perspective_projection_from_bounds(0,
-                                                                        self.GetSize().width,
-                                                                        0,
-                                                                        self.GetSize().height,
-                                                                        0,
-                                                                        1)
-        #self.__program.uniforms["projection"].value = tuple(projection.flatten())
-
-        translate = matrix44.create_from_translation((0, 0, 0))  # type: numpy.ndarray
-        scale = matrix44.create_from_scale((2, 2, 2))  # type: numpy.ndarray
-        model = translate * scale  # type: numpy.ndarray
-        self.__program.uniforms["model"].value = tuple(model.flatten())
 
         self.__gl_initialized = True
 
