@@ -28,10 +28,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__translate = matrix44.create_from_translation((self.__camera_x,
                                                              self.__camera_y,
                                                              0))  # type: numpy.ndarray
-        self._last_epithelium_size = 0  # type: int
         self.__gl_initialized = False  # type: bool
         self.vao = None  # type: ModernGL.VertexArray
         self.vbo = None  # type: ModernGL.Buffer
+        # used for optimizing vbo and vao creation
+        self._last_epithelium_size = 0  # type: int
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -48,6 +49,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         if not self.__gl_initialized:
             self._init_gl()
 
+        # prepare context for rendering
         self.SetCurrent(self.wx_context)
         self.context.clear(0.9, 0.9, 0.9)
 
@@ -117,20 +119,20 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
             # panning
             if self.__panning:
-                self._pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
-                                 -(self.__last_mouse_position[1] - current_mouse_position[1]))
+                self.pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
+                                -(self.__last_mouse_position[1] - current_mouse_position[1]))
 
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
         if wheel_rotation > 0:
-            self._set_scale(1.1)
+            self.set_scale(1.1)
         elif wheel_rotation < 0:
-            self._set_scale(0.9)
+            self.set_scale(0.9)
 
         # update mouse position
         self.__last_mouse_position = current_mouse_position
 
-    def _pan_camera(self, delta_x: float, delta_y: float) -> None:
+    def pan_camera(self, delta_x: float, delta_y: float) -> None:
         """Pan the camera by the specified deltas
         :param delta_x: change in the x of the camera
         :param delta_y: change in the y of the camera
@@ -146,7 +148,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                              0))  # type: numpy.ndarray
         self.on_paint(None)
 
-    def _set_scale(self, relative_scale: float) -> None:
+    def set_scale(self, relative_scale: float) -> None:
         """
         Scales the displayed epithelium.
         :param relative_scale: The scale of the new display represented as a fraction of the previous scale
