@@ -17,7 +17,7 @@ class EpitheliumDisplayPanel(wx.Panel):
         self.Bind(wx.EVT_SIZE, self.on_size)
 
         # create default epithelium
-        self._epithelium = Epithelium(100)  # type: Epithelium
+        self._epithelium = Epithelium(0)  # type: Epithelium
 
         # create gl canvas
         self.gl_canvas = EpitheliumDisplayCanvas(self)  # type: glcanvas
