@@ -40,7 +40,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
 
-    def on_paint(self, e: wx.PaintEvent):
+    def on_paint(self, e: wx.PaintEvent = None):
         """Callback executed when an instance of this widget repaints
 
         (re)initializes all OpenGL settings and draws the epithelium."""
@@ -53,6 +53,9 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.context.clear(0.9, 0.9, 0.9)
 
         self._draw_epithelium()
+
+        if e:
+            e.Skip(False)
 
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
@@ -123,7 +126,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
-        self.on_paint(None)
+        self.on_paint()
 
     def set_scale(self, relative_scale: float) -> None:
         """
@@ -136,7 +139,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
                                                           self.__scale))  # type: numpy.ndarray
-        self.on_paint(None)
+        self.on_paint()
 
     def _draw_epithelium(self) -> None:
         """
