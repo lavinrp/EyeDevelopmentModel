@@ -5,7 +5,7 @@ from wx import glcanvas
 import ModernGL
 from pyrr import matrix44
 import numpy
-from gl_support.EpitheliumGlTranslator import get_cell_centers
+from gl_support.EpitheliumGlTranslator import format_epithelium_for_gl
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
@@ -149,7 +149,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         """
 
         # update cell position
-        cell_centers = get_cell_centers(self.epithelium)  # type: numpy.ndarray
+        cell_centers = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
         cell_count = len(cell_centers)  # type: int
         if cell_count <= self._gl_reserved_cell_count:
             self.vbo.orphan()
@@ -161,7 +161,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             # create new vao and vbo to store larger data size
             # TODO: find a way to increase the size of the vbo without creating a new vao
             # This is probably suboptimal performance wise (especially since we will be frequently)
-            self.vbo = self.context.buffer(get_cell_centers(self.epithelium).astype('f4').tobytes(), dynamic=True)
+            gl_cells = format_epithelium_for_gl(self.epithelium).astype('f4').tobytes()
+            self.vbo = self.context.buffer(gl_cells, dynamic=True)
             self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
             self._gl_reserved_cell_count = len(cell_centers)
 

@@ -3,7 +3,7 @@ import numpy
 import math
 
 
-def get_cell_centers(epithelium: Epithelium) -> numpy.ndarray:
+def format_epithelium_for_gl(epithelium: Epithelium) -> numpy.ndarray:
     """Returns a numpy array containing the center position of each cell
     :param epithelium: The epithelium to format for OpenGL
     """
