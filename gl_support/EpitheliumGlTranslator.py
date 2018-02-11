@@ -2,6 +2,13 @@ from epithelium_backend.Epithelium import Epithelium
 import numpy
 import math
 
+gl_bytes_per_cell = 2 * 4
+"""The size of each cell when formatted for OpenGL
+    2 float4s
+    x position
+    y position
+"""
+
 
 def format_epithelium_for_gl(epithelium: Epithelium) -> numpy.ndarray:
     """Returns a numpy array containing the center position of each cell

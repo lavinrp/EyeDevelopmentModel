@@ -6,6 +6,7 @@ import ModernGL
 from pyrr import matrix44
 import numpy
 from gl_support.EpitheliumGlTranslator import format_epithelium_for_gl
+from gl_support.EpitheliumGlTranslator import gl_bytes_per_cell
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
@@ -214,7 +215,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         self.__program = self.context.program([vert, geom, frag])
 
-        self.vbo = self.context.buffer(dynamic=True, reserve=self._gl_reserved_cell_count)
+        self.vbo = self.context.buffer(dynamic=True, reserve=self._gl_reserved_cell_count*gl_bytes_per_cell)
         self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
 
         self.__gl_initialized = True
