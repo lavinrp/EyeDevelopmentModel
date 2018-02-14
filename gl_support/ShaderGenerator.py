@@ -1,8 +1,6 @@
 import OpenGL.GL.shaders
 from OpenGL.GL import GL_VERTEX_SHADER
 from OpenGL.GL import GL_FRAGMENT_SHADER
-from OpenGL.GL import GL_COMPILE_STATUS
-from OpenGL.GL import GL_TRUE
 
 
 class ShaderGenerator:
