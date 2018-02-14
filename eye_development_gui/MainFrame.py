@@ -21,6 +21,7 @@ class MainFrame(MainFrameBase):
         MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
+        self._simulating = False
 
         #  track all the panels that need to be notified when the
         # active epithelium is changed
@@ -28,10 +29,16 @@ class MainFrame(MainFrameBase):
                                      self.m_sim_overview_display_panel,
                                      self.m_simulation_display_panel]  # type: list
 
+        # track panels that can control the simulation of the active epithelium
+        # (this is an observer of these objects)
+        self.simulation_controllers = [self.m_sim_overview_display_panel,
+                                       self.m_simulation_display_panel]  # type: list
+        for controller in self.simulation_controllers:
+            controller.simulation_listeners.append(self)
+
         # Timer for updating the epithelium
         self.simulation_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
-        self.simulation_timer.Start(100)
 
     @staticmethod
     def create_callback(field_type: FieldType, text_control: wx.TextCtrl):
@@ -126,3 +133,22 @@ class MainFrame(MainFrameBase):
 
         for listener in self.epithelium_listeners:
             listener.draw()
+
+    @ property
+    def simulating(self) -> bool:
+        """Returns true if the active epithelium is being simulated. Returns false otherwise."""
+        return self._simulating
+
+    @ simulating.setter
+    def simulating(self, simulate: bool) -> None:
+        """
+        Begins or ends the simulation of the active epithelium.
+        :param simulate: begins simulation if true. Ends simulation otherwise.
+        :return: None
+        """
+        self._simulating = simulate
+        if simulate and len(self.active_epithelium.cells):
+            self.simulation_timer.Start(100)
+        else:
+            self.simulation_timer.Stop()
+
