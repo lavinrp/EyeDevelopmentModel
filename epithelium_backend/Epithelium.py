@@ -27,6 +27,16 @@ class Epithelium(object):
 
         self.create_cell_sheet()
 
+        # create furrow
+        if len(self.cells):
+            furrow_initial_position = max(map(lambda c: c.position_x, self.cells))
+        else:
+            furrow_initial_position = 0
+
+        self.furrow = Furrow.Furrow(position=furrow_initial_position,
+                                    velocity=self.cell_avg_radius * 6,
+                                    events=furrow_event_list)
+
     def divide_cell(self, cell_from_list) -> None:
         """
         divides the given cell and adds it to the list
@@ -79,8 +89,11 @@ class Epithelium(object):
         """
         Start the simulation, run the furrow for 10 steps. (Just for demo).
         """
-        furrow = Furrow.Furrow(position=max(map(lambda c: c.position_x, self.cells)),
-                               velocity=self.cell_avg_radius*6,
-                               events=furrow_event_list)
+
         for i in range(0, 10):
-            furrow.update(self)
+            self.furrow.update(self)
+
+    def update(self):
+        """Simulates the epithelium for one tick"""
+        self.furrow.update(self)
+        self.cell_collision_handler.decompact()

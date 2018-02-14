@@ -28,6 +28,11 @@ class MainFrame(MainFrameBase):
                                      self.m_sim_overview_display_panel,
                                      self.m_simulation_display_panel]  # type: list
 
+        # Timer for updating the epithelium
+        self.simulation_timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
+        self.simulation_timer.Start(100)
+
     @staticmethod
     def create_callback(field_type: FieldType, text_control: wx.TextCtrl):
         """
@@ -65,7 +70,6 @@ class MainFrame(MainFrameBase):
         window.SetSizer(g_sizer)
         window.Layout()
         g_sizer.Fit(window)
-
 
     @ property
     def active_epithelium(self) -> Epithelium:
@@ -113,3 +117,12 @@ class MainFrame(MainFrameBase):
 
             # create epithelium from inputs
             self.active_epithelium = Epithelium(min_cell_count)
+
+    def update_epithelium(self, event: wx.EVT_TIMER):
+        """Simulates the active epithelium for one tick.
+        Draws the updated epithelium."""
+        self.active_epithelium.update()
+        event.Skip(False)
+
+        for listener in self.epithelium_listeners:
+            listener.draw()

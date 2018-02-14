@@ -32,3 +32,7 @@ class SimulationPanel(SimulationPanelBase):
     def start_simulation_callback(self, event):
         # Just for the demo.
         self.m_epithelium_display._epithelium.go()
+
+    def draw(self):
+        """Forces a draw on the contained OpenGL Canvas"""
+        self.m_epithelium_display.draw()
