@@ -85,14 +85,6 @@ class Epithelium(object):
         """
         return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
 
-    def go(self):
-        """
-        Start the simulation, run the furrow for 10 steps. (Just for demo).
-        """
-
-        for i in range(0, 10):
-            self.furrow.update(self)
-
     def update(self):
         """Simulates the epithelium for one tick"""
         self.furrow.update(self)
