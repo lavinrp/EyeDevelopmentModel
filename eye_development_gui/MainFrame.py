@@ -110,8 +110,13 @@ class MainFrame(MainFrameBase):
         new epithelium from the epithelium generation inputs
         and sets it as the active epithelium. If creation fails the
         user is notified via popup.
+
+        Pauses any ongoing simulations.
         """
         # TODO: (ep_gen_create_callback) Do what the doc string says this will do
+
+        # pause any ongoing simulations
+        self.simulating = False
 
         # validate inputs
         if self.ep_gen_input_validation():
