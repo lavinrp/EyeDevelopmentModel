@@ -18,6 +18,8 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
         MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
@@ -151,4 +153,10 @@ class MainFrame(MainFrameBase):
             self.simulation_timer.Start(100)
         else:
             self.simulation_timer.Stop()
+
+    def on_close(self, event: wx.CloseEvent):
+        """Callback invoked when closing the application.
+        Halts simulation then allows the default close handler to exit the application."""
+        self.simulating = False
+        event.Skip()
 
