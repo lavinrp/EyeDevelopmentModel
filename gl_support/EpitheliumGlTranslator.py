@@ -2,6 +2,8 @@ from epithelium_backend.Epithelium import Epithelium
 import numpy
 import math
 
+
+#              inputs * bytes per input
 gl_bytes_per_cell = 2 * 4
 """The size of each cell when formatted for OpenGL
     2 float4s
