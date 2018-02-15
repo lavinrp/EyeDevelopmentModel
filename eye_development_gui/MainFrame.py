@@ -25,13 +25,13 @@ class MainFrame(MainFrameBase):
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
         self._simulating = False
 
-        #  track all the panels that need to be notified when the
+        # Track all the panels that need to be notified when the
         # active epithelium is changed
         self.epithelium_listeners = [self.m_epithelium_gen_display_panel,
                                      self.m_sim_overview_display_panel,
                                      self.m_simulation_display_panel]  # type: list
 
-        # track panels that can control the simulation of the active epithelium
+        # Track panels that can control the simulation of the active epithelium
         # (this is an observer of these objects)
         self.simulation_controllers = [self.m_sim_overview_display_panel,
                                        self.m_simulation_display_panel]  # type: list
