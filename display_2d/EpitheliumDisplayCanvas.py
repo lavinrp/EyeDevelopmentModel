@@ -158,13 +158,15 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                 # clear the vbo so that previously drawn cells don't remain on screen
                 self.vbo.clear()
             self.vbo.write(cell_centers.astype('f4').tobytes())
+
         else:
             # create new vao and vbo to store larger data size
             # TODO: find a way to increase the size of the vbo without creating a new vao
             # This is probably suboptimal performance wise (especially since we will be frequently)
             gl_cells = format_epithelium_for_gl(self.epithelium).astype('f4').tobytes()
             self.vbo = self.context.buffer(gl_cells, dynamic=True)
-            self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
+            self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert', 'vert_color'])
+
             self._gl_reserved_cell_count = len(cell_centers)
 
         # update the model (zoom / pan)

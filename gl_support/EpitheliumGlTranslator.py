@@ -4,11 +4,14 @@ import math
 
 
 #              inputs * bytes per input
-gl_bytes_per_cell = 2 * 4
+gl_bytes_per_cell = 5 * 4
 """The size of each cell when formatted for OpenGL
-    2 float4s
+    5 float4s
     x position
     y position
+    color: red value
+    color: green value
+    color: blue value
 """
 
 
