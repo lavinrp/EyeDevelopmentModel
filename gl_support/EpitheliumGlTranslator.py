@@ -22,6 +22,9 @@ def format_epithelium_for_gl(epithelium: Epithelium) -> numpy.ndarray:
         # The list will have the format [x1, y1, z1, x2, y2, z2...] but no z for now
         positions_list.append(cell.position_x)
         positions_list.append(cell.position_y)
+        positions_list.append(1)
+        positions_list.append(0)
+        positions_list.append(0)
     # convert to numpy array and return
     return numpy.array(positions_list, dtype=numpy.float16)
 

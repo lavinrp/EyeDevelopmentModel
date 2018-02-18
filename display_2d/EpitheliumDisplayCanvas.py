@@ -216,7 +216,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__program = self.context.program([vert, geom, frag])
 
         self.vbo = self.context.buffer(dynamic=True, reserve=self._gl_reserved_cell_count*gl_bytes_per_cell)
-        self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert'])
+        self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert', 'vert_color'])
 
         self.__gl_initialized = True
 

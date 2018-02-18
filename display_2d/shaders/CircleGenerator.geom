@@ -5,13 +5,19 @@
 layout(points) in;
 layout(line_strip, max_vertices = MAX_VERTICES) out;
 
+in vec3 geom_color[];
+
 uniform mat4 projection;
 uniform mat4 model;
+
+out vec3 frag_color;
 
 const float PI = 3.1415926;
 
 void main()
 {
+    frag_color = geom_color[0];
+
     for (int i = 0; i < MAX_VERTICES; i++) {
         // Angle between each side in radians
         float ang = PI * 2.0 / (MAX_VERTICES - 1) * i;
