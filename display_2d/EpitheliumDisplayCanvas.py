@@ -14,7 +14,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent: wx.Panel):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
-
         # GL
         self.wx_context = None  # type:  glcanvas.GLContext
         self.context = None  # type: ModernGL.Context
@@ -165,7 +164,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
             # This is probably suboptimal performance wise (especially since we will be frequently)
             gl_cells = format_epithelium_for_gl(self.epithelium).astype('f4').tobytes()
             self.vbo = self.context.buffer(gl_cells, dynamic=True)
-            self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert', 'vert_color'])
+            vao_content = [(self.vbo, '2f3f1f', ['vert', 'vert_color', 'vert_radius'])]
+            self.vao = self.context.vertex_array(self.__program, vao_content)
 
             self._gl_reserved_cell_count = len(cell_centers)
 
@@ -218,7 +218,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.__program = self.context.program([vert, geom, frag])
 
         self.vbo = self.context.buffer(dynamic=True, reserve=self._gl_reserved_cell_count*gl_bytes_per_cell)
-        self.vao = self.context.simple_vertex_array(self.__program, self.vbo, ['vert', 'vert_color'])
+        vao_content = [(self.vbo, '2f3f1f', ['vert', 'vert_color', 'vert_radius'])]
+        self.vao = self.context.vertex_array(self.__program, vao_content)
 
         self.__gl_initialized = True
 
