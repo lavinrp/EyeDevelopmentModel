@@ -18,15 +18,29 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
+        self.Bind(wx.EVT_CLOSE, self.on_close)
+
         MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
+        self._simulating = False
 
-        #  track all the panels that need to be notified when the
+        # Track all the panels that need to be notified when the
         # active epithelium is changed
         self.epithelium_listeners = [self.m_epithelium_gen_display_panel,
                                      self.m_sim_overview_display_panel,
                                      self.m_simulation_display_panel]  # type: list
+
+        # Track panels that can control the simulation of the active epithelium
+        # (this is an observer of these objects)
+        self.simulation_controllers = [self.m_sim_overview_display_panel,
+                                       self.m_simulation_display_panel]  # type: list
+        for controller in self.simulation_controllers:
+            controller.simulation_listeners.append(self)
+
+        # Timer for updating the epithelium
+        self.simulation_timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
 
     @staticmethod
     def create_callback(field_type: FieldType, text_control: wx.TextCtrl):
@@ -66,7 +80,6 @@ class MainFrame(MainFrameBase):
         window.Layout()
         g_sizer.Fit(window)
 
-
     @ property
     def active_epithelium(self) -> Epithelium:
         """returns the active epithelium"""
@@ -97,8 +110,13 @@ class MainFrame(MainFrameBase):
         new epithelium from the epithelium generation inputs
         and sets it as the active epithelium. If creation fails the
         user is notified via popup.
+
+        Pauses any ongoing simulations.
         """
         # TODO: (ep_gen_create_callback) Do what the doc string says this will do
+
+        # pause any ongoing simulations
+        self.simulating = False
 
         # validate inputs
         if self.ep_gen_input_validation():
@@ -113,3 +131,37 @@ class MainFrame(MainFrameBase):
 
             # create epithelium from inputs
             self.active_epithelium = Epithelium(min_cell_count)
+
+    def update_epithelium(self, event: wx.EVT_TIMER):
+        """Simulates the active epithelium for one tick.
+        Draws the updated epithelium."""
+        self.active_epithelium.update()
+        event.Skip(False)
+
+        for listener in self.epithelium_listeners:
+            listener.draw()
+
+    @ property
+    def simulating(self) -> bool:
+        """Returns true if the active epithelium is being simulated. Returns false otherwise."""
+        return self._simulating
+
+    @ simulating.setter
+    def simulating(self, simulate: bool) -> None:
+        """
+        Begins or ends the simulation of the active epithelium.
+        :param simulate: begins simulation if true. Ends simulation otherwise.
+        :return: None
+        """
+        self._simulating = simulate
+        if simulate and len(self.active_epithelium.cells):
+            self.simulation_timer.Start(100)
+        else:
+            self.simulation_timer.Stop()
+
+    def on_close(self, event: wx.CloseEvent):
+        """Callback invoked when closing the application.
+        Halts simulation then allows the default close handler to exit the application."""
+        self.simulating = False
+        event.Skip()
+

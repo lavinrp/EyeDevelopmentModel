@@ -16,6 +16,7 @@ class SimulationPanel(SimulationPanelBase):
         :param style: ignored, but required for wxFormBuilder
         """
         SimulationPanelBase.__init__(self, parent)
+        self.simulation_listeners = []
 
     @property
     def epithelium(self) -> Epithelium:
@@ -30,5 +31,19 @@ class SimulationPanel(SimulationPanelBase):
         self.m_epithelium_display.epithelium = value
 
     def start_simulation_callback(self, event):
-        # Just for the demo.
-        self.m_epithelium_display._epithelium.go()
+        """ Callback invoked when the SimulationPanel's 'start' button is pressed.
+        Signals all listeners to begin simulating."""
+        for listener in self.simulation_listeners:
+            listener.simulating = True
+        event.Skip(False)
+
+    def stop_simulation_callback(self, event):
+        """ Callback invoked when the SimulationPanel's 'stop' button is pressed.
+            Signals all listeners to stop simulating."""
+        for listener in self.simulation_listeners:
+            listener.simulating = False
+        event.Skip(False)
+
+    def draw(self):
+        """Forces a draw on the contained OpenGL Canvas"""
+        self.m_epithelium_display.draw()
