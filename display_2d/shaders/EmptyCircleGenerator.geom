@@ -8,7 +8,6 @@ layout(line_strip, max_vertices = MAX_VERTICES) out;
 in vec3 geom_color[];
 in float geom_radius[];
 
-uniform mat4 projection;
 uniform mat4 model;
 
 out vec3 frag_color;

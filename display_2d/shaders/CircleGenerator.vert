@@ -3,7 +3,6 @@ in vec2 vert;
 in vec3 vert_color;
 in float vert_radius;
 
-uniform mat4 projection;
 uniform mat4 model;
 
 out vec3 geom_color;
