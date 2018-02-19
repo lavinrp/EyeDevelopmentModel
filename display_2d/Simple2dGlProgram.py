@@ -2,11 +2,11 @@ import ModernGL
 import numpy
 
 
-class Simple2DShader(object):
+class Simple2dGlProgram(object):
     """Convenience class to gather all data and functions for easy drawing of 2d objects"""
 
     def __init__(self, context: ModernGL.Context=None):
-        """Initialize this instance of Simple2DShader"""
+        """Initialize this instance of Simple2dGlProgram"""
         self.context = context  # type: ModernGL.Context
         self.vao_content = []  # type: list
         self.vao = None  # type: ModernGL.VertexArray
@@ -45,7 +45,7 @@ class Simple2DShader(object):
 
     def init_vertex_objects(self, vao_format: str, vao_inputs: list):
         """
-        Initializes the vbo, vao and vao_content for this Simple2DShader
+        Initializes the vbo, vao and vao_content for this Simple2dGlProgram
         :param vao_format: The per-input byte format of the shader inputs.
         :param vao_inputs: The names of all shader inputs.
         """

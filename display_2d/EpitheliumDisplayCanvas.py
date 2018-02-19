@@ -7,7 +7,8 @@ from pyrr import matrix44
 import numpy
 from gl_support.EpitheliumGlTranslator import format_epithelium_for_gl
 from gl_support.EpitheliumGlTranslator import gl_bytes_per_cell
-from display_2d.Simple2DShader import Simple2DShader
+from display_2d.Simple2dGlProgram import Simple2dGlProgram
+
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
@@ -26,11 +27,12 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
         self.__gl_initialized = False  # type: bool
-        self.empty_circle_shader = Simple2DShader()  # type: Simple2DShader
-        self.empty_circle_shader.reserved_object_count = 1000
-        self.empty_circle_shader.reserved_object_bytes = gl_bytes_per_cell
-        self.filled_circle_shader = Simple2DShader()  # type: Simple2DShader
-        self.filled_circle_shader.reserved_object_count = 500
+        self.empty_circle_gl_program = Simple2dGlProgram()  # type: Simple2dGlProgram
+        self.empty_circle_gl_program.reserved_object_count = 1000
+        self.empty_circle_gl_program.reserved_object_bytes = gl_bytes_per_cell
+        self.filled_circle_gl_program = Simple2dGlProgram()  # type: Simple2dGlProgram
+        self.filled_circle_gl_program.reserved_object_count = 500
+        self.filled_circle_gl_program.reserved_object_bytes = gl_bytes_per_cell
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -149,11 +151,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # update cell position
         cell_centers = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
-        self.empty_circle_shader.update_vertex_objects(cell_centers)
+        self.empty_circle_gl_program.update_vertex_objects(cell_centers)
 
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        self.empty_circle_shader.program.uniforms["model"].value = tuple(model.flatten())
+        self.empty_circle_gl_program.program.uniforms["model"].value = tuple(model.flatten())
 
         projection = matrix44.create_perspective_projection_from_bounds(0,
                                                                         self.GetSize().width,
@@ -163,7 +165,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                         1)
         # self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
-        self.empty_circle_shader.vao.render(mode=ModernGL.POINTS)
+        self.empty_circle_gl_program.vao.render(mode=ModernGL.POINTS)
 
         self.SwapBuffers()
 
@@ -178,13 +180,21 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetCurrent(self.wx_context)
         self.context = ModernGL.create_context()
 
-        # empty circle shader setup
-        self.empty_circle_shader.context = self.context
-        vertex_shader_path = r"display_2d/shaders/SimplePoints.vert"
-        geometry_shader_path = r"display_2d/shaders/CircleGenerator.geom"
-        fragment_shader_path = r"display_2d/shaders/SimpleColor.frag"
-        self.empty_circle_shader.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
-        self.empty_circle_shader.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
+        # empty circle program setup
+        self.empty_circle_gl_program.context = self.context
+        vertex_shader_path = r"display_2d/shaders/CircleGenerator.vert"
+        geometry_shader_path = r"display_2d/shaders/EmptyCircleGenerator.geom"
+        fragment_shader_path = r"display_2d/shaders/CircleGenerator.frag"
+        self.empty_circle_gl_program.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
+        self.empty_circle_gl_program.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
+
+        # filled circle program setup
+        self.filled_circle_gl_program.context = self.context
+        vertex_shader_path = r"display_2d/shaders/CircleGenerator.vert"
+        geometry_shader_path = r"display_2d/shaders/EmptyCircleGenerator.geom"
+        fragment_shader_path = r"display_2d/shaders/CircleGenerator.frag"
+        self.filled_circle_gl_program.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
+        self.filled_circle_gl_program.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
 
         self.__gl_initialized = True
 
