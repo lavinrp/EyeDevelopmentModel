@@ -18,28 +18,35 @@ gl_bytes_per_cell = 6 * 4
 """
 
 
-def format_epithelium_for_gl(epithelium: Epithelium) -> numpy.ndarray:
+def format_epithelium_for_gl(epithelium: Epithelium) -> list:
     """Returns a numpy array containing the center position of each cell
     :param epithelium: The epithelium to format for OpenGL
     """
     # gather the data for each cell
-    gl_buffer_data = []
+    empty_circle_buffer_data = []
+    filled_circle_buffer_data = []
     for cell in epithelium.cells:
+        if determine_cell_fill(cell):
+            selected_buffer = filled_circle_buffer_data
+        else:
+            selected_buffer = empty_circle_buffer_data
+
         # gather position data
-        gl_buffer_data.append(cell.position_x)
-        gl_buffer_data.append(cell.position_y)
+        selected_buffer.append(cell.position_x)
+        selected_buffer.append(cell.position_y)
 
         # gather color data
         color_data = determine_cell_color(cell)
-        gl_buffer_data.append(color_data[0])
-        gl_buffer_data.append(color_data[1])
-        gl_buffer_data.append(color_data[2])
+        selected_buffer.append(color_data[0])
+        selected_buffer.append(color_data[1])
+        selected_buffer.append(color_data[2])
 
         # gather radius
-        gl_buffer_data.append(cell.radius)
+        selected_buffer.append(cell.radius)
 
     # convert to numpy array and return
-    return numpy.array(gl_buffer_data, dtype=numpy.float16)
+    return [numpy.array(empty_circle_buffer_data, dtype=numpy.float16),
+            numpy.array(filled_circle_buffer_data, dtype=numpy.float16)]
 
 
 def determine_cell_color(cell: Cell) -> tuple:

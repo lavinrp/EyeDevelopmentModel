@@ -149,13 +149,16 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         :return:
         """
 
-        # update cell position
-        cell_centers = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
-        self.empty_circle_gl_program.update_vertex_objects(cell_centers)
+        # update cell positions
+        cell_data = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
+        self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
+        self.filled_circle_gl_program.update_vertex_objects(cell_data[1])
 
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        self.empty_circle_gl_program.program.uniforms["model"].value = tuple(model.flatten())
+        model_tuple = tuple(model.flatten())
+        self.empty_circle_gl_program.program.uniforms["model"].value = model_tuple
+        self.filled_circle_gl_program.program.uniforms["model"].value = model_tuple
 
         projection = matrix44.create_perspective_projection_from_bounds(0,
                                                                         self.GetSize().width,
@@ -166,6 +169,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
         self.empty_circle_gl_program.vao.render(mode=ModernGL.POINTS)
+        self.filled_circle_gl_program.vao.render(mode=ModernGL.POINTS)
 
         self.SwapBuffers()
 
