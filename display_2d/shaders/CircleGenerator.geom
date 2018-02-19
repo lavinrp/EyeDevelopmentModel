@@ -23,15 +23,9 @@ void main()
         // Angle between each side in radians
         float ang = PI * 2.0 / (MAX_VERTICES - 1) * i;
 
-        // Offset from center of point (to accomodate for aspect ratio)
-        float aspect_ratio_offset_x = geom_radius[0];
-        float aspect_ratio_offset_y = geom_radius[0];
-
         // place points around center
-        vec4 offset = vec4(cos(ang) * aspect_ratio_offset_x, -sin(ang) * aspect_ratio_offset_y, -2.0, 1.0);
+        vec4 offset = vec4(cos(ang) * geom_radius[0], -sin(ang) * geom_radius[0], -2.0, 1.0);
         gl_Position = model * (gl_in[0].gl_Position + offset);
-        //gl_Position = (gl_in[0].gl_Position + offset);
-
 
         EmitVertex();
     }
