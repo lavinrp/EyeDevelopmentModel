@@ -7,8 +7,7 @@ from pyrr import matrix44
 import numpy
 from gl_support.EpitheliumGlTranslator import format_epithelium_for_gl
 from gl_support.EpitheliumGlTranslator import gl_bytes_per_cell
-from epithelium_backend.PhotoreceptorType import PhotoreceptorType
-
+from display_2d.Simple2DShader import Simple2DShader
 
 class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
@@ -17,8 +16,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # GL
         self.wx_context = None  # type:  glcanvas.GLContext
         self.context = None  # type: ModernGL.Context
-        self.__empty_circle_program = None  # type: ModernGL.Program
-        self.__filled_circle_program = None  # type: ModernGL.Program
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
@@ -29,13 +26,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
         self.__gl_initialized = False  # type: bool
-        self.empty_circle_vao = None  # type: ModernGL.VertexArray
-        self.empty_circle_vbo = None  # type: ModernGL.Buffer
-        self.filled_circle_vao = None  # type: ModernGL.VertexArray
-        self.filled_circle_vbo = None  # type: ModernGL.Buffer
-        # used for optimizing vbo and vao creation
-        self._gl_reserved_empty_cell_count = 1000  # type: int
-        self._gl_reserved_filled_cell_count = 500  # type: int
+        self.empty_circle_shader = Simple2DShader()  # type: Simple2DShader
+        self.empty_circle_shader.reserved_object_count = 1000
+        self.empty_circle_shader.reserved_object_bytes = gl_bytes_per_cell
+        self.filled_circle_shader = Simple2DShader()  # type: Simple2DShader
+        self.filled_circle_shader.reserved_object_count = 500
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -69,13 +64,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         if self.context:
             self.context.viewport = (0, 0, size.width, size.height)
 
-        if self.__empty_circle_program:
-            projection = matrix44.create_perspective_projection_from_bounds(0,
-                                                                            self.GetSize().width,
-                                                                            0,
-                                                                            self.GetSize().height,
-                                                                            0,
-                                                                            1)
+        #if self.__empty_circle_program:
+        #    projection = matrix44.create_perspective_projection_from_bounds(0,
+        #                                                                    self.GetSize().width,
+        #                                                                    0,
+        #                                                                    self.GetSize().height,
+        #                                                                    0,
+        #                                                                    1)
 
             #self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
@@ -154,28 +149,11 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
 
         # update cell position
         cell_centers = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
-        cell_count = len(cell_centers)  # type: int
-        if cell_count <= self._gl_reserved_empty_cell_count:
-            self.empty_circle_vbo.orphan()
-            if cell_count < self._gl_reserved_empty_cell_count:
-                # clear the vbo so that previously drawn cells don't remain on screen
-                self.empty_circle_vbo.clear()
-            self.empty_circle_vbo.write(cell_centers.astype('f4').tobytes())
-
-        else:
-            # create new vao and vbo to store larger data size
-            # TODO: find a way to increase the size of the vbo without creating a new vao
-            # This is probably suboptimal performance wise (especially since we will be frequently)
-            gl_cells = format_epithelium_for_gl(self.epithelium).astype('f4').tobytes()
-            self.empty_circle_vbo = self.context.buffer(gl_cells, dynamic=True)
-            vao_content = [(self.empty_circle_vbo, '2f3f1f', ['vert', 'vert_color', 'vert_radius'])]
-            self.empty_circle_vao = self.context.vertex_array(self.__empty_circle_program, vao_content)
-
-            self._gl_reserved_empty_cell_count = len(cell_centers)
+        self.empty_circle_shader.update_vertex_objects(cell_centers)
 
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        self.__empty_circle_program.uniforms["model"].value = tuple(model.flatten())
+        self.empty_circle_shader.program.uniforms["model"].value = tuple(model.flatten())
 
         projection = matrix44.create_perspective_projection_from_bounds(0,
                                                                         self.GetSize().width,
@@ -185,7 +163,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                         1)
         # self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
-        self.empty_circle_vao.render(mode=ModernGL.POINTS)
+        self.empty_circle_shader.vao.render(mode=ModernGL.POINTS)
 
         self.SwapBuffers()
 
@@ -200,26 +178,13 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.SetCurrent(self.wx_context)
         self.context = ModernGL.create_context()
 
-        # shader setup
+        # empty circle shader setup
+        self.empty_circle_shader.context = self.context
         vertex_shader_path = r"display_2d/shaders/SimplePoints.vert"
-        with open(vertex_shader_path, "r") as vertex_shader_file:
-            vertex_shader_string = str(vertex_shader_file.read())
         geometry_shader_path = r"display_2d/shaders/CircleGenerator.geom"
-        with open(geometry_shader_path, "r") as geometry_shader_file:
-            geometry_shader_string = str(geometry_shader_file.read())
         fragment_shader_path = r"display_2d/shaders/SimpleColor.frag"
-        with open(fragment_shader_path, "r") as fragment_shader_file:
-            fragment_shader_string = str(fragment_shader_file.read())
-        vert = self.context.vertex_shader(vertex_shader_string)
-        geom = self.context.geometry_shader(geometry_shader_string)
-        frag = self.context.fragment_shader(fragment_shader_string)
-        self.__empty_circle_program = self.context.program([vert, geom, frag])
-
-        # vao and vbo init
-        self.empty_circle_vbo = \
-            self.context.buffer(dynamic=True, reserve=self._gl_reserved_empty_cell_count * gl_bytes_per_cell)
-        vao_content = [(self.empty_circle_vbo, '2f3f1f', ['vert', 'vert_color', 'vert_radius'])]
-        self.empty_circle_vao = self.context.vertex_array(self.__empty_circle_program, vao_content)
+        self.empty_circle_shader.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
+        self.empty_circle_shader.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
 
         self.__gl_initialized = True
 

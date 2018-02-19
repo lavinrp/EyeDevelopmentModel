@@ -50,8 +50,8 @@ class Simple2DShader(object):
         :param vao_inputs: The names of all shader inputs.
         """
         # vao and vbo init
-        self.vbo = \
-            self.context.buffer(dynamic=True, reserve=self.reserved_object_count * self.reserved_object_bytes)
+        self.vbo = self.context.buffer(dynamic=True,
+                                       reserve=self.reserved_object_count * self.reserved_object_bytes)
         self.vao_content = [(self.vbo, vao_format, vao_inputs)]
         self.vao = self.context.vertex_array(self.program, self.vao_content)
 
@@ -64,6 +64,7 @@ class Simple2DShader(object):
         gl_data = input_data.astype('f4').tobytes()  # type: bytearray
 
         if input_data_count <= self.reserved_object_count:
+            # overwrite data without waiting for synchronization
             self.vbo.orphan()
             if input_data_count < self.reserved_object_count:
                 # clear the vbo so that previously drawn objects don't remain on screen
