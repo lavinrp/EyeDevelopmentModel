@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Jan 24 2018)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -52,6 +52,7 @@ class SimulationPanelBase ( wx.Panel ):
 		
 		# Connect Events
 		self.m_button4.Bind( wx.EVT_BUTTON, self.start_simulation_callback )
+		self.m_button5.Bind( wx.EVT_BUTTON, self.stop_simulation_callback )
 	
 	def __del__( self ):
 		pass
@@ -59,6 +60,9 @@ class SimulationPanelBase ( wx.Panel ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def start_simulation_callback( self, event ):
+		event.Skip()
+	
+	def stop_simulation_callback( self, event ):
 		event.Skip()
 	
 
