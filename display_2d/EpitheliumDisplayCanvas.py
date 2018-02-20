@@ -195,7 +195,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # filled circle program setup
         self.filled_circle_gl_program.context = self.context
         vertex_shader_path = r"display_2d/shaders/CircleGenerator.vert"
-        geometry_shader_path = r"display_2d/shaders/EmptyCircleGenerator.geom"
+        geometry_shader_path = r"display_2d/shaders/FilledCircleGenerator.geom"
         fragment_shader_path = r"display_2d/shaders/CircleGenerator.frag"
         self.filled_circle_gl_program.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
         self.filled_circle_gl_program.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
