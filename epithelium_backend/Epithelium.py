@@ -5,6 +5,7 @@ from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
 class Epithelium(object):
@@ -70,7 +71,12 @@ class Epithelium(object):
             random_pos = (random.random() * approx_grid_size,
                           random.random() * approx_grid_size,
                           0)
-            self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+
+            # debugging for filled using different geom shaders by setting different photoreceptor_type
+            if random_pos[0] < 3.0:
+                self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+            else:
+                self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius, photoreceptor_type=PhotoreceptorType.R8))
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)

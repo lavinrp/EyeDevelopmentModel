@@ -23,7 +23,7 @@ void main()
         float ang = PI * 2.0 / (MAX_VERTICES - 1) * i;
 
         // place points around center
-        vec4 offset = vec4(cos(ang) * geom_radius[0], -sin(ang) * geom_radius[0], -2.0, 1.0);
+        vec4 offset = vec4(cos(ang) * geom_radius[0], -sin(ang) * geom_radius[0], 0.0, 0.0);
         gl_Position = model * (gl_in[0].gl_Position + offset);
 
         EmitVertex();
