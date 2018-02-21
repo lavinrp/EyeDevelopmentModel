@@ -5,6 +5,7 @@ from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
 class Epithelium(object):
