@@ -160,6 +160,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         self.empty_circle_gl_program.program.uniforms["model"].value = model_tuple
         self.filled_circle_gl_program.program.uniforms["model"].value = model_tuple
 
+        # TODO: use projection matrix to fix stretching on window resize
         projection = matrix44.create_perspective_projection_from_bounds(0,
                                                                         self.GetSize().width,
                                                                         0,
