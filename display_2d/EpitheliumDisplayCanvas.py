@@ -5,8 +5,8 @@ from wx import glcanvas
 import ModernGL
 from pyrr import matrix44
 import numpy
-from gl_support.EpitheliumGlTranslator import format_epithelium_for_gl
-from gl_support.EpitheliumGlTranslator import gl_bytes_per_cell
+from display_2d.EpitheliumGlTranslator import format_epithelium_for_gl
+from display_2d.EpitheliumGlTranslator import gl_bytes_per_cell
 from display_2d.Simple2dGlProgram import Simple2dGlProgram
 
 
