@@ -164,4 +164,6 @@ class MainFrame(MainFrameBase):
         Halts simulation then allows the default close handler to exit the application."""
         self.simulating = False
         event.Skip()
+        for cell in self.active_epithelium.cells:
+            print(cell.photoreceptor_type)
 
