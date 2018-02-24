@@ -59,6 +59,12 @@ class Simple2dGlProgram(object):
 
     def update_vertex_objects(self, input_data: numpy.ndarray):
         """
+
+
+
+
+
+
         updates the vao, vbo and vao_content with new data
         :param input_data: The new data
         """
@@ -78,7 +84,7 @@ class Simple2dGlProgram(object):
             # TODO: find a way to increase the size of the vbo without creating a new vao
             # This is probably suboptimal performance wise (especially since we will be frequently)
             self.vbo = self.context.buffer(gl_data, dynamic=True)
-            self.vao_content[0] = (self.vbo, self.vao_content[0][1], self.vao_content[0][2])
+            self.vao_content[0] = (self.vbo, self.vao_content[0][1], *self.vao_content[0][2:])
             self.vao = self.context.vertex_array(self.program, self.vao_content)
 
             self.reserved_object_count = input_data_count
