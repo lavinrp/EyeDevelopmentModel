@@ -79,6 +79,8 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.min_cells_static_text, 0, wx.ALL, 5 )
 		
 		self.min_cell_count_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.min_cell_count_text_ctrl.SetToolTip( u"The number of cells that will Initially be generated for the epithelium." )
+		
 		epithelium_options_grid.Add( self.min_cell_count_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Average Cell Size", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -86,6 +88,8 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.avg_cell_size_static_text, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.avg_cell_size_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		
 		epithelium_options_grid.Add( self.avg_cell_size_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Size Variance", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -93,6 +97,8 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.cell_size_variance_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"20", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_size_variance_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
 		
@@ -195,8 +201,6 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer31.Fit( self.m_simulation_overview_panel )
 		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", False )
 		self.m_simulation_display_panel = SimulationPanel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.m_simulation_display_panel.Enable( False )
-		
 		self.view_selection_notebook.AddPage( self.m_simulation_display_panel, u"Simulation", False )
 		
 		bSizer3.Add( self.view_selection_notebook, 1, wx.EXPAND |wx.ALL, 5 )

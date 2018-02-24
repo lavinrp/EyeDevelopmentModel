@@ -121,6 +121,7 @@
 												<flag>wxALL</flag>
 												<border>5</border>
 												<object class="wxTextCtrl" name="min_cell_count_text_ctrl">
+													<tooltip>The number of cells that will Initially be generated for the epithelium.</tooltip>
 													<value>100</value>
 												</object>
 											</object>
@@ -138,6 +139,7 @@
 												<flag>wxALL</flag>
 												<border>5</border>
 												<object class="wxTextCtrl" name="avg_cell_size_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
 													<value>100</value>
 												</object>
 											</object>
@@ -155,6 +157,7 @@
 												<flag>wxALL</flag>
 												<border>5</border>
 												<object class="wxTextCtrl" name="cell_size_variance_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
 													<value>20</value>
 												</object>
 											</object>
@@ -322,7 +325,6 @@
 				<selected>0</selected>
 				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanel">
 					<style>wxTAB_TRAVERSAL</style>
-					<enabled>0</enabled>
 				</object>
 			</object>
 		</object>
