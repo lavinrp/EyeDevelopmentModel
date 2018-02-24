@@ -14,6 +14,7 @@
         <property name="file">eye_development_gui</property>
         <property name="first_id">1000</property>
         <property name="help_provider">none</property>
+        <property name="indent_with_spaces"></property>
         <property name="internationalize">0</property>
         <property name="name">eye_development_gui</property>
         <property name="namespace"></property>
@@ -1065,7 +1066,7 @@
                                                                 <event name="OnRightUp"></event>
                                                                 <event name="OnSetFocus"></event>
                                                                 <event name="OnSize"></event>
-                                                                <event name="OnText"></event>
+                                                                <event name="OnText">on_ep_gen_user_input</event>
                                                                 <event name="OnTextEnter"></event>
                                                                 <event name="OnTextMaxLen"></event>
                                                                 <event name="OnTextURL"></event>
@@ -1239,7 +1240,7 @@
                                                                 <event name="OnRightUp"></event>
                                                                 <event name="OnSetFocus"></event>
                                                                 <event name="OnSize"></event>
-                                                                <event name="OnText"></event>
+                                                                <event name="OnText">on_ep_gen_user_input</event>
                                                                 <event name="OnTextEnter"></event>
                                                                 <event name="OnTextMaxLen"></event>
                                                                 <event name="OnTextURL"></event>
@@ -1413,7 +1414,7 @@
                                                                 <event name="OnRightUp"></event>
                                                                 <event name="OnSetFocus"></event>
                                                                 <event name="OnSize"></event>
-                                                                <event name="OnText"></event>
+                                                                <event name="OnText">on_ep_gen_user_input</event>
                                                                 <event name="OnTextEnter"></event>
                                                                 <event name="OnTextMaxLen"></event>
                                                                 <event name="OnTextURL"></event>

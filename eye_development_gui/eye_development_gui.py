@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Dec 21 2016)
+## Python code generated with wxFormBuilder (version Feb 23 2018)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO "NOT" EDIT THIS FILE!
+## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
@@ -21,7 +21,7 @@ class MainFrameBase ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -209,6 +209,9 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Connect Events
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
+		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 	
 	def __del__( self ):
 		pass
@@ -217,5 +220,10 @@ class MainFrameBase ( wx.Frame ):
 	# Virtual event handlers, overide them in your derived class
 	def ep_gen_create_callback( self, event ):
 		event.Skip()
+	
+	def on_ep_gen_user_input( self, event ):
+		event.Skip()
+	
+	
 	
 
