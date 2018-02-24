@@ -43,6 +43,8 @@ class MainFrame(MainFrameBase):
         self.simulation_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
 
+    # region dynamic input creation
+
     @staticmethod
     def create_callback(field_type: FieldType, text_control: wx.TextCtrl):
         """
@@ -81,33 +83,9 @@ class MainFrame(MainFrameBase):
         window.Layout()
         g_sizer.Fit(window)
 
-    @ property
-    def active_epithelium(self) -> Epithelium:
-        """returns the active epithelium"""
-        return self.__active_epithelium
+    # endregion dynamic input creation
 
-    @ active_epithelium.setter
-    def active_epithelium(self, value: Epithelium) -> None:
-        """
-        Sets the active epithelium and sets the epithelium for
-        all listeners.
-        :param value: The new active epithelium
-        :return: None
-        """
-        self.__active_epithelium = value
-
-        # notify listeners of change
-        for listener in self.epithelium_listeners:
-            listener.epithelium = self.__active_epithelium
-
-    def ep_gen_input_validation(self):
-        """validates all epithelium generation inputs"""
-
-        # have to calculate and return values separately to avoid short circuiting the validation
-        avg_cell_size = self.validate_ep_gen_avg_cell_size()
-        variance = self.validate_ep_gen_cell_size_variance()
-        cell_count = self.validate_ep_gen_min_cell_count()
-        return avg_cell_size and variance and cell_count
+    # region event handling
 
     def ep_gen_create_callback(self, event):
         """
@@ -144,17 +122,24 @@ class MainFrame(MainFrameBase):
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_radius_divergence=cell_size_variance/avg_cell_size)
 
-    @staticmethod
-    def str_from_text_input(txt_control: TextCtrl):
-        """
-        Returns the string contained by a passed text control.
-        :param txt_control: The contents of this TextCtrl will be returned.
-        :return: The complete contents of the passed TextCtrl.
-        """
-        string_value = ''
-        for i in range(txt_control.GetNumberOfLines()):
-            string_value += txt_control.GetLineText(i)
-        return string_value
+    def on_close(self, event: wx.CloseEvent):
+        """Callback invoked when closing the application.
+        Halts simulation then allows the default close handler to exit the application."""
+        self.simulating = False
+        event.Skip()
+
+    # endregion event handling
+
+    # region input validation
+
+    def ep_gen_input_validation(self):
+        """validates all epithelium generation inputs"""
+
+        # have to calculate and return values separately to avoid short circuiting the validation
+        avg_cell_size = self.validate_ep_gen_avg_cell_size()
+        variance = self.validate_ep_gen_cell_size_variance()
+        cell_count = self.validate_ep_gen_min_cell_count()
+        return avg_cell_size and variance and cell_count
 
     def validate_ep_gen_min_cell_count(self) -> bool:
         """Validates user input to min_cell_count_text_ctrl
@@ -172,6 +157,7 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.min_cell_count_text_ctrl, validated)
+        self.min_cell_count_text_ctrl.Refresh()
         return validated
 
     def validate_ep_gen_avg_cell_size(self) -> bool:
@@ -189,6 +175,7 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.avg_cell_size_text_ctrl, validated)
+        self.avg_cell_size_text_ctrl.Refresh()
         return validated
 
     def validate_ep_gen_cell_size_variance(self) -> bool:
@@ -212,6 +199,7 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.cell_size_variance_text_ctrl, validated)
+        self.cell_size_variance_text_ctrl.Refresh()
         return validated
 
     @staticmethod
@@ -228,6 +216,15 @@ class MainFrame(MainFrameBase):
             txt_control.SetBackgroundColour(wx.NullColour)
         else:
             txt_control.SetBackgroundColour("Red")
+
+    # endregion input validation
+
+    # region simulation
+
+    @ property
+    def active_epithelium(self) -> Epithelium:
+        """returns the active epithelium"""
+        return self.__active_epithelium
 
     def update_epithelium(self, event: wx.EVT_TIMER):
         """Simulates the active epithelium for one tick.
@@ -256,9 +253,34 @@ class MainFrame(MainFrameBase):
         else:
             self.simulation_timer.Stop()
 
-    def on_close(self, event: wx.CloseEvent):
-        """Callback invoked when closing the application.
-        Halts simulation then allows the default close handler to exit the application."""
-        self.simulating = False
-        event.Skip()
+    @ active_epithelium.setter
+    def active_epithelium(self, value: Epithelium) -> None:
+        """
+        Sets the active epithelium and sets the epithelium for
+        all listeners.
+        :param value: The new active epithelium
+        :return: None
+        """
+        self.__active_epithelium = value
 
+        # notify listeners of change
+        for listener in self.epithelium_listeners:
+            listener.epithelium = self.__active_epithelium
+
+    # endregion simulation
+
+    # region misc
+
+    @staticmethod
+    def str_from_text_input(txt_control: TextCtrl):
+        """
+        Returns the string contained by a passed text control.
+        :param txt_control: The contents of this TextCtrl will be returned.
+        :return: The complete contents of the passed TextCtrl.
+        """
+        string_value = ''
+        for i in range(txt_control.GetNumberOfLines()):
+            string_value += txt_control.GetLineText(i)
+        return string_value
+
+    # endregion misc
