@@ -128,13 +128,21 @@ class MainFrame(MainFrameBase):
             # convert inputs to usable value
 
             # min cell count
-            min_cell_count_str = ''  # type: str
-            for i in range(self.min_cell_count_text_ctrl.GetNumberOfLines()):
-                min_cell_count_str += self.min_cell_count_text_ctrl.GetLineText(i)
+            min_cell_count_str = self.str_from_text_input(self.min_cell_count_text_ctrl)  # type: str
             min_cell_count = int(min_cell_count_str)  # type: int
 
+            # avg cell size
+            avg_cell_size_str = self.str_from_text_input(self.avg_cell_size_text_ctrl)  # type: str
+            avg_cell_size = float(avg_cell_size_str)
+
+            # cell size variance
+            cell_size_variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)  # type: str
+            cell_size_variance = float(cell_size_variance_str)
+
             # create epithelium from inputs
-            self.active_epithelium = Epithelium(min_cell_count)
+            self.active_epithelium = Epithelium(cell_quantity=min_cell_count,
+                                                cell_avg_radius=avg_cell_size,
+                                                cell_radius_divergence=cell_size_variance/avg_cell_size)
 
     @staticmethod
     def str_from_text_input(txt_control: TextCtrl):
