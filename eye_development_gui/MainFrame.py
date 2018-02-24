@@ -7,6 +7,7 @@ from eye_development_gui.eye_development_gui import MainFrameBase
 
 import wx
 import wx.xrc
+from wx.core import TextCtrl
 
 
 # Implementing MainFrameBase
@@ -101,19 +102,22 @@ class MainFrame(MainFrameBase):
 
     def ep_gen_input_validation(self):
         """validates all epithelium generation inputs"""
-        # TODO: validate each epithelium generation input
-        return True
+
+        # have to calculate and return values separately to avoid short circuiting the validation
+        avg_cell_size = self.validate_ep_gen_avg_cell_size()
+        variance = self.validate_ep_gen_cell_size_variance()
+        cell_count = self.validate_ep_gen_min_cell_count()
+        return avg_cell_size and variance and cell_count
 
     def ep_gen_create_callback(self, event):
         """
         Callback for ep_gen_create_button. Attempts to create a
         new epithelium from the epithelium generation inputs
         and sets it as the active epithelium. If creation fails the
-        user is notified via popup.
+        user is notified of the invalid parameters.
 
         Pauses any ongoing simulations.
         """
-        # TODO: (ep_gen_create_callback) Do what the doc string says this will do
 
         # pause any ongoing simulations
         self.simulating = False
@@ -131,6 +135,91 @@ class MainFrame(MainFrameBase):
 
             # create epithelium from inputs
             self.active_epithelium = Epithelium(min_cell_count)
+
+    @staticmethod
+    def str_from_text_input(txt_control: TextCtrl):
+        """
+        Returns the string contained by a passed text control.
+        :param txt_control: The contents of this TextCtrl will be returned.
+        :return: The complete contents of the passed TextCtrl.
+        """
+        string_value = ''
+        for i in range(txt_control.GetNumberOfLines()):
+            string_value += txt_control.GetLineText(i)
+        return string_value
+
+    def validate_ep_gen_min_cell_count(self) -> bool:
+        """Validates user input to min_cell_count_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+        min_cell_count_str = self.str_from_text_input(self.min_cell_count_text_ctrl)  # type: str
+
+        validated = True
+        try:
+            # min cell count must be a positive integer value
+            min_cell_count_value = int(min_cell_count_str)
+            if min_cell_count_value <= 0:
+                validated = False
+        except ValueError:
+            validated = False
+
+        self.display_text_control_validation(self.min_cell_count_text_ctrl, validated)
+        return validated
+
+    def validate_ep_gen_avg_cell_size(self) -> bool:
+        """
+        Validates the user input to avg_cell_size_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+        avg_cell_size_str = self.str_from_text_input(self.avg_cell_size_text_ctrl)  # type: str
+
+        try:
+            # cell size must be a positive floating point value
+            avg_cell_size_value = float(avg_cell_size_str)
+            validated = avg_cell_size_value > 0
+        except ValueError:
+            validated = False
+
+        self.display_text_control_validation(self.avg_cell_size_text_ctrl, validated)
+        return validated
+
+    def validate_ep_gen_cell_size_variance(self) -> bool:
+        """
+        Validates the user input to cell_size_variance_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+        variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)
+
+        try:
+            # variance must be a floating point value
+            variance_value = float(variance_str)
+            # variance must not be greater than the average cell size
+            if self.validate_ep_gen_avg_cell_size():
+                avg_size = float(self.str_from_text_input(self.avg_cell_size_text_ctrl))
+                validated = variance_value < avg_size
+            else:
+                # variance cannot be validated if there is an invalid average cell size
+                validated = False
+        except Exception:
+            validated = False
+
+        self.display_text_control_validation(self.cell_size_variance_text_ctrl, validated)
+        return validated
+
+    @staticmethod
+    def display_text_control_validation(txt_control: TextCtrl, validated: bool = True) -> None:
+        """
+        Visualy displays the validation state of a text control
+        Controls that have failed validation are displayed red. Controls that have not are displayed
+        normally.
+        :param txt_control: The validated text control.
+        :param validated: The state of the controls validation. True for successful validation.
+        False for unsuccessful validation.
+        """
+        if validated:
+            txt_control.SetBackgroundColour(wx.NullColour)
+        else:
+            txt_control.SetBackgroundColour("Red")
 
     def update_epithelium(self, event: wx.EVT_TIMER):
         """Simulates the active epithelium for one tick.
