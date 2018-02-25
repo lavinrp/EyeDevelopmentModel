@@ -101,6 +101,13 @@ class MainFrameBase ( wx.Frame ):
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
+		self.furrow_velocity_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.furrow_velocity_static_text.Wrap( -1 )
+		epithelium_options_grid.Add( self.furrow_velocity_static_text, 0, wx.ALL, 5 )
+		
+		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
+		epithelium_options_grid.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
+		
 		
 		self.epithelium_options_scrolled_window3.SetSizer( epithelium_options_grid )
 		self.epithelium_options_scrolled_window3.Layout()
@@ -216,6 +223,7 @@ class MainFrameBase ( wx.Frame ):
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 	
 	def __del__( self ):
 		pass
@@ -227,6 +235,7 @@ class MainFrameBase ( wx.Frame ):
 	
 	def on_ep_gen_user_input( self, event ):
 		event.Skip()
+	
 	
 	
 	

@@ -122,6 +122,10 @@ class MainFrame(MainFrameBase):
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_radius_divergence=cell_size_variance/avg_cell_size)
 
+            furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
+            furrow_velocity = float(furrow_velocity_str)
+            self.active_epithelium.furrow.velocity = furrow_velocity
+
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
         Halts simulation then allows the default close handler to exit the application."""
@@ -148,7 +152,8 @@ class MainFrame(MainFrameBase):
         avg_cell_size = self.validate_ep_gen_avg_cell_size()
         variance = self.validate_ep_gen_cell_size_variance()
         cell_count = self.validate_ep_gen_min_cell_count()
-        return avg_cell_size and variance and cell_count
+        furrow_velocity = self.validate_ep_gen_furrow_velocity()
+        return avg_cell_size and variance and cell_count and furrow_velocity
 
     def validate_ep_gen_min_cell_count(self) -> bool:
         """Validates user input to min_cell_count_text_ctrl
@@ -211,6 +216,23 @@ class MainFrame(MainFrameBase):
         self.cell_size_variance_text_ctrl.Refresh()
         return validated
 
+    def validate_ep_gen_furrow_velocity(self) -> bool:
+        """
+        Validates the user input to furrow_velocity_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+        velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
+
+        try:
+            # value must be non-zero positive float
+            velocity = float(velocity_str)
+            validated = velocity > 0
+        except Exception:
+            validated = False
+
+        self.display_text_control_validation(self.furrow_velocity_text_ctrl, validated)
+        return validated
+
     @staticmethod
     def display_text_control_validation(txt_control: TextCtrl, validated: bool = True) -> None:
         """
@@ -234,6 +256,20 @@ class MainFrame(MainFrameBase):
     def active_epithelium(self) -> Epithelium:
         """returns the active epithelium"""
         return self.__active_epithelium
+
+    @ active_epithelium.setter
+    def active_epithelium(self, value: Epithelium) -> None:
+        """
+        Sets the active epithelium and sets the epithelium for
+        all listeners.
+        :param value: The new active epithelium
+        :return: None
+        """
+        self.__active_epithelium = value
+
+        # notify listeners of change
+        for listener in self.epithelium_listeners:
+            listener.epithelium = self.__active_epithelium
 
     def update_epithelium(self, event: wx.EVT_TIMER):
         """Simulates the active epithelium for one tick.
@@ -262,19 +298,6 @@ class MainFrame(MainFrameBase):
         else:
             self.simulation_timer.Stop()
 
-    @ active_epithelium.setter
-    def active_epithelium(self, value: Epithelium) -> None:
-        """
-        Sets the active epithelium and sets the epithelium for
-        all listeners.
-        :param value: The new active epithelium
-        :return: None
-        """
-        self.__active_epithelium = value
-
-        # notify listeners of change
-        for listener in self.epithelium_listeners:
-            listener.epithelium = self.__active_epithelium
 
     # endregion simulation
 
