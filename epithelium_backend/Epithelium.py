@@ -5,6 +5,7 @@ from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
+from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
 
 class Epithelium(object):
@@ -12,7 +13,7 @@ class Epithelium(object):
 
     def __init__(self, cell_quantity,
                  cell_radius_divergence: float = .5,
-                 cell_avg_radius: float = 4) -> None:
+                 cell_avg_radius: float = 1) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
@@ -83,7 +84,7 @@ class Epithelium(object):
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
-            for i in range(0,50):
+            for i in range(0, 50):
                 self.cell_collision_handler.decompact()
 
     def neighboring_cells(self, cell: Cell, number_cells: int):
