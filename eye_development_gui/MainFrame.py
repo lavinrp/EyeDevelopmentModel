@@ -2,7 +2,7 @@
 
 from epithelium_backend.Epithelium import Epithelium
 from epithelium_backend.FurrowEventList import furrow_event_list
-from epithelium_backend.FieldType import FieldType
+from eye_development_gui.FieldType import FieldType
 from eye_development_gui.eye_development_gui import MainFrameBase
 
 import wx
