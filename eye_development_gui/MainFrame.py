@@ -4,7 +4,7 @@ from epithelium_backend.Epithelium import Epithelium
 from epithelium_backend.FurrowEventList import furrow_event_list
 from epithelium_backend.FieldType import FieldType
 from eye_development_gui.eye_development_gui import MainFrameBase
-
+from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 import wx
 import wx.xrc
 
@@ -164,4 +164,5 @@ class MainFrame(MainFrameBase):
         Halts simulation then allows the default close handler to exit the application."""
         self.simulating = False
         event.Skip()
+
 

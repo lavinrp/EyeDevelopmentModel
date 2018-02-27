@@ -1,16 +1,18 @@
-
+import os
 
 import wx
 from wx import glcanvas
 import moderngl
 from pyrr import matrix44
 import numpy
+
 from display_2d.EpitheliumGlTranslator import format_epithelium_for_gl
 from display_2d.EpitheliumGlTranslator import gl_bytes_per_cell
 from display_2d.Simple2dGlProgram import Simple2dGlProgram
+from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 
 
-class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
+class ModernDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent: wx.Panel):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
@@ -206,3 +208,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     @property
     def epithelium(self):
         return self.GetParent().epithelium
+
+
+class EpitheliumDisplayCanvas(LegacyDisplayCanvas if os.getenv("eye_develop_model_legacy_display")
+                              else ModernDisplayCanvas):
+    pass
