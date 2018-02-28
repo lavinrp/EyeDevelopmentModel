@@ -25,8 +25,7 @@ class Cell(object):
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
         self.growth_rate = .01  # type: float
-        self.photoreceptor_type = None
-        # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
+        self.photoreceptor_type = photoreceptor_type # type: photoreceptor_type
         # self.support_specializations = support_specializations  # type: set
 
     def passive_growth(self):
