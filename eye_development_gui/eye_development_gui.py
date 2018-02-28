@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Feb 23 2018)
+## Python code generated with wxFormBuilder (version Jan 24 2018)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -87,7 +87,7 @@ class MainFrameBase ( wx.Frame ):
 		self.avg_cell_size_static_text.Wrap( -1 )
 		epithelium_options_grid.Add( self.avg_cell_size_static_text, 0, wx.ALL, 5 )
 		
-		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.avg_cell_size_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.avg_cell_size_text_ctrl, 0, wx.ALL, 5 )
@@ -96,7 +96,7 @@ class MainFrameBase ( wx.Frame ):
 		self.cell_size_variance_static_text.Wrap( -1 )
 		epithelium_options_grid.Add( self.cell_size_variance_static_text, 0, wx.ALL, 5 )
 		
-		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"20", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"2", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_size_variance_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
