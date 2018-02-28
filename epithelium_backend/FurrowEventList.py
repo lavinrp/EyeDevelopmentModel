@@ -1,4 +1,4 @@
-import epithelium_backend.FieldType as FieldType
+import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
 
