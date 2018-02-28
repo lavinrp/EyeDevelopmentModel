@@ -61,6 +61,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
         Flags on_paint to fix aspect ratio"""
+        if self.wx_context:
+            self.SetCurrent(self.wx_context)
         size = self.GetParent().GetSize()
         self.SetSize(size)
         if self.context:
@@ -148,7 +150,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         Draws the epithelium to a pre-selected, pre-cleared, GL context.
         :return:
         """
-
         # update cell positions
         cell_data = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
         self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
