@@ -9,7 +9,7 @@
 		<object class="wxNotebook" name="view_selection_notebook">
 			<object class="notebookpage">
 				<label>Epithelium Generation</label>
-				<selected>0</selected>
+				<selected>1</selected>
 				<object class="wxPanel" name="epithelium_generation_panel">
 					<style>wxTAB_TRAVERSAL</style>
 					<object class="wxFlexGridSizer">
@@ -121,6 +121,7 @@
 												<flag>wxALL</flag>
 												<border>5</border>
 												<object class="wxTextCtrl" name="min_cell_count_text_ctrl">
+													<tooltip>The number of cells that will Initially be generated for the epithelium.</tooltip>
 													<value>100</value>
 												</object>
 											</object>
@@ -128,8 +129,8 @@
 												<option>0</option>
 												<flag>wxALL</flag>
 												<border>5</border>
-												<object class="wxStaticText" name="min_cell_size_static_text">
-													<label>Min Cell Size</label>
+												<object class="wxStaticText" name="avg_cell_size_static_text">
+													<label>Average Cell Size</label>
 													<wrap>-1</wrap>
 												</object>
 											</object>
@@ -137,16 +138,17 @@
 												<option>0</option>
 												<flag>wxALL</flag>
 												<border>5</border>
-												<object class="wxTextCtrl" name="min_cell_size_text_ctrl">
-													<value>50</value>
+												<object class="wxTextCtrl" name="avg_cell_size_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
+													<value>10</value>
 												</object>
 											</object>
 											<object class="sizeritem">
 												<option>0</option>
 												<flag>wxALL</flag>
 												<border>5</border>
-												<object class="wxStaticText" name="max_cell_size_static_text">
-													<label>Max Cell Size</label>
+												<object class="wxStaticText" name="cell_size_variance_static_text">
+													<label>Cell Size Variance</label>
 													<wrap>-1</wrap>
 												</object>
 											</object>
@@ -154,8 +156,26 @@
 												<option>0</option>
 												<flag>wxALL</flag>
 												<border>5</border>
-												<object class="wxTextCtrl" name="max_cell_size_text_ctrl">
-													<value>100</value>
+												<object class="wxTextCtrl" name="cell_size_variance_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
+													<value>2</value>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxStaticText" name="furrow_velocity_static_text">
+													<label>Furrow Velocity</label>
+													<wrap>-1</wrap>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
+													<value>10</value>
 												</object>
 											</object>
 										</object>
@@ -168,7 +188,7 @@
 			</object>
 			<object class="notebookpage">
 				<label>Simulation Overview</label>
-				<selected>1</selected>
+				<selected>0</selected>
 				<object class="wxPanel" name="m_simulation_overview_panel">
 					<style>wxTAB_TRAVERSAL</style>
 					<object class="wxFlexGridSizer">
@@ -322,7 +342,6 @@
 				<selected>0</selected>
 				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanel">
 					<style>wxTAB_TRAVERSAL</style>
-					<enabled>0</enabled>
 				</object>
 			</object>
 		</object>
