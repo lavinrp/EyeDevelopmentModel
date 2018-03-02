@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
+	<object class="wxFrame" name="MainFrameBase">
+		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
+		<size>719,328</size>
+		<title>Eye Development Model</title>
+		<centered>1</centered>
+		<aui_managed>0</aui_managed>
+		<object class="wxNotebook" name="view_selection_notebook">
+			<object class="notebookpage">
+				<label>Epithelium Generation</label>
+				<selected>1</selected>
+				<object class="wxPanel" name="epithelium_generation_panel">
+					<style>wxTAB_TRAVERSAL</style>
+					<object class="wxFlexGridSizer">
+						<rows>0</rows>
+						<cols>2</cols>
+						<vgap>0</vgap>
+						<hgap>0</hgap>
+						<growablecols>0</growablecols>
+						<growablerows>0</growablerows>
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxEXPAND | wxALL</flag>
+							<border>5</border>
+							<object class="wxPanel" name="m_epithelium_gen_display_container_panel">
+								<style>wxTAB_TRAVERSAL</style>
+								<object class="wxBoxSizer">
+									<orient>wxVERTICAL</orient>
+									<object class="sizeritem">
+										<option>1</option>
+										<flag>wxEXPAND | wxALL</flag>
+										<border>5</border>
+										<object class="wxPanel" name="m_epithelium_gen_display_panel" subclass="EpitheliumDisplayPanel">
+											<style>wxTAB_TRAVERSAL</style>
+										</object>
+									</object>
+								</object>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxFlexGridSizer">
+								<rows>2</rows>
+								<cols>0</cols>
+								<minsize>100,100</minsize>
+								<vgap>0</vgap>
+								<hgap>0</hgap>
+								<growablecols>0</growablecols>
+								<growablerows>1</growablerows>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND</flag>
+									<border>5</border>
+									<object class="wxBoxSizer">
+										<minsize>20,20</minsize>
+										<orient>wxHORIZONTAL</orient>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxButton" name="ep_gen_create_button">
+												<label>Create</label>
+												<default>0</default>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxButton" name="ep_gen_save_button">
+												<label>Save</label>
+												<default>0</default>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxButton" name="ep_gen_save_as_button">
+												<label>Save As</label>
+												<default>0</default>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>0</option>
+											<flag>wxALL</flag>
+											<border>5</border>
+											<object class="wxButton" name="ep_gen_load_button">
+												<label>Load</label>
+												<default>0</default>
+											</object>
+										</object>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND | wxALL</flag>
+									<border>5</border>
+									<object class="wxScrolledWindow" name="epithelium_options_scrolled_window3">
+										<style>wxHSCROLL|wxVSCROLL</style>
+										<scrollrate>5,5</scrollrate>
+										<object class="wxGridSizer">
+											<rows>0</rows>
+											<cols>2</cols>
+											<vgap>0</vgap>
+											<hgap>0</hgap>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxStaticText" name="min_cells_static_text">
+													<label>Min Cell Count</label>
+													<wrap>-1</wrap>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxTextCtrl" name="min_cell_count_text_ctrl">
+													<tooltip>The number of cells that will Initially be generated for the epithelium.</tooltip>
+													<value>100</value>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxStaticText" name="avg_cell_size_static_text">
+													<label>Average Cell Size</label>
+													<wrap>-1</wrap>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxTextCtrl" name="avg_cell_size_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
+													<value>10</value>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxStaticText" name="cell_size_variance_static_text">
+													<label>Cell Size Variance</label>
+													<wrap>-1</wrap>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxTextCtrl" name="cell_size_variance_text_ctrl">
+													<tooltip>All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance.</tooltip>
+													<value>2</value>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxStaticText" name="furrow_velocity_static_text">
+													<label>Furrow Velocity</label>
+													<wrap>-1</wrap>
+												</object>
+											</object>
+											<object class="sizeritem">
+												<option>0</option>
+												<flag>wxALL</flag>
+												<border>5</border>
+												<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
+													<value>10</value>
+												</object>
+											</object>
+										</object>
+									</object>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="notebookpage">
+				<label>Simulation Overview</label>
+				<selected>0</selected>
+				<object class="wxPanel" name="m_simulation_overview_panel">
+					<style>wxTAB_TRAVERSAL</style>
+					<object class="wxFlexGridSizer">
+						<rows>0</rows>
+						<cols>1</cols>
+						<vgap>0</vgap>
+						<hgap>0</hgap>
+						<growablecols>0</growablecols>
+						<growablerows>0</growablerows>
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxFlexGridSizer">
+								<rows>0</rows>
+								<cols>2</cols>
+								<vgap>0</vgap>
+								<hgap>0</hgap>
+								<growablecols>0</growablecols>
+								<growablerows>0</growablerows>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND | wxALL</flag>
+									<border>5</border>
+									<object class="wxPanel" name="m_sim_overview_display_panel" subclass="SimulationPanel">
+										<style>wxTAB_TRAVERSAL</style>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>1</option>
+									<flag>wxEXPAND</flag>
+									<border>5</border>
+									<object class="wxStaticBoxSizer">
+										<orient>wxVERTICAL</orient>
+										<label>Simulation Options</label>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND | wxALL</flag>
+											<border>5</border>
+											<object class="wxScrolledWindow" name="m_scrolledWindow4">
+												<style>wxHSCROLL|wxVSCROLL</style>
+												<scrollrate>5,5</scrollrate>
+												<object class="wxGridSizer">
+													<rows>0</rows>
+													<cols>2</cols>
+													<vgap>0</vgap>
+													<hgap>0</hgap>
+												</object>
+											</object>
+										</object>
+									</object>
+								</object>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<option>0</option>
+							<flag>wxEXPAND | wxALL</flag>
+							<border>5</border>
+							<object class="wxStaticLine" name="m_staticline1">
+								<style>wxLI_HORIZONTAL</style>
+							</object>
+						</object>
+						<object class="sizeritem">
+							<option>1</option>
+							<flag>wxEXPAND</flag>
+							<border>5</border>
+							<object class="wxGridSizer">
+								<rows>0</rows>
+								<cols>4</cols>
+								<vgap>0</vgap>
+								<hgap>0</hgap>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxStaticText" name="m_staticText10">
+										<label>Cell Count</label>
+										<wrap>-1</wrap>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxTextCtrl" name="m_textCtrl4">
+										<enabled>0</enabled>
+										<value>0</value>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxStaticText" name="m_staticText11">
+										<label>Avg. Cell Size</label>
+										<wrap>-1</wrap>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxTextCtrl" name="m_textCtrl5">
+										<enabled>0</enabled>
+										<value>0</value>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxStaticText" name="m_staticText12">
+										<label>R8 Count</label>
+										<wrap>-1</wrap>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxTextCtrl" name="m_textCtrl6">
+										<enabled>0</enabled>
+										<value>0</value>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxStaticText" name="m_staticText13">
+										<label>% R8</label>
+										<wrap>-1</wrap>
+									</object>
+								</object>
+								<object class="sizeritem">
+									<option>0</option>
+									<flag>wxALL</flag>
+									<border>5</border>
+									<object class="wxTextCtrl" name="m_textCtrl7">
+										<enabled>0</enabled>
+										<value>0</value>
+									</object>
+								</object>
+							</object>
+						</object>
+					</object>
+				</object>
+			</object>
+			<object class="notebookpage">
+				<label>Simulation</label>
+				<selected>0</selected>
+				<object class="wxPanel" name="m_simulation_display_panel" subclass="SimulationPanel">
+					<style>wxTAB_TRAVERSAL</style>
+				</object>
+			</object>
+		</object>
+	</object>
+</resource>
