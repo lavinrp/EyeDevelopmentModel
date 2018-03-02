@@ -75,8 +75,8 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
 
             # panning
             if self.__panning:
-                self._pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
-                                 -(self.__last_mouse_position[1] - current_mouse_position[1]))
+                self.pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
+                                -(self.__last_mouse_position[1] - current_mouse_position[1]))
 
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
@@ -88,17 +88,22 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
         # update mouse position
         self.__last_mouse_position = current_mouse_position
 
-    def _pan_camera(self, delta_x: float, delta_y: float) -> None:
+    def pan_camera(self, delta_x: float, delta_y: float, active_canvas: bool = True) -> None:
         """Pan the camera by the specified deltas
         :param delta_x: change in the x of the camera
         :param delta_y: change in the y of the camera
+        :param active_canvas: An active canvas repaints and signals all of its camera_listeners to pan.
         """
 
         distance_modifier = 0.01  # type: float
 
         self.__camera_x += delta_x * distance_modifier
         self.__camera_y += delta_y * distance_modifier
-        self.on_paint(None)
+
+        if active_canvas:
+            for listener in self.camera_listeners:
+                listener.pan_camera(delta_x, delta_y, False)
+            self.on_paint(None)
 
     def set_scale(self, relative_scale: float, active_canvas: bool = True) -> None:
         """

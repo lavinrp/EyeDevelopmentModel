@@ -118,13 +118,14 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         # update mouse position
         self.__last_mouse_position = current_mouse_position
 
-    def pan_camera(self, delta_x: float, delta_y: float) -> None:
+    def pan_camera(self, delta_x: float, delta_y: float, active_canvas: bool = True) -> None:
         """Pan the camera by the specified deltas
         :param delta_x: change in the x of the camera
         :param delta_y: change in the y of the camera
+        :param active_canvas: An active canvas repaints and signals all of its camera_listeners to pan.
         """
 
-        distance_modifier = 0.2  # type: float
+        distance_modifier = 1  # type: float
 
         self.__camera_x -= delta_x * distance_modifier
         self.__camera_y -= delta_y * distance_modifier
@@ -132,7 +133,10 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
-        self.on_paint()
+        if active_canvas:
+            for listener in self.camera_listeners:
+                listener.pan_camera(delta_x, delta_y, False)
+            self.on_paint()
 
     def set_scale(self, relative_scale: float, active_canvas: bool = True) -> None:
         """
