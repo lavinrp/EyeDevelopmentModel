@@ -42,6 +42,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
+        self.camera_listeners = []  # type: list
 
     def on_paint(self, e: wx.PaintEvent = None):
         """Callback executed when an instance of this widget repaints
@@ -133,9 +134,10 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                                                                     0))  # type: numpy.ndarray
         self.on_paint()
 
-    def set_scale(self, relative_scale: float) -> None:
+    def set_scale(self, relative_scale: float, active_canvas: bool = True) -> None:
         """
         Scales the displayed epithelium.
+        :param active_canvas: An active canvas repaints and signals all of its camera_listeners to set their scale.
         :param relative_scale: The scale of the new display represented as a fraction of the previous scale
         Example: 1.1 with an original scale of 2.0 will produce a new scale of 2.2.
         :return:
@@ -144,7 +146,11 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
                                                           self.__scale))  # type: numpy.ndarray
-        self.on_paint()
+
+        if active_canvas:
+            for listener in self.camera_listeners:
+                listener.set_scale(relative_scale, False)
+            self.on_paint()
 
     def _draw_epithelium(self) -> None:
         """
