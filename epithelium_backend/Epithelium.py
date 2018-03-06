@@ -89,4 +89,13 @@ class Epithelium(object):
     def update(self):
         """Simulates the epithelium for one tick"""
         self.furrow.update(self)
+        self.run_cell_updates()
         self.cell_collision_handler.decompact()
+
+    def run_cell_updates(self):
+        """
+        Has each cell run all of their respective updating functions every tick of the simulation
+        :return:
+        """
+        for cell in self.cells:
+            cell.dispatch_updates()

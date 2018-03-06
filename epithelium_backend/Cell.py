@@ -32,6 +32,11 @@ class Cell(object):
         else:
             self.support_specializations = support_specializations  # type: set
 
+        # This is a set of the functions which are passively run on this cell during the
+        # Epithelium.update functions.  They are added by furrow events.  All cells at least grow passively.
+        self.cell_updaters = {self.passive_growth}  # type: set
+
+    @staticmethod
     def passive_growth(self):
         """
         If this cell's radius is at least the maximum radius for a cell, then calls spawn_new_cell. Otherwise, it will
@@ -72,3 +77,11 @@ class Cell(object):
         :return:
         """
         self.radius += growth_amount
+
+    def dispatch_updates(self):
+        """
+        Calls all functions in the cell_updaters function list.
+        :return:
+        """
+        for updater in self.cell_updaters:
+            updater(self)
