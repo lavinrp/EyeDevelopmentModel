@@ -1,7 +1,9 @@
 import unittest
 
 from epithelium_backend.Epithelium import Epithelium
+from epithelium_backend.Cell import Cell
 from epithelium_backend.CellCollisionHandler import distance
+from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 
 
 class EpitheliumTester(unittest.TestCase):
@@ -72,27 +74,70 @@ class EpitheliumTester(unittest.TestCase):
 
     def test_neighboring_cells(self):
         """Ensures that Epithelium.neighboring_cells returns the correct neighbors."""
-        cell_quantity = 19
-        cell_radius_divergence = 0
-        cell_avg_radius = 1
-        epithelium = Epithelium(cell_quantity, cell_radius_divergence, cell_avg_radius)
+        cell_quantity = 5
+        cell_radius = 5
+        epithelium = Epithelium(cell_quantity=0, cell_avg_radius=cell_radius)
+        cell_dist = 10
 
-        neighbor_radius_count = 4
-        for input_cell in epithelium.cells:
-            # find cells within distance
-            neighbor_cells = []
-            for output_cell in epithelium.cells:
-                if output_cell is not input_cell:
-                    if distance((output_cell.position_x,
-                                 output_cell.position_y,
-                                 output_cell.position_z),
-                                (input_cell.position_x,
-                                 input_cell.position_y,
-                                 input_cell.position_z)) < cell_avg_radius * neighbor_radius_count:
-                        neighbor_cells.append(output_cell)
+        # create cells for epithelium
+        cells = []
+        for i in range(cell_quantity):
+            cell = Cell(position=(i * cell_dist, 0, 0), radius=cell_radius)
+            cells.append(cell)
+        epithelium.cells = cells
+        epithelium.cell_collision_handler = CellCollisionHandler(epithelium.cells)
 
-            calculated_neighbor_cells = list(epithelium.neighboring_cells(input_cell, neighbor_radius_count))
-            self.assertListEqual(neighbor_cells,
-                                 calculated_neighbor_cells,
-                                 "incorrect neighbors returned from Epithelium.neighboring_cells.")
+        radii_between_neighbors = 8
+        neighbors_of_first_cell = []
+        cell = cells[0]
+        for other in cells:
+            if cell is not other:
+                if distance((cell.position_x,
+                             cell.position_y,
+                             cell.position_z),
+                            (other.position_x,
+                             other.position_y,
+                             other.position_z)) <= (radii_between_neighbors * cell_radius):
+                    neighbors_of_first_cell.append(other)
+
+        returned_neighbors = list(epithelium.neighboring_cells(cell, radii_between_neighbors))
+
+        self.assertListEqual(neighbors_of_first_cell, returned_neighbors,
+                             "Incorrect neighbors returned by Epithelium.neighboring_cells.")
+
+    def test_update(self):
+        """ Ensures that updating the epithelium updates the cells and the furrow.
+        :return:
+        """
+
+        cell_quantity = 2
+        cell_radius = 5
+        epithelium = Epithelium(cell_quantity=0, cell_avg_radius=cell_radius)
+        cell_dist = 1
+
+        # create cells for epithelium
+        cells = []
+        for i in range(cell_quantity):
+            cell = Cell(position=(i * cell_dist, 0, 0), radius=cell_radius)
+            cells.append(cell)
+        epithelium.cells = cells
+        epithelium.cell_collision_handler = CellCollisionHandler(epithelium.cells)
+
+        # initial states
+        initial_furrow_pos = epithelium.furrow.position
+        cell_0_position = (cells[0].position_x, cells[0].position_y)
+        cell_1_position = (cells[1].position_x, cells[1].position_y)
+
+        # update epithelium
+        epithelium.update()
+
+        # check that cells have moved
+        self.assertNotEqual((cells[0].position_x, cells[0].position_y), cell_0_position,
+                            "Cell 0 position not changed when updating epithelium.")
+        self.assertNotEqual((cells[1].position_x, cells[1].position_y), cell_1_position,
+                            "Cell 1 position not changed when updating epithelium.")
+
+        # check furrow
+        self.assertEqual(epithelium.furrow.position, initial_furrow_pos - epithelium.furrow.velocity,
+                         "Furrow position not correctly changed when updating epithelium.")
 
