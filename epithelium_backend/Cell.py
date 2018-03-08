@@ -3,6 +3,7 @@ import random
 from math import sin, cos
 
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from epithelium_backend import CellEventList
 
 
 class Cell(object):
@@ -24,7 +25,7 @@ class Cell(object):
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
-        self.growth_rate = .01  # type: float
+        self.growth_rate = 1  # type: float
         self.photoreceptor_type = None
         # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
         if support_specializations is None:
@@ -34,7 +35,7 @@ class Cell(object):
 
         # This is a set of the functions which are passively run on this cell during the
         # Epithelium.update functions.  They are added by furrow events.  All cells at least grow passively.
-        self.cell_updaters = {self.passive_growth}  # type: set
+        self.cell_updaters = {CellEventList.passive_growth}  # type: set
 
     @staticmethod
     def passive_growth(self):
