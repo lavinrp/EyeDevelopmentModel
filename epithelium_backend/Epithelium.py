@@ -6,6 +6,7 @@ from epithelium_backend import CellCollisionHandler
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from epithelium_backend import CellEvents
 
 
 class Epithelium(object):
@@ -25,6 +26,7 @@ class Epithelium(object):
         self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = cell_avg_radius
         self.cell_collision_handler = None
+        self.default_cell_events = {CellEvents.PassiveGrowth(self)}
 
         self.create_cell_sheet()
 
@@ -45,6 +47,7 @@ class Epithelium(object):
         """
         new_cell = cell_from_list.divide()
         if new_cell is not None:
+            new_cell.cell_events = self.default_cell_events
             self.cells.append(new_cell)
             self.cell_collision_handler.register(new_cell)
 
@@ -71,7 +74,9 @@ class Epithelium(object):
             random_pos = (random.random() * approx_grid_size,
                           random.random() * approx_grid_size,
                           0)
-            self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+            self.cells.append(Cell.Cell(position=random_pos,
+                                        radius=rand_radius,
+                                        cell_events=self.default_cell_events))
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
