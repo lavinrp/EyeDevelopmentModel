@@ -1,17 +1,17 @@
-import ModernGL
+import moderngl
 import numpy
 
 
 class Simple2dGlProgram(object):
     """Convenience class to gather all data and functions for easy drawing of 2d objects"""
 
-    def __init__(self, context: ModernGL.Context=None):
+    def __init__(self, context: moderngl.Context=None):
         """Initialize this instance of Simple2dGlProgram"""
-        self.context = context  # type: ModernGL.Context
+        self.context = context  # type: moderngl.Context
         self.vao_content = []  # type: list
-        self.vao = None  # type: ModernGL.VertexArray
-        self.vbo = None  # type: ModernGL.Buffer
-        self.program = None  # type: ModernGL.Program
+        self.vao = None  # type: moderngl.VertexArray
+        self.vbo = None  # type: moderngl.Buffer
+        self.program = None  # type: moderngl.Program
 
         # the number of instances to reserve memory for
         self.reserved_object_count = 0  # type: int
@@ -38,10 +38,12 @@ class Simple2dGlProgram(object):
             fragment_shader_string = str(fragment_shader_file.read())
 
         # create shader program
-        vert = self.context.vertex_shader(vertex_shader_string)
-        geom = self.context.geometry_shader(geometry_shader_string)
-        frag = self.context.fragment_shader(fragment_shader_string)
-        self.program = self.context.program([vert, geom, frag])
+        # vert = self.context.vertex_shader(vertex_shader_string)
+        # geom = self.context.geometry_shader(geometry_shader_string)
+        # frag = self.context.fragment_shader(fragment_shader_string)
+        self.program = self.context.program(vertex_shader=vertex_shader_string,
+                                            geometry_shader=geometry_shader_string,
+                                            fragment_shader=fragment_shader_string)
 
     def init_vertex_objects(self, vao_format: str, vao_inputs: list):
         """
@@ -52,11 +54,17 @@ class Simple2dGlProgram(object):
         # vao and vbo init
         self.vbo = self.context.buffer(dynamic=True,
                                        reserve=self.reserved_object_count * self.reserved_object_bytes)
-        self.vao_content = [(self.vbo, vao_format, vao_inputs)]
+        self.vao_content = [(self.vbo, vao_format, *vao_inputs)]
         self.vao = self.context.vertex_array(self.program, self.vao_content)
 
     def update_vertex_objects(self, input_data: numpy.ndarray):
         """
+
+
+
+
+
+
         updates the vao, vbo and vao_content with new data
         :param input_data: The new data
         """
@@ -76,7 +84,7 @@ class Simple2dGlProgram(object):
             # TODO: find a way to increase the size of the vbo without creating a new vao
             # This is probably suboptimal performance wise (especially since we will be frequently)
             self.vbo = self.context.buffer(gl_data, dynamic=True)
-            self.vao_content[0] = (self.vbo, self.vao_content[0][1], self.vao_content[0][2])
+            self.vao_content[0] = (self.vbo, self.vao_content[0][1], *self.vao_content[0][2:])
             self.vao = self.context.vertex_array(self.program, self.vao_content)
 
             self.reserved_object_count = input_data_count

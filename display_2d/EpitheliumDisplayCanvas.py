@@ -1,22 +1,24 @@
-
+import os
 
 import wx
 from wx import glcanvas
-import ModernGL
+import moderngl
 from pyrr import matrix44
 import numpy
+
 from display_2d.EpitheliumGlTranslator import format_epithelium_for_gl
 from display_2d.EpitheliumGlTranslator import gl_bytes_per_cell
 from display_2d.Simple2dGlProgram import Simple2dGlProgram
+from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 
 
-class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
+class ModernDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent: wx.Panel):
         glcanvas.GLCanvas.__init__(self, parent, size=(parent.GetSize()), name='epithelium_display_canvas')
         # GL
         self.wx_context = None  # type:  glcanvas.GLContext
-        self.context = None  # type: ModernGL.Context
+        self.context = None  # type: moderngl.Context
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 0.01  # type: float
@@ -61,6 +63,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
     def on_size(self, e: wx.SizeEvent):
         """Event handler for resizing Does not consume the size event.
         Flags on_paint to fix aspect ratio"""
+        if self.wx_context:
+            self.SetCurrent(self.wx_context)
         size = self.GetParent().GetSize()
         self.SetSize(size)
         if self.context:
@@ -148,7 +152,6 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         Draws the epithelium to a pre-selected, pre-cleared, GL context.
         :return:
         """
-
         # update cell positions
         cell_data = format_epithelium_for_gl(self.epithelium)  # type: numpy.ndarray
         self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
@@ -157,8 +160,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
         model_tuple = tuple(model.flatten())
-        self.empty_circle_gl_program.program.uniforms["model"].value = model_tuple
-        self.filled_circle_gl_program.program.uniforms["model"].value = model_tuple
+        self.empty_circle_gl_program.program["model"].value = model_tuple
+        self.filled_circle_gl_program.program["model"].value = model_tuple
 
         # TODO: use projection matrix to fix stretching on window resize
         projection = matrix44.create_perspective_projection_from_bounds(0,
@@ -169,8 +172,8 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
                                                                         1)
         # self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
-        self.empty_circle_gl_program.vao.render(mode=ModernGL.POINTS)
-        self.filled_circle_gl_program.vao.render(mode=ModernGL.POINTS)
+        self.empty_circle_gl_program.vao.render(mode=moderngl.POINTS)
+        self.filled_circle_gl_program.vao.render(mode=moderngl.POINTS)
 
         self.SwapBuffers()
 
@@ -183,7 +186,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         # context setup
         self.wx_context = glcanvas.GLContext(self)
         self.SetCurrent(self.wx_context)
-        self.context = ModernGL.create_context()
+        self.context = moderngl.create_context()
 
         # empty circle program setup
         self.empty_circle_gl_program.context = self.context
@@ -191,7 +194,7 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         geometry_shader_path = r"display_2d/shaders/EmptyCircleGenerator.geom"
         fragment_shader_path = r"display_2d/shaders/CircleGenerator.frag"
         self.empty_circle_gl_program.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
-        self.empty_circle_gl_program.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
+        self.empty_circle_gl_program.init_vertex_objects('2f 3f 1f', ['vert', 'vert_color', 'vert_radius'])
 
         # filled circle program setup
         self.filled_circle_gl_program.context = self.context
@@ -199,10 +202,15 @@ class EpitheliumDisplayCanvas(glcanvas.GLCanvas):
         geometry_shader_path = r"display_2d/shaders/FilledCircleGenerator.geom"
         fragment_shader_path = r"display_2d/shaders/CircleGenerator.frag"
         self.filled_circle_gl_program.create_program(vertex_shader_path, geometry_shader_path, fragment_shader_path)
-        self.filled_circle_gl_program.init_vertex_objects('2f3f1f', ['vert', 'vert_color', 'vert_radius'])
+        self.filled_circle_gl_program.init_vertex_objects('2f 3f 1f', ['vert', 'vert_color', 'vert_radius'])
 
         self.__gl_initialized = True
 
     @property
     def epithelium(self):
         return self.GetParent().epithelium
+
+
+class EpitheliumDisplayCanvas(LegacyDisplayCanvas if os.getenv("eye_develop_model_legacy_display")
+                              else ModernDisplayCanvas):
+    pass

@@ -17,10 +17,11 @@ const float PI = 3.1415926;
 void main()
 {
     frag_color = geom_color[0];
+    const int half_max_vertices = MAX_VERTICES/2;
 
-    for (int i = 0; i < MAX_VERTICES/2; i++) {
+    for (int i = 0; i < half_max_vertices; i++) {
         // Angle between each side in radians
-        float ang = PI * 2.0 / (MAX_VERTICES/2 - 1) * i;
+        float ang = PI * 2.0 / (half_max_vertices - 1) * i;
 
         // place on circle edge
         vec4 offset = vec4(cos(ang) * geom_radius[0], -sin(ang) * geom_radius[0], 0.0, 0.0);
