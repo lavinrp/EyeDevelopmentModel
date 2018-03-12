@@ -12,7 +12,7 @@ class Cell(object):
                  radius: float = 1,
                  photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
                  support_specializations: set = None,
-                 cell_events: set = None ) -> None:
+                 cell_events: set = None) -> None:
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
@@ -35,7 +35,7 @@ class Cell(object):
             self.support_specializations = support_specializations  # type: set
 
         # This is a set of the functions which are passively run on this cell during the
-        # Epithelium.update functions.  They are added by furrow events.  All cells at least grow passively.
+        # Epithelium.update functions.  They are added by furrow events.
         if cell_events is None:
             self.cell_events = set([])  # type: set
         else:

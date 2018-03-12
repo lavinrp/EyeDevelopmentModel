@@ -26,7 +26,6 @@ class Epithelium(object):
         self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = cell_avg_radius
         self.cell_collision_handler = None
-        self.default_cell_events = {CellEvents.PassiveGrowth(self)}
 
         self.create_cell_sheet()
 
@@ -47,7 +46,6 @@ class Epithelium(object):
         """
         new_cell = cell_from_list.divide()
         if new_cell is not None:
-            new_cell.cell_events = self.default_cell_events
             self.cells.append(new_cell)
             self.cell_collision_handler.register(new_cell)
 
@@ -65,6 +63,9 @@ class Epithelium(object):
         # Because we allow some cell overlap, and we want the cells to start
         # in a more compact state and decompact them, we multiply by .87
         approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
+        # This is the list of functions which are each cell should start out with.
+        # They are run once per tick of the simulation.
+        default_cell_events = {CellEvents.PassiveGrowth(self)}
         while self.cell_quantity > len(self.cells):
 
             # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
@@ -76,7 +77,7 @@ class Epithelium(object):
                           0)
             self.cells.append(Cell.Cell(position=random_pos,
                                         radius=rand_radius,
-                                        cell_events=self.default_cell_events))
+                                        cell_events=default_cell_events))
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
@@ -99,7 +100,7 @@ class Epithelium(object):
 
     def run_cell_updates(self):
         """
-        Has each cell run all of their respective updating functions every tick of the simulation
+        Has each cell run all of their respective updating functions.
         :return:
         """
         for cell in self.cells:

@@ -1,8 +1,6 @@
 import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
-from epithelium_backend.Cell import Cell
-from epithelium_backend import CellEvents
 
 
 def run_r8_selector(field_types, epithelium, cells):
