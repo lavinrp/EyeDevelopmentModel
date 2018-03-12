@@ -11,7 +11,7 @@ class Cell(object):
                  position: tuple = (0, 0, 0),
                  radius: float = 1,
                  photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
-                 support_specializations:set = set()) -> None:
+                 support_specializations: set = None) -> None:
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
@@ -25,8 +25,12 @@ class Cell(object):
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
         self.growth_rate = .01  # type: float
-        self.photoreceptor_type = photoreceptor_type # type: photoreceptor_type
-        # self.support_specializations = support_specializations  # type: set
+        self.photoreceptor_type = None
+        # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
+        if support_specializations is None:
+            self.support_specializations = set()  # type: set
+        else:
+            self.support_specializations = support_specializations  # type: set
 
     def passive_growth(self):
         """
