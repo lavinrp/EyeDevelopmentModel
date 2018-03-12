@@ -4,7 +4,6 @@ from epithelium_backend.Epithelium import Epithelium
 from epithelium_backend.FurrowEventList import furrow_event_list
 from eye_development_gui.FieldType import FieldType
 from eye_development_gui.eye_development_gui import MainFrameBase
-from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 import wx
 import wx.xrc
 from wx.core import TextCtrl
@@ -38,6 +37,14 @@ class MainFrame(MainFrameBase):
                                        self.m_simulation_display_panel]  # type: list
         for controller in self.simulation_controllers:
             controller.simulation_listeners.append(self)
+
+        # establish camera listeners
+        sim_canvas = self.m_simulation_display_panel.m_epithelium_display.gl_canvas
+        overview_canvas = self.m_sim_overview_display_panel.m_epithelium_display.gl_canvas
+        generation_canvas = self.m_epithelium_gen_display_panel.gl_canvas
+        sim_canvas.camera_listeners.extend((overview_canvas, generation_canvas))
+        overview_canvas.camera_listeners.extend((sim_canvas, generation_canvas))
+        generation_canvas.camera_listeners.extend((sim_canvas, overview_canvas))
 
         # Timer for updating the epithelium
         self.simulation_timer = wx.Timer(self)

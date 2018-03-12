@@ -1,0 +1,37 @@
+# Assignment 5 - Task List
+
+1. Task: Research ommatidium development for simulation steps  
+Assigned: Brian
+
+2. Task: Explore tools for visual representation of eye development  
+Assigned: Ryan
+
+3. Task: Create Basic UI for initial testing  
+Assigned: Ryan
+
+4. Task: Create a view of the simulation  
+Assigned : Joe
+
+5. Task: Create Epithelium data structure  
+Assigned: Brian
+
+6. Task: Create Cell data structure  
+Assigned: Nick
+
+7. Task: Automated documentation  
+Assigned: Brian
+
+8. Task: Implement particle simulation system for cell division and cell packing  
+Assigned: Joe
+
+9. Task: Research HDF5 implementation for import/export operations  
+Assigned: Nick
+
+10. Task: Create config file save option for saving/sharing simulations  
+Assigned: Brian
+
+11. Task: Create dynamic and mutable cell specialization event queue  
+Assigned: Ryan
+
+12. Task: Build simulation statistics report object for additional information on simulations  
+Assigned: Joe
