@@ -38,15 +38,17 @@ class Epithelium(object):
                                     velocity=self.cell_avg_radius * 6,
                                     events=furrow_event_list)
 
-    def divide_cell(self, cell_from_list) -> None:
+    def divide_cell(self, cell_from_list) -> Cell:
         """
-        divides the given cell and adds it to the list
+        divides the given cell and adds the newly created cell to the list
         :param cell_from_list: a cell selected from self.cells
+        :return the newly created cell:
         """
         new_cell = cell_from_list.divide()
         if new_cell is not None:
             self.cells.append(new_cell)
             self.cell_collision_handler.register(new_cell)
+        return new_cell
 
     def create_cell_sheet(self) -> None:
         """
