@@ -24,6 +24,7 @@ class Cell(object):
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
+        self.dividable = True  # type: bool
         self.growth_rate = .01  # type: float
         self.photoreceptor_type = None
         # self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
@@ -34,17 +35,18 @@ class Cell(object):
 
     def passive_growth(self):
         """
-        If this cell's radius is at least the maximum radius for a cell, then calls spawn_new_cell. Otherwise, it will
-        grow by the cell's growth rate.
+        If this cell's radius is less than its max_radius, it will grow by the cell's growth rate.  Otherwise, it
+        will check if the cell is allowed to be divided and then divide it.
         :return:
         """
-        # Check if cell is large enough to divide
-        if self.radius >= self.max_radius:
-            return self.divide()
-        else:
+        # Check if cell is small enough to grow
+        if self.radius < self.max_radius:
             # If not large enough, grow the cell a little bit for next time
             self.grow_cell(self.growth_rate)
-            return None
+        elif self.dividable:
+            # If the cell is large enough and allowed to be divided, then we will divide the cell
+            return self.divide()
+        return None
 
     def divide(self):
         """

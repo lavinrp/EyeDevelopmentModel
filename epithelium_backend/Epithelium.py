@@ -43,10 +43,11 @@ class Epithelium(object):
         divides the given cell and adds it to the list
         :param cell_from_list: a cell selected from self.cells
         """
-        new_cell = cell_from_list.divide()
-        if new_cell is not None:
-            self.cells.append(new_cell)
-            self.cell_collision_handler.register(new_cell)
+        if cell_from_list.dividable:
+            new_cell = cell_from_list.divide()
+            if new_cell is not None:
+                self.cells.append(new_cell)
+                self.cell_collision_handler.register(new_cell)
 
     def create_cell_sheet(self) -> None:
         """
