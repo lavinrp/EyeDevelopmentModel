@@ -19,14 +19,14 @@ class CellTester(unittest.TestCase):
         support_specializations = {"test"}
         cell = Cell((x, y, z), radius, photoreceptor_type, support_specializations)
 
-        self.assertEqual(cell.position_x, x, "Incorrect cell position assigned by Cell.__init__.")
-        self.assertEqual(cell.position_y, y, "Incorrect cell position assigned by Cell.__init__.")
-        self.assertEqual(cell.position_z, z, "Incorrect cell position assigned by Cell.__init__.")
-        self.assertEqual(cell.radius, radius, "Incorrect cell radius assigned by Cell.__init__.")
+        self.assertEqual(cell.position_x, x, "Incorrect cell position assigned by Cell.__init__")
+        self.assertEqual(cell.position_y, y, "Incorrect cell position assigned by Cell.__init__")
+        self.assertEqual(cell.position_z, z, "Incorrect cell position assigned by Cell.__init__")
+        self.assertEqual(cell.radius, radius, "Incorrect cell radius assigned by Cell.__init__")
         self.assertEqual(cell.photoreceptor_type, photoreceptor_type,
-                         "Incorrect photoreceptor type assigned by Cell.__init__.")
+                         "Incorrect photoreceptor type assigned by Cell.__init__")
         self.assertEqual(cell.support_specializations, support_specializations,
-                         "Incorrect support specialization assigned by Cell.__init__.")
+                         "Incorrect support specialization assigned by Cell.__init__")
 
     def test_divide(self):
         # init parent
@@ -42,13 +42,13 @@ class CellTester(unittest.TestCase):
         child = cell.divide()
 
         # check radii
-        self.assertEqual(cell.radius, radius/2, "Incorrect radii after cell.divide.")
-        self.assertEqual(child.radius, radius/2, "Incorrect radii after cell.divide.")
+        self.assertEqual(cell.radius, radius/2, "Incorrect radii after cell.divide")
+        self.assertEqual(child.radius, radius/2, "Incorrect radii after cell.divide")
 
         # check position
         cell_dist = math.hypot(cell.position_x - child.position_x, cell.position_y - child.position_y)
         # cells should now have a cell radius of radius/2. The cells centers should be two of this distance apart.
-        self.assertAlmostEqual(cell_dist, 2*(radius/2), msg="Incorrect cell spacing after cell.divide.", delta=.01)
+        self.assertAlmostEqual(cell_dist, 2*(radius/2), msg="Incorrect cell spacing after cell.divide", delta=.01)
 
     def test_grow_cell(self):
         # init parent
@@ -63,5 +63,5 @@ class CellTester(unittest.TestCase):
         growth_amount = 0.6
         cell.grow_cell(growth_amount)
 
-        self.assertEqual(cell.radius, radius+growth_amount, "Cell.grow_cell incorrectly changes cell size.")
+        self.assertEqual(cell.radius, radius+growth_amount, "Cell.grow_cell incorrectly changes cell size")
 

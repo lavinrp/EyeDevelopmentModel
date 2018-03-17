@@ -37,10 +37,10 @@ class FurrowTester(unittest.TestCase):
 
         furrow = Furrow(pos, velocity, events)  # type: Furrow
 
-        self.assertListEqual(furrow.events, events, "events incorrectly set in Furrow.__init__.")
-        self.assertEqual(furrow.velocity, velocity, "velocity incorrectly set in Furrow.__init__.")
-        self.assertEqual(furrow.position, pos, "position incorrectly set in Furrow.__init__.")
-        self.assertEqual(furrow.last_position, math.inf, "last_position not initialized to inf in Furrow.__init__.")
+        self.assertListEqual(furrow.events, events, "events incorrectly set in Furrow.__init__")
+        self.assertEqual(furrow.velocity, velocity, "velocity incorrectly set in Furrow.__init__")
+        self.assertEqual(furrow.position, pos, "position incorrectly set in Furrow.__init__")
+        self.assertEqual(furrow.last_position, math.inf, "last_position not initialized to inf in Furrow.__init__")
 
     def test_advance(self):
         velocity = 10
