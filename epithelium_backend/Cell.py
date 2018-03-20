@@ -11,13 +11,15 @@ class Cell(object):
                  position: tuple = (0, 0, 0),
                  radius: float = 1,
                  photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
-                 support_specializations: set = None) -> None:
+                 support_specializations: set = None,
+                 cell_events: set = None) -> None:
         """
         Initializes this instance of the Cell class
         :param position: The cartesian coordinates of the cell (x,y,z)
         :param radius: A multiplier of the average cell radius
         :param photoreceptor_type: The cells photoreceptor specialization
         :param support_specializations: Set of the cells non-photoreceptor specializations
+        :param cell_events: Default list of cell events
         """
         self.position_x = position[0]  # type: float
         self.position_y = position[1]  # type: float
@@ -32,21 +34,12 @@ class Cell(object):
             self.support_specializations = set()  # type: set
         else:
             self.support_specializations = support_specializations  # type: set
-
-    def passive_growth(self):
-        """
-        If this cell's radius is less than its max_radius, it will grow by the cell's growth rate.  Otherwise, it
-        will check if the cell is allowed to be divided and then divide it.
-        :return:
-        """
-        # Check if cell is small enough to grow
-        if self.radius < self.max_radius:
-            # If not large enough, grow the cell a little bit for next time
-            self.grow_cell(self.growth_rate)
-        elif self.dividable:
-            # If the cell is large enough and allowed to be divided, then we will divide the cell
-            return self.divide()
-        return None
+        # This is a set of the functions which are passively run on this cell during the
+        # Epithelium.update functions.  They are added by furrow events.
+        if cell_events is None:
+            self.cell_events = set([])  # type: set
+        else:
+            self.cell_events = cell_events  # type: set
 
     def divide(self):
         """
@@ -58,7 +51,7 @@ class Cell(object):
         rand_rad = random.uniform(0, 6.283)
         # Find position for new cell on original cell's circle
         rand_pos = (self.position_x + self.radius * cos(rand_rad), self.position_y + self.radius * sin(rand_rad), 0)
-        child_cell = Cell(position=rand_pos, radius=self.radius / 2.0)
+        child_cell = Cell(position=rand_pos, radius=self.radius / 2.0, cell_events=set(self.cell_events))
         # Find the adjusted position for the original cell for after the division
         self.position_x = self.position_x - self.radius * cos(rand_rad)
         self.position_y = self.position_y - self.radius * sin(rand_rad)
@@ -74,3 +67,11 @@ class Cell(object):
         :return:
         """
         self.radius += growth_amount
+
+    def dispatch_updates(self):
+        """
+        Calls all functions in the cell_updaters function list.
+        :return:
+        """
+        for updater in self.cell_events:
+            updater(self)
