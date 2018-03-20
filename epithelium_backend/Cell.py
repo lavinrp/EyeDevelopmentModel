@@ -26,6 +26,7 @@ class Cell(object):
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
+        self.dividable = True  # type: bool
         self.growth_rate = .01  # type: float
         self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
         if support_specializations is None:
