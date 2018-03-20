@@ -100,7 +100,11 @@ class Epithelium(object):
         :param cell: The target cell. This cells neighbors will be returned.
         :param number_cells: an integer, the number of average cell radii.
         """
-        return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
+        # Multiply by average diameter to convert cell count into distance.
+        # Distance is edge to edge, rather than center to center, hence
+        # the number_cells+1.
+        dist = (number_cells+1)*2*self.cell_avg_radius
+        return self.cell_collision_handler.cells_within_distance(cell, dist)
 
     def update(self):
         """Simulates the epithelium for one tick"""
