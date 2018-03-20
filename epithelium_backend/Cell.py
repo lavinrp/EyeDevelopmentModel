@@ -27,7 +27,7 @@ class Cell(object):
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
         self.dividable = True  # type: bool
-        self.growth_rate = .01  # type: float
+        self.growth_rate = .5  # type: float
         self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
         if support_specializations is None:
             self.support_specializations = set()  # type: set
@@ -50,11 +50,11 @@ class Cell(object):
         # Choose some radian for direction of placement of new cell
         rand_rad = random.uniform(0, 6.283)
         # Find position for new cell on original cell's circle
-        rand_pos = (self.position_x + self.radius * cos(rand_rad), self.position_y + self.radius * sin(rand_rad), 0)
+        rand_pos = (self.position_x + self.radius/2 * cos(rand_rad), self.position_y + self.radius/2 * sin(rand_rad), 0)
         child_cell = Cell(position=rand_pos, radius=self.radius / 2.0, cell_events=set(self.cell_events))
         # Find the adjusted position for the original cell for after the division
-        self.position_x = self.position_x - self.radius * cos(rand_rad)
-        self.position_y = self.position_y - self.radius * sin(rand_rad)
+        self.position_x = self.position_x - self.radius/2 * cos(rand_rad)
+        self.position_y = self.position_y - self.radius/2 * sin(rand_rad)
         self.position_z = 0
         # Divide the original cell size in half
         self.radius /= 2
