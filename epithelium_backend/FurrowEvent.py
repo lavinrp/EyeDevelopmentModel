@@ -19,6 +19,7 @@ class FurrowEvent(object):
         this function is run on the subset of cells that the furrow is visiting, adjusted
         for the event's distance from the furrow.
         """
+        self.last_processed = set()
         self.distance_from_furrow = distance_from_furrow
         self.field_types = field_types
         self.run = run
@@ -29,7 +30,21 @@ class FurrowEvent(object):
         the furrow's last and current position, adjusting for the event's
         distance from the furrow's frontier.
         """
+        # The Furrow moves from right to left, so left_bound < right_bound.
         left_bound = furrow_position + self.distance_from_furrow
         right_bound = furrow_last_position + self.distance_from_furrow
-        cells = epithelium.cell_collision_handler.cells_between(left_bound, right_bound)
-        self.run(self.field_types, epithelium, cells)
+        # We get the last right_bound because the cell collision handler may have
+        # pushed a cell beyond the furrow point. For example, if | is the furrow line
+        # and A,B,C,D are cells:
+        #
+        # initial:        A    B  |  C  D
+        # furrow steps:   A  | B     C  D   , processing B
+        # decompaction:      |AB     C  D   , A is pushed to right of furrow line
+        #
+        # So, we need to maintain the set of the cells processed on the last furrow step
+        # (self.last_processed), and remove those (set difference) from the union of the current
+        # furrow slice and last furrow slice, thereby ensuring that no cell escapes the furrow.
+        last_right_bound = right_bound + (right_bound - left_bound)
+        candidates = epithelium.cell_collision_handler.cells_between(left_bound, last_right_bound)
+        self.last_processed = set(candidates) - self.last_processed
+        self.run(self.field_types, epithelium, self.last_processed)

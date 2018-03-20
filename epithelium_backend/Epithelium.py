@@ -49,6 +49,15 @@ class Epithelium(object):
             self.cells.append(new_cell)
             self.cell_collision_handler.register(new_cell)
 
+    def delete_cell(self, cell: Cell):
+        """
+        Removes a cell from the epithelium, and then deregisters it from the CellCollisionHandler
+        :param cell: cell to delete from the epithelium
+        :return:
+        """
+        self.cells.remove(cell)
+        self.cell_collision_handler.deregister(cell)
+
     def create_cell_sheet(self) -> None:
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
@@ -90,7 +99,11 @@ class Epithelium(object):
         :param cell: The target cell. This cells neighbors will be returned.
         :param number_cells: an integer, the number of average cell radii.
         """
-        return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
+        # Multiply by average diameter to convert cell count into distance.
+        # Distance is edge to edge, rather than center to center, hence
+        # the number_cells+1.
+        dist = (number_cells+1)*2*self.cell_avg_radius
+        return self.cell_collision_handler.cells_within_distance(cell, dist)
 
     def update(self):
         """Simulates the epithelium for one tick"""

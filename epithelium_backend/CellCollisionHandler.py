@@ -69,26 +69,14 @@ class CellCollisionHandler(object):
         self.allow_overlap = allow_overlap
         self.spring_constant = spring_constant
 
-        # Grid
-        # Compute the average radius and center so we know how to partition
-        # the space.
-        self.cell_quantity = len(cells)
-        self.avg_radius = sum(map(lambda x : x.radius, cells))/len(cells)
-        self.center_x = sum(map(lambda x : x.position_x, cells))/len(cells)
-        self.center_y = sum(map(lambda x : x.position_y, cells))/len(cells)
-        # Twice the maximum x and y coordinates we can handle.
-        # Choose a space big enough to hold 4x more cells than we have.
-        self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
-        # The width of each box. Chosen so that two cells can exert forces
-        # on each other only if they're in adjacent boxes.
-        self.box_size = self.avg_radius * 2 * force_escape
-
-        # The number of rows and columns needed.
-        self.dimension = ceil(self.max_grid_size / self.box_size)
-        # The one dimensional list representing our grid.
-        self.grids = [[] for x in range(0,self.dimension**2)]
-        # The set of non-empty boxes -- the only ones we need
-        # to examine when decompacting
+        self.cell_quantity = 0
+        self.avg_radius = 0
+        self.center_x = 0
+        self.center_y = 0
+        self.max_grid_size = 0
+        self.box_size = 0
+        self.dimension = 0
+        self.grids = []
         self.non_empty = set()
 
         self.fill_grid()
@@ -112,6 +100,13 @@ class CellCollisionHandler(object):
         col = self.compute_col(cell.position_x)
         row = self.compute_row(cell.position_y)
         # Map the row,col to an index in our one dimensional grid vector.
+        bin = self.dimension*row + col
+        if bin >= len(self.grids):
+            # Resize the grid and re-bin all the cells.
+            self.fill_grid()
+            # Because the dimensions and centers have changed,
+            # we have to recompute the bin.
+            return self.bin(cell)
         return self.dimension*row + col
 
     def register(self, cell: Cell):
@@ -122,8 +117,38 @@ class CellCollisionHandler(object):
         self.grids[cell.bin].append(cell)
         self.non_empty.add(cell.bin)
 
+    def deregister(self, cell: Cell):
+        """Remove the cell from the collision handler."""
+        self.grids[cell.bin].remove(cell)
+        # May want to remove from non_empty
+
     def fill_grid(self):
-        """Add every cell to the collision handler."""
+        """
+        Create or resize the collision handler's grid and
+        add every cell to it.
+        """
+        # Grid
+        # Compute the average radius and center so we know how to partition
+        # the space.
+        self.cell_quantity = len(self.cells)
+        self.avg_radius = sum(map(lambda x : x.radius, self.cells))/len(self.cells)
+        self.center_x = sum(map(lambda x : x.position_x, self.cells))/len(self.cells)
+        self.center_y = sum(map(lambda x : x.position_y, self.cells))/len(self.cells)
+        # Twice the maximum x and y coordinates we can handle.
+        # Choose a space big enough to hold 4x more cells than we have.
+        self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
+        # The width of each box. Chosen so that two cells can exert forces
+        # on each other only if they're in adjacent boxes.
+        self.box_size = self.avg_radius * 2 * self.force_escape
+
+        # The number of rows and columns needed.
+        self.dimension = ceil(self.max_grid_size / self.box_size)
+        # The one dimensional list representing our grid.
+        self.grids = [[] for x in range(0,self.dimension**2)]
+        # The set of non-empty boxes -- the only ones we need
+        # to examine when decompacting
+        self.non_empty = set()
+
         for cell in self.cells:
             self.register(cell)
 
@@ -140,7 +165,9 @@ class CellCollisionHandler(object):
 
         cxnx = cell1.position_x - cell2.position_x
         cyny = cell1.position_y - cell2.position_y
-        dist = sqrt(cxnx*cxnx + cyny*cyny)
+        # If they're on top of each other, they should push each other apart.
+        # Distance can't equal zero since we divide by distance later on.
+        dist = max(sqrt(cxnx*cxnx + cyny*cyny), self.avg_radius/100)
         # Use Hooke's Law. Cells exert pushing forces on each
         # other when they're colliding and pulling forces when
         # there's empty space between them but they're sufficiently
