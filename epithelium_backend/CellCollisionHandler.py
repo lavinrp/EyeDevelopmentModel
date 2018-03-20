@@ -117,6 +117,11 @@ class CellCollisionHandler(object):
         self.grids[cell.bin].append(cell)
         self.non_empty.add(cell.bin)
 
+    def deregister(self, cell: Cell):
+        """Remove the cell from the collision handler."""
+        self.grids[cell.bin].remove(cell)
+        # May want to remove from non_empty
+
     def fill_grid(self):
         """
         Create or resize the collision handler's grid and
