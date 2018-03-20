@@ -139,7 +139,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__scale *= relative_scale
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
-                                                          self.__scale))  # type: numpy.ndarray
+                                                          1))  # type: numpy.ndarray
         if active_canvas:
             for listener in self.camera_listeners:
                 listener.set_scale(relative_scale, False)
@@ -160,8 +160,8 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                                                                   self.GetSize().width,
                                                                   0,
                                                                   self.GetSize().height,
-                                                                  0,
-                                                                  1)
+                                                                  1,
+                                                                  1.1)
 
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
