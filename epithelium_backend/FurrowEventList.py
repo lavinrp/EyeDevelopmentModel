@@ -25,16 +25,6 @@ r8_selection_event = FurrowEvent(distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
 
-def test_deleter(field_types, epithelium, cells):
-    """comment"""
-    for cell in cells:
-        if cell.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR:
-            epithelium.delete_cell(cell)
-
-
-deletion_event = FurrowEvent(distance_from_furrow=4,
-                             field_types={'deletefield': FieldType.IntegerFieldType(0)},
-                             run=test_deleter)
 
 # All Furrow Events ordered from first to last
-furrow_event_list = [r8_selection_event, deletion_event]
+furrow_event_list = [r8_selection_event]
