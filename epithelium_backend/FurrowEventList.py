@@ -25,6 +25,5 @@ r8_selection_event = FurrowEvent(distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
 
-
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event]
