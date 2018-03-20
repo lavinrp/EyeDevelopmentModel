@@ -305,7 +305,6 @@ class MainFrame(MainFrameBase):
         else:
             self.simulation_timer.Stop()
 
-
     # endregion simulation
 
     # region misc

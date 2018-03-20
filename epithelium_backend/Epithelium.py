@@ -48,6 +48,15 @@ class Epithelium(object):
             self.cells.append(new_cell)
             self.cell_collision_handler.register(new_cell)
 
+    def delete_cell(self, cell: Cell):
+        """
+        Removes a cell from the epithelium, and then deregisters it from the CellCollisionHandler
+        :param cell: cell to delete from the epithelium
+        :return:
+        """
+        self.cells.remove(cell)
+        self.cell_collision_handler.deregister(cell)
+
     def create_cell_sheet(self) -> None:
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
