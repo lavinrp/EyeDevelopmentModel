@@ -6,6 +6,7 @@ from epithelium_backend import CellCollisionHandler
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from epithelium_backend import CellEvents
 
 
 class Epithelium(object):
@@ -43,10 +44,11 @@ class Epithelium(object):
         divides the given cell and adds it to the list
         :param cell_from_list: a cell selected from self.cells
         """
-        new_cell = cell_from_list.divide()
-        if new_cell is not None:
-            self.cells.append(new_cell)
-            self.cell_collision_handler.register(new_cell)
+        if cell_from_list.dividable:
+            new_cell = cell_from_list.divide()
+            if new_cell is not None:
+                self.cells.append(new_cell)
+                self.cell_collision_handler.register(new_cell)
 
     def delete_cell(self, cell: Cell):
         """
@@ -71,6 +73,9 @@ class Epithelium(object):
         # Because we allow some cell overlap, and we want the cells to start
         # in a more compact state and decompact them, we multiply by .87
         approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
+        # This is the list of functions which are each cell should start out with.
+        # They are run once per tick of the simulation.
+        default_cell_events = {CellEvents.PassiveGrowth(self)}
         while self.cell_quantity > len(self.cells):
 
             # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
@@ -80,7 +85,9 @@ class Epithelium(object):
             random_pos = (random.random() * approx_grid_size,
                           random.random() * approx_grid_size,
                           0)
-            self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+            self.cells.append(Cell.Cell(position=random_pos,
+                                        radius=rand_radius,
+                                        cell_events=default_cell_events))
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
@@ -98,4 +105,13 @@ class Epithelium(object):
     def update(self):
         """Simulates the epithelium for one tick"""
         self.furrow.update(self)
+        self.run_cell_updates()
         self.cell_collision_handler.decompact()
+
+    def run_cell_updates(self):
+        """
+        Has each cell run all of their respective updating functions.
+        :return:
+        """
+        for cell in self.cells:
+            cell.dispatch_updates()

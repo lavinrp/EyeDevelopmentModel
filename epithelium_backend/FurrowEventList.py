@@ -10,6 +10,7 @@ def run_r8_selector(field_types, epithelium, cells):
     :param epithelium: epithelium where selection is taking place.
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
+
     r8_exclusion_radius = field_types['r8 exclusion radius'].value
     for cell in cells:
         neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
@@ -19,6 +20,7 @@ def run_r8_selector(field_types, epithelium, cells):
                 assign = False
         if assign:
             cell.photoreceptor_type = PhotoreceptorType.R8
+            cell.growth_rate = 0
 
 
 r8_selection_event = FurrowEvent(distance_from_furrow=0,
