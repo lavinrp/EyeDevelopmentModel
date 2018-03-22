@@ -23,6 +23,8 @@ class Cell(object):
         """
         self.position_x = position[0]  # type: float
         self.position_y = position[1]  # type: float
+        self.next_x = self.position_x
+        self.next_y = self.position_y
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
@@ -50,11 +52,15 @@ class Cell(object):
         # Choose some radian for direction of placement of new cell
         rand_rad = random.uniform(0, 6.283)
         # Find position for new cell on original cell's circle
-        rand_pos = (self.position_x + self.radius/2 * cos(rand_rad), self.position_y + self.radius/2 * sin(rand_rad), 0)
+        delta_x = self.radius/2 * cos(rand_rad)
+        delta_y = self.radius/2 * sin(rand_rad)
+        rand_pos = (self.position_x + delta_x, self.position_y + delta_y, 0)
         child_cell = Cell(position=rand_pos, radius=self.radius / 2.0, cell_events=set(self.cell_events))
-        # Find the adjusted position for the original cell for after the division
-        self.position_x = self.position_x - self.radius/2 * cos(rand_rad)
-        self.position_y = self.position_y - self.radius/2 * sin(rand_rad)
+        # Find the adjusted position and future position for the original cell for after the division
+        self.position_x -= delta_x
+        self.next_x -= delta_x
+        self.position_y -= delta_y
+        self.next_y -= delta_y
         self.position_z = 0
         # Divide the original cell size in half
         self.radius /= 2
