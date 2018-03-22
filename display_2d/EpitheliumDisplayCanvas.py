@@ -4,6 +4,7 @@ import wx
 from wx import glcanvas
 import moderngl
 from pyrr import matrix44
+from pyrr import vector4
 import numpy
 
 from display_2d.EpitheliumGlTranslator import format_epithelium_for_gl
@@ -41,6 +42,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
+        self._pan_speed = 0.1  # type: float
         self.__last_mouse_position = [0, 0]  # type: list
         self.camera_listeners = []  # type: list
 
@@ -84,6 +86,8 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
         # left mouse button down
         if event.ButtonDown(wx.MOUSE_BTN_LEFT):
+            print(self.world_coord_from_window_coord(current_mouse_position))
+
             self.__panning = True
 
         # left mouse button up
@@ -95,8 +99,14 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
             # panning
             if self.__panning:
-                self.pan_camera(self.__last_mouse_position[0] - current_mouse_position[0],
-                                -(self.__last_mouse_position[1] - current_mouse_position[1]))
+                # get world position of mouse
+                last_mouse_world_position = self.world_coord_from_window_coord(self.__last_mouse_position)
+                mouse_world_position = self.world_coord_from_window_coord(current_mouse_position)
+
+                # pan camera by how far the mouse moved in world coordinates
+                world_delta_x = last_mouse_world_position[0] - mouse_world_position[0]
+                world_delta_y = -(last_mouse_world_position[1] - mouse_world_position[1])
+                self.pan_camera(world_delta_x, world_delta_y)
 
         # scroll wheel
         wheel_rotation = event.GetWheelRotation()
@@ -115,10 +125,8 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         :param active_canvas: An active canvas repaints and signals all of its camera_listeners to pan.
         """
 
-        distance_modifier = 0.1  # type: float
-
-        self.__camera_x -= delta_x * distance_modifier
-        self.__camera_y -= delta_y * distance_modifier
+        self.__camera_x -= delta_x * self._pan_speed
+        self.__camera_y -= delta_y * self._pan_speed
 
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                                     self.__camera_y,
@@ -130,7 +138,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
     def set_scale(self, relative_scale: float, active_canvas: bool = True) -> None:
         """
-        Scales the displayed epithelium.
+        Scales the displayed epithelium and scales the speed of panning the epithelium.
         :param active_canvas: An active canvas repaints and signals all of its camera_listeners to set their scale.
         :param relative_scale: The scale of the new display represented as a fraction of the previous scale
         Example: 1.1 with an original scale of 2.0 will produce a new scale of 2.2.
@@ -144,6 +152,35 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
             for listener in self.camera_listeners:
                 listener.set_scale(relative_scale, False)
             self.on_paint()
+
+    def world_coord_from_window_coord(self, window_coord: list):
+        """
+        Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
+        from http://webglfactory.blogspot.com/2011/05/how-to-convert-world-to-screen.html.
+        :param window_coord: The window coordinate to be converted to the openGL coordinate space.
+        :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
+        """
+
+        canvas_width = self.GetSize().width
+        canvas_height = self.GetSize().height
+
+        x = 2.0 * window_coord[0] / canvas_width - 1
+        y = 2.0 * window_coord[1] / canvas_height + 1
+
+        # TODO: clean up the matrix stuff so that there no duplicated code between this and draw
+        projection = matrix44.create_orthogonal_projection_matrix(0,
+                                                                  canvas_width,
+                                                                  0,
+                                                                  canvas_height,
+                                                                  1,
+                                                                  1.1)
+        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+        model = matrix44.multiply(projection, model)
+        inverse_model_projection_matrix = matrix44.inverse(model)
+        position = vector4.create(x, y, 0, 0)
+        position = matrix44.multiply(inverse_model_projection_matrix, position)
+
+        return [position[0], position[1]]
 
     def _draw_epithelium(self) -> None:
         """
