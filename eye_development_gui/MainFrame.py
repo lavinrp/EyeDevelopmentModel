@@ -129,6 +129,7 @@ class MainFrame(MainFrameBase):
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_radius_divergence=cell_size_variance/avg_cell_size)
 
+            # set furrow velocity
             furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
             furrow_velocity = float(furrow_velocity_str)
             self.active_epithelium.furrow.velocity = furrow_velocity
