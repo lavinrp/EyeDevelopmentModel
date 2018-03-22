@@ -160,7 +160,9 @@ class MainFrame(MainFrameBase):
         variance = self.validate_ep_gen_cell_size_variance()
         cell_count = self.validate_ep_gen_min_cell_count()
         furrow_velocity = self.validate_ep_gen_furrow_velocity()
-        return avg_cell_size and variance and cell_count and furrow_velocity
+        cell_max_size = self.validate_ep_gen_cell_max_size()
+        cell_growth_rate = self.validate_ep_gen_cell_growth_rate()
+        return avg_cell_size and variance and cell_count and furrow_velocity and cell_max_size and cell_growth_rate
 
     def validate_ep_gen_min_cell_count(self) -> bool:
         """Validates user input to min_cell_count_text_ctrl
@@ -178,7 +180,6 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.min_cell_count_text_ctrl, validated)
-        self.min_cell_count_text_ctrl.Refresh()
         return validated
 
     def validate_ep_gen_avg_cell_size(self) -> bool:
@@ -196,7 +197,6 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.avg_cell_size_text_ctrl, validated)
-        self.avg_cell_size_text_ctrl.Refresh()
         return validated
 
     def validate_ep_gen_cell_size_variance(self) -> bool:
@@ -220,7 +220,6 @@ class MainFrame(MainFrameBase):
             validated = False
 
         self.display_text_control_validation(self.cell_size_variance_text_ctrl, validated)
-        self.cell_size_variance_text_ctrl.Refresh()
         return validated
 
     def validate_ep_gen_furrow_velocity(self) -> bool:
@@ -240,6 +239,40 @@ class MainFrame(MainFrameBase):
         self.display_text_control_validation(self.furrow_velocity_text_ctrl, validated)
         return validated
 
+    def validate_ep_gen_cell_max_size(self) -> bool:
+        """
+        Validates the user input to cell_max_size_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+
+        max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)
+
+        try:
+            max_size = float(max_size_str)
+            validated = max_size > 0
+        except Exception:
+            validated = False
+
+        self.display_text_control_validation(self.cell_max_size_text_ctrl, validated)
+        return validated
+
+    def validate_ep_gen_cell_growth_rate(self) -> bool:
+        """
+        Validates the user input to cell_growth_rate_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+
+        cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)
+
+        try:
+            growth_rate = float(cell_growth_rate_str)
+            validated = growth_rate >= 0
+        except Exception:
+            validated = False
+
+        self.display_text_control_validation(self.cell_growth_rate_text_ctrl, validated)
+        return validated
+
     @staticmethod
     def display_text_control_validation(txt_control: TextCtrl, validated: bool = True) -> None:
         """
@@ -254,6 +287,7 @@ class MainFrame(MainFrameBase):
             txt_control.SetBackgroundColour(wx.NullColour)
         else:
             txt_control.SetBackgroundColour("Red")
+        txt_control.Refresh()
 
     # endregion input validation
 
