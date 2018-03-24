@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Jan 24 2018)
+## Python code generated with wxFormBuilder (version Dec 21 2016)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO *NOT* EDIT THIS FILE!
+## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
@@ -21,7 +21,7 @@ class MainFrameBase ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -79,7 +79,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.min_cells_static_text, 0, wx.ALL, 5 )
 		
 		self.min_cell_count_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.min_cell_count_text_ctrl.SetToolTip( u"The number of cells that will Initially be generated for the epithelium." )
+		self.min_cell_count_text_ctrl.SetToolTipString( u"The number of cells that will Initially be generated for the epithelium." )
 		
 		epithelium_options_grid.Add( self.min_cell_count_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -88,7 +88,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.avg_cell_size_static_text, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.avg_cell_size_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.avg_cell_size_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.avg_cell_size_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -97,7 +97,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.cell_size_variance_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"2", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_size_variance_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.cell_size_variance_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -220,6 +220,7 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Connect Events
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
+		self.ep_gen_save_as_button.Bind( wx.EVT_BUTTON, self.on_save_as )
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
@@ -231,6 +232,9 @@ class MainFrameBase ( wx.Frame ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def ep_gen_create_callback( self, event ):
+		event.Skip()
+	
+	def on_save_as( self, event ):
 		event.Skip()
 	
 	def on_ep_gen_user_input( self, event ):
