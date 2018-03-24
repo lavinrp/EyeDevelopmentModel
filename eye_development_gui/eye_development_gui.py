@@ -220,7 +220,9 @@ class MainFrameBase ( wx.Frame ):
 		
 		# Connect Events
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
+		self.ep_gen_save_button.Bind( wx.EVT_BUTTON, self.on_save )
 		self.ep_gen_save_as_button.Bind( wx.EVT_BUTTON, self.on_save_as )
+		self.ep_gen_load_button.Bind( wx.EVT_BUTTON, self.on_load )
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
@@ -234,7 +236,13 @@ class MainFrameBase ( wx.Frame ):
 	def ep_gen_create_callback( self, event ):
 		event.Skip()
 	
+	def on_save( self, event ):
+		event.Skip()
+	
 	def on_save_as( self, event ):
+		event.Skip()
+	
+	def on_load( self, event ):
 		event.Skip()
 	
 	def on_ep_gen_user_input( self, event ):
