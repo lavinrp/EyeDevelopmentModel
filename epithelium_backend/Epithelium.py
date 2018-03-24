@@ -13,22 +13,21 @@ from epithelium_backend import CellEvents
 class Epithelium(object):
     """A collection of cells that will form an eye"""
 
-    def __init__(self, cell_quantity,
-                 cell_radius_divergence: float = .5,
-                 cell_avg_radius: float = 1) -> None:
+    def __init__(self, cell_quantity: int,
+                 cell_avg_radius: float = 10,
+                 cell_factory: CellFactory = None) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
-        :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_avg_radius
         :param cell_avg_radius: average cell radius
+        :param cell_factory: A factory responsible for producing the initial cells in the epithelium.
         """
         self.cells = []
         self.cell_quantity = cell_quantity
-        self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = cell_avg_radius
         self.cell_collision_handler = None
 
-        self.create_cell_sheet()
+        self.create_cell_sheet(cell_factory)
 
         # create furrow
         if len(self.cells):
@@ -37,7 +36,7 @@ class Epithelium(object):
             furrow_initial_position = 0
 
         self.furrow = Furrow.Furrow(position=furrow_initial_position,
-                                    velocity=self.cell_avg_radius * 6,
+                                    velocity=1,
                                     events=furrow_event_list)
 
     def divide_cell(self, cell_from_list) -> Cell:
@@ -64,21 +63,25 @@ class Epithelium(object):
         self.cells.remove(cell)
         self.cell_collision_handler.deregister(cell)
 
-    def create_cell_sheet(self) -> None:
+    def create_cell_sheet(self, cell_factory: CellFactory = None) -> None:
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
+        :param cell_factory: A factory responsible for producing the initial cells in the new cell sheet.
         """
+
+        # ensure presence of valid factory
+        if cell_factory is None:
+            cell_factory = CellFactory()
 
         # This is the list of functions which are each cell should start out with.
         # They are run once per tick of the simulation.
         default_cell_events = {CellEvents.PassiveGrowth(self)}
 
-        cell_factory = CellFactory()
-        cell_factory.average_radius = self.cell_avg_radius
-        cell_factory.radius_divergence = self.cell_radius_divergence
+        # create cells for sheet
         cell_factory.cell_events = default_cell_events
         self.cells = cell_factory.create_cells(self.cell_quantity)
 
+        # run initial decompaction of cells cells
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
             for i in range(0, 50):
