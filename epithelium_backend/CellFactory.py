@@ -22,7 +22,6 @@ class CellFactory(object):
         :param quantity: The number of cells to create.
         :return: A list of newly generated cells.
         """
-
         # The approach: randomly place self.cell_quantity cells on a grid,
         # then decompact them with the collision handler until they're
         # just slightly overlapping.
@@ -54,4 +53,3 @@ class CellFactory(object):
             cells.append(cell)
 
         return cells
-

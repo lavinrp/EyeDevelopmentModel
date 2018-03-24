@@ -3,6 +3,7 @@ from math import sqrt
 
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
+from epithelium_backend.CellFactory import CellFactory
 from epithelium_backend import Furrow
 from epithelium_backend.FurrowEventList import furrow_event_list
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
@@ -67,31 +68,16 @@ class Epithelium(object):
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
         """
-        # The approach: randomly place self.cell_quantity cells on a grid,
-        # then decompact them with the collision handler until they're
-        # just slightly overlapping.
 
-        # If we know the average radius of each cell, we know the average
-        # area, and therefore the approximate grid size.
-        avg_area = self.cell_avg_radius**2 * 3.14
-        # Because we allow some cell overlap, and we want the cells to start
-        # in a more compact state and decompact them, we multiply by .87
-        approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
         # This is the list of functions which are each cell should start out with.
         # They are run once per tick of the simulation.
         default_cell_events = {CellEvents.PassiveGrowth(self)}
-        while self.cell_quantity > len(self.cells):
 
-            # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
-            # uniformly grab radii within +/- cell_radius_divergence percent of cell_avg_radius
-            rand_radius = random.uniform(self.cell_avg_radius*(1-self.cell_radius_divergence),
-                                         self.cell_avg_radius*(1+self.cell_radius_divergence))
-            random_pos = (random.random() * approx_grid_size,
-                          random.random() * approx_grid_size,
-                          0)
-            self.cells.append(Cell.Cell(position=random_pos,
-                                        radius=rand_radius,
-                                        cell_events=default_cell_events))
+        cell_factory = CellFactory()
+        cell_factory.average_radius = self.cell_avg_radius
+        cell_factory.radius_divergence = self.cell_radius_divergence
+        cell_factory.cell_events = default_cell_events
+        self.cells = cell_factory.create_cells(self.cell_quantity)
 
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
