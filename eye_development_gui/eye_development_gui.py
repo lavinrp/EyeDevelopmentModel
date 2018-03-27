@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Oct 21 2017)
+## Python code generated with wxFormBuilder (version Dec 21 2016)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO *NOT* EDIT THIS FILE!
+## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
@@ -21,7 +21,7 @@ class MainFrameBase ( wx.Frame ):
 	def __init__( self, parent ):
 		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -76,67 +76,67 @@ class MainFrameBase ( wx.Frame ):
 		
 		self.min_cells_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Min Cell Count", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.min_cells_static_text.Wrap( -1 )
-		self.min_cells_static_text.SetToolTip( u"The number of cells that will Initially be generated for the epithelium." )
+		self.min_cells_static_text.SetToolTipString( u"The number of cells that will Initially be generated for the epithelium." )
 		
 		epithelium_options_grid.Add( self.min_cells_static_text, 0, wx.ALL, 5 )
 		
 		self.min_cell_count_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.min_cell_count_text_ctrl.SetToolTip( u"The number of cells that will Initially be generated for the epithelium." )
+		self.min_cell_count_text_ctrl.SetToolTipString( u"The number of cells that will Initially be generated for the epithelium." )
 		
 		epithelium_options_grid.Add( self.min_cell_count_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Average Cell Size", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.avg_cell_size_static_text.Wrap( -1 )
-		self.avg_cell_size_static_text.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.avg_cell_size_static_text.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.avg_cell_size_static_text, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.avg_cell_size_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.avg_cell_size_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.avg_cell_size_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Size Variance", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_size_variance_static_text.Wrap( -1 )
-		self.cell_size_variance_static_text.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.cell_size_variance_static_text.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.cell_size_variance_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"2", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_size_variance_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.cell_size_variance_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.furrow_velocity_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.furrow_velocity_static_text.Wrap( -1 )
-		self.furrow_velocity_static_text.SetToolTip( u"The furrow will move by this much every cycle of the simulation." )
+		self.furrow_velocity_static_text.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
 		
 		epithelium_options_grid.Add( self.furrow_velocity_static_text, 0, wx.ALL, 5 )
 		
 		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.furrow_velocity_text_ctrl.SetToolTip( u"The furrow will move by this much every cycle of the simulation." )
+		self.furrow_velocity_text_ctrl.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
 		
 		epithelium_options_grid.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.cell_max_size_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Max Size", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_max_size_static_text.Wrap( -1 )
-		self.cell_max_size_static_text.SetToolTip( u"All initially generated cells will be unable to grow beyond this size." )
+		self.cell_max_size_static_text.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
 		
 		epithelium_options_grid.Add( self.cell_max_size_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_max_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"25", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_max_size_text_ctrl.SetToolTip( u"All initially generated cells will be unable to grow beyond this size." )
+		self.cell_max_size_text_ctrl.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
 		
 		epithelium_options_grid.Add( self.cell_max_size_text_ctrl, 0, wx.ALL, 5 )
 		
 		self.cell_growth_rate_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Growth Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_growth_rate_static_text.Wrap( -1 )
-		self.cell_growth_rate_static_text.SetToolTip( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
+		self.cell_growth_rate_static_text.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
 		
 		epithelium_options_grid.Add( self.cell_growth_rate_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_growth_rate_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"0.01", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_growth_rate_text_ctrl.SetToolTip( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
+		self.cell_growth_rate_text_ctrl.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
 		
 		epithelium_options_grid.Add( self.cell_growth_rate_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -170,22 +170,41 @@ class MainFrameBase ( wx.Frame ):
 		self.m_sim_overview_display_panel = SimulationPanel( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer41.Add( self.m_sim_overview_display_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		sbSizer2 = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
+		bSizer5 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_scrolledWindow4 = wx.ScrolledWindow( sbSizer2.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		sim_overview_cell_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Cell Options" ), wx.VERTICAL )
+		
+		self.m_scrolledWindow5 = wx.ScrolledWindow( sim_overview_cell_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_scrolledWindow5.SetScrollRate( 5, 5 )
+		gSizer4 = wx.GridSizer( 0, 2, 0, 0 )
+		
+		self.m_staticText111 = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText111.Wrap( -1 )
+		gSizer4.Add( self.m_staticText111, 0, wx.ALL, 5 )
+		
+		self.m_textCtrl11 = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		gSizer4.Add( self.m_textCtrl11, 0, wx.ALL, 5 )
+		
+		
+		self.m_scrolledWindow5.SetSizer( gSizer4 )
+		self.m_scrolledWindow5.Layout()
+		gSizer4.Fit( self.m_scrolledWindow5 )
+		sim_overview_cell_options_box_sizer.Add( self.m_scrolledWindow5, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		
+		bSizer5.Add( sim_overview_cell_options_box_sizer, 1, wx.EXPAND, 5 )
+		
+		sim_overview_specialization_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Specialization Options" ), wx.VERTICAL )
+		
+		self.m_scrolledWindow4 = wx.ScrolledWindow( sim_overview_specialization_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow4.SetScrollRate( 5, 5 )
-		self.m_scrolledWindow4.SetMinSize( wx.Size( 350,-1 ) )
-		
-		gSizer6 = wx.GridSizer( 0, 2, 0, 0 )
+		sim_overview_specialization_options_box_sizer.Add( self.m_scrolledWindow4, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		self.m_scrolledWindow4.SetSizer( gSizer6 )
-		self.m_scrolledWindow4.Layout()
-		gSizer6.Fit( self.m_scrolledWindow4 )
-		sbSizer2.Add( self.m_scrolledWindow4, 1, wx.EXPAND |wx.ALL, 5 )
+		bSizer5.Add( sim_overview_specialization_options_box_sizer, 1, wx.EXPAND, 5 )
 		
 		
-		fgSizer41.Add( sbSizer2, 1, wx.EXPAND, 5 )
+		fgSizer41.Add( bSizer5, 1, wx.EXPAND, 5 )
 		
 		
 		fgSizer31.Add( fgSizer41, 1, wx.EXPAND, 5 )

@@ -264,21 +264,64 @@
 									<option>1</option>
 									<flag>wxEXPAND</flag>
 									<border>5</border>
-									<object class="wxStaticBoxSizer">
+									<object class="wxBoxSizer">
 										<orient>wxVERTICAL</orient>
-										<label>Simulation Options</label>
 										<object class="sizeritem">
 											<option>1</option>
-											<flag>wxEXPAND | wxALL</flag>
+											<flag>wxEXPAND</flag>
 											<border>5</border>
-											<object class="wxScrolledWindow" name="m_scrolledWindow4">
-												<style>wxHSCROLL|wxVSCROLL</style>
-												<scrollrate>5,5</scrollrate>
-												<object class="wxGridSizer">
-													<rows>0</rows>
-													<cols>2</cols>
-													<vgap>0</vgap>
-													<hgap>0</hgap>
+											<object class="wxStaticBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<label>Cell Options</label>
+												<object class="sizeritem">
+													<option>1</option>
+													<flag>wxEXPAND | wxALL</flag>
+													<border>5</border>
+													<object class="wxScrolledWindow" name="m_scrolledWindow5">
+														<style>wxHSCROLL|wxVSCROLL</style>
+														<scrollrate>5,5</scrollrate>
+														<object class="wxGridSizer">
+															<rows>0</rows>
+															<cols>2</cols>
+															<vgap>0</vgap>
+															<hgap>0</hgap>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="m_staticText111">
+																	<label>MyLabel</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="m_textCtrl11">
+																	<value></value>
+																</object>
+															</object>
+														</object>
+													</object>
+												</object>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND</flag>
+											<border>5</border>
+											<object class="wxStaticBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<label>Specialization Options</label>
+												<object class="sizeritem">
+													<option>1</option>
+													<flag>wxEXPAND | wxALL</flag>
+													<border>5</border>
+													<object class="wxScrolledWindow" name="m_scrolledWindow4">
+														<style>wxHSCROLL|wxVSCROLL</style>
+														<scrollrate>5,5</scrollrate>
+													</object>
 												</object>
 											</object>
 										</object>
