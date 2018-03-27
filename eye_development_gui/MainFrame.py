@@ -165,6 +165,19 @@ class MainFrame(MainFrameBase):
         self.ep_gen_input_validation()
         event.Skip()
 
+    def on_size(self, event: wx.Event):
+        """
+        Callback function invoked when the application is resized. Helps sizers maintain correct spacing.
+        :param event: Resize event.
+        """
+
+        # resize scrolled windows for settings in simulation overview
+        cell_option_count = int(len(self.m_scrolledWindow5.GetChildren()) / 2)
+        space_per_cell_child = 60
+        self.m_scrolledWindow5.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
+
+        event.Skip()
+
     # endregion event handling
 
     # region input validation

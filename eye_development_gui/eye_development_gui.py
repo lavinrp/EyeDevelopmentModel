@@ -153,7 +153,7 @@ class MainFrameBase ( wx.Frame ):
 		self.epithelium_generation_panel.SetSizer( fgSizer3 )
 		self.epithelium_generation_panel.Layout()
 		fgSizer3.Fit( self.epithelium_generation_panel )
-		self.view_selection_notebook.AddPage( self.epithelium_generation_panel, u"Epithelium Generation", True )
+		self.view_selection_notebook.AddPage( self.epithelium_generation_panel, u"Epithelium Generation", False )
 		self.m_simulation_overview_panel = wx.Panel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer31 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer31.AddGrowableCol( 0 )
@@ -170,7 +170,11 @@ class MainFrameBase ( wx.Frame ):
 		self.m_sim_overview_display_panel = SimulationPanel( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer41.Add( self.m_sim_overview_display_panel, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		bSizer5 = wx.BoxSizer( wx.VERTICAL )
+		fgSizer5 = wx.FlexGridSizer( 0, 1, 0, 0 )
+		fgSizer5.AddGrowableCol( 0 )
+		fgSizer5.AddGrowableRow( 1 )
+		fgSizer5.SetFlexibleDirection( wx.BOTH )
+		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		sim_overview_cell_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Cell Options" ), wx.VERTICAL )
 		
@@ -192,7 +196,7 @@ class MainFrameBase ( wx.Frame ):
 		sim_overview_cell_options_box_sizer.Add( self.m_scrolledWindow5, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		bSizer5.Add( sim_overview_cell_options_box_sizer, 1, wx.EXPAND, 5 )
+		fgSizer5.Add( sim_overview_cell_options_box_sizer, 1, wx.EXPAND, 5 )
 		
 		sim_overview_specialization_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Specialization Options" ), wx.VERTICAL )
 		
@@ -201,10 +205,10 @@ class MainFrameBase ( wx.Frame ):
 		sim_overview_specialization_options_box_sizer.Add( self.m_scrolledWindow4, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		bSizer5.Add( sim_overview_specialization_options_box_sizer, 1, wx.EXPAND, 5 )
+		fgSizer5.Add( sim_overview_specialization_options_box_sizer, 1, wx.EXPAND, 5 )
 		
 		
-		fgSizer41.Add( bSizer5, 1, wx.EXPAND, 5 )
+		fgSizer41.Add( fgSizer5, 1, wx.EXPAND, 5 )
 		
 		
 		fgSizer31.Add( fgSizer41, 1, wx.EXPAND, 5 )
@@ -257,7 +261,7 @@ class MainFrameBase ( wx.Frame ):
 		self.m_simulation_overview_panel.SetSizer( fgSizer31 )
 		self.m_simulation_overview_panel.Layout()
 		fgSizer31.Fit( self.m_simulation_overview_panel )
-		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", False )
+		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", True )
 		self.m_simulation_display_panel = SimulationPanel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.view_selection_notebook.AddPage( self.m_simulation_display_panel, u"Simulation", False )
 		
@@ -270,6 +274,7 @@ class MainFrameBase ( wx.Frame ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.Bind( wx.EVT_SIZE, self.on_size )
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
@@ -283,6 +288,9 @@ class MainFrameBase ( wx.Frame ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def on_size( self, event ):
+		event.Skip()
+	
 	def ep_gen_create_callback( self, event ):
 		event.Skip()
 	
