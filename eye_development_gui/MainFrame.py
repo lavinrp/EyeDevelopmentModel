@@ -8,6 +8,7 @@ from eye_development_gui.eye_development_gui import MainFrameBase
 import wx
 import wx.xrc
 from wx.core import TextCtrl
+from wx.core import Button
 
 
 # Implementing MainFrameBase
@@ -125,30 +126,28 @@ class MainFrame(MainFrameBase):
             cell_size_variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)  # type: str
             cell_size_variance = float(cell_size_variance_str)
 
-            # cell max size
-            cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
-            cell_max_size = float(cell_max_size_str)
-
-            # cell growth rate
-            cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
-            cell_growth_rate = float(cell_growth_rate_str)
+            # # cell max size
+            # cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
+            # cell_max_size = float(cell_max_size_str)
+            #
+            # # cell growth rate
+            # cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
+            # cell_growth_rate = float(cell_growth_rate_str)
 
             # create cell factory from inputs
             cell_factory = CellFactory()
             cell_factory.radius_divergence = cell_size_variance / avg_cell_size
             cell_factory.average_radius = avg_cell_size
-            cell_factory.max_radius = cell_max_size
-            cell_factory.growth_rate = cell_growth_rate
 
             # create epithelium active epithelium
             self.active_epithelium = Epithelium(cell_quantity=min_cell_count,
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_factory=cell_factory)
 
-            # set furrow velocity
-            furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
-            furrow_velocity = float(furrow_velocity_str)
-            self.active_epithelium.furrow.velocity = furrow_velocity
+            # # set furrow velocity
+            # furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
+            # furrow_velocity = float(furrow_velocity_str)
+            # self.active_epithelium.furrow.velocity = furrow_velocity
 
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
@@ -187,12 +186,38 @@ class MainFrame(MainFrameBase):
 
         event.Skip()
 
+    def update_with_sim_options(self):
+        """
+        Updates the active epithelium with the simulation options from the GUI
+        """
+
+        if self.sim_overview_input_validation():
+            # cell max size
+            cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
+            cell_max_size = float(cell_max_size_str)
+
+            # cell growth rate
+            cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
+            cell_growth_rate = float(cell_growth_rate_str)
+
+            # update cells
+            for cell in self.active_epithelium.cells:
+                cell.growth_rate = cell_growth_rate
+                cell.max_radius = cell_max_size
+
+            # set furrow velocity
+            furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
+            furrow_velocity = float(furrow_velocity_str)
+            self.active_epithelium.furrow.velocity = furrow_velocity
+
     # endregion event handling
 
     # region input validation
 
-    def ep_gen_input_validation(self):
-        """validates all epithelium generation inputs"""
+    def ep_gen_input_validation(self) -> bool:
+        """validates all epithelium generation inputs
+        :return: rue if all inputs validate. False otherwise.
+        """
 
         # have to calculate and return values separately to avoid short circuiting the validation
         avg_cell_size = self.validate_ep_gen_avg_cell_size()
@@ -200,12 +225,21 @@ class MainFrame(MainFrameBase):
         cell_count = self.validate_ep_gen_min_cell_count()
         return avg_cell_size and variance and cell_count
 
-    def sim_overview_input_validation(self):
-        """Validates all simulation overview simulation inputs."""
+    def sim_overview_input_validation(self) -> bool:
+        """Validates all simulation overview simulation inputs.
+        :return: True if all inputs validate. False otherwise.
+        """
         furrow_velocity = self.validate_ep_gen_furrow_velocity()
         cell_max_size = self.validate_ep_gen_cell_max_size()
         cell_growth_rate = self.validate_ep_gen_cell_growth_rate()
-        return furrow_velocity and cell_max_size and cell_growth_rate
+
+        inputs_valid = furrow_velocity and cell_max_size and cell_growth_rate
+
+        for controller in self.simulation_controllers:
+            start_button = controller.m_button4  # type: Button
+            start_button.Enable(inputs_valid)
+
+        return inputs_valid
 
     def validate_ep_gen_min_cell_count(self) -> bool:
         """Validates user input to min_cell_count_text_ctrl
