@@ -9,7 +9,7 @@
 		<object class="wxNotebook" name="view_selection_notebook">
 			<object class="notebookpage">
 				<label>Epithelium Generation</label>
-				<selected>0</selected>
+				<selected>1</selected>
 				<object class="wxPanel" name="epithelium_generation_panel">
 					<style>wxTAB_TRAVERSAL</style>
 					<object class="wxFlexGridSizer">
@@ -164,63 +164,6 @@
 													<value>2</value>
 												</object>
 											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="furrow_velocity_static_text">
-													<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
-													<label>Furrow Velocity</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
-													<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
-													<value>10</value>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="cell_max_size_static_text">
-													<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
-													<label>Cell Max Size</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="cell_max_size_text_ctrl">
-													<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
-													<value>25</value>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="cell_growth_rate_static_text">
-													<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
-													<label>Cell Growth Rate</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="cell_growth_rate_text_ctrl">
-													<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
-													<value>0.01</value>
-												</object>
-											</object>
 										</object>
 									</object>
 								</object>
@@ -231,7 +174,7 @@
 			</object>
 			<object class="notebookpage">
 				<label>Simulation Overview</label>
-				<selected>1</selected>
+				<selected>0</selected>
 				<object class="wxPanel" name="m_simulation_overview_panel">
 					<style>wxTAB_TRAVERSAL</style>
 					<object class="wxFlexGridSizer">
@@ -294,8 +237,9 @@
 																<option>0</option>
 																<flag>wxALL</flag>
 																<border>5</border>
-																<object class="wxStaticText" name="m_staticText111">
-																	<label>MyLabel</label>
+																<object class="wxStaticText" name="cell_max_size_static_text">
+																	<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
+																	<label>Cell Max Size</label>
 																	<wrap>-1</wrap>
 																</object>
 															</object>
@@ -303,8 +247,47 @@
 																<option>0</option>
 																<flag>wxALL</flag>
 																<border>5</border>
-																<object class="wxTextCtrl" name="m_textCtrl11">
-																	<value></value>
+																<object class="wxTextCtrl" name="cell_max_size_text_ctrl">
+																	<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
+																	<value>25</value>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="cell_growth_rate_static_text">
+																	<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
+																	<label>Cell Growth Rate</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="cell_growth_rate_text_ctrl">
+																	<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
+																	<value>0.01</value>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="furrow_velocity_static_text">
+																	<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
+																	<label>Furrow Velocity</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
+																	<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
+																	<value>10</value>
 																</object>
 															</object>
 														</object>

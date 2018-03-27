@@ -107,39 +107,6 @@ class MainFrameBase ( wx.Frame ):
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
-		self.furrow_velocity_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.furrow_velocity_static_text.Wrap( -1 )
-		self.furrow_velocity_static_text.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
-		
-		epithelium_options_grid.Add( self.furrow_velocity_static_text, 0, wx.ALL, 5 )
-		
-		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.furrow_velocity_text_ctrl.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
-		
-		epithelium_options_grid.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
-		
-		self.cell_max_size_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Max Size", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_max_size_static_text.Wrap( -1 )
-		self.cell_max_size_static_text.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
-		
-		epithelium_options_grid.Add( self.cell_max_size_static_text, 0, wx.ALL, 5 )
-		
-		self.cell_max_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"25", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_max_size_text_ctrl.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
-		
-		epithelium_options_grid.Add( self.cell_max_size_text_ctrl, 0, wx.ALL, 5 )
-		
-		self.cell_growth_rate_static_text = wx.StaticText( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"Cell Growth Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_growth_rate_static_text.Wrap( -1 )
-		self.cell_growth_rate_static_text.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
-		
-		epithelium_options_grid.Add( self.cell_growth_rate_static_text, 0, wx.ALL, 5 )
-		
-		self.cell_growth_rate_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"0.01", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_growth_rate_text_ctrl.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
-		
-		epithelium_options_grid.Add( self.cell_growth_rate_text_ctrl, 0, wx.ALL, 5 )
-		
 		
 		self.epithelium_options_scrolled_window3.SetSizer( epithelium_options_grid )
 		self.epithelium_options_scrolled_window3.Layout()
@@ -153,7 +120,7 @@ class MainFrameBase ( wx.Frame ):
 		self.epithelium_generation_panel.SetSizer( fgSizer3 )
 		self.epithelium_generation_panel.Layout()
 		fgSizer3.Fit( self.epithelium_generation_panel )
-		self.view_selection_notebook.AddPage( self.epithelium_generation_panel, u"Epithelium Generation", False )
+		self.view_selection_notebook.AddPage( self.epithelium_generation_panel, u"Epithelium Generation", True )
 		self.m_simulation_overview_panel = wx.Panel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		fgSizer31 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer31.AddGrowableCol( 0 )
@@ -182,12 +149,38 @@ class MainFrameBase ( wx.Frame ):
 		self.m_scrolledWindow5.SetScrollRate( 5, 5 )
 		gSizer4 = wx.GridSizer( 0, 2, 0, 0 )
 		
-		self.m_staticText111 = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText111.Wrap( -1 )
-		gSizer4.Add( self.m_staticText111, 0, wx.ALL, 5 )
+		self.cell_max_size_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Cell Max Size", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_max_size_static_text.Wrap( -1 )
+		self.cell_max_size_static_text.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
 		
-		self.m_textCtrl11 = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer4.Add( self.m_textCtrl11, 0, wx.ALL, 5 )
+		gSizer4.Add( self.cell_max_size_static_text, 0, wx.ALL, 5 )
+		
+		self.cell_max_size_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"25", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_max_size_text_ctrl.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
+		
+		gSizer4.Add( self.cell_max_size_text_ctrl, 0, wx.ALL, 5 )
+		
+		self.cell_growth_rate_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Cell Growth Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_growth_rate_static_text.Wrap( -1 )
+		self.cell_growth_rate_static_text.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
+		
+		gSizer4.Add( self.cell_growth_rate_static_text, 0, wx.ALL, 5 )
+		
+		self.cell_growth_rate_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"0.01", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_growth_rate_text_ctrl.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
+		
+		gSizer4.Add( self.cell_growth_rate_text_ctrl, 0, wx.ALL, 5 )
+		
+		self.furrow_velocity_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.furrow_velocity_static_text.Wrap( -1 )
+		self.furrow_velocity_static_text.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
+		
+		gSizer4.Add( self.furrow_velocity_static_text, 0, wx.ALL, 5 )
+		
+		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.furrow_velocity_text_ctrl.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
+		
+		gSizer4.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
 		
 		
 		self.m_scrolledWindow5.SetSizer( gSizer4 )
@@ -261,7 +254,7 @@ class MainFrameBase ( wx.Frame ):
 		self.m_simulation_overview_panel.SetSizer( fgSizer31 )
 		self.m_simulation_overview_panel.Layout()
 		fgSizer31.Fit( self.m_simulation_overview_panel )
-		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", True )
+		self.view_selection_notebook.AddPage( self.m_simulation_overview_panel, u"Simulation Overview", False )
 		self.m_simulation_display_panel = SimulationPanel( self.view_selection_notebook, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.view_selection_notebook.AddPage( self.m_simulation_display_panel, u"Simulation", False )
 		
@@ -279,9 +272,9 @@ class MainFrameBase ( wx.Frame ):
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
-		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 	
 	def __del__( self ):
 		pass
