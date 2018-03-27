@@ -28,7 +28,7 @@ def draw_circle(center: tuple = (0, 0),
 
     # center
     if fill:
-        glVertex3f(center[0], center[1], 0)
+        glVertex3f(center[0], center[1], -1)
 
     # draw circle
     for i in range(segments + 1):
