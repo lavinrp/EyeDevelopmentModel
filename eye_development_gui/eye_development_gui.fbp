@@ -1898,7 +1898,7 @@
                                                                                 <event name="OnRightUp"></event>
                                                                                 <event name="OnSetFocus"></event>
                                                                                 <event name="OnSize"></event>
-                                                                                <event name="OnText">on_ep_gen_user_input</event>
+                                                                                <event name="OnText">on_sim_overview_user_input</event>
                                                                                 <event name="OnTextEnter"></event>
                                                                                 <event name="OnTextMaxLen"></event>
                                                                                 <event name="OnTextURL"></event>
@@ -2072,7 +2072,7 @@
                                                                                 <event name="OnRightUp"></event>
                                                                                 <event name="OnSetFocus"></event>
                                                                                 <event name="OnSize"></event>
-                                                                                <event name="OnText">on_ep_gen_user_input</event>
+                                                                                <event name="OnText">on_sim_overview_user_input</event>
                                                                                 <event name="OnTextEnter"></event>
                                                                                 <event name="OnTextMaxLen"></event>
                                                                                 <event name="OnTextURL"></event>
@@ -2246,7 +2246,7 @@
                                                                                 <event name="OnRightUp"></event>
                                                                                 <event name="OnSetFocus"></event>
                                                                                 <event name="OnSize"></event>
-                                                                                <event name="OnText">on_ep_gen_user_input</event>
+                                                                                <event name="OnText">on_sim_overview_user_input</event>
                                                                                 <event name="OnTextEnter"></event>
                                                                                 <event name="OnTextMaxLen"></event>
                                                                                 <event name="OnTextURL"></event>

@@ -272,9 +272,9 @@ class MainFrameBase ( wx.Frame ):
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
-		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
-		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
-		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
+		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
+		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 	
 	def __del__( self ):
 		pass
@@ -292,6 +292,8 @@ class MainFrameBase ( wx.Frame ):
 	
 	
 	
+	def on_sim_overview_user_input( self, event ):
+		event.Skip()
 	
 	
 	
