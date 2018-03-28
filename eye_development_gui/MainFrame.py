@@ -8,6 +8,7 @@ from eye_development_gui.eye_development_gui import MainFrameBase
 import wx
 import wx.xrc
 from wx.core import TextCtrl
+from wx.core import StaticText
 from wx.core import Button
 
 
@@ -146,7 +147,7 @@ class MainFrame(MainFrameBase):
                                                 cell_factory=cell_factory)
 
             # the new epithelium has never started simulation
-            self._has_simulated = False
+            self.has_simulated = False
 
             # # set furrow velocity
             # furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
@@ -195,7 +196,7 @@ class MainFrame(MainFrameBase):
         Updates the active epithelium with the simulation options from the GUI
         """
 
-        if self.sim_overview_input_validation() and not self._has_simulated:
+        if self.sim_overview_input_validation() and not self.has_simulated:
             # cell max size
             cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
             cell_max_size = float(cell_max_size_str)
@@ -417,9 +418,21 @@ class MainFrame(MainFrameBase):
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
             self.simulation_timer.Start(100)
-            self._has_simulated = True
+            self.has_simulated = True
         else:
             self.simulation_timer.Stop()
+
+
+    @property
+    def has_simulated(self):
+        return self._has_simulated
+
+    @ has_simulated.setter
+    def has_simulated(self, value: bool):
+        """true if the active epithelium has begn simulation. False Otherwise."""
+        self._has_simulated = value
+        self.enable_edit_simulation_options(not value)
+
 
     # endregion simulation
 
@@ -436,5 +449,12 @@ class MainFrame(MainFrameBase):
         for i in range(txt_control.GetNumberOfLines()):
             string_value += txt_control.GetLineText(i)
         return string_value
+
+    def enable_edit_simulation_options(self, enable: bool):
+        """Enables or disables user ability to edit all simulation options"""
+
+        for option in self.m_scrolledWindow5.GetChildren():
+            if type(option) is not StaticText:
+                option.Enable(enable)
 
     # endregion misc
