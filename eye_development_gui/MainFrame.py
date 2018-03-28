@@ -26,6 +26,7 @@ class MainFrame(MainFrameBase):
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
         self._simulating = False
+        self._has_simulated = False
 
         # Track all the panels that need to be notified when the
         # active epithelium is changed
@@ -144,6 +145,9 @@ class MainFrame(MainFrameBase):
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_factory=cell_factory)
 
+            # the new epithelium has never started simulation
+            self._has_simulated = False
+
             # # set furrow velocity
             # furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
             # furrow_velocity = float(furrow_velocity_str)
@@ -191,7 +195,7 @@ class MainFrame(MainFrameBase):
         Updates the active epithelium with the simulation options from the GUI
         """
 
-        if self.sim_overview_input_validation():
+        if self.sim_overview_input_validation() and not self._has_simulated:
             # cell max size
             cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
             cell_max_size = float(cell_max_size_str)
@@ -413,6 +417,7 @@ class MainFrame(MainFrameBase):
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
             self.simulation_timer.Start(100)
+            self._has_simulated = True
         else:
             self.simulation_timer.Stop()
 
