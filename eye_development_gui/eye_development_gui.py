@@ -145,48 +145,48 @@ class MainFrameBase ( wx.Frame ):
 		
 		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
-		self.m_scrolledWindow5 = wx.ScrolledWindow( sim_overview_sim_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
-		self.m_scrolledWindow5.SetScrollRate( 5, 5 )
+		self.m_sim_overview_sim_options_scrolled_window = wx.ScrolledWindow( sim_overview_sim_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_sim_overview_sim_options_scrolled_window.SetScrollRate( 5, 5 )
 		gSizer4 = wx.GridSizer( 0, 2, 0, 0 )
 		
-		self.cell_max_size_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Cell Max Size", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_max_size_static_text = wx.StaticText( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"Cell Max Size", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_max_size_static_text.Wrap( -1 )
 		self.cell_max_size_static_text.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
 		
 		gSizer4.Add( self.cell_max_size_static_text, 0, wx.ALL, 5 )
 		
-		self.cell_max_size_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"25", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_max_size_text_ctrl = wx.TextCtrl( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"25", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_max_size_text_ctrl.SetToolTipString( u"All initially generated cells will be unable to grow beyond this size." )
 		
 		gSizer4.Add( self.cell_max_size_text_ctrl, 0, wx.ALL, 5 )
 		
-		self.cell_growth_rate_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Cell Growth Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_growth_rate_static_text = wx.StaticText( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"Cell Growth Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_growth_rate_static_text.Wrap( -1 )
 		self.cell_growth_rate_static_text.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
 		
 		gSizer4.Add( self.cell_growth_rate_static_text, 0, wx.ALL, 5 )
 		
-		self.cell_growth_rate_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"0.01", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.cell_growth_rate_text_ctrl = wx.TextCtrl( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"0.01", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.cell_growth_rate_text_ctrl.SetToolTipString( u"All initially generated cells will grow by this much every simulation cycle if they are experiencing growth." )
 		
 		gSizer4.Add( self.cell_growth_rate_text_ctrl, 0, wx.ALL, 5 )
 		
-		self.furrow_velocity_static_text = wx.StaticText( self.m_scrolledWindow5, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.furrow_velocity_static_text = wx.StaticText( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"Furrow Velocity", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.furrow_velocity_static_text.Wrap( -1 )
 		self.furrow_velocity_static_text.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
 		
 		gSizer4.Add( self.furrow_velocity_static_text, 0, wx.ALL, 5 )
 		
-		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.m_scrolledWindow5, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.furrow_velocity_text_ctrl = wx.TextCtrl( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.furrow_velocity_text_ctrl.SetToolTipString( u"The furrow will move by this much every cycle of the simulation." )
 		
 		gSizer4.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
 		
 		
-		self.m_scrolledWindow5.SetSizer( gSizer4 )
-		self.m_scrolledWindow5.Layout()
-		gSizer4.Fit( self.m_scrolledWindow5 )
-		sim_overview_sim_options_box_sizer.Add( self.m_scrolledWindow5, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_sim_overview_sim_options_scrolled_window.SetSizer( gSizer4 )
+		self.m_sim_overview_sim_options_scrolled_window.Layout()
+		gSizer4.Fit( self.m_sim_overview_sim_options_scrolled_window )
+		sim_overview_sim_options_box_sizer.Add( self.m_sim_overview_sim_options_scrolled_window, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
 		fgSizer5.Add( sim_overview_sim_options_box_sizer, 1, wx.EXPAND, 5 )

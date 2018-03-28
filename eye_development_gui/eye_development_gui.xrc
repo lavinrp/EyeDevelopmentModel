@@ -225,7 +225,7 @@
 													<option>1</option>
 													<flag>wxEXPAND | wxALL</flag>
 													<border>5</border>
-													<object class="wxScrolledWindow" name="m_scrolledWindow5">
+													<object class="wxScrolledWindow" name="m_sim_overview_sim_options_scrolled_window">
 														<style>wxHSCROLL|wxVSCROLL</style>
 														<scrollrate>5,5</scrollrate>
 														<object class="wxGridSizer">

@@ -185,9 +185,9 @@ class MainFrame(MainFrameBase):
         """
 
         # resize scrolled windows for settings in simulation overview
-        cell_option_count = int(len(self.m_scrolledWindow5.GetChildren()) / 2)
+        cell_option_count = int(len(self.m_sim_overview_sim_options_scrolled_window.GetChildren()) / 2)
         space_per_cell_child = 60
-        self.m_scrolledWindow5.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
+        self.m_sim_overview_sim_options_scrolled_window.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
 
         event.Skip()
 
@@ -433,7 +433,6 @@ class MainFrame(MainFrameBase):
         self._has_simulated = value
         self.enable_edit_simulation_options(not value)
 
-
     # endregion simulation
 
     # region misc
@@ -453,7 +452,7 @@ class MainFrame(MainFrameBase):
     def enable_edit_simulation_options(self, enable: bool):
         """Enables or disables user ability to edit all simulation options"""
 
-        for option in self.m_scrolledWindow5.GetChildren():
+        for option in self.m_sim_overview_sim_options_scrolled_window.GetChildren():
             if type(option) is not StaticText:
                 option.Enable(enable)
 
