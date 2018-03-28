@@ -220,7 +220,7 @@
 											<border>5</border>
 											<object class="wxStaticBoxSizer">
 												<orient>wxVERTICAL</orient>
-												<label>Cell Options</label>
+												<label>Simulation Options</label>
 												<object class="sizeritem">
 													<option>1</option>
 													<flag>wxEXPAND | wxALL</flag>

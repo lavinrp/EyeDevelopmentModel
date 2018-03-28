@@ -143,9 +143,9 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer5.SetFlexibleDirection( wx.BOTH )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
-		sim_overview_cell_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Cell Options" ), wx.VERTICAL )
+		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
-		self.m_scrolledWindow5 = wx.ScrolledWindow( sim_overview_cell_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_scrolledWindow5 = wx.ScrolledWindow( sim_overview_sim_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_scrolledWindow5.SetScrollRate( 5, 5 )
 		gSizer4 = wx.GridSizer( 0, 2, 0, 0 )
 		
@@ -186,10 +186,10 @@ class MainFrameBase ( wx.Frame ):
 		self.m_scrolledWindow5.SetSizer( gSizer4 )
 		self.m_scrolledWindow5.Layout()
 		gSizer4.Fit( self.m_scrolledWindow5 )
-		sim_overview_cell_options_box_sizer.Add( self.m_scrolledWindow5, 1, wx.EXPAND |wx.ALL, 5 )
+		sim_overview_sim_options_box_sizer.Add( self.m_scrolledWindow5, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
-		fgSizer5.Add( sim_overview_cell_options_box_sizer, 1, wx.EXPAND, 5 )
+		fgSizer5.Add( sim_overview_sim_options_box_sizer, 1, wx.EXPAND, 5 )
 		
 		sim_overview_specialization_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Specialization Options" ), wx.VERTICAL )
 		
