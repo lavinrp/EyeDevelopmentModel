@@ -236,13 +236,23 @@ class CellCollisionHandler(object):
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
         cells = []
-        for row in range(-box_number, box_number+1):
-            for col in range(-box_number, box_number+1):
-                grid = cell.bin + self.dimension*row + col
-                if 0 < grid < len(self.grids):
-                    cells.extend(self.grids[grid])
-        return filter(lambda n: distance((cell.position_x, cell.position_y, cell.position_z),
-                                         (n.position_x, n.position_y, n.position_z)) <= r, cells)
+        # Generate the possible (row, col) pairs by looking within box_number boxes
+        # of the input cell. There may be duplicates due to discretization.
+        row_cols = [(self.compute_row(cell.position_y + row*self.box_size),
+                     self.compute_col(cell.position_x + col*self.box_size))
+                    for row in range(-box_number, box_number+1)
+                    for col in range(-box_number, box_number+1)]
+        # Map the (row,col) pairs to grid indices and remove duplicates.
+        grids = set(map(lambda rc: self.dimension*rc[0]+rc[1], row_cols))
+        for grid in grids:
+            if 0 < grid < len(self.grids):
+                cells.extend(self.grids[grid])
+        # Require that the neighbors be a positive distance away from the input
+        # (thereby excluding the input cell) and less than or equal to
+        # the required distance r.
+        return filter(lambda n: 0 < distance((cell.position_x, cell.position_y, cell.position_z),
+                                             (n.position_x, n.position_y, n.position_z)) <= r,
+                      cells)
 
     def posterior_to_anterior(self):
         for col in range(0, self.dimension):
