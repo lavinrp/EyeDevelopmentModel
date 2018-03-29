@@ -168,23 +168,14 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
         translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                              self.__camera_y,
                                                              0))  # type: numpy.ndarray
-        projection = matrix44.create_perspective_projection_matrix(math.radians(90),
+        projection_matrix = matrix44.create_perspective_projection_matrix(math.radians(90),
                                                                    self.GetSize().width/self.GetSize().height,
                                                                    1,
                                                                    1.1)
 
-
-
-        # projection = matrix44.create_orthogonal_projection_matrix(0,
-        #                                                           self.GetSize().width,
-        #                                                           0,
-        #                                                           self.GetSize().height,
-        #                                                           1,
-        #                                                           1.1)
-
         # update the model (zoom / pan)
         model = matrix44.multiply(translate_matrix, scale_matrix)  # type: numpy.ndarray
-        model = matrix44.multiply(projection, model)
+        model = matrix44.multiply(projection_matrix, model)
 
         inverse_model_projection_matrix = matrix44.inverse(model)
         position = vector4.create(x, y, 0, 0)
