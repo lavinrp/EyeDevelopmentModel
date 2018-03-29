@@ -168,10 +168,11 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
         translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                              self.__camera_y,
                                                              0))  # type: numpy.ndarray
-        projection_matrix = matrix44.create_perspective_projection_matrix(math.radians(90),
-                                                                   self.GetSize().width/self.GetSize().height,
-                                                                   1,
-                                                                   1.1)
+        projection_matrix = \
+            matrix44.create_perspective_projection_matrix(math.radians(90),
+                                                          self.GetSize().width/self.GetSize().height,
+                                                          1,
+                                                          1.1)
 
         # update the model (zoom / pan)
         model = matrix44.multiply(translate_matrix, scale_matrix)  # type: numpy.ndarray
