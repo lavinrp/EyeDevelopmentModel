@@ -23,8 +23,6 @@ class Cell(object):
         """
         self.position_x = position[0]  # type: float
         self.position_y = position[1]  # type: float
-        self.next_x = self.position_x
-        self.next_y = self.position_y
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
@@ -43,7 +41,7 @@ class Cell(object):
         else:
             self.cell_events = cell_events  # type: set
 
-    def divide(self):
+    def divide(self, cell_collision_handler):
         """
         Divides this cell into a new cell with half of this cell's radius.
         Then divides this parent cell's radius in half.
@@ -56,14 +54,10 @@ class Cell(object):
         delta_y = self.radius/2 * sin(rand_rad)
         rand_pos = (self.position_x + delta_x, self.position_y + delta_y, 0)
         child_cell = Cell(position=rand_pos, radius=self.radius / 2.0, cell_events=set(self.cell_events))
-        # Find the adjusted position and future position for the original cell for after the division
-        self.position_x -= delta_x
-        self.next_x -= delta_x
-        self.position_y -= delta_y
-        self.next_y -= delta_y
-        self.position_z = 0
         # Divide the original cell size in half
         self.radius /= 2
+        # Move the parent cell to complete the division
+        cell_collision_handler.move_cell(self, self.position_x - delta_x, self.position_y - delta_y)
         return child_cell
 
     def grow_cell(self, growth_amount):

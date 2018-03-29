@@ -3,6 +3,7 @@ import math
 
 from epithelium_backend.Cell import Cell
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 
 
 class CellTester(unittest.TestCase):
@@ -37,9 +38,10 @@ class CellTester(unittest.TestCase):
         photoreceptor_type = PhotoreceptorType.NOT_RECEPTOR
         support_specializations = set()
         cell = Cell((x, y, z), radius, photoreceptor_type, support_specializations)
+        cell_collision_handler = CellCollisionHandler([cell])
 
         # divide
-        child = cell.divide()
+        child = cell.divide(cell_collision_handler)
 
         # check radii
         self.assertEqual(cell.radius, radius/2, "Incorrect radii after cell.divide")
@@ -64,4 +66,3 @@ class CellTester(unittest.TestCase):
         cell.grow_cell(growth_amount)
 
         self.assertEqual(cell.radius, radius+growth_amount, "Cell.grow_cell incorrectly changes cell size")
-

@@ -122,6 +122,21 @@ class CellCollisionHandler(object):
         self.grids[cell.bin].remove(cell)
         # May want to remove from non_empty
 
+    def move_cell(self, cell: Cell, new_x: float, new_y: float):
+        """
+        Move a cell to a new position, changing the bin if necessary.
+        """
+        cell.position_x = new_x
+        cell.position_y = new_y
+        cell.next_x = new_x
+        cell.next_y = new_y
+        g = self.bin(cell)
+        if g != cell.bin:
+            self.grids[cell.bin].remove(cell)
+            self.grids[g].append(cell)
+            cell.bin = g
+            self.non_empty.add(g)
+
     def fill_grid(self):
         """
         Create or resize the collision handler's grid and
@@ -222,16 +237,7 @@ class CellCollisionHandler(object):
                             self.push_pull(cell1, cell2)
 
         for cell in self.cells:
-            cell.x = cell.next_x
-            cell.y = cell.next_y
-            cell.position_x = cell.next_x
-            cell.position_y = cell.next_y
-            g = self.bin(cell)
-            if g != cell.bin:
-                grids[cell.bin].remove(cell)
-                grids[g].append(cell)
-                cell.bin = g
-                self.non_empty.add(g)
+            self.move_cell(cell, cell.next_x, cell.next_y)
 
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
