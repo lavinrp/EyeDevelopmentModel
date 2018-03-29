@@ -4,6 +4,7 @@ from epithelium_backend.Epithelium import Epithelium
 from epithelium_backend.Cell import Cell
 from epithelium_backend.CellCollisionHandler import distance
 from epithelium_backend.CellCollisionHandler import CellCollisionHandler
+from epithelium_backend.CellFactory import CellFactory
 
 
 class EpitheliumTester(unittest.TestCase):
@@ -14,11 +15,12 @@ class EpitheliumTester(unittest.TestCase):
         cell_quantity = 19
         cell_radius_divergence = .1
         cell_avg_radius = 1
-        epithelium = Epithelium(cell_quantity, cell_radius_divergence, cell_avg_radius)
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
         self.assertEqual(epithelium.cell_quantity, cell_quantity,
                          "Epithelium.cell_quantity incorrectly set in Epithelium.__init__")
-        self.assertEqual(epithelium.cell_radius_divergence, cell_radius_divergence,
-                         "epithelium.cell_radius_divergence incorrectly set in Epithelium.__init__")
         self.assertEqual(epithelium.cell_avg_radius, cell_avg_radius,
                          "epithelium.cell_avg_radius incorrectly set in Epithelium.__init__")
         self.assertEqual(len(epithelium.cells), cell_quantity,
@@ -34,7 +36,10 @@ class EpitheliumTester(unittest.TestCase):
         cell_quantity = 19
         cell_radius_divergence = .1
         cell_avg_radius = 1
-        epithelium = Epithelium(cell_quantity, cell_radius_divergence, cell_avg_radius)
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
         original_size = epithelium.cells[0].radius
         epithelium.divide_cell(epithelium.cells[0])
         self.assertEqual(len(epithelium.cells), cell_quantity + 1, "Incorrect cell count after Epithelium.divide_cell.")
@@ -48,7 +53,10 @@ class EpitheliumTester(unittest.TestCase):
         cell_quantity = 19
         cell_radius_divergence = .1
         cell_avg_radius = 1
-        epithelium = Epithelium(cell_quantity, cell_radius_divergence, cell_avg_radius)
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
 
         # ensure that the created cells match the input parameters
         for cell in epithelium.cells:
@@ -60,12 +68,15 @@ class EpitheliumTester(unittest.TestCase):
         cell_quantity = 1
         cell_radius_divergence = .1
         cell_avg_radius = 1
-        epithelium = Epithelium(cell_quantity, cell_radius_divergence, cell_avg_radius)
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
 
         # set the new number of cells
         new_cell_quantity = 19
         epithelium.cell_quantity = new_cell_quantity
-        epithelium.create_cell_sheet()
+        epithelium.create_cell_sheet(cell_factory)
 
         # ensure that there are the correct number of cells
         self.assertEqual(len(epithelium.cells), new_cell_quantity,
@@ -144,4 +155,3 @@ class EpitheliumTester(unittest.TestCase):
         # check furrow
         self.assertEqual(epithelium.furrow.position, initial_furrow_pos - epithelium.furrow.velocity,
                          "Furrow position not correctly changed when updating epithelium in Epithelium.update")
-
