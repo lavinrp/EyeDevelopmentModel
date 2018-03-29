@@ -8,6 +8,8 @@ from legacy_display_2d.LegacyGlDrawingPrimitives import draw_circle
 from display_2d.EpitheliumGlTranslator import determine_cell_fill
 from display_2d.EpitheliumGlTranslator import determine_cell_color
 
+from pyrr import matrix44, vector4
+
 import math
 
 
@@ -66,6 +68,7 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
 
         # left mouse button down
         if event.ButtonDown(wx.MOUSE_BTN_LEFT):
+            print(self.world_coord_from_window_coord(current_mouse_position))
             self.__panning = True
 
         # left mouse button up
@@ -149,3 +152,42 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
             draw_circle((cell.position_x, cell.position_y), cell.radius, fill, (*color, 1))
 
         self.SwapBuffers()
+
+    def world_coord_from_window_coord(self, window_coord) -> list:
+
+        canvas_width = self.GetSize().width
+        canvas_height = self.GetSize().height
+
+        x = 2.0 * window_coord[0] / canvas_width - 1
+        y = 2.0 * window_coord[1] / canvas_height + 1
+
+        scale_matrix = matrix44.create_from_scale((self.__scale,
+                                                   self.__scale,
+                                                   1))  # type: numpy.ndarray
+
+        translate_matrix = matrix44.create_from_translation((self.__camera_x,
+                                                             self.__camera_y,
+                                                             0))  # type: numpy.ndarray
+        projection = matrix44.create_perspective_projection_matrix(math.radians(90),
+                                                                   self.GetSize().width/self.GetSize().height,
+                                                                   1,
+                                                                   1.1)
+
+
+
+        # projection = matrix44.create_orthogonal_projection_matrix(0,
+        #                                                           self.GetSize().width,
+        #                                                           0,
+        #                                                           self.GetSize().height,
+        #                                                           1,
+        #                                                           1.1)
+
+        # update the model (zoom / pan)
+        model = matrix44.multiply(translate_matrix, scale_matrix)  # type: numpy.ndarray
+        model = matrix44.multiply(projection, model)
+
+        inverse_model_projection_matrix = matrix44.inverse(model)
+        position = vector4.create(x, y, 0, 0)
+        position = matrix44.multiply(inverse_model_projection_matrix, position)
+
+        return [position[0], position[1]]
