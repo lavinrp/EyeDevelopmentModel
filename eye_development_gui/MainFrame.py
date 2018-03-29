@@ -19,6 +19,8 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
+        self.init_icon()
+
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
         MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
@@ -371,5 +373,13 @@ class MainFrame(MainFrameBase):
         for i in range(txt_control.GetNumberOfLines()):
             string_value += txt_control.GetLineText(i)
         return string_value
+
+    def init_icon(self):
+        """initializes and displays the application icon."""
+        image = wx.Image(r"./resources/EDM-1.png")  # type: wx.Image
+        bitmap = image.ConvertToBitmap()  # type: wx.Bitmap
+        icon = wx.Icon()  # type: wx.Icon
+        icon.CopyFromBitmap(bitmap)
+        self.SetIcon(icon)
 
     # endregion misc
