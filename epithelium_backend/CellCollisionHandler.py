@@ -121,6 +121,7 @@ class CellCollisionHandler(object):
     def deregister(self, cell: Cell):
         """Remove the cell from the collision handler."""
         self.grids[cell.bin].remove(cell)
+        self.cells.remove(cell)
         # May want to remove from non_empty
 
     def fill_grid(self):
