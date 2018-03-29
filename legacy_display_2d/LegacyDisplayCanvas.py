@@ -8,6 +8,8 @@ from legacy_display_2d.LegacyGlDrawingPrimitives import draw_circle
 from display_2d.EpitheliumGlTranslator import determine_cell_fill
 from display_2d.EpitheliumGlTranslator import determine_cell_color
 
+import math
+
 
 class LegacyDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
@@ -18,7 +20,7 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
         self.context = None  # type: glcanvas.GLContext
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
-        self.__scale = 0.01  # type: float
+        self.__scale = 0.001  # type: float
 
         # event handling
         self.Bind(wx.EVT_PAINT, self.on_paint)
@@ -129,10 +131,11 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
 
         # camera position
         glMatrixMode(GL_PROJECTION)
-        gluLookAt(self.__camera_x, self.__camera_y, 1,  # eye
-                  self.__camera_x, self.__camera_y, 0,  # target
+        gluLookAt(self.__camera_x, self.__camera_y, 0,  # eye
+                  self.__camera_x, self.__camera_y, -1,  # target
                   0, 1, 0)  # up vector
         glScalef(self.__scale, self.__scale, 1)
+        gluPerspective(60, self.GetSize().width/self.GetSize().height, 1, 1.1)
 
         # draw
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
