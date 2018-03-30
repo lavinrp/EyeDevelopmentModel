@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Dec 21 2016)
+## Python code generated with wxFormBuilder (version Mar 27 2018)
 ## http://www.wxformbuilder.org/
 ##
-## PLEASE DO "NOT" EDIT THIS FILE!
+## PLEASE DO *NOT* EDIT THIS FILE!
 ###########################################################################
 
 from display_2d.EpitheliumDisplayPanel import EpitheliumDisplayPanel
@@ -19,9 +19,9 @@ import wx.xrc
 class MainFrameBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,403 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -81,7 +81,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.min_cells_static_text, 0, wx.ALL, 5 )
 		
 		self.min_cell_count_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.min_cell_count_text_ctrl.SetToolTipString( u"The number of cells that will Initially be generated for the epithelium." )
+		self.min_cell_count_text_ctrl.SetToolTip( u"The number of cells that will Initially be generated for the epithelium." )
 		
 		epithelium_options_grid.Add( self.min_cell_count_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -92,7 +92,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.avg_cell_size_static_text, 0, wx.ALL, 5 )
 		
 		self.avg_cell_size_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"10", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.avg_cell_size_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.avg_cell_size_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.avg_cell_size_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -103,7 +103,7 @@ class MainFrameBase ( wx.Frame ):
 		epithelium_options_grid.Add( self.cell_size_variance_static_text, 0, wx.ALL, 5 )
 		
 		self.cell_size_variance_text_ctrl = wx.TextCtrl( self.epithelium_options_scrolled_window3, wx.ID_ANY, u"2", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.cell_size_variance_text_ctrl.SetToolTipString( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
+		self.cell_size_variance_text_ctrl.SetToolTip( u"All initially generated cells will have a radius of Average Cell Size +/- Cell Size Variance." )
 		
 		epithelium_options_grid.Add( self.cell_size_variance_text_ctrl, 0, wx.ALL, 5 )
 		
@@ -139,9 +139,23 @@ class MainFrameBase ( wx.Frame ):
 		
 		fgSizer5 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer5.AddGrowableCol( 0 )
-		fgSizer5.AddGrowableRow( 1 )
+		fgSizer5.AddGrowableRow( 2 )
 		fgSizer5.SetFlexibleDirection( wx.BOTH )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
+		
+		bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_sim_overview_save_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_save_button, 0, wx.ALL, 5 )
+		
+		self.m_sim_overview_save_as_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Save As", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_save_as_button, 0, wx.ALL, 5 )
+		
+		self.m_sim_overview_load_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Load", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_load_button, 0, wx.ALL, 5 )
+		
+		
+		fgSizer5.Add( bSizer4, 1, wx.EXPAND, 5 )
 		
 		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
