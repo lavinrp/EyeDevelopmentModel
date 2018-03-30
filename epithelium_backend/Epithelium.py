@@ -3,30 +3,30 @@ from math import sqrt
 
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
+from epithelium_backend.CellFactory import CellFactory
 from epithelium_backend import Furrow
-from epithelium_backend.FurrowEventList import furrow_event_list
-from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from quick_change.FurrowEventList import furrow_event_list
+from quick_change import CellEvents
 
 
 class Epithelium(object):
     """A collection of cells that will form an eye"""
 
-    def __init__(self, cell_quantity,
-                 cell_radius_divergence: float = .5,
-                 cell_avg_radius: float = 1) -> None:
+    def __init__(self, cell_quantity: int,
+                 cell_avg_radius: float = 10,
+                 cell_factory: CellFactory = None) -> None:
         """
         Initializes the epithelium
         :param cell_quantity: number of cells to be in the sheet
-        :param cell_radius_divergence: divergence of cell radii, a multiplier of cell_avg_radius
         :param cell_avg_radius: average cell radius
+        :param cell_factory: A factory responsible for producing the initial cells in the epithelium.
         """
         self.cells = []
         self.cell_quantity = cell_quantity
-        self.cell_radius_divergence = cell_radius_divergence
         self.cell_avg_radius = cell_avg_radius
         self.cell_collision_handler = None
 
-        self.create_cell_sheet()
+        self.create_cell_sheet(cell_factory)
 
         # create furrow
         if len(self.cells):
@@ -35,44 +35,52 @@ class Epithelium(object):
             furrow_initial_position = 0
 
         self.furrow = Furrow.Furrow(position=furrow_initial_position,
-                                    velocity=self.cell_avg_radius * 6,
+                                    velocity=1,
                                     events=furrow_event_list)
 
-    def divide_cell(self, cell_from_list) -> None:
+    def divide_cell(self, cell_from_list) -> Cell:
         """
-        divides the given cell and adds it to the list
+        divides the given cell and adds the newly created cell to the list
         :param cell_from_list: a cell selected from self.cells
+        :return: The newly created cell or None if the cell could not be divided.
         """
-        new_cell = cell_from_list.divide()
-        if new_cell is not None:
-            self.cells.append(new_cell)
-            self.cell_collision_handler.register(new_cell)
 
-    def create_cell_sheet(self) -> None:
+        if cell_from_list.dividable:
+            new_cell = cell_from_list.divide()
+            if new_cell is not None:
+                self.cells.append(new_cell)
+                self.cell_collision_handler.register(new_cell)
+            return new_cell
+        return None
+
+    def delete_cell(self, cell: Cell):
+        """
+        Removes a cell from the epithelium, and then deregisters it from the CellCollisionHandler
+        :param cell: cell to delete from the epithelium
+        :return:
+        """
+        self.cells.remove(cell)
+        self.cell_collision_handler.deregister(cell)
+
+    def create_cell_sheet(self, cell_factory: CellFactory = None) -> None:
         """
         creates the sheet of cells, populating self.cells, and then decompacts them
+        :param cell_factory: A factory responsible for producing the initial cells in the new cell sheet.
         """
-        # The approach: randomly place self.cell_quantity cells on a grid,
-        # then decompact them with the collision handler until they're
-        # just slightly overlapping.
 
-        # If we know the average radius of each cell, we know the average
-        # area, and therefore the approximate grid size.
-        avg_area = self.cell_avg_radius**2 * 3.14
-        # Because we allow some cell overlap, and we want the cells to start
-        # in a more compact state and decompact them, we multiply by .87
-        approx_grid_size = 0.87 * sqrt(avg_area*self.cell_quantity)
-        while self.cell_quantity > len(self.cells):
+        # ensure presence of valid factory
+        if cell_factory is None:
+            cell_factory = CellFactory()
 
-            # cell_radius_divergence is a percentage, like 0.05 (5%). So you want to
-            # uniformly grab radii within +/- cell_radius_divergence percent of cell_avg_radius
-            rand_radius = random.uniform(self.cell_avg_radius*(1-self.cell_radius_divergence),
-                                         self.cell_avg_radius*(1+self.cell_radius_divergence))
-            random_pos = (random.random() * approx_grid_size,
-                          random.random() * approx_grid_size,
-                          0)
-            self.cells.append(Cell.Cell(position=random_pos, radius=rand_radius))
+        # This is the list of functions which are each cell should start out with.
+        # They are run once per tick of the simulation.
+        default_cell_events = {CellEvents.PassiveGrowth(self)}
 
+        # create cells for sheet
+        cell_factory.cell_events = default_cell_events
+        self.cells = cell_factory.create_cells(self.cell_quantity)
+
+        # run initial decompaction of cells cells
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
             for i in range(0, 50):
@@ -84,9 +92,22 @@ class Epithelium(object):
         :param cell: The target cell. This cells neighbors will be returned.
         :param number_cells: an integer, the number of average cell radii.
         """
-        return self.cell_collision_handler.cells_within_distance(cell, number_cells*self.cell_avg_radius)
+        # Multiply by average diameter to convert cell count into distance.
+        # Distance is edge to edge, rather than center to center, hence
+        # the number_cells+1.
+        dist = (number_cells+1)*2*self.cell_avg_radius
+        return self.cell_collision_handler.cells_within_distance(cell, dist)
 
     def update(self):
         """Simulates the epithelium for one tick"""
         self.furrow.update(self)
+        self.run_cell_updates()
         self.cell_collision_handler.decompact()
+
+    def run_cell_updates(self):
+        """
+        Has each cell run all of their respective updating functions.
+        :return:
+        """
+        for cell in self.cells:
+            cell.dispatch_updates()

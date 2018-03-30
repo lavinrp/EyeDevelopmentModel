@@ -28,13 +28,13 @@ def draw_circle(center: tuple = (0, 0),
 
     # center
     if fill:
-        glVertex3f(center[0], center[1], 0)
+        glVertex3f(center[0], center[1], -1)
 
     # draw circle
     for i in range(segments + 1):
         glVertex3f(
             center[0] + (radius * math.cos(i * (2 * math.pi) / segments)),
             center[1] + (radius * math.sin(i * (2 * math.pi) / segments)),
-            0
+            -1
         )
     glEnd()

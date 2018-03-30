@@ -21,7 +21,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.context = None  # type: moderngl.Context
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
-        self.__scale = 0.01  # type: float
+        self.__scale = 1.0  # type: float
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
                                                           self.__scale))  # type: numpy.ndarray
@@ -42,6 +42,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
         self.__last_mouse_position = [0, 0]  # type: list
+        self.camera_listeners = []  # type: list
 
     def on_paint(self, e: wx.PaintEvent = None):
         """Callback executed when an instance of this widget repaints
@@ -69,16 +70,6 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.SetSize(size)
         if self.context:
             self.context.viewport = (0, 0, size.width, size.height)
-
-        #if self.__empty_circle_program:
-        #    projection = matrix44.create_perspective_projection_from_bounds(0,
-        #                                                                    self.GetSize().width,
-        #                                                                    0,
-        #                                                                    self.GetSize().height,
-        #                                                                    0,
-        #                                                                    1)
-
-            #self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
         e.Skip()
 
@@ -117,13 +108,14 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         # update mouse position
         self.__last_mouse_position = current_mouse_position
 
-    def pan_camera(self, delta_x: float, delta_y: float) -> None:
+    def pan_camera(self, delta_x: float, delta_y: float, active_canvas: bool = True) -> None:
         """Pan the camera by the specified deltas
         :param delta_x: change in the x of the camera
         :param delta_y: change in the y of the camera
+        :param active_canvas: An active canvas repaints and signals all of its camera_listeners to pan.
         """
 
-        distance_modifier = 0.2  # type: float
+        distance_modifier = 0.1  # type: float
 
         self.__camera_x -= delta_x * distance_modifier
         self.__camera_y -= delta_y * distance_modifier
@@ -131,11 +123,15 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
-        self.on_paint()
+        if active_canvas:
+            for listener in self.camera_listeners:
+                listener.pan_camera(delta_x, delta_y, False)
+            self.on_paint()
 
-    def set_scale(self, relative_scale: float) -> None:
+    def set_scale(self, relative_scale: float, active_canvas: bool = True) -> None:
         """
         Scales the displayed epithelium.
+        :param active_canvas: An active canvas repaints and signals all of its camera_listeners to set their scale.
         :param relative_scale: The scale of the new display represented as a fraction of the previous scale
         Example: 1.1 with an original scale of 2.0 will produce a new scale of 2.2.
         :return:
@@ -143,8 +139,11 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__scale *= relative_scale
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
-                                                          self.__scale))  # type: numpy.ndarray
-        self.on_paint()
+                                                          1))  # type: numpy.ndarray
+        if active_canvas:
+            for listener in self.camera_listeners:
+                listener.set_scale(relative_scale, False)
+            self.on_paint()
 
     def _draw_epithelium(self) -> None:
         """
@@ -157,20 +156,20 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
         self.filled_circle_gl_program.update_vertex_objects(cell_data[1])
 
+        projection = matrix44.create_orthogonal_projection_matrix(0,
+                                                                  self.GetSize().width,
+                                                                  0,
+                                                                  self.GetSize().height,
+                                                                  1,
+                                                                  1.1)
+
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+        model = matrix44.multiply(projection, model)
+
         model_tuple = tuple(model.flatten())
         self.empty_circle_gl_program.program["model"].value = model_tuple
         self.filled_circle_gl_program.program["model"].value = model_tuple
-
-        # TODO: use projection matrix to fix stretching on window resize
-        projection = matrix44.create_perspective_projection_from_bounds(0,
-                                                                        self.GetSize().width,
-                                                                        0,
-                                                                        self.GetSize().height,
-                                                                        0,
-                                                                        1)
-        # self.__program.uniforms["projection"].value = tuple(projection.flatten())
 
         self.empty_circle_gl_program.vao.render(mode=moderngl.POINTS)
         self.filled_circle_gl_program.vao.render(mode=moderngl.POINTS)

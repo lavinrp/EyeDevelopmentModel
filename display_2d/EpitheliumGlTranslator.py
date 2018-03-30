@@ -1,6 +1,6 @@
 from epithelium_backend.Epithelium import Epithelium
-from epithelium_backend.Cell import Cell
-from epithelium_backend.PhotoreceptorType import PhotoreceptorType
+from quick_change.CellDisplayRules import determine_cell_color
+from quick_change.CellDisplayRules import determine_cell_fill
 import numpy
 
 
@@ -46,27 +46,3 @@ def format_epithelium_for_gl(epithelium: Epithelium) -> list:
     # convert to numpy array and return
     return [numpy.array(empty_circle_buffer_data, dtype=numpy.float16),
             numpy.array(filled_circle_buffer_data, dtype=numpy.float16)]
-
-
-def determine_cell_color(cell: Cell) -> tuple:
-    """
-    Determines the color that the passed cell should be drawn with based on its properties.
-    :param cell: The cell whose color will be determined.
-    """
-
-    if cell.photoreceptor_type == PhotoreceptorType.R8:
-        return 1, 0, 0
-    else:
-        return 0, 0, 1
-
-
-def determine_cell_fill(cell: Cell) -> bool:
-    """
-    Determines if the passed cell should be drawn as hollow or filled
-    :param cell: The cell to have fill status checked
-    :return: True if the cell should be filled, false otherwise.
-    """
-    if cell.photoreceptor_type == PhotoreceptorType.R8:
-        return True
-    else:
-        return False
