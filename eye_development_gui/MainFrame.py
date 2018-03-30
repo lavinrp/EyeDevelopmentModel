@@ -2,9 +2,9 @@
 
 from epithelium_backend.CellFactory import CellFactory
 from epithelium_backend.Epithelium import Epithelium
-from epithelium_backend.FurrowEventList import furrow_event_list
 from epithelium_backend.ImportExport import import_epithelium
 from epithelium_backend.ImportExport import export_epithelium
+from quick_change.FurrowEventList import furrow_event_list
 from eye_development_gui.FieldType import FieldType
 from eye_development_gui.eye_development_gui import MainFrameBase
 import wx
