@@ -48,6 +48,43 @@ class EpitheliumTester(unittest.TestCase):
                                3,
                                "Incorrect cell size after Epithelium.divide_cell.")
 
+    def test_divide_cell_not_dividable(self):
+
+        cell_quantity = 19
+        cell_radius_divergence = .1
+        cell_avg_radius = 1
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
+        epithelium.cells[0].dividable = False  # ensure that the cell cannot divide.
+        original_size = epithelium.cells[0].radius
+        epithelium.divide_cell(epithelium.cells[0])
+        self.assertEqual(len(epithelium.cells), cell_quantity,
+                         "Epithelium.divide_cell divided a cell that was not dividable")
+        self.assertAlmostEqual(original_size,
+                               epithelium.cells[0].radius,
+                               3,
+                               "Epithelium.divide_cell incorrectly changed cell size after failed divide.")
+
+    def test_delete_cell(self):
+        cell_quantity = 10
+        cell_radius_divergence = .1
+        cell_avg_radius = 1
+        cell_factory = CellFactory()
+        cell_factory.radius_divergence = cell_radius_divergence
+        cell_factory.average_radius = cell_avg_radius
+        epithelium = Epithelium(cell_quantity, cell_avg_radius, cell_factory)
+
+        # delete the cell
+        cell_to_delete = epithelium.cells[1]
+        epithelium.delete_cell(cell_to_delete)
+
+        self.assertNotIn(cell_to_delete, epithelium.cells,
+                         "Epithelium.delete_cell does not remove cell from epithelium")
+        self.assertNotIn(cell_to_delete, epithelium.cell_collision_handler.cells,
+                         "Epithelium.delete_cell does not deregester cell from collision handler.")
+
     def test_create_cell_sheet(self):
         """Ensures that instances of Epithelium can correctly populate their cell lists on init."""
         cell_quantity = 19

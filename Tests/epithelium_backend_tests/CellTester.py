@@ -65,3 +65,25 @@ class CellTester(unittest.TestCase):
 
         self.assertEqual(cell.radius, radius+growth_amount, "Cell.grow_cell incorrectly changes cell size")
 
+    def test_dispatch_updates(self):
+
+        class TestEvent:
+            def __init__(self):
+                self.called = False
+
+            def __call__(self, *args, **kwargs):
+                self.called = True
+
+        x = 1
+        y = 2
+        z = 0
+        radius = 2
+        photoreceptor_type = PhotoreceptorType.R8
+        support_specializations = {"test"}
+        cell_events = {TestEvent(), TestEvent()}
+
+        cell = Cell((x, y, z), radius, photoreceptor_type, support_specializations, cell_events)
+        cell.dispatch_updates()
+
+        for event in cell_events:
+            self.assertEqual(event.called, True, "Cell.dispatch_updates did not invoke every cell event.")
