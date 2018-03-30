@@ -5,8 +5,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from legacy_display_2d.LegacyGlDrawingPrimitives import draw_circle
-from display_2d.EpitheliumGlTranslator import determine_cell_fill
-from display_2d.EpitheliumGlTranslator import determine_cell_color
+from quick_change.CellDisplayRules import determine_cell_fill
+from quick_change.CellDisplayRules import determine_cell_color
 
 import math
 
