@@ -325,29 +325,6 @@ class MainFrame(MainFrameBase):
 
         event.Skip()
 
-    def update_with_sim_options(self):
-        """
-        Updates the active epithelium with the simulation options from the GUI
-        """
-
-        if self.sim_overview_input_validation() and not self.has_simulated:
-            # cell max size
-            cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
-            cell_max_size = float(cell_max_size_str)
-
-            # cell growth rate
-            cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
-            cell_growth_rate = float(cell_growth_rate_str)
-
-            # update cells
-            for cell in self.active_epithelium.cells:
-                cell.growth_rate = cell_growth_rate
-                cell.max_radius = cell_max_size
-
-            # set furrow velocity
-            furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
-            furrow_velocity = float(furrow_velocity_str)
-            self.active_epithelium.furrow.velocity = furrow_velocity
 
     # endregion event handling
 
@@ -596,6 +573,30 @@ class MainFrame(MainFrameBase):
         self.min_cell_count_text_ctrl.SetValue(str(min_cell_count))
         self.avg_cell_size_text_ctrl.SetValue(str(average_cell_size))
         self.cell_size_variance_text_ctrl.SetValue(str(cell_size_variance))
+
+    def update_epithelium_with_sim_options(self):
+        """
+        Updates the active epithelium with the simulation options from the GUI
+        """
+
+        if self.sim_overview_input_validation() and not self.has_simulated:
+            # cell max size
+            cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
+            cell_max_size = float(cell_max_size_str)
+
+            # cell growth rate
+            cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
+            cell_growth_rate = float(cell_growth_rate_str)
+
+            # update cells
+            for cell in self.active_epithelium.cells:
+                cell.growth_rate = cell_growth_rate
+                cell.max_radius = cell_max_size
+
+            # set furrow velocity
+            furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
+            furrow_velocity = float(furrow_velocity_str)
+            self.active_epithelium.furrow.velocity = furrow_velocity
 
     def update_gui_with_simulation_settings(self):
         print("todo: update gui with simulation settings")
