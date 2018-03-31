@@ -257,7 +257,9 @@ class MainFrame(MainFrameBase):
             return
 
         # attempt to save to active file
-        export_simulation_settings()
+        export_simulation_settings(list(self.m_sim_overview_sim_options_scrolled_window.GetChildren()),
+                                   furrow_event_list,
+                                   self.active_simulation_settings_file)
 
         # do not consume event
         event.Skip(False)
@@ -294,11 +296,21 @@ class MainFrame(MainFrameBase):
             return  # the user changed their mind
 
         # load the file
-        self.active_simulation_settings_file = load_dialog.GetFilename()
-        import_simulation_settings()
+        active_simulation_settings_file = load_dialog.GetFilename()
+        imported_settings = import_simulation_settings(active_simulation_settings_file)
 
-        # update gui
-        self.update_gui_with_simulation_settings()
+        # update with values from loaded file
+        if imported_settings:
+            self.active_simulation_settings_file = active_simulation_settings_file
+            simulation_scroll_children = self.m_sim_overview_sim_options_scrolled_window.GetChildren()
+            for i in range(len(simulation_scroll_children)):
+                if isinstance(simulation_scroll_children[i], wx.StaticText):
+                    static_text = simulation_scroll_children[i]  # type: wx.StaticText
+                    text_ctrl = simulation_scroll_children[i + 1]  # type: TextCtrl
+                    text_ctrl.SetValue(imported_settings[static_text.GetLabelText()])
+
+            # update gui
+            self.update_gui_with_simulation_settings()
 
         # do not consume event
         event.Skip(False)
@@ -324,7 +336,6 @@ class MainFrame(MainFrameBase):
         self.m_sim_overview_sim_options_scrolled_window.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
 
         event.Skip()
-
 
     # endregion event handling
 
