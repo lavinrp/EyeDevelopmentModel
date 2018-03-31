@@ -34,7 +34,15 @@ def export_epithelium(epithelium: Epithelium, file_path: str) -> None:
         pickle.dump(epithelium, out_file, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-def import_simulation_settings(file_path: str):
+def import_simulation_settings(file_path: str) -> dict:
+    """Loads simulation options and specialization options from a file
+    :param file_path: Path to simulation save file.
+    :return: a dictionary with values for updating the simulation options.
+    The key is the label text of the StaticText in the simulation options scroll window.
+    The value of the dict is the new value to be entered into the TextCtrl.
+
+    No information about the furrow event list is returned. These values are set within the function.
+    """
     try:
         with open(file_path, "rb") as input_file:
             # get inputs
@@ -60,6 +68,13 @@ def import_simulation_settings(file_path: str):
 
 
 def export_simulation_settings(simulation_scroll_children: list, furrow_event_list: list, file_path: str):
+    """
+    Saves all simulation options and specialization options to a file.
+    :param simulation_scroll_children: A list containing the the StaticText and TextCtrl widgets from the
+    simulation settings scroll window.
+    :param furrow_event_list: The furrow events to have options saved.
+    :param file_path: Path to the save file.
+    """
     simulation_options = dict()
     for i in range(len(simulation_scroll_children)):
         if isinstance(simulation_scroll_children[i], wx.StaticText):
