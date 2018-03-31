@@ -241,8 +241,8 @@ class CellCollisionHandler(object):
                 grid = cell.bin + self.dimension*row + col
                 if 0 < grid < len(self.grids):
                     cells.extend(self.grids[grid])
-        return filter(lambda n: distance((cell.position_x, cell.position_y, cell.position_z),
-                                         (n.position_x, n.position_y, n.position_z)) <= r, cells)
+        return list(filter(lambda n: distance((cell.position_x, cell.position_y, cell.position_z),
+                                              (n.position_x, n.position_y, n.position_z)) <= r, cells))
 
     def posterior_to_anterior(self):
         for col in range(0, self.dimension):

@@ -1,6 +1,6 @@
 
 import random
-from math import sin, cos
+from math import sin, cos, sqrt
 
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 
@@ -75,3 +75,8 @@ class Cell(object):
         """
         for updater in self.cell_events:
             updater(self)
+
+    def distance_to_other(self, neighbor):
+        (x1, y1, z1) = (self.position_x, self.position_y, self.position_z)
+        (x2, y2, z2) = (neighbor.position_x, neighbor.position_y, neighbor.position_z)
+        return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
