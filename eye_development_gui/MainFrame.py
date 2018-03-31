@@ -230,7 +230,7 @@ class MainFrame(MainFrameBase):
 
         # load the file
         active_epithelium_file = load_dialog.GetFilename()
-        imported_epithelium = import_epithelium(self.active_epithelium_file)
+        imported_epithelium = import_epithelium(active_epithelium_file)
         if imported_epithelium:
             self.active_epithelium_file = active_epithelium_file
             self.active_epithelium = imported_epithelium
