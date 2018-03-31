@@ -230,7 +230,13 @@ class MainFrame(MainFrameBase):
 
         # load the file
         self.active_epithelium_file = load_dialog.GetFilename()
-        self.active_epithelium = import_epithelium(self.active_epithelium_file)
+        imported_epithelium = import_epithelium(self.active_epithelium_file)
+        if imported_epithelium:
+            self.active_epithelium = imported_epithelium
+        else:
+            dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_WARNING)
+            dlg.ShowModal()
+            dlg.Destroy()
 
         # update gui
         self.update_gui_to_active_epithelium()

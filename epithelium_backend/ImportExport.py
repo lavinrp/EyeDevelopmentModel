@@ -1,14 +1,22 @@
 from epithelium_backend.Epithelium import Epithelium
+import pickle
 
 
 def import_epithelium(file_path: str) -> Epithelium:
     """
-    Loads an epithelium from a file.
+    Loads an epithelium from a file. If an epithelium cannot be successfully loaded None is returned.
     :param file_path: Path to epithelium save file.
     """
 
-    print("TODO: import epithelium from " + file_path)
-    return Epithelium(0)
+    try:
+        with open(file_path, "rb") as input_file:
+            epithelium = pickle.load(input_file)
+    except Exception:
+        return None
+
+    if isinstance(epithelium, Epithelium):
+        return epithelium
+    return None
 
 
 def export_epithelium(epithelium: Epithelium, file_path: str) -> None:
@@ -19,8 +27,8 @@ def export_epithelium(epithelium: Epithelium, file_path: str) -> None:
     :return:
     """
 
-    print("TODO: export epithelium to " + file_path)
-
+    with open(file_path, "wb") as out_file:
+        pickle.dump(epithelium, out_file, protocol=pickle.HIGHEST_PROTOCOL)
 
 def import_simulation_settings():
     print("Todo: import settings to somewhere")
