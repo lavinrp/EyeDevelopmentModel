@@ -310,7 +310,7 @@ class MainFrame(MainFrameBase):
                     text_ctrl.SetValue(imported_settings[static_text.GetLabelText()])
 
             # update gui
-            self.update_gui_with_simulation_settings()
+            self.add_fields(self.m_scrolledWindow4, furrow_event_list)
 
         # do not consume event
         event.Skip(False)
@@ -608,9 +608,6 @@ class MainFrame(MainFrameBase):
             furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
             furrow_velocity = float(furrow_velocity_str)
             self.active_epithelium.furrow.velocity = furrow_velocity
-
-    def update_gui_with_simulation_settings(self):
-        print("todo: update gui with simulation settings")
 
     def enable_edit_simulation_options(self, enable: bool):
         """Enables or disables user ability to edit all simulation options"""
