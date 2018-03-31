@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Mar 27 2018)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -131,7 +131,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer41 = wx.FlexGridSizer( 0, 2, 0, 0 )
 		fgSizer41.AddGrowableCol( 0 )
 		fgSizer41.AddGrowableRow( 0 )
-		fgSizer41.SetFlexibleDirection( wx.BOTH )
+		fgSizer41.SetFlexibleDirection( wx.VERTICAL )
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		self.m_sim_overview_display_panel = SimulationPanel( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
@@ -140,7 +140,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer5 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer5.AddGrowableCol( 0 )
 		fgSizer5.AddGrowableRow( 1 )
-		fgSizer5.SetFlexibleDirection( wx.BOTH )
+		fgSizer5.SetFlexibleDirection( wx.VERTICAL )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )

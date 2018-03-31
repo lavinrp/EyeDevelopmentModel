@@ -128,14 +128,6 @@ class MainFrame(MainFrameBase):
             cell_size_variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)  # type: str
             cell_size_variance = float(cell_size_variance_str)
 
-            # # cell max size
-            # cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
-            # cell_max_size = float(cell_max_size_str)
-            #
-            # # cell growth rate
-            # cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
-            # cell_growth_rate = float(cell_growth_rate_str)
-
             # create cell factory from inputs
             cell_factory = CellFactory()
             cell_factory.radius_divergence = cell_size_variance / avg_cell_size
@@ -148,11 +140,6 @@ class MainFrame(MainFrameBase):
 
             # the new epithelium has never started simulation
             self.has_simulated = False
-
-            # # set furrow velocity
-            # furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
-            # furrow_velocity = float(furrow_velocity_str)
-            # self.active_epithelium.furrow.velocity = furrow_velocity
 
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
