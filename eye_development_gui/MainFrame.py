@@ -587,7 +587,15 @@ class MainFrame(MainFrameBase):
         """
         Updates all gui values to match the values stored by the active epithelium
         """
-        print("TODO: update gui to match active epithelium")
+
+        epithelium = self.active_epithelium
+        min_cell_count = len(epithelium.cells)
+        average_cell_size = sum(map(lambda cell: cell.radius, epithelium.cells))/min_cell_count
+        cell_size_variance = max(map(lambda cell: abs(cell.radius-average_cell_size), epithelium.cells))
+
+        self.min_cell_count_text_ctrl.SetValue(str(min_cell_count))
+        self.avg_cell_size_text_ctrl.SetValue(str(average_cell_size))
+        self.cell_size_variance_text_ctrl.SetValue(str(cell_size_variance))
 
     def update_gui_with_simulation_settings(self):
         print("todo: update gui with simulation settings")
