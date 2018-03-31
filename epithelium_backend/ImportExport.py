@@ -20,3 +20,11 @@ def export_epithelium(epithelium: Epithelium, file_path: str) -> None:
     """
 
     print("TODO: export epithelium to " + file_path)
+
+
+def import_simulation_settings():
+    print("Todo: import settings to somewhere")
+
+def export_simulation_settings():
+    print("Todo: export settings to somewhere")
+

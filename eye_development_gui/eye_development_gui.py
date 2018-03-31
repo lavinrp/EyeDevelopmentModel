@@ -283,12 +283,15 @@ class MainFrameBase ( wx.Frame ):
 		# Connect Events
 		self.Bind( wx.EVT_SIZE, self.on_size )
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
-		self.ep_gen_save_button.Bind( wx.EVT_BUTTON, self.on_save )
-		self.ep_gen_save_as_button.Bind( wx.EVT_BUTTON, self.on_save_as )
-		self.ep_gen_load_button.Bind( wx.EVT_BUTTON, self.on_load )
+		self.ep_gen_save_button.Bind( wx.EVT_BUTTON, self.on_epithelium_save )
+		self.ep_gen_save_as_button.Bind( wx.EVT_BUTTON, self.on_epithelium_save_as )
+		self.ep_gen_load_button.Bind( wx.EVT_BUTTON, self.on_epithelium_load )
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.m_sim_overview_save_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_save )
+		self.m_sim_overview_save_as_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_save_as )
+		self.m_sim_overview_load_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_load )
 		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
@@ -304,19 +307,28 @@ class MainFrameBase ( wx.Frame ):
 	def ep_gen_create_callback( self, event ):
 		event.Skip()
 	
-	def on_save( self, event ):
+	def on_epithelium_save( self, event ):
 		event.Skip()
 	
-	def on_save_as( self, event ):
+	def on_epithelium_save_as( self, event ):
 		event.Skip()
 	
-	def on_load( self, event ):
+	def on_epithelium_load( self, event ):
 		event.Skip()
 	
 	def on_ep_gen_user_input( self, event ):
 		event.Skip()
 	
 	
+	
+	def on_sim_overview_save( self, event ):
+		event.Skip()
+	
+	def on_sim_overview_save_as( self, event ):
+		event.Skip()
+	
+	def on_sim_overview_load( self, event ):
+		event.Skip()
 	
 	def on_sim_overview_user_input( self, event ):
 		event.Skip()
