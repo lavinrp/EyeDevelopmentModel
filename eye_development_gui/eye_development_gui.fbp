@@ -1616,15 +1616,15 @@
                                             </object>
                                             <object class="sizeritem" expanded="1">
                                                 <property name="border">5</property>
-                                                <property name="flag">wxEXPAND</property>
+                                                <property name="flag">wxEXPAND|wxFIXED_MINSIZE</property>
                                                 <property name="proportion">1</property>
                                                 <object class="wxFlexGridSizer" expanded="1">
                                                     <property name="cols">1</property>
-                                                    <property name="flexible_direction">wxVERTICAL</property>
+                                                    <property name="flexible_direction">wxBOTH</property>
                                                     <property name="growablecols">0</property>
                                                     <property name="growablerows">1</property>
                                                     <property name="hgap">0</property>
-                                                    <property name="minimum_size"></property>
+                                                    <property name="minimum_size">300,-1</property>
                                                     <property name="name">fgSizer5</property>
                                                     <property name="non_flexible_grow_mode">wxFLEX_GROWMODE_SPECIFIED</property>
                                                     <property name="permission">none</property>
@@ -1637,7 +1637,7 @@
                                                         <object class="wxStaticBoxSizer" expanded="0">
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Simulation Options</property>
-                                                            <property name="minimum_size"></property>
+                                                            <property name="minimum_size">-1,80</property>
                                                             <property name="name">sim_overview_sim_options_box_sizer</property>
                                                             <property name="orient">wxVERTICAL</property>
                                                             <property name="parent">1</property>
@@ -2265,7 +2265,7 @@
                                                         <object class="wxStaticBoxSizer" expanded="0">
                                                             <property name="id">wxID_ANY</property>
                                                             <property name="label">Specialization Options</property>
-                                                            <property name="minimum_size"></property>
+                                                            <property name="minimum_size">-1,-1</property>
                                                             <property name="name">sim_overview_specialization_options_box_sizer</property>
                                                             <property name="orient">wxVERTICAL</property>
                                                             <property name="parent">1</property>
@@ -2440,7 +2440,7 @@
                                             <event name="OnUpdateUI"></event>
                                         </object>
                                     </object>
-                                    <object class="sizeritem" expanded="0">
+                                    <object class="sizeritem" expanded="1">
                                         <property name="border">5</property>
                                         <property name="flag">wxEXPAND</property>
                                         <property name="proportion">1</property>

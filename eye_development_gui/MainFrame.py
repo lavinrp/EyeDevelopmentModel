@@ -174,8 +174,9 @@ class MainFrame(MainFrameBase):
         # resize scrolled windows for settings in simulation overview
         cell_option_count = int(len(self.m_sim_overview_sim_options_scrolled_window.GetChildren()) / 2)
         space_per_cell_child = 60
-        self.m_sim_overview_sim_options_scrolled_window.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
-
+        self.m_sim_overview_sim_options_scrolled_window.SetMinSize(
+            (self.m_sim_overview_sim_options_scrolled_window.GetMinWidth(),
+             min(cell_option_count * space_per_cell_child, self.GetSize().height / 5)))
         event.Skip()
 
     def update_with_sim_options(self):

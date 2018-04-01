@@ -205,11 +205,12 @@
 								</object>
 								<object class="sizeritem">
 									<option>1</option>
-									<flag>wxEXPAND</flag>
+									<flag>wxEXPAND|wxFIXED_MINSIZE</flag>
 									<border>5</border>
 									<object class="wxFlexGridSizer">
 										<rows>0</rows>
 										<cols>1</cols>
+										<minsize>300,-1</minsize>
 										<vgap>0</vgap>
 										<hgap>0</hgap>
 										<growablecols>0</growablecols>
@@ -219,6 +220,7 @@
 											<flag>wxEXPAND</flag>
 											<border>5</border>
 											<object class="wxStaticBoxSizer">
+												<minsize>-1,80</minsize>
 												<orient>wxVERTICAL</orient>
 												<label>Simulation Options</label>
 												<object class="sizeritem">
