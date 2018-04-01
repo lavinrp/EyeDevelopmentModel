@@ -19,7 +19,7 @@ import wx.xrc
 class MainFrameBase ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,328 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Eye Development Model", pos = wx.DefaultPosition, size = wx.Size( 719,403 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		
@@ -139,11 +139,25 @@ class MainFrameBase ( wx.Frame ):
 		
 		fgSizer5 = wx.FlexGridSizer( 0, 1, 0, 0 )
 		fgSizer5.AddGrowableCol( 0 )
-		fgSizer5.AddGrowableRow( 1 )
+		fgSizer5.AddGrowableRow( 2 )
 		fgSizer5.SetFlexibleDirection( wx.BOTH )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		fgSizer5.SetMinSize( wx.Size( 300,-1 ) ) 
+		bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_sim_overview_save_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_save_button, 0, wx.ALL, 5 )
+		
+		self.m_sim_overview_save_as_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Save As", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_save_as_button, 0, wx.ALL, 5 )
+		
+		self.m_sim_overview_load_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Load", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer4.Add( self.m_sim_overview_load_button, 0, wx.ALL, 5 )
+		
+		
+		fgSizer5.Add( bSizer4, 1, wx.EXPAND, 5 )
+		
 		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
 		sim_overview_sim_options_box_sizer.SetMinSize( wx.Size( -1,80 ) ) 
@@ -227,9 +241,15 @@ class MainFrameBase ( wx.Frame ):
 		# Connect Events
 		self.Bind( wx.EVT_SIZE, self.on_size )
 		self.ep_gen_create_button.Bind( wx.EVT_BUTTON, self.ep_gen_create_callback )
+		self.ep_gen_save_button.Bind( wx.EVT_BUTTON, self.on_epithelium_save )
+		self.ep_gen_save_as_button.Bind( wx.EVT_BUTTON, self.on_epithelium_save_as )
+		self.ep_gen_load_button.Bind( wx.EVT_BUTTON, self.on_epithelium_load )
 		self.min_cell_count_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.avg_cell_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
 		self.cell_size_variance_text_ctrl.Bind( wx.EVT_TEXT, self.on_ep_gen_user_input )
+		self.m_sim_overview_save_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_save )
+		self.m_sim_overview_save_as_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_save_as )
+		self.m_sim_overview_load_button.Bind( wx.EVT_BUTTON, self.on_sim_overview_load )
 		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
@@ -245,10 +265,28 @@ class MainFrameBase ( wx.Frame ):
 	def ep_gen_create_callback( self, event ):
 		event.Skip()
 	
+	def on_epithelium_save( self, event ):
+		event.Skip()
+	
+	def on_epithelium_save_as( self, event ):
+		event.Skip()
+	
+	def on_epithelium_load( self, event ):
+		event.Skip()
+	
 	def on_ep_gen_user_input( self, event ):
 		event.Skip()
 	
 	
+	
+	def on_sim_overview_save( self, event ):
+		event.Skip()
+	
+	def on_sim_overview_save_as( self, event ):
+		event.Skip()
+	
+	def on_sim_overview_load( self, event ):
+		event.Skip()
 	
 	def on_sim_overview_user_input( self, event ):
 		event.Skip()
