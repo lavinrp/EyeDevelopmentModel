@@ -42,7 +42,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
-        self._pan_speed = 0.1  # type: float
+        self._pan_speed = 0.01  # type: float
         self.__last_mouse_position = [0, 0]  # type: list
         self.camera_listeners = []  # type: list
 
@@ -153,34 +153,72 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                 listener.set_scale(relative_scale, False)
             self.on_paint()
 
-    def world_coord_from_window_coord(self, window_coord: list):
+    # def world_coord_from_window_coord(self, window_coord: list):
+    #     """
+    #     Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
+    #     from http://webglfactory.blogspot.com/2011/05/how-to-convert-world-to-screen.html.
+    #     :param window_coord: The window coordinate to be converted to the openGL coordinate space.
+    #     :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
+    #     """
+    #
+    #     canvas_width = self.GetSize().width
+    #     canvas_height = self.GetSize().height
+    #
+    #     x = 2.0 * window_coord[0] / canvas_width - 1
+    #     y = 2.0 * window_coord[1] / canvas_height + 1
+    #
+    #     # TODO: clean up the matrix stuff so that there no duplicated code between this and draw
+    #     projection = matrix44.create_orthogonal_projection_matrix(0,
+    #                                                               canvas_width,
+    #                                                               0,
+    #                                                               canvas_height,
+    #                                                               1,
+    #                                                               1.1)
+    #     model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+    #     model = matrix44.multiply(projection, model)
+    #     inverse_model_projection_matrix = matrix44.inverse(model)
+    #     position = vector4.create(x, y, 0, 0)
+    #     position = matrix44.multiply(inverse_model_projection_matrix, position)
+    #
+    #     return [position[0], position[1]]
+
+    def world_coord_from_window_coord(self, window_coord) -> list:
         """
-        Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
-        from http://webglfactory.blogspot.com/2011/05/how-to-convert-world-to-screen.html.
-        :param window_coord: The window coordinate to be converted to the openGL coordinate space.
-        :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
+        from https://stackoverflow.com/a/7702895
+        :param window_coord:
+        :return:
         """
 
         canvas_width = self.GetSize().width
         canvas_height = self.GetSize().height
 
         x = 2.0 * window_coord[0] / canvas_width - 1
-        y = 2.0 * window_coord[1] / canvas_height + 1
+        y = 1.0 - (2.0 * window_coord[1] / canvas_height)
 
-        # TODO: clean up the matrix stuff so that there no duplicated code between this and draw
-        projection = matrix44.create_orthogonal_projection_matrix(0,
-                                                                  canvas_width,
-                                                                  0,
-                                                                  canvas_height,
-                                                                  1,
-                                                                  1.1)
-        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        model = matrix44.multiply(projection, model)
+        scale_matrix = matrix44.create_from_scale((self.__scale,
+                                                   self.__scale,
+                                                   1))  # type: numpy.ndarray
+
+        translate_matrix = matrix44.create_from_translation((self.__camera_x,
+                                                             self.__camera_y,
+                                                             0))  # type: numpy.ndarray
+        projection_matrix = \
+            matrix44.create_orthogonal_projection_matrix(0,
+                                                         self.GetSize().width,
+                                                         0,
+                                                         self.GetSize().height,
+                                                         1,
+                                                         1.1)
+
+        # update the model (zoom / pan)
+        model = matrix44.multiply(translate_matrix, scale_matrix)  # type: numpy.ndarray
+        model = matrix44.multiply(projection_matrix, model)
+
         inverse_model_projection_matrix = matrix44.inverse(model)
-        position = vector4.create(x, y, 0, 0)
+        position = vector4.create(x, y, 0, 1)
         position = matrix44.multiply(inverse_model_projection_matrix, position)
 
-        return [position[0], position[1]]
+        return [position[0], -position[1]]
 
     def _draw_epithelium(self) -> None:
         """
