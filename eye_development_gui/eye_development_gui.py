@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Oct 21 2017)
+## Python code generated with wxFormBuilder (version Mar 27 2018)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -221,50 +221,6 @@ class MainFrameBase ( wx.Frame ):
 		
 		
 		fgSizer31.Add( fgSizer41, 1, wx.EXPAND, 5 )
-		
-		self.m_staticline1 = wx.StaticLine( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-		fgSizer31.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
-		
-		gSizer2 = wx.GridSizer( 0, 4, 0, 0 )
-		
-		self.m_staticText10 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"Cell Count", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText10.Wrap( -1 )
-		gSizer2.Add( self.m_staticText10, 0, wx.ALL, 5 )
-		
-		self.m_textCtrl4 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl4.Enable( False )
-		
-		gSizer2.Add( self.m_textCtrl4, 0, wx.ALL, 5 )
-		
-		self.m_staticText11 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"Avg. Cell Size", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText11.Wrap( -1 )
-		gSizer2.Add( self.m_staticText11, 0, wx.ALL, 5 )
-		
-		self.m_textCtrl5 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl5.Enable( False )
-		
-		gSizer2.Add( self.m_textCtrl5, 0, wx.ALL, 5 )
-		
-		self.m_staticText12 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"R8 Count", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText12.Wrap( -1 )
-		gSizer2.Add( self.m_staticText12, 0, wx.ALL, 5 )
-		
-		self.m_textCtrl6 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl6.Enable( False )
-		
-		gSizer2.Add( self.m_textCtrl6, 0, wx.ALL, 5 )
-		
-		self.m_staticText13 = wx.StaticText( self.m_simulation_overview_panel, wx.ID_ANY, u"% R8", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText13.Wrap( -1 )
-		gSizer2.Add( self.m_staticText13, 0, wx.ALL, 5 )
-		
-		self.m_textCtrl7 = wx.TextCtrl( self.m_simulation_overview_panel, wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl7.Enable( False )
-		
-		gSizer2.Add( self.m_textCtrl7, 0, wx.ALL, 5 )
-		
-		
-		fgSizer31.Add( gSizer2, 1, wx.EXPAND, 5 )
 		
 		
 		self.m_simulation_overview_panel.SetSizer( fgSizer31 )

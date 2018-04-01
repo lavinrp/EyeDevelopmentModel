@@ -63,12 +63,12 @@ class CellCollisionHandler(object):
                  force_escape: float = 1.05,
                  allow_overlap: float = 0.95,
                  spring_constant: float = 0.32):
-        self.cells = cells
         # Constants
         self.force_escape = force_escape
         self.allow_overlap = allow_overlap
         self.spring_constant = spring_constant
 
+        self.cells = list(cells)
         self.cell_quantity = 0
         self.avg_radius = 0
         self.center_x = 0
@@ -111,6 +111,7 @@ class CellCollisionHandler(object):
 
     def register(self, cell: Cell):
         """Add the cell to the collision handler."""
+        self.cells.append(cell)
         cell.next_x = cell.position_x
         cell.next_y = cell.position_y
         cell.bin = self.bin(cell)
@@ -120,6 +121,7 @@ class CellCollisionHandler(object):
     def deregister(self, cell: Cell):
         """Remove the cell from the collision handler."""
         self.grids[cell.bin].remove(cell)
+        self.cells.remove(cell)
         # May want to remove from non_empty
 
     def fill_grid(self):
@@ -149,7 +151,9 @@ class CellCollisionHandler(object):
         # to examine when decompacting
         self.non_empty = set()
 
-        for cell in self.cells:
+        cells = list(self.cells)
+        self.cells = []
+        for cell in cells:
             self.register(cell)
 
     def push_pull(self, cell1: Cell, cell2: Cell):
@@ -163,16 +167,17 @@ class CellCollisionHandler(object):
         # pushed apart and stopped colliding, we'd like them to stop
         # moving, not to continue to move apart with high velocities.
 
-        cxnx = cell1.position_x - cell2.position_x
-        cyny = cell1.position_y - cell2.position_y
+        min_dist = self.avg_radius/100
+        cxnx = max(cell1.position_x - cell2.position_x, min_dist, key=abs)
+        cyny = max(cell1.position_y - cell2.position_y, min_dist, key=abs)
         # If they're on top of each other, they should push each other apart.
         # Distance can't equal zero since we divide by distance later on.
-        dist = max(sqrt(cxnx*cxnx + cyny*cyny), self.avg_radius/100)
+        dist = max(sqrt(cxnx*cxnx + cyny*cyny), min_dist)
         # Use Hooke's Law. Cells exert pushing forces on each
         # other when they're colliding and pulling forces when
         # there's empty space between them but they're sufficiently
         # close. Force decreases linearly with distance between cells.
-        rest_length = self.allow_overlap * (cell1.radius + cell2.radius)
+        rest_length = cell1.radius + cell2.radius
         if dist <= self.force_escape * rest_length:
             # the difference between the distance and rest_length
             # determines the directionality of the force.
@@ -184,9 +189,11 @@ class CellCollisionHandler(object):
             # by allow_overlap means springs will be at equilibrium
             # when overlapping, since it makes the rest_length
             # smaller.
-            s = (self.spring_constant*(dist-rest_length)/dist)
+            s = self.spring_constant*(dist-self.allow_overlap*rest_length)/dist
             scxnx = s*cxnx
             scyny = s*cyny
+            if dist==self.avg_radius/100:
+                print(scxnx)
             cell1.next_x -= scxnx
             cell1.next_y -= scyny
             cell2.next_x += scxnx
@@ -236,13 +243,23 @@ class CellCollisionHandler(object):
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
         cells = []
-        for row in range(-box_number, box_number+1):
-            for col in range(-box_number, box_number+1):
-                grid = cell.bin + self.dimension*row + col
-                if 0 < grid < len(self.grids):
-                    cells.extend(self.grids[grid])
-        return filter(lambda n: distance((cell.position_x, cell.position_y, cell.position_z),
-                                         (n.position_x, n.position_y, n.position_z)) <= r, cells)
+        # Generate the possible (row, col) pairs by looking within box_number boxes
+        # of the input cell. There may be duplicates due to discretization.
+        row_cols = [(self.compute_row(cell.position_y + row*self.box_size),
+                     self.compute_col(cell.position_x + col*self.box_size))
+                    for row in range(-box_number, box_number+1)
+                    for col in range(-box_number, box_number+1)]
+        # Map the (row,col) pairs to grid indices and remove duplicates.
+        grids = set(map(lambda rc: self.dimension*rc[0]+rc[1], row_cols))
+        for grid in grids:
+            if 0 < grid < len(self.grids):
+                cells.extend(self.grids[grid])
+        # Require that the neighbors be a positive distance away from the input
+        # (thereby excluding the input cell) and less than or equal to
+        # the required distance r.
+        return filter(lambda n: 0 < distance((cell.position_x, cell.position_y, cell.position_z),
+                                             (n.position_x, n.position_y, n.position_z)) <= r,
+                      cells)
 
     def posterior_to_anterior(self):
         for col in range(0, self.dimension):

@@ -26,6 +26,8 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
+        self.init_icon()
+
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
         MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
@@ -605,6 +607,14 @@ class MainFrame(MainFrameBase):
             furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
             furrow_velocity = float(furrow_velocity_str)
             self.active_epithelium.furrow.velocity = furrow_velocity
+
+    def init_icon(self):
+        """initializes and displays the application icon."""
+        image = wx.Image(r"./resources/EDM-1.png")  # type: wx.Image
+        bitmap = image.ConvertToBitmap()  # type: wx.Bitmap
+        icon = wx.Icon()  # type: wx.Icon
+        icon.CopyFromBitmap(bitmap)
+        self.SetIcon(icon)
 
     def enable_edit_simulation_options(self, enable: bool):
         """Enables or disables user ability to edit all simulation options"""
