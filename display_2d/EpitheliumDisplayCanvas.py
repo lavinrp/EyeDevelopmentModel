@@ -10,6 +10,7 @@ import numpy
 from display_2d.EpitheliumGlTranslator import format_epithelium_for_gl
 from display_2d.EpitheliumGlTranslator import gl_bytes_per_cell
 from display_2d.Simple2dGlProgram import Simple2dGlProgram
+from display_2d.GlHelpers import world_coord_from_window_coord
 from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 
 
@@ -98,7 +99,9 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
         # left mouse button down
         if event.ButtonDown(wx.MOUSE_BTN_LEFT):
-            print(self.world_coord_from_window_coord(current_mouse_position))
+            print(world_coord_from_window_coord(current_mouse_position,
+                                                list(self.GetSize()),
+                                                self.model_view_projection_matrix))
 
             self.__panning = True
 
@@ -112,8 +115,12 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
             # panning
             if self.__panning:
                 # get world position of mouse
-                last_mouse_world_position = self.world_coord_from_window_coord(self.__last_mouse_position)
-                mouse_world_position = self.world_coord_from_window_coord(current_mouse_position)
+                last_mouse_world_position = world_coord_from_window_coord(self.__last_mouse_position,
+                                                                          list(self.GetSize()),
+                                                                          self.model_view_projection_matrix)
+                mouse_world_position = world_coord_from_window_coord(current_mouse_position,
+                                                                     list(self.GetSize()),
+                                                                     self.model_view_projection_matrix)
 
                 # pan camera by how far the mouse moved in world coordinates
                 world_delta_x = last_mouse_world_position[0] - mouse_world_position[0]
@@ -164,26 +171,6 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
             for listener in self.camera_listeners:
                 listener.set_scale(relative_scale, False)
             self.on_paint()
-
-    def world_coord_from_window_coord(self, window_coord) -> list:
-        """
-        Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
-        from https://stackoverflow.com/a/7702895
-        :param window_coord: The window coordinate to be converted to the openGL coordinate space.
-        :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
-        """
-
-        # calculate relative screen position in
-        canvas_width = self.GetSize().width
-        canvas_height = self.GetSize().height
-        x = 2.0 * window_coord[0] / canvas_width - 1
-        y = 1.0 - (2.0 * window_coord[1] / canvas_height)
-
-        # convert screen position to world space
-        inverse_model_view_projection_matrix = matrix44.inverse(self.model_view_projection_matrix)
-        position = vector4.create(x, y, 0, 1)
-        position = matrix44.multiply(inverse_model_view_projection_matrix, position)
-        return [position[0], position[1]]
 
     def _draw_epithelium(self) -> None:
         """
