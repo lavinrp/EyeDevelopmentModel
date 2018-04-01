@@ -195,28 +195,21 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         x = 2.0 * window_coord[0] / canvas_width - 1
         y = 1.0 - (2.0 * window_coord[1] / canvas_height)
 
-        scale_matrix = matrix44.create_from_scale((self.__scale,
-                                                   self.__scale,
-                                                   1))  # type: numpy.ndarray
-
-        translate_matrix = matrix44.create_from_translation((self.__camera_x,
-                                                             self.__camera_y,
-                                                             0))  # type: numpy.ndarray
-        projection_matrix = \
-            matrix44.create_orthogonal_projection_matrix(0,
-                                                         self.GetSize().width,
-                                                         0,
-                                                         self.GetSize().height,
-                                                         1,
-                                                         1.1)
+        projection = matrix44.create_orthogonal_projection_matrix(0,
+                                                                  self.GetSize().width,
+                                                                  0,
+                                                                  self.GetSize().height,
+                                                                  1,
+                                                                  1.1)
 
         # update the model (zoom / pan)
-        model = matrix44.multiply(translate_matrix, scale_matrix)  # type: numpy.ndarray
-        model = matrix44.multiply(projection_matrix, model)
+        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+        # No view so model_view == model
+        model_view_projection = matrix44.multiply(projection, model)
 
-        inverse_model_projection_matrix = matrix44.inverse(model)
+        inverse_model_view_projection_matrix = matrix44.inverse(model_view_projection)
         position = vector4.create(x, y, 0, 1)
-        position = matrix44.multiply(inverse_model_projection_matrix, position)
+        position = matrix44.multiply(inverse_model_view_projection_matrix, position)
 
         return [position[0], -position[1]]
 
