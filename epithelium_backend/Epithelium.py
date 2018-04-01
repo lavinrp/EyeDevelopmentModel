@@ -46,7 +46,7 @@ class Epithelium(object):
         """
 
         if cell_from_list.dividable:
-            new_cell = cell_from_list.divide()
+            new_cell = cell_from_list.divide(self.cell_collision_handler)
             if new_cell is not None:
                 self.cells.append(new_cell)
                 self.cell_collision_handler.register(new_cell)
