@@ -141,7 +141,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_y -= delta_y * self._pan_speed
 
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
-                                                                    self.__camera_y,
+                                                                    -self.__camera_y,
                                                                     0))  # type: numpy.ndarray
         if active_canvas:
             for listener in self.camera_listeners:
@@ -216,7 +216,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         position = vector4.create(x, y, 0, 1)
         position = matrix44.multiply(inverse_model_view_projection_matrix, position)
 
-        return [position[0], -position[1]]
+        return [position[0], position[1]]
 
     def _draw_epithelium(self) -> None:
         """
