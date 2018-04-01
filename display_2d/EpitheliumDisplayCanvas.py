@@ -244,8 +244,8 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         model_view_projection = matrix44.multiply(projection, model)
 
         model_view_projection_tuple = tuple(model_view_projection.flatten())
-        self.empty_circle_gl_program.program["model"].value = model_view_projection_tuple
-        self.filled_circle_gl_program.program["model"].value = model_view_projection_tuple
+        self.empty_circle_gl_program.program["model_view_projection"].value = model_view_projection_tuple
+        self.filled_circle_gl_program.program["model_view_projection"].value = model_view_projection_tuple
 
         self.empty_circle_gl_program.vao.render(mode=moderngl.POINTS)
         self.filled_circle_gl_program.vao.render(mode=moderngl.POINTS)
