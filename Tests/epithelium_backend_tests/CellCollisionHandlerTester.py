@@ -65,6 +65,12 @@ class CellCollisionHandlerTester(unittest.TestCase):
         self.assertTrue(new_dist == init_dist,
                         "Far away cells don't affect each other.")
 
+        # Forces scale linearly with distance
+        init_dist_close, new_dist_close = push_pull((0,0,0), (0.5, 0, 0))
+        init_dist_far, new_dist_far = push_pull((0,0,0), (1, 0, 0))
+        self.assertTrue(new_dist_close - init_dist_close > new_dist_far - init_dist_far,
+                        "Push/pull forces are greater when cells are closer together.")
+
     def test_decompact(self):
         cells = [Cell((0,0,0), 1),
                  Cell((1,1,0), 1),
