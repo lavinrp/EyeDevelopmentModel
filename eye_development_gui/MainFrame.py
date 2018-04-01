@@ -422,6 +422,7 @@ class MainFrame(MainFrameBase):
         """true if the active epithelium has begn simulation. False Otherwise."""
         self._has_simulated = value
         self.enable_edit_simulation_options(not value)
+        self.enable_edit_specialization_options(not value)
 
     # endregion simulation
 
@@ -451,6 +452,13 @@ class MainFrame(MainFrameBase):
         """Enables or disables user ability to edit all simulation options"""
 
         for option in self.m_sim_overview_sim_options_scrolled_window.GetChildren():
+            if type(option) is not StaticText:
+                option.Enable(enable)
+
+    def enable_edit_specialization_options(self, enable: bool):
+        """Enables or disables user ability to edit all specialization options"""
+
+        for option in self.m_scrolledWindow4.GetChildren():
             if type(option) is not StaticText:
                 option.Enable(enable)
 
