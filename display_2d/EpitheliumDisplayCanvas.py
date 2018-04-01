@@ -240,11 +240,12 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        model = matrix44.multiply(projection, model)
+        # No view so model_view == model
+        model_view_projection = matrix44.multiply(projection, model)
 
-        model_tuple = tuple(model.flatten())
-        self.empty_circle_gl_program.program["model"].value = model_tuple
-        self.filled_circle_gl_program.program["model"].value = model_tuple
+        model_view_projection_tuple = tuple(model_view_projection.flatten())
+        self.empty_circle_gl_program.program["model"].value = model_view_projection_tuple
+        self.filled_circle_gl_program.program["model"].value = model_view_projection_tuple
 
         self.empty_circle_gl_program.vao.render(mode=moderngl.POINTS)
         self.filled_circle_gl_program.vao.render(mode=moderngl.POINTS)
