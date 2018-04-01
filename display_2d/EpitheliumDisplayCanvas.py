@@ -165,57 +165,24 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                 listener.set_scale(relative_scale, False)
             self.on_paint()
 
-    # def world_coord_from_window_coord(self, window_coord: list):
-    #     """
-    #     Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
-    #     from http://webglfactory.blogspot.com/2011/05/how-to-convert-world-to-screen.html.
-    #     :param window_coord: The window coordinate to be converted to the openGL coordinate space.
-    #     :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
-    #     """
-    #
-    #     canvas_width = self.GetSize().width
-    #     canvas_height = self.GetSize().height
-    #
-    #     x = 2.0 * window_coord[0] / canvas_width - 1
-    #     y = 2.0 * window_coord[1] / canvas_height + 1
-    #
-    #     # TODO: clean up the matrix stuff so that there no duplicated code between this and draw
-    #     projection = matrix44.create_orthogonal_projection_matrix(0,
-    #                                                               canvas_width,
-    #                                                               0,
-    #                                                               canvas_height,
-    #                                                               1,
-    #                                                               1.1)
-    #     model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-    #     model = matrix44.multiply(projection, model)
-    #     inverse_model_projection_matrix = matrix44.inverse(model)
-    #     position = vector4.create(x, y, 0, 0)
-    #     position = matrix44.multiply(inverse_model_projection_matrix, position)
-    #
-    #     return [position[0], position[1]]
-
     def world_coord_from_window_coord(self, window_coord) -> list:
         """
+        Calculates the in-world (OpenGL coordinate system) coordinate the corresponds to the passed window coordinate.
         from https://stackoverflow.com/a/7702895
-        :param window_coord:
-        :return:
+        :param window_coord: The window coordinate to be converted to the openGL coordinate space.
+        :return: The in-world (OpenGL) coordinate that corresponds to the passed window coordinate (z will always be 0).
         """
 
+        # calculate relative screen position in
         canvas_width = self.GetSize().width
         canvas_height = self.GetSize().height
-
         x = 2.0 * window_coord[0] / canvas_width - 1
         y = 1.0 - (2.0 * window_coord[1] / canvas_height)
 
-        # update the model (zoom / pan)
-        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        # No view so model_view == model
-        model_view_projection = matrix44.multiply(self.__projection_matrix, model)
-
-        inverse_model_view_projection_matrix = matrix44.inverse(model_view_projection)
+        # convert screen position to world space
+        inverse_model_view_projection_matrix = matrix44.inverse(self.model_view_projection_matrix)
         position = vector4.create(x, y, 0, 1)
         position = matrix44.multiply(inverse_model_view_projection_matrix, position)
-
         return [position[0], position[1]]
 
     def _draw_epithelium(self) -> None:
@@ -229,18 +196,14 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
         self.filled_circle_gl_program.update_vertex_objects(cell_data[1])
 
-        # update the model (zoom / pan)
-        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        # No view so model_view == model
-        model_view_projection = matrix44.multiply(self.__projection_matrix, model)
-
-        model_view_projection_tuple = tuple(model_view_projection.flatten())
+        # update the model view projection matrix
+        model_view_projection_tuple = tuple(self.model_view_projection_matrix.flatten())
         self.empty_circle_gl_program.program["model_view_projection"].value = model_view_projection_tuple
         self.filled_circle_gl_program.program["model_view_projection"].value = model_view_projection_tuple
 
+        # render to screen
         self.empty_circle_gl_program.vao.render(mode=moderngl.POINTS)
         self.filled_circle_gl_program.vao.render(mode=moderngl.POINTS)
-
         self.SwapBuffers()
 
     def _init_gl(self) -> None:
@@ -275,6 +238,14 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
     @property
     def epithelium(self):
         return self.GetParent().epithelium
+
+    @property
+    def model_view_projection_matrix(self) -> numpy.ndarray:
+        """Returns the model view projection matrix of the current scene."""
+        # update the model (zoom / pan)
+        model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
+        # No view so model_view == model
+        return matrix44.multiply(self.__projection_matrix, model)
 
 
 class EpitheliumDisplayCanvas(LegacyDisplayCanvas if os.getenv("eye_develop_model_legacy_display")
