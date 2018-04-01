@@ -29,6 +29,12 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
                                                                     self.__camera_y,
                                                                     0))  # type: numpy.ndarray
+        self.__projection_matrix = matrix44.create_orthogonal_projection_matrix(0,
+                                                                                self.GetSize().width,
+                                                                                0,
+                                                                                self.GetSize().height,
+                                                                                1,
+                                                                                1.1)
         self.__gl_initialized = False  # type: bool
         self.empty_circle_gl_program = Simple2dGlProgram()  # type: Simple2dGlProgram
         self.empty_circle_gl_program.reserved_object_count = 1000
@@ -73,6 +79,12 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         if self.context:
             self.context.viewport = (0, 0, size.width, size.height)
 
+        self.__projection_matrix = matrix44.create_orthogonal_projection_matrix(0,
+                                                                                self.GetSize().width,
+                                                                                0,
+                                                                                self.GetSize().height,
+                                                                                1,
+                                                                                1.1)
         e.Skip()
 
     def on_mouse_events(self, event: wx.MouseEvent):
@@ -195,17 +207,10 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         x = 2.0 * window_coord[0] / canvas_width - 1
         y = 1.0 - (2.0 * window_coord[1] / canvas_height)
 
-        projection = matrix44.create_orthogonal_projection_matrix(0,
-                                                                  self.GetSize().width,
-                                                                  0,
-                                                                  self.GetSize().height,
-                                                                  1,
-                                                                  1.1)
-
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
         # No view so model_view == model
-        model_view_projection = matrix44.multiply(projection, model)
+        model_view_projection = matrix44.multiply(self.__projection_matrix, model)
 
         inverse_model_view_projection_matrix = matrix44.inverse(model_view_projection)
         position = vector4.create(x, y, 0, 1)
@@ -224,17 +229,10 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.empty_circle_gl_program.update_vertex_objects(cell_data[0])
         self.filled_circle_gl_program.update_vertex_objects(cell_data[1])
 
-        projection = matrix44.create_orthogonal_projection_matrix(0,
-                                                                  self.GetSize().width,
-                                                                  0,
-                                                                  self.GetSize().height,
-                                                                  1,
-                                                                  1.1)
-
         # update the model (zoom / pan)
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
         # No view so model_view == model
-        model_view_projection = matrix44.multiply(projection, model)
+        model_view_projection = matrix44.multiply(self.__projection_matrix, model)
 
         model_view_projection_tuple = tuple(model_view_projection.flatten())
         self.empty_circle_gl_program.program["model_view_projection"].value = model_view_projection_tuple
