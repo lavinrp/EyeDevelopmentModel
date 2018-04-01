@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Mar 27 2018)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -131,7 +131,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer41 = wx.FlexGridSizer( 0, 2, 0, 0 )
 		fgSizer41.AddGrowableCol( 0 )
 		fgSizer41.AddGrowableRow( 0 )
-		fgSizer41.SetFlexibleDirection( wx.BOTH )
+		fgSizer41.SetFlexibleDirection( wx.VERTICAL )
 		fgSizer41.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
 		self.m_sim_overview_display_panel = SimulationPanel( self.m_simulation_overview_panel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
@@ -143,6 +143,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer5.SetFlexibleDirection( wx.BOTH )
 		fgSizer5.SetNonFlexibleGrowMode( wx.FLEX_GROWMODE_SPECIFIED )
 		
+		fgSizer5.SetMinSize( wx.Size( 300,-1 ) ) 
 		bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.m_sim_overview_save_button = wx.Button( self.m_simulation_overview_panel, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -159,6 +160,7 @@ class MainFrameBase ( wx.Frame ):
 		
 		sim_overview_sim_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Simulation Options" ), wx.VERTICAL )
 		
+		sim_overview_sim_options_box_sizer.SetMinSize( wx.Size( -1,80 ) ) 
 		self.m_sim_overview_sim_options_scrolled_window = wx.ScrolledWindow( sim_overview_sim_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.m_sim_overview_sim_options_scrolled_window.SetScrollRate( 5, 5 )
 		gSizer4 = wx.GridSizer( 0, 2, 0, 0 )
@@ -215,7 +217,7 @@ class MainFrameBase ( wx.Frame ):
 		fgSizer5.Add( sim_overview_specialization_options_box_sizer, 1, wx.EXPAND, 5 )
 		
 		
-		fgSizer41.Add( fgSizer5, 1, wx.EXPAND, 5 )
+		fgSizer41.Add( fgSizer5, 1, wx.EXPAND|wx.FIXED_MINSIZE, 5 )
 		
 		
 		fgSizer31.Add( fgSizer41, 1, wx.EXPAND, 5 )

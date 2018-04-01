@@ -137,14 +137,6 @@ class MainFrame(MainFrameBase):
             cell_size_variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)  # type: str
             cell_size_variance = float(cell_size_variance_str)
 
-            # # cell max size
-            # cell_max_size_str = self.str_from_text_input(self.cell_max_size_text_ctrl)  # type: str
-            # cell_max_size = float(cell_max_size_str)
-            #
-            # # cell growth rate
-            # cell_growth_rate_str = self.str_from_text_input(self.cell_growth_rate_text_ctrl)  # type: str
-            # cell_growth_rate = float(cell_growth_rate_str)
-
             # create cell factory from inputs
             cell_factory = CellFactory()
             cell_factory.radius_divergence = cell_size_variance / avg_cell_size
@@ -157,11 +149,6 @@ class MainFrame(MainFrameBase):
 
             # the new epithelium has never started simulation
             self.has_simulated = False
-
-            # # set furrow velocity
-            # furrow_velocity_str = self.str_from_text_input(self.furrow_velocity_text_ctrl)
-            # furrow_velocity = float(furrow_velocity_str)
-            # self.active_epithelium.furrow.velocity = furrow_velocity
 
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
@@ -342,8 +329,9 @@ class MainFrame(MainFrameBase):
         # resize scrolled windows for settings in simulation overview
         cell_option_count = int(len(self.m_sim_overview_sim_options_scrolled_window.GetChildren()) / 2)
         space_per_cell_child = 60
-        self.m_sim_overview_sim_options_scrolled_window.SetMinSize((-1, min(cell_option_count * space_per_cell_child, self.GetSize().height / 4)))
-
+        self.m_sim_overview_sim_options_scrolled_window.SetMinSize(
+            (self.m_sim_overview_sim_options_scrolled_window.GetMinWidth(),
+             min(cell_option_count * space_per_cell_child, self.GetSize().height / 5)))
         event.Skip()
 
     # endregion event handling
