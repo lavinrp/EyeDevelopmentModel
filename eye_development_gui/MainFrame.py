@@ -25,7 +25,7 @@ class MainFrame(MainFrameBase):
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
-        MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
+        MainFrame.add_fields(self.m_sim_overview_spec_options_scrolled_window, furrow_event_list)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
         self._simulating = False
@@ -458,7 +458,7 @@ class MainFrame(MainFrameBase):
     def enable_edit_specialization_options(self, enable: bool):
         """Enables or disables user ability to edit all specialization options"""
 
-        for option in self.m_scrolledWindow4.GetChildren():
+        for option in self.m_sim_overview_spec_options_scrolled_window.GetChildren():
             if type(option) is not StaticText:
                 option.Enable(enable)
 
