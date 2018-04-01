@@ -34,6 +34,7 @@ class SimulationPanel(SimulationPanelBase):
         """ Callback invoked when the SimulationPanel's 'start' button is pressed.
         Signals all listeners to begin simulating."""
         for listener in self.simulation_listeners:
+            listener.update_with_sim_options()
             listener.simulating = True
         event.Skip(False)
 

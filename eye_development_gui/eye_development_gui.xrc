@@ -164,63 +164,6 @@
 													<value>2</value>
 												</object>
 											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="furrow_velocity_static_text">
-													<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
-													<label>Furrow Velocity</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
-													<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
-													<value>10</value>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="cell_max_size_static_text">
-													<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
-													<label>Cell Max Size</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="cell_max_size_text_ctrl">
-													<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
-													<value>25</value>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxStaticText" name="cell_growth_rate_static_text">
-													<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
-													<label>Cell Growth Rate</label>
-													<wrap>-1</wrap>
-												</object>
-											</object>
-											<object class="sizeritem">
-												<option>0</option>
-												<flag>wxALL</flag>
-												<border>5</border>
-												<object class="wxTextCtrl" name="cell_growth_rate_text_ctrl">
-													<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
-													<value>0.01</value>
-												</object>
-											</object>
 										</object>
 									</object>
 								</object>
@@ -262,23 +205,113 @@
 								</object>
 								<object class="sizeritem">
 									<option>1</option>
-									<flag>wxEXPAND</flag>
+									<flag>wxEXPAND|wxFIXED_MINSIZE</flag>
 									<border>5</border>
-									<object class="wxStaticBoxSizer">
-										<orient>wxVERTICAL</orient>
-										<label>Simulation Options</label>
+									<object class="wxFlexGridSizer">
+										<rows>0</rows>
+										<cols>1</cols>
+										<minsize>300,-1</minsize>
+										<vgap>0</vgap>
+										<hgap>0</hgap>
+										<growablecols>0</growablecols>
+										<growablerows>1</growablerows>
 										<object class="sizeritem">
 											<option>1</option>
-											<flag>wxEXPAND | wxALL</flag>
+											<flag>wxEXPAND</flag>
 											<border>5</border>
-											<object class="wxScrolledWindow" name="m_scrolledWindow4">
-												<style>wxHSCROLL|wxVSCROLL</style>
-												<scrollrate>5,5</scrollrate>
-												<object class="wxGridSizer">
-													<rows>0</rows>
-													<cols>2</cols>
-													<vgap>0</vgap>
-													<hgap>0</hgap>
+											<object class="wxStaticBoxSizer">
+												<minsize>-1,80</minsize>
+												<orient>wxVERTICAL</orient>
+												<label>Simulation Options</label>
+												<object class="sizeritem">
+													<option>1</option>
+													<flag>wxEXPAND | wxALL</flag>
+													<border>5</border>
+													<object class="wxScrolledWindow" name="m_sim_overview_sim_options_scrolled_window">
+														<style>wxHSCROLL|wxVSCROLL</style>
+														<scrollrate>5,5</scrollrate>
+														<object class="wxGridSizer">
+															<rows>0</rows>
+															<cols>2</cols>
+															<vgap>0</vgap>
+															<hgap>0</hgap>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="cell_max_size_static_text">
+																	<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
+																	<label>Cell Max Size</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="cell_max_size_text_ctrl">
+																	<tooltip>All initially generated cells will be unable to grow beyond this size.</tooltip>
+																	<value>25</value>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="cell_growth_rate_static_text">
+																	<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
+																	<label>Cell Growth Rate</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="cell_growth_rate_text_ctrl">
+																	<tooltip>All initially generated cells will grow by this much every simulation cycle if they are experiencing growth.</tooltip>
+																	<value>0.01</value>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="furrow_velocity_static_text">
+																	<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
+																	<label>Furrow Velocity</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="furrow_velocity_text_ctrl">
+																	<tooltip>The furrow will move by this much every cycle of the simulation.</tooltip>
+																	<value>10</value>
+																</object>
+															</object>
+														</object>
+													</object>
+												</object>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND</flag>
+											<border>5</border>
+											<object class="wxStaticBoxSizer">
+												<orient>wxVERTICAL</orient>
+												<label>Specialization Options</label>
+												<object class="sizeritem">
+													<option>1</option>
+													<flag>wxEXPAND | wxALL</flag>
+													<border>5</border>
+													<object class="wxScrolledWindow" name="m_scrolledWindow4">
+														<style>wxHSCROLL|wxVSCROLL</style>
+														<scrollrate>5,5</scrollrate>
+													</object>
 												</object>
 											</object>
 										</object>
