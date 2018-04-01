@@ -295,7 +295,7 @@ class MainFrame(MainFrameBase):
                     static_text = simulation_scroll_children[i]  # type: wx.StaticText
                     text_ctrl = simulation_scroll_children[i + 1]  # type: TextCtrl
                     text_ctrl.SetValue(imported_settings[static_text.GetLabelText()])
-            self.add_fields(self.m_scrolledWindow4, furrow_event_list)
+            self.add_fields(self.m_sim_overview_spec_options_scrolled_window, furrow_event_list)
 
         else:
             dlg = wx.MessageDialog(self,

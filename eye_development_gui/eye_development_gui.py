@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Mar 27 2018)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -209,9 +209,9 @@ class MainFrameBase ( wx.Frame ):
 		
 		sim_overview_specialization_options_box_sizer = wx.StaticBoxSizer( wx.StaticBox( self.m_simulation_overview_panel, wx.ID_ANY, u"Specialization Options" ), wx.VERTICAL )
 		
-		self.m_scrolledWindow4 = wx.ScrolledWindow( sim_overview_specialization_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
-		self.m_scrolledWindow4.SetScrollRate( 5, 5 )
-		sim_overview_specialization_options_box_sizer.Add( self.m_scrolledWindow4, 1, wx.EXPAND |wx.ALL, 5 )
+		self.m_sim_overview_spec_options_scrolled_window = wx.ScrolledWindow( sim_overview_specialization_options_box_sizer.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.m_sim_overview_spec_options_scrolled_window.SetScrollRate( 5, 5 )
+		sim_overview_specialization_options_box_sizer.Add( self.m_sim_overview_spec_options_scrolled_window, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		
 		fgSizer5.Add( sim_overview_specialization_options_box_sizer, 1, wx.EXPAND, 5 )
