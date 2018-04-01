@@ -5,8 +5,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 from legacy_display_2d.LegacyGlDrawingPrimitives import draw_circle
-from display_2d.EpitheliumGlTranslator import determine_cell_fill
-from display_2d.EpitheliumGlTranslator import determine_cell_color
+from quick_change.CellDisplayRules import determine_cell_fill
+from quick_change.CellDisplayRules import determine_cell_color
 
 from pyrr import matrix44, vector4
 
@@ -138,7 +138,7 @@ class LegacyDisplayCanvas(glcanvas.GLCanvas):
                   self.__camera_x, self.__camera_y, -1,  # target
                   0, 1, 0)  # up vector
         glScalef(self.__scale, self.__scale, 1)
-        gluPerspective(math.radians(90), self.GetSize().width/self.GetSize().height, 1, 1.1)
+        gluPerspective(60, self.GetSize().width/self.GetSize().height, 1, 1.1)
 
         # draw
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
