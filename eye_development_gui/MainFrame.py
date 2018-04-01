@@ -149,9 +149,6 @@ class MainFrame(MainFrameBase):
                                                 cell_avg_radius=avg_cell_size,
                                                 cell_factory=cell_factory)
 
-            # the new epithelium has never started simulation
-            self.has_simulated = False
-
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
         Halts simulation then allows the default close handler to exit the application."""
@@ -223,13 +220,13 @@ class MainFrame(MainFrameBase):
         if imported_epithelium:
             self.active_epithelium_file = active_epithelium_file
             self.active_epithelium = imported_epithelium
+
+            # update gui
+            self.update_gui_to_active_epithelium()
         else:
             dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_WARNING)
             dlg.ShowModal()
             dlg.Destroy()
-
-        # update gui
-        self.update_gui_to_active_epithelium()
 
         # do not consume event
         event.Skip(False)
@@ -505,11 +502,14 @@ class MainFrame(MainFrameBase):
     def active_epithelium(self, value: Epithelium) -> None:
         """
         Sets the active epithelium and sets the epithelium for
-        all listeners.
+        all listeners. A newly assigned epithelium is always considered to never have simulated.
+        A newly assigned epithelium does not begin simulation right away.
         :param value: The new active epithelium
         :return: None
         """
         self.__active_epithelium = value
+        self.has_simulated = False
+        self.simulating = False
 
         # notify listeners of change
         for listener in self.epithelium_listeners:
@@ -577,7 +577,10 @@ class MainFrame(MainFrameBase):
 
         epithelium = self.active_epithelium
         min_cell_count = len(epithelium.cells)
-        average_cell_size = sum(map(lambda cell: cell.radius, epithelium.cells))/min_cell_count
+        if min_cell_count:
+            average_cell_size = sum(map(lambda cell: cell.radius, epithelium.cells))/min_cell_count
+        else:
+            average_cell_size = 0
         cell_size_variance = max(map(lambda cell: abs(cell.radius-average_cell_size), epithelium.cells))
 
         self.min_cell_count_text_ctrl.SetValue(str(min_cell_count))
