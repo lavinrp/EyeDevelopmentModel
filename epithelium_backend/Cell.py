@@ -77,6 +77,11 @@ class Cell(object):
             updater(self)
 
     def distance_to_other(self, neighbor):
+        """
+        Calculates the distance between this cell and another cell
+        :param neighbor: The distance to this cell will be found.
+        :return: the distance between this cell and the passed neighbor cell.
+        """
         (x1, y1, z1) = (self.position_x, self.position_y, self.position_z)
         (x2, y2, z2) = (neighbor.position_x, neighbor.position_y, neighbor.position_z)
         return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
