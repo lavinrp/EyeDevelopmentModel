@@ -578,7 +578,7 @@ class MainFrame(MainFrameBase):
     def has_simulated(self, value: bool):
         """true if the active epithelium has begn simulation. False Otherwise."""
         self._has_simulated = value
-        self.enable_edit_simulation_options(not value)
+        self.update_enabled_widgets()
 
     # endregion simulation
 
