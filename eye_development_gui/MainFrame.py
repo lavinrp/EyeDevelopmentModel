@@ -36,7 +36,7 @@ class MainFrame(MainFrameBase):
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
-        MainFrame.add_fields(self.m_scrolledWindow4, furrow_event_list)
+        MainFrame.add_fields(self.m_sim_overview_spec_options_scrolled_window, furrow_event_list)
 
         self.__active_epithelium = Epithelium(0)  # type: Epithelium
         self._simulating = False
@@ -310,8 +310,8 @@ class MainFrame(MainFrameBase):
                     text_ctrl = simulation_scroll_children[i + 1]  # type: TextCtrl
                     text_ctrl.SetValue(imported_settings[static_text.GetLabelText()])
 
-            self.m_scrolledWindow4.DestroyChildren()
-            self.add_fields(self.m_scrolledWindow4, furrow_event_list)
+            self.m_sim_overview_spec_options_scrolled_window.DestroyChildren()
+            self.add_fields(self.m_sim_overview_spec_options_scrolled_window, furrow_event_list)
 
         else:
             dlg = wx.MessageDialog(self,
@@ -612,6 +612,7 @@ class MainFrame(MainFrameBase):
 
         # simulation options
         self.enable_edit_simulation_options(not self.has_simulated and not self.generating_epithelium)
+        self.enable_edit_specialization_options(not self.has_simulated and not self.generating_epithelium)
 
         # update status of simulation start stop and pause buttons
         for controller in self.simulation_controllers:
@@ -626,6 +627,13 @@ class MainFrame(MainFrameBase):
         """Enables or disables user ability to edit all simulation options"""
 
         for option in self.m_sim_overview_sim_options_scrolled_window.GetChildren():
+            if type(option) is not StaticText:
+                option.Enable(enable)
+
+    def enable_edit_specialization_options(self, enable: bool):
+        """Enables or disables user ability to edit all specialization options"""
+
+        for option in self.m_sim_overview_spec_options_scrolled_window.GetChildren():
             if type(option) is not StaticText:
                 option.Enable(enable)
 
