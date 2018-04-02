@@ -61,9 +61,10 @@ class MainFrame(MainFrameBase):
         self.simulation_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
 
-        # active file
+        # save files
         self.active_epithelium_file = ""
         self.active_simulation_settings_file = ""
+        self.temporary_epithelium_location = r"temp/temp_epithelium.epth"
 
     # region dynamic input creation
 
@@ -333,6 +334,15 @@ class MainFrame(MainFrameBase):
              min(cell_option_count * space_per_cell_child, self.GetSize().height / 5)))
         event.Skip()
 
+    def on_simulation_stopped(self):
+        """
+        Function called when the simulation of an epithelium should fully stop (not just pause).
+        Resets the epithelium to its pre-simulation state.
+        """
+        imported_epithelium = import_epithelium(self.temporary_epithelium_location)
+        if imported_epithelium:
+            self.active_epithelium = imported_epithelium
+
     # endregion event handling
 
     # region input validation
@@ -536,13 +546,18 @@ class MainFrame(MainFrameBase):
         :param simulate: begins simulation if true. Ends simulation otherwise.
         :return: None
         """
+
+        # save the epithelium to a temporary location before it is simulated for the first time
+        # this is used to reload the origonal state of the epithelium when simulation is stopped
+        if simulate and not self.has_simulated:
+            export_epithelium(self.active_epithelium, self.temporary_epithelium_location)
+
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
             self.simulation_timer.Start(100)
             self.has_simulated = True
         else:
             self.simulation_timer.Stop()
-
 
     @property
     def has_simulated(self):

@@ -1,6 +1,6 @@
 from eye_development_gui.SimulationPanelBase import SimulationPanelBase
 from epithelium_backend.Epithelium import Epithelium
-# Implementing SimulationPanel
+import wx
 
 
 class SimulationPanel(SimulationPanelBase):
@@ -17,6 +17,7 @@ class SimulationPanel(SimulationPanelBase):
         """
         SimulationPanelBase.__init__(self, parent)
         self.simulation_listeners = []
+        self.temporary_epithelium_path = r"temp/temp_epithelium.epth"
 
     @property
     def epithelium(self) -> Epithelium:
@@ -30,7 +31,7 @@ class SimulationPanel(SimulationPanelBase):
         """
         self.m_epithelium_display.epithelium = value
 
-    def start_simulation_callback(self, event):
+    def start_simulation_callback(self, event: wx.Event):
         """ Callback invoked when the SimulationPanel's 'start' button is pressed.
         Signals all listeners to begin simulating."""
         for listener in self.simulation_listeners:
@@ -38,12 +39,22 @@ class SimulationPanel(SimulationPanelBase):
             listener.simulating = True
         event.Skip(False)
 
-    def stop_simulation_callback(self, event):
-        """ Callback invoked when the SimulationPanel's 'stop' button is pressed.
+    def pause_simulation_callback(self, event: wx.Event):
+        """ Callback invoked when the SimulationPanel's 'pause' button is pressed.
             Signals all listeners to stop simulating."""
         for listener in self.simulation_listeners:
             listener.simulating = False
         event.Skip(False)
+
+    def stop_simulation_callback(self, event: wx.Event):
+        """
+        Callback invoked when the SimulationPanel's 'stop' button is pressed.
+        Does the same as pause_simulation_callback then resets the simulated epithelium to its
+        pre-simulation state.
+        :param event:
+        """
+        for listener in self.simulation_listeners:
+            listener.on_simulation_stopped()
 
     def draw(self):
         """Forces a draw on the contained OpenGL Canvas"""
