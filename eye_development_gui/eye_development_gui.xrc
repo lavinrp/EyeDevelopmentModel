@@ -214,42 +214,7 @@
 										<vgap>0</vgap>
 										<hgap>0</hgap>
 										<growablecols>0</growablecols>
-										<growablerows>2</growablerows>
-										<object class="sizeritem">
-											<option>1</option>
-											<flag>wxEXPAND</flag>
-											<border>5</border>
-											<object class="wxBoxSizer">
-												<orient>wxHORIZONTAL</orient>
-												<object class="sizeritem">
-													<option>0</option>
-													<flag>wxALL</flag>
-													<border>5</border>
-													<object class="wxButton" name="m_sim_overview_save_button">
-														<label>Save</label>
-														<default>0</default>
-													</object>
-												</object>
-												<object class="sizeritem">
-													<option>0</option>
-													<flag>wxALL</flag>
-													<border>5</border>
-													<object class="wxButton" name="m_sim_overview_save_as_button">
-														<label>Save As</label>
-														<default>0</default>
-													</object>
-												</object>
-												<object class="sizeritem">
-													<option>0</option>
-													<flag>wxALL</flag>
-													<border>5</border>
-													<object class="wxButton" name="m_sim_overview_load_button">
-														<label>Load</label>
-														<default>0</default>
-													</object>
-												</object>
-											</object>
-										</object>
+										<growablerows>1</growablerows>
 										<object class="sizeritem">
 											<option>1</option>
 											<flag>wxEXPAND</flag>
@@ -365,6 +330,41 @@
 													<object class="wxScrolledWindow" name="m_sim_overview_spec_options_scrolled_window">
 														<style>wxHSCROLL|wxVSCROLL</style>
 														<scrollrate>5,5</scrollrate>
+													</object>
+												</object>
+											</object>
+										</object>
+										<object class="sizeritem">
+											<option>1</option>
+											<flag>wxEXPAND</flag>
+											<border>5</border>
+											<object class="wxBoxSizer">
+												<orient>wxHORIZONTAL</orient>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL</flag>
+													<border>5</border>
+													<object class="wxButton" name="m_sim_overview_save_button">
+														<label>Save</label>
+														<default>0</default>
+													</object>
+												</object>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL</flag>
+													<border>5</border>
+													<object class="wxButton" name="m_sim_overview_save_as_button">
+														<label>Save As</label>
+														<default>0</default>
+													</object>
+												</object>
+												<object class="sizeritem">
+													<option>0</option>
+													<flag>wxALL</flag>
+													<border>5</border>
+													<object class="wxButton" name="m_sim_overview_load_button">
+														<label>Load</label>
+														<default>0</default>
 													</object>
 												</object>
 											</object>
