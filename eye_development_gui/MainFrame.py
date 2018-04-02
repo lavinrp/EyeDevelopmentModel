@@ -75,6 +75,7 @@ class MainFrame(MainFrameBase):
         # enable disable elements: state tracking
         self.generating_epithelium = False  # type: bool
         self.simulation_controllers_inputs_valid = True  # type: bool
+        self.update_enabled_widgets()
 
         # worker thread
 
@@ -586,6 +587,8 @@ class MainFrame(MainFrameBase):
         else:
             self.simulation_timer.Stop()
 
+        self.update_enabled_widgets()
+
     @property
     def has_simulated(self):
         return self._has_simulated
@@ -633,11 +636,13 @@ class MainFrame(MainFrameBase):
         # update status of simulation start stop and pause buttons
         for controller in self.simulation_controllers:
             start_button = controller.m_button4  # type: Button
-            start_button.Enable(self.simulation_controllers_inputs_valid and not self.generating_epithelium)
+            start_button.Enable(self.simulation_controllers_inputs_valid
+                                and not self.generating_epithelium
+                                and not self.simulating)
             pause_button = controller.m_button5
-            pause_button.Enable(not self.generating_epithelium)
+            pause_button.Enable(not self.generating_epithelium and self.has_simulated and self.simulating)
             stop_button = controller.m_button6
-            stop_button.Enable(not self.generating_epithelium)
+            stop_button.Enable(not self.generating_epithelium and self.has_simulated)
 
     def enable_edit_simulation_options(self, enable: bool):
         """Enables or disables user ability to edit all simulation options"""
