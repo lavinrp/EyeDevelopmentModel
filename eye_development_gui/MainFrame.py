@@ -67,13 +67,15 @@ class MainFrame(MainFrameBase):
         self.simulation_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
 
-        # active file
+        # save files
         self.active_epithelium_file = ""
         self.active_simulation_settings_file = ""
+        self.temporary_epithelium_location = r"temp/temp_epithelium.epth"
 
         # enable disable elements: state tracking
         self.generating_epithelium = False  # type: bool
         self.simulation_controllers_inputs_valid = True  # type: bool
+        self.update_enabled_widgets()
 
         # worker thread
 
@@ -347,6 +349,15 @@ class MainFrame(MainFrameBase):
              min(cell_option_count * space_per_cell_child, self.GetSize().height / 5)))
         event.Skip()
 
+    def on_simulation_stopped(self):
+        """
+        Function called when the simulation of an epithelium should fully stop (not just pause).
+        Resets the epithelium to its pre-simulation state.
+        """
+        imported_epithelium = import_epithelium(self.temporary_epithelium_location)
+        if imported_epithelium:
+            self.active_epithelium = imported_epithelium
+
     # endregion event handling
 
     # region background workers
@@ -582,14 +593,21 @@ class MainFrame(MainFrameBase):
         :return: None
         """
 
-        frames_per_second = float(self.str_from_text_input(self.simulation_speed_text_ctrl))
-        simulation_delay = 1000 / frames_per_second  # (MS per S) / fps = ms per update
+        # save the epithelium to a temporary location before it is simulated for the first time
+        # this is used to reload the origonal state of the epithelium when simulation is stopped
+        if simulate and not self.has_simulated:
+            export_epithelium(self.active_epithelium, self.temporary_epithelium_location)
+
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
+            frames_per_second = float(self.str_from_text_input(self.simulation_speed_text_ctrl))
+            simulation_delay = 1000 / frames_per_second  # (MS per S) / fps = ms per update
             self.simulation_timer.Start(simulation_delay)
             self.has_simulated = True
         else:
             self.simulation_timer.Stop()
+
+        self.update_enabled_widgets()
 
     @property
     def has_simulated(self):
@@ -638,11 +656,13 @@ class MainFrame(MainFrameBase):
         # update status of simulation start stop and pause buttons
         for controller in self.simulation_controllers:
             start_button = controller.m_button4  # type: Button
-            start_button.Enable(self.simulation_controllers_inputs_valid and not self.generating_epithelium)
+            start_button.Enable(self.simulation_controllers_inputs_valid
+                                and not self.generating_epithelium
+                                and not self.simulating)
             pause_button = controller.m_button5
-            pause_button.Enable(not self.generating_epithelium)
+            pause_button.Enable(not self.generating_epithelium and self.has_simulated and self.simulating)
             stop_button = controller.m_button6
-            stop_button.Enable(not self.generating_epithelium)
+            stop_button.Enable(not self.generating_epithelium and self.has_simulated)
 
     def enable_edit_simulation_options(self, enable: bool):
         """Enables or disables user ability to edit all simulation options"""

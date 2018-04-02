@@ -52,7 +52,8 @@ class SimulationPanelBase ( wx.Panel ):
 		
 		# Connect Events
 		self.m_button4.Bind( wx.EVT_BUTTON, self.start_simulation_callback )
-		self.m_button5.Bind( wx.EVT_BUTTON, self.stop_simulation_callback )
+		self.m_button5.Bind( wx.EVT_BUTTON, self.pause_simulation_callback )
+		self.m_button6.Bind( wx.EVT_BUTTON, self.stop_simulation_callback )
 	
 	def __del__( self ):
 		pass
@@ -60,6 +61,9 @@ class SimulationPanelBase ( wx.Panel ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def start_simulation_callback( self, event ):
+		event.Skip()
+	
+	def pause_simulation_callback( self, event ):
 		event.Skip()
 	
 	def stop_simulation_callback( self, event ):
