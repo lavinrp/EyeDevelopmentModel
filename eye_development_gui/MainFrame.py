@@ -644,7 +644,7 @@ class MainFrame(MainFrameBase):
         self.ep_gen_load_button.Enable(enable_epithelium_file_options)
 
         # simulation settings file options
-        enable_simulation_file_options = not self.generating_epithelium
+        enable_simulation_file_options = not self.generating_epithelium and not self.simulating
         self.m_sim_overview_save_button.Enable(enable_simulation_file_options)
         self.m_sim_overview_save_as_button.Enable(enable_simulation_file_options)
         self.m_sim_overview_load_button.Enable(enable_simulation_file_options)
