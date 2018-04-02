@@ -227,8 +227,9 @@ class MainFrame(MainFrameBase):
         furrow_velocity = self.validate_ep_gen_furrow_velocity()
         cell_max_size = self.validate_ep_gen_cell_max_size()
         cell_growth_rate = self.validate_ep_gen_cell_growth_rate()
+        sim_speed = self.validate_simulation_speed()
 
-        inputs_valid = furrow_velocity and cell_max_size and cell_growth_rate
+        inputs_valid = furrow_velocity and cell_max_size and cell_growth_rate and sim_speed
 
         for controller in self.simulation_controllers:
             start_button = controller.m_button4  # type: Button
@@ -423,7 +424,8 @@ class MainFrame(MainFrameBase):
         :return: None
         """
 
-        simulation_delay = float(self.str_from_text_input(self.simulation_speed_text_ctrl))
+        frames_per_second = float(self.str_from_text_input(self.simulation_speed_text_ctrl))
+        simulation_delay = 1000 / frames_per_second  # (MS per S) / fps = ms per update
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
             self.simulation_timer.Start(simulation_delay)

@@ -2,7 +2,7 @@
 <resource xmlns="http://www.wxwindows.org/wxxrc" version="2.3.0.1">
 	<object class="wxFrame" name="MainFrameBase">
 		<style>wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL</style>
-		<size>719,328</size>
+		<size>719,365</size>
 		<title>Eye Development Model</title>
 		<centered>1</centered>
 		<aui_managed>0</aui_managed>
@@ -220,7 +220,7 @@
 											<flag>wxEXPAND</flag>
 											<border>5</border>
 											<object class="wxStaticBoxSizer">
-												<minsize>-1,80</minsize>
+												<minsize>-1,100</minsize>
 												<orient>wxVERTICAL</orient>
 												<label>Simulation Options</label>
 												<object class="sizeritem">
@@ -297,6 +297,7 @@
 																<flag>wxALL</flag>
 																<border>5</border>
 																<object class="wxStaticText" name="sim_speed_static_text">
+																	<tooltip>Target simulation cycles per second</tooltip>
 																	<label>Simulation Speed</label>
 																	<wrap>-1</wrap>
 																</object>
@@ -306,7 +307,8 @@
 																<flag>wxALL</flag>
 																<border>5</border>
 																<object class="wxTextCtrl" name="simulation_speed_text_ctrl">
-																	<value>100</value>
+																	<tooltip>Target simulation cycles per second</tooltip>
+																	<value>10</value>
 																</object>
 															</object>
 														</object>
