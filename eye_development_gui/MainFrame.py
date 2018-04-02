@@ -70,7 +70,12 @@ class MainFrame(MainFrameBase):
         self.active_epithelium_file = ""
         self.active_simulation_settings_file = ""
 
-        # worker thread events
+        # enable disable elements: state tracking
+        self.generating_epithelium = False  # type: bool
+        self.simulation_controllers_inputs_valid = True  # type: bool
+
+        # worker thread
+
         self.Bind(EVT_GENERATE_EPITHELIUM, self.on_epithelium_generated)
 
     # region dynamic input creation
@@ -152,6 +157,8 @@ class MainFrame(MainFrameBase):
                                                 min_cell_count,
                                                 avg_cell_size,
                                                 radius_divergence=cell_size_variance / avg_cell_size)
+            self.generating_epithelium = True
+            self.update_enabled_widgets()
             worker.start()
 
     def on_close(self, event: wx.CloseEvent):
@@ -343,10 +350,14 @@ class MainFrame(MainFrameBase):
     # region background workers
 
     def on_epithelium_generated(self, event: EpitheliumGenerationEvent):
+        """
+        Callback invoked after a background worker has finished creating an epithelium.
+        :param event: Event containing the produced epithelium.
+        :return:
+        """
         self.active_epithelium = event.get_epithelium()
-
-        # the new epithelium has never started simulation
-        self.has_simulated = False
+        self.generating_epithelium = False
+        self.update_enabled_widgets()
 
     # endregion background workers
 
@@ -372,10 +383,9 @@ class MainFrame(MainFrameBase):
         cell_growth_rate = self.validate_ep_gen_cell_growth_rate()
 
         inputs_valid = furrow_velocity and cell_max_size and cell_growth_rate
+        self.simulation_controllers_inputs_valid = inputs_valid
 
-        for controller in self.simulation_controllers:
-            start_button = controller.m_button4  # type: Button
-            start_button.Enable(inputs_valid)
+        self.update_enabled_widgets()
 
         return inputs_valid
 
@@ -571,6 +581,41 @@ class MainFrame(MainFrameBase):
 
     # endregion simulation
 
+    # region enable disable
+
+    def update_enabled_widgets(self):
+        """
+        Enables or disables all input widgets based on application state.
+        """
+
+        # can create an epithelium as long as ones not being created
+        enable_epithelium_file_options = not self.generating_epithelium
+        self.ep_gen_create_button.Enable(enable_epithelium_file_options)
+        self.ep_gen_save_button.Enable(enable_epithelium_file_options)
+        self.ep_gen_save_as_button.Enable(enable_epithelium_file_options)
+        self.ep_gen_load_button.Enable(enable_epithelium_file_options)
+
+        # simulation options
+        self.enable_edit_simulation_options(not self.has_simulated and not self.generating_epithelium)
+
+        # update status of simulation start stop and pause buttons
+        for controller in self.simulation_controllers:
+            start_button = controller.m_button4  # type: Button
+            start_button.Enable(self.simulation_controllers_inputs_valid and not self.generating_epithelium)
+            pause_button = controller.m_button5
+            pause_button.Enable(not self.generating_epithelium)
+            stop_button = controller.m_button6
+            stop_button.Enable(not self.generating_epithelium)
+
+    def enable_edit_simulation_options(self, enable: bool):
+        """Enables or disables user ability to edit all simulation options"""
+
+        for option in self.m_sim_overview_sim_options_scrolled_window.GetChildren():
+            if type(option) is not StaticText:
+                option.Enable(enable)
+
+    # endregion enable disable
+
     # region misc
 
     @staticmethod
@@ -634,10 +679,4 @@ class MainFrame(MainFrameBase):
         icon.CopyFromBitmap(bitmap)
         self.SetIcon(icon)
 
-    def enable_edit_simulation_options(self, enable: bool):
-        """Enables or disables user ability to edit all simulation options"""
-
-        for option in self.m_sim_overview_sim_options_scrolled_window.GetChildren():
-            if type(option) is not StaticText:
-                option.Enable(enable)
     # endregion misc
