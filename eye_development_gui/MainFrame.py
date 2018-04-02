@@ -568,7 +568,6 @@ class MainFrame(MainFrameBase):
         else:
             self.simulation_timer.Stop()
 
-
     @property
     def has_simulated(self):
         return self._has_simulated
