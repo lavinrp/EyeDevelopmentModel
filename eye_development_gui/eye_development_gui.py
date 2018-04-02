@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 ###########################################################################
-## Python code generated with wxFormBuilder (version Mar 27 2018)
+## Python code generated with wxFormBuilder (version Oct 21 2017)
 ## http://www.wxformbuilder.org/
 ##
 ## PLEASE DO *NOT* EDIT THIS FILE!
@@ -184,6 +184,13 @@ class MainFrameBase ( wx.Frame ):
 		
 		gSizer4.Add( self.furrow_velocity_text_ctrl, 0, wx.ALL, 5 )
 		
+		self.sim_speed_static_text = wx.StaticText( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"Simulation Speed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.sim_speed_static_text.Wrap( -1 )
+		gSizer4.Add( self.sim_speed_static_text, 0, wx.ALL, 5 )
+		
+		self.simulation_speed_text_ctrl = wx.TextCtrl( self.m_sim_overview_sim_options_scrolled_window, wx.ID_ANY, u"100", wx.DefaultPosition, wx.DefaultSize, 0 )
+		gSizer4.Add( self.simulation_speed_text_ctrl, 0, wx.ALL, 5 )
+		
 		
 		self.m_sim_overview_sim_options_scrolled_window.SetSizer( gSizer4 )
 		self.m_sim_overview_sim_options_scrolled_window.Layout()
@@ -233,6 +240,7 @@ class MainFrameBase ( wx.Frame ):
 		self.cell_max_size_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.cell_growth_rate_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 		self.furrow_velocity_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
+		self.simulation_speed_text_ctrl.Bind( wx.EVT_TEXT, self.on_sim_overview_user_input )
 	
 	def __del__( self ):
 		pass
@@ -252,6 +260,7 @@ class MainFrameBase ( wx.Frame ):
 	
 	def on_sim_overview_user_input( self, event ):
 		event.Skip()
+	
 	
 	
 	

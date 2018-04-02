@@ -292,6 +292,23 @@
 																	<value>10</value>
 																</object>
 															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxStaticText" name="sim_speed_static_text">
+																	<label>Simulation Speed</label>
+																	<wrap>-1</wrap>
+																</object>
+															</object>
+															<object class="sizeritem">
+																<option>0</option>
+																<flag>wxALL</flag>
+																<border>5</border>
+																<object class="wxTextCtrl" name="simulation_speed_text_ctrl">
+																	<value>100</value>
+																</object>
+															</object>
 														</object>
 													</object>
 												</object>

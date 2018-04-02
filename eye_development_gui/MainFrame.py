@@ -345,6 +345,23 @@ class MainFrame(MainFrameBase):
         self.display_text_control_validation(self.cell_growth_rate_text_ctrl, validated)
         return validated
 
+    def validate_simulation_speed(self) -> bool:
+        """
+        Validates the user input to simulation_speed_text_ctrl
+        :return: Return True if the validation was successful. Return False otherwise.
+        """
+
+        simulation_speed_str = self.str_from_text_input(self.simulation_speed_text_ctrl)
+        try:
+            simulation_speed = float(simulation_speed_str)
+            validated = simulation_speed > 0
+        except Exception:
+            validated = False
+
+        self.display_text_control_validation(self.simulation_speed_text_ctrl, validated)
+        return validated
+
+
     @staticmethod
     def display_text_control_validation(txt_control: TextCtrl, validated: bool = True) -> None:
         """
@@ -405,9 +422,11 @@ class MainFrame(MainFrameBase):
         :param simulate: begins simulation if true. Ends simulation otherwise.
         :return: None
         """
+
+        simulation_delay = float(self.str_from_text_input(self.simulation_speed_text_ctrl))
         self._simulating = simulate
         if simulate and len(self.active_epithelium.cells):
-            self.simulation_timer.Start(100)
+            self.simulation_timer.Start(simulation_delay)
             self.has_simulated = True
         else:
             self.simulation_timer.Stop()
