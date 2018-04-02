@@ -31,6 +31,7 @@ class MainFrame(MainFrameBase):
         """Initializes the GUI and all the data of the model."""
         MainFrameBase.__init__(self, parent)
 
+        self.status_bar = self.CreateStatusBar()  # type: wx.StatusBar
         self.init_icon()
 
         self.Bind(wx.EVT_CLOSE, self.on_close)
@@ -157,6 +158,7 @@ class MainFrame(MainFrameBase):
                                                 min_cell_count,
                                                 avg_cell_size,
                                                 radius_divergence=cell_size_variance / avg_cell_size)
+            # worker.setDaemon(True)
             self.generating_epithelium = True
             self.update_enabled_widgets()
             worker.start()
@@ -587,12 +589,26 @@ class MainFrame(MainFrameBase):
         Enables or disables all input widgets based on application state.
         """
 
-        # can create an epithelium as long as ones not being created
+        # status bar updates:
+        if self.generating_epithelium:
+            self.status_bar.SetStatusText("Generating Epithelium...")
+        else:
+            self.status_bar.SetStatusText("")
+
+        # Epithelium Creation
+        self.ep_gen_create_button.Enable(not self.generating_epithelium)
+
+        # epithelium file options
         enable_epithelium_file_options = not self.generating_epithelium
-        self.ep_gen_create_button.Enable(enable_epithelium_file_options)
         self.ep_gen_save_button.Enable(enable_epithelium_file_options)
         self.ep_gen_save_as_button.Enable(enable_epithelium_file_options)
         self.ep_gen_load_button.Enable(enable_epithelium_file_options)
+
+        # simulation settings file options
+        enable_simulation_file_options = not self.generating_epithelium
+        self.m_sim_overview_save_button.Enable(enable_simulation_file_options)
+        self.m_sim_overview_save_as_button.Enable(enable_simulation_file_options)
+        self.m_sim_overview_load_button.Enable(enable_simulation_file_options)
 
         # simulation options
         self.enable_edit_simulation_options(not self.has_simulated and not self.generating_epithelium)
