@@ -36,7 +36,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                                                                                 self.GetSize().height,
                                                                                 1,
                                                                                 2)
-        self.__view_matrix = matrix44.create_look_at([self.__camera_x, self.__camera_y, -0.9],
+        self.__view_matrix = matrix44.create_look_at([self.__camera_x, self.__camera_y, 0],
                                                      [self.__camera_x, self.__camera_y, -1],
                                                      self.__camera_up_vector)
 
