@@ -24,18 +24,22 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.__camera_x = 0  # type: float
         self.__camera_y = 0  # type: float
         self.__scale = 1.0  # type: float
+        self.__camera_up_vector = [0, 1, 0]
+
         self.__scale_matrix = matrix44.create_from_scale((self.__scale,
                                                           self.__scale,
                                                           self.__scale))  # type: numpy.ndarray
-        self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
-                                                                    self.__camera_y,
-                                                                    0))  # type: numpy.ndarray
+        self.__translate_matrix = matrix44.create_identity()
         self.__projection_matrix = matrix44.create_orthogonal_projection_matrix(0,
                                                                                 self.GetSize().width,
                                                                                 0,
                                                                                 self.GetSize().height,
                                                                                 1,
                                                                                 1.1)
+        self.__view_matrix = matrix44.create_look_at([self.__camera_x, self.__camera_y, -0.9],
+                                                     [self.__camera_x, self.__camera_y, -1],
+                                                     self.__camera_up_vector)
+
         self.__gl_initialized = False  # type: bool
         self.empty_circle_gl_program = Simple2dGlProgram()  # type: Simple2dGlProgram
         self.empty_circle_gl_program.reserved_object_count = 1000
@@ -49,7 +53,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         self.Bind(wx.EVT_MOUSE_EVENTS, self.on_mouse_events)
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.__panning = False  # type: bool
-        self._pan_speed = 0.01  # type: float
+        self._pan_speed = 1  # type: float
         self.__last_mouse_position = [0, 0]  # type: list
         self.camera_listeners = []  # type: list
 
@@ -85,7 +89,7 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                                                                                 0,
                                                                                 self.GetSize().height,
                                                                                 1,
-                                                                                1.1)
+                                                                                2)
         e.Skip()
 
     def on_mouse_events(self, event: wx.MouseEvent):
@@ -113,10 +117,10 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                 # get world position of mouse
                 last_mouse_world_position = world_coord_from_window_coord(self.__last_mouse_position,
                                                                           list(self.GetSize()),
-                                                                          self.model_view_projection_matrix)
+                                                                          self.model_view_matrix)
                 mouse_world_position = world_coord_from_window_coord(current_mouse_position,
                                                                      list(self.GetSize()),
-                                                                     self.model_view_projection_matrix)
+                                                                     self.model_view_matrix)
 
                 # pan camera by how far the mouse moved in world coordinates
                 world_delta_x = last_mouse_world_position[0] - mouse_world_position[0]
@@ -140,12 +144,13 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
         :param active_canvas: An active canvas repaints and signals all of its camera_listeners to pan.
         """
 
-        self.__camera_x -= delta_x * self._pan_speed
+        self.__camera_x += delta_x * self._pan_speed
         self.__camera_y -= delta_y * self._pan_speed
 
-        self.__translate_matrix = matrix44.create_from_translation((self.__camera_x,
-                                                                    -self.__camera_y,
-                                                                    0))  # type: numpy.ndarray
+        self.__view_matrix = matrix44.create_look_at([self.__camera_x, self.__camera_y, 0],
+                                                     [self.__camera_x, self.__camera_y, -1],
+                                                     self.__camera_up_vector)
+
         if active_canvas:
             for listener in self.camera_listeners:
                 listener.pan_camera(delta_x, delta_y, False)
@@ -226,9 +231,15 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
     def model_view_projection_matrix(self) -> numpy.ndarray:
         """Returns the model view projection matrix of the current scene."""
         # update the model (zoom / pan)
+        return matrix44.multiply(self.__projection_matrix, self.model_view_matrix)
+
+    @property
+    def model_view_matrix(self) -> numpy.ndarray:
+        """
+        Returns the model view matrix of the current scene.
+        """
         model = matrix44.multiply(self.__translate_matrix, self.__scale_matrix)  # type: numpy.ndarray
-        # No view so model_view == model
-        return matrix44.multiply(self.__projection_matrix, model)
+        return matrix44.multiply(self.__view_matrix, model)
 
 
 class EpitheliumDisplayCanvas(LegacyDisplayCanvas if os.getenv("eye_develop_model_legacy_display")
