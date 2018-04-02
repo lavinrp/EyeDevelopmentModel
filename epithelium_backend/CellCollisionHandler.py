@@ -124,6 +124,21 @@ class CellCollisionHandler(object):
         self.cells.remove(cell)
         # May want to remove from non_empty
 
+    def move_cell(self, cell: Cell, new_x: float, new_y: float):
+        """
+        Move a cell to a new position, changing the bin if necessary.
+        """
+        cell.position_x = new_x
+        cell.position_y = new_y
+        cell.next_x = new_x
+        cell.next_y = new_y
+        g = self.bin(cell)
+        if g != cell.bin:
+            self.grids[cell.bin].remove(cell)
+            self.grids[g].append(cell)
+            cell.bin = g
+            self.non_empty.add(g)
+
     def fill_grid(self):
         """
         Create or resize the collision handler's grid and
@@ -229,16 +244,7 @@ class CellCollisionHandler(object):
                             self.push_pull(cell1, cell2)
 
         for cell in self.cells:
-            cell.x = cell.next_x
-            cell.y = cell.next_y
-            cell.position_x = cell.next_x
-            cell.position_y = cell.next_y
-            g = self.bin(cell)
-            if g != cell.bin:
-                grids[cell.bin].remove(cell)
-                grids[g].append(cell)
-                cell.bin = g
-                self.non_empty.add(g)
+            self.move_cell(cell, cell.next_x, cell.next_y)
 
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
@@ -257,9 +263,9 @@ class CellCollisionHandler(object):
         # Require that the neighbors be a positive distance away from the input
         # (thereby excluding the input cell) and less than or equal to
         # the required distance r.
-        return filter(lambda n: 0 < distance((cell.position_x, cell.position_y, cell.position_z),
-                                             (n.position_x, n.position_y, n.position_z)) <= r,
-                      cells)
+        return list(filter(lambda n: 0 < distance((cell.position_x, cell.position_y, cell.position_z),
+                                                  (n.position_x, n.position_y, n.position_z)) <= r,
+                           cells))
 
     def posterior_to_anterior(self):
         for col in range(0, self.dimension):
