@@ -99,10 +99,6 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
 
         # left mouse button down
         if event.ButtonDown(wx.MOUSE_BTN_LEFT):
-            print(world_coord_from_window_coord(current_mouse_position,
-                                                list(self.GetSize()),
-                                                self.model_view_projection_matrix))
-
             self.__panning = True
 
         # left mouse button up
