@@ -158,7 +158,7 @@ class MainFrame(MainFrameBase):
                                                 min_cell_count,
                                                 avg_cell_size,
                                                 radius_divergence=cell_size_variance / avg_cell_size)
-            # worker.setDaemon(True)
+            worker.setDaemon(True)
             self.generating_epithelium = True
             self.update_enabled_widgets()
             worker.start()
