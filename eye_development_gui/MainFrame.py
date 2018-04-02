@@ -5,6 +5,11 @@ from epithelium_backend.Epithelium import Epithelium
 from quick_change.FurrowEventList import furrow_event_list
 from eye_development_gui.FieldType import FieldType
 from eye_development_gui.eye_development_gui import MainFrameBase
+
+from eye_development_gui.background_workers.EpitheliumGenerationWorker import EpitheliumGenerationEvent
+from eye_development_gui.background_workers.EpitheliumGenerationWorker import EpitheliumGenerationWorker
+from eye_development_gui.background_workers.EpitheliumGenerationWorker import EVT_GENERATE_EPITHELIUM
+
 import wx
 import wx.xrc
 from wx.core import TextCtrl
@@ -56,6 +61,9 @@ class MainFrame(MainFrameBase):
         self.simulation_timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.update_epithelium, self.simulation_timer)
 
+        # worker thread events
+        self.Bind(EVT_GENERATE_EPITHELIUM, self.on_epithelium_generated)
+
     # region dynamic input creation
 
     @staticmethod
@@ -98,7 +106,7 @@ class MainFrame(MainFrameBase):
 
     # endregion dynamic input creation
 
-    # region event handling
+    # region general event handling
 
     def ep_gen_create_callback(self, event):
         """
@@ -130,18 +138,13 @@ class MainFrame(MainFrameBase):
             cell_size_variance_str = self.str_from_text_input(self.cell_size_variance_text_ctrl)  # type: str
             cell_size_variance = float(cell_size_variance_str)
 
-            # create cell factory from inputs
-            cell_factory = CellFactory()
-            cell_factory.radius_divergence = cell_size_variance / avg_cell_size
-            cell_factory.average_radius = avg_cell_size
+            # create active epithelium in the background
 
-            # create epithelium active epithelium
-            self.active_epithelium = Epithelium(cell_quantity=min_cell_count,
-                                                cell_avg_radius=avg_cell_size,
-                                                cell_factory=cell_factory)
-
-            # the new epithelium has never started simulation
-            self.has_simulated = False
+            worker = EpitheliumGenerationWorker(self,
+                                                min_cell_count,
+                                                avg_cell_size,
+                                                radius_divergence=cell_size_variance / avg_cell_size)
+            worker.start()
 
     def on_close(self, event: wx.CloseEvent):
         """Callback invoked when closing the application.
@@ -206,6 +209,16 @@ class MainFrame(MainFrameBase):
             self.active_epithelium.furrow.velocity = furrow_velocity
 
     # endregion event handling
+
+    # region background workers
+
+    def on_epithelium_generated(self, event: EpitheliumGenerationEvent):
+        self.active_epithelium = event.get_epithelium()
+
+        # the new epithelium has never started simulation
+        self.has_simulated = False
+
+    # endregion background workers
 
     # region input validation
 
