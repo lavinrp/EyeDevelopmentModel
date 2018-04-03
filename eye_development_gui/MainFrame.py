@@ -211,9 +211,7 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self,
-                                    style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
-                                    wildcard=self.epithelium_file_wild_card)
+        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -231,9 +229,7 @@ class MainFrame(MainFrameBase):
         :param event:
         :return:
         """
-        load_dialog = FileDialog(self,
-                                 style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
-                                 wildcard=self.epithelium_file_wild_card)
+        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
         load_dialog.Show()
         if load_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -284,9 +280,7 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self,
-                                    style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
-                                    wildcard=self.sim_file_wild_card)
+        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -303,7 +297,7 @@ class MainFrame(MainFrameBase):
         to match the new values.
         :return:
         """
-        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST, wildcard=self.sim_file_wild_card)
+        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
         load_dialog.Show()
         if load_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
