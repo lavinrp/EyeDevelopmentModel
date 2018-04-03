@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module epithelium_backend.CellCollisionHandler</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="epithelium_backend.html"><font color="#ffffff">epithelium_backend</font></a>.CellCollisionHandler</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/CellCollisionHandler.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/CellCollisionHandler.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;Inspired&nbsp;by&nbsp;<a href="http://paulbourke.net/miscellaneous/particle/">http://paulbourke.net/miscellaneous/particle/</a></tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="epithelium_backend.CellCollisionHandler.html#CellCollisionHandler">CellCollisionHandler</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CellCollisionHandler">class <strong>CellCollisionHandler</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Cells&nbsp;exert&nbsp;pushing&nbsp;and&nbsp;pulling&nbsp;forces&nbsp;on&nbsp;each&nbsp;other.&nbsp;The&nbsp;job<br>
+of&nbsp;the&nbsp;<a href="#CellCollisionHandler">CellCollisionHandler</a>&nbsp;is&nbsp;to&nbsp;efficiently&nbsp;move&nbsp;cells&nbsp;based&nbsp;on<br>
+these&nbsp;forces.<br>
+&nbsp;<br>
+A&nbsp;given&nbsp;cell&nbsp;only&nbsp;exerts&nbsp;forces&nbsp;on&nbsp;its&nbsp;surrounding&nbsp;neighbors.<br>
+So,&nbsp;if&nbsp;we&nbsp;have&nbsp;a&nbsp;sheet&nbsp;of&nbsp;a&nbsp;thousand&nbsp;cells,&nbsp;every&nbsp;cell&nbsp;affects<br>
+at&nbsp;most&nbsp;a&nbsp;dozen&nbsp;others&nbsp;at&nbsp;one&nbsp;point&nbsp;in&nbsp;time,&nbsp;probably.&nbsp;So,<br>
+a&nbsp;naive&nbsp;quadratic&nbsp;algorithm&nbsp;algorithm&nbsp;that&nbsp;computes&nbsp;forces<br>
+for&nbsp;all&nbsp;pairs&nbsp;of&nbsp;cells&nbsp;will&nbsp;be&nbsp;inefficient,&nbsp;because&nbsp;most&nbsp;cells<br>
+don't&nbsp;affect&nbsp;one&nbsp;another.&nbsp;But,&nbsp;cells&nbsp;move,&nbsp;and&nbsp;the&nbsp;cells&nbsp;that<br>
+another&nbsp;impacts&nbsp;changes&nbsp;over&nbsp;time.&nbsp;If&nbsp;we&nbsp;determine&nbsp;up&nbsp;front<br>
+all&nbsp;the&nbsp;cells&nbsp;that&nbsp;are&nbsp;relevant&nbsp;to&nbsp;a&nbsp;given&nbsp;cell,&nbsp;and&nbsp;efficiently<br>
+maintain&nbsp;this&nbsp;over&nbsp;time,&nbsp;then&nbsp;we&nbsp;can&nbsp;get&nbsp;linear&nbsp;performance.<br>
+For&nbsp;each&nbsp;cell,&nbsp;there's&nbsp;only&nbsp;a&nbsp;constant&nbsp;number&nbsp;of&nbsp;other&nbsp;cells&nbsp;relevant<br>
+to&nbsp;it&nbsp;that&nbsp;we&nbsp;need&nbsp;to&nbsp;consider&nbsp;when&nbsp;computing&nbsp;forces.<br>
+&nbsp;<br>
+We&nbsp;partition&nbsp;R^2&nbsp;into&nbsp;a&nbsp;grid&nbsp;of&nbsp;boxes,&nbsp;where&nbsp;each&nbsp;box&nbsp;is&nbsp;a&nbsp;little<br>
+bigger&nbsp;than&nbsp;the&nbsp;average&nbsp;cell&nbsp;diameter,&nbsp;and&nbsp;define&nbsp;a&nbsp;mapping&nbsp;from<br>
+cell&nbsp;positions&nbsp;to&nbsp;the&nbsp;corresponding&nbsp;box.&nbsp;Then,&nbsp;to&nbsp;get&nbsp;the&nbsp;neighbors<br>
+of&nbsp;a&nbsp;cell,&nbsp;we&nbsp;get&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;its&nbsp;box&nbsp;in&nbsp;the&nbsp;grid&nbsp;and&nbsp;do<br>
+simple&nbsp;arithmetic&nbsp;to&nbsp;find&nbsp;its&nbsp;neighboring&nbsp;boxes,&nbsp;and&nbsp;get&nbsp;the&nbsp;cells<br>
+in&nbsp;those&nbsp;boxes.&nbsp;If&nbsp;a&nbsp;cell&nbsp;is&nbsp;in&nbsp;box&nbsp;(i,j)&nbsp;for&nbsp;example,&nbsp;its&nbsp;neighbors<br>
+would&nbsp;be&nbsp;in&nbsp;boxes&nbsp;like&nbsp;(i-1,&nbsp;j-1)&nbsp;(top&nbsp;left),&nbsp;(i,&nbsp;j-1)&nbsp;(left),<br>
+...,&nbsp;(i+1,&nbsp;j+1)&nbsp;(bottom&nbsp;right).<br>
+The&nbsp;mapping&nbsp;from&nbsp;cell&nbsp;position&nbsp;to&nbsp;grid&nbsp;coordinate&nbsp;takes&nbsp;constant&nbsp;time,<br>
+and&nbsp;is&nbsp;recomputed&nbsp;every&nbsp;time&nbsp;a&nbsp;cell's&nbsp;position&nbsp;changes.<br>
+Decompacting&nbsp;the&nbsp;list&nbsp;of&nbsp;cells&nbsp;is&nbsp;linear&nbsp;w.r.t.&nbsp;the&nbsp;number&nbsp;of&nbsp;cells.<br>
+&nbsp;<br>
+This&nbsp;grid&nbsp;structure&nbsp;also&nbsp;allows&nbsp;us&nbsp;to&nbsp;get&nbsp;the&nbsp;list&nbsp;of&nbsp;cells&nbsp;within<br>
+a&nbsp;certain&nbsp;distance&nbsp;of&nbsp;another&nbsp;cell&nbsp;in&nbsp;time&nbsp;proportional&nbsp;to&nbsp;the&nbsp;distance.<br>
+&nbsp;<br>
+:param&nbsp;cells:&nbsp;the&nbsp;list&nbsp;of&nbsp;cells&nbsp;to&nbsp;track.<br>
+:param&nbsp;force_escape:&nbsp;determines&nbsp;distance&nbsp;at&nbsp;which&nbsp;pulling&nbsp;forces&nbsp;are&nbsp;exerted.<br>
+&nbsp;&nbsp;&nbsp;If&nbsp;escape=1,&nbsp;then&nbsp;cells&nbsp;don't&nbsp;exert&nbsp;any&nbsp;pulling&nbsp;forces.&nbsp;If&nbsp;&gt;1,<br>
+&nbsp;&nbsp;&nbsp;cells&nbsp;exert&nbsp;pulling&nbsp;forces&nbsp;until&nbsp;their&nbsp;distance&nbsp;is&nbsp;greater&nbsp;than<br>
+&nbsp;&nbsp;&nbsp;escape&nbsp;multiplied&nbsp;by&nbsp;the&nbsp;sum&nbsp;of&nbsp;their&nbsp;radii&nbsp;(two&nbsp;cells<br>
+&nbsp;&nbsp;&nbsp;touching&nbsp;have&nbsp;a&nbsp;distance&nbsp;equal&nbsp;to&nbsp;the&nbsp;sum&nbsp;of&nbsp;their&nbsp;radii).<br>
+&nbsp;&nbsp;&nbsp;A&nbsp;small&nbsp;escape,&nbsp;like&nbsp;around&nbsp;1.05,&nbsp;will&nbsp;mean&nbsp;that&nbsp;cells&nbsp;tend&nbsp;to&nbsp;stick<br>
+&nbsp;&nbsp;&nbsp;togther&nbsp;and&nbsp;overlap&nbsp;maybe&nbsp;a&nbsp;little&nbsp;bit.&nbsp;A&nbsp;large&nbsp;escape&nbsp;tends&nbsp;to&nbsp;make<br>
+&nbsp;&nbsp;&nbsp;cells&nbsp;overlap&nbsp;a&nbsp;lot&nbsp;(since&nbsp;cells&nbsp;would&nbsp;exert&nbsp;non-local&nbsp;pulling&nbsp;forces)<br>
+:param&nbsp;allow_overlap:&nbsp;If&nbsp;less&nbsp;than&nbsp;1,&nbsp;cells&nbsp;exert&nbsp;pulling&nbsp;forces&nbsp;on<br>
+&nbsp;&nbsp;&nbsp;each&nbsp;other&nbsp;when&nbsp;colliding,&nbsp;making&nbsp;them&nbsp;overlap&nbsp;in&nbsp;equilibrium.<br>
+:param&nbsp;spring_constant:&nbsp;determines&nbsp;spring&nbsp;stiffness;&nbsp;linearly&nbsp;correlated<br>
+&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;magnitude&nbsp;of&nbsp;the&nbsp;force&nbsp;cells&nbsp;exert&nbsp;on&nbsp;each&nbsp;other.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CellCollisionHandler-__init__"><strong>__init__</strong></a>(self, cells:list, force_escape:float=1.05, allow_overlap:float=0.95, spring_constant:float=0.32)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-bin"><strong>bin</strong></a>(self, cell:epithelium_backend.Cell.Cell)</dt><dd><tt>Compute&nbsp;the&nbsp;row&nbsp;and&nbsp;column&nbsp;of&nbsp;the&nbsp;cell&nbsp;given&nbsp;its&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-cells_between"><strong>cells_between</strong></a>(self, min_x, max_x)</dt><dd><tt>Return&nbsp;the&nbsp;list&nbsp;of&nbsp;cells&nbsp;between&nbsp;min_x&nbsp;and&nbsp;max_x,&nbsp;sorted&nbsp;from<br>
+posterior&nbsp;to&nbsp;anterior&nbsp;order.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-cells_within_distance"><strong>cells_within_distance</strong></a>(self, cell, r)</dt></dl>
+
+<dl><dt><a name="CellCollisionHandler-compute_col"><strong>compute_col</strong></a>(self, x)</dt></dl>
+
+<dl><dt><a name="CellCollisionHandler-compute_row"><strong>compute_row</strong></a>(self, y)</dt></dl>
+
+<dl><dt><a name="CellCollisionHandler-decompact"><strong>decompact</strong></a>(self)</dt><dd><tt>Push&nbsp;overlapping&nbsp;cells&nbsp;apart,&nbsp;with&nbsp;a&nbsp;tendency&nbsp;to&nbsp;keep&nbsp;them&nbsp;barely&nbsp;overlapping.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-deregister"><strong>deregister</strong></a>(self, cell:epithelium_backend.Cell.Cell)</dt><dd><tt>Remove&nbsp;the&nbsp;cell&nbsp;from&nbsp;the&nbsp;collision&nbsp;handler.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-fill_grid"><strong>fill_grid</strong></a>(self)</dt><dd><tt>Create&nbsp;or&nbsp;resize&nbsp;the&nbsp;collision&nbsp;handler's&nbsp;grid&nbsp;and<br>
+add&nbsp;every&nbsp;cell&nbsp;to&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-move_cell"><strong>move_cell</strong></a>(self, cell:epithelium_backend.Cell.Cell, new_x:float, new_y:float)</dt><dd><tt>Move&nbsp;a&nbsp;cell&nbsp;to&nbsp;a&nbsp;new&nbsp;position,&nbsp;changing&nbsp;the&nbsp;bin&nbsp;if&nbsp;necessary.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-posterior_to_anterior"><strong>posterior_to_anterior</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="CellCollisionHandler-push_pull"><strong>push_pull</strong></a>(self, cell1:epithelium_backend.Cell.Cell, cell2:epithelium_backend.Cell.Cell)</dt><dd><tt>Compute&nbsp;the&nbsp;force&nbsp;of&nbsp;cell1&nbsp;on&nbsp;cell2&nbsp;and&nbsp;vice&nbsp;versa.</tt></dd></dl>
+
+<dl><dt><a name="CellCollisionHandler-register"><strong>register</strong></a>(self, cell:epithelium_backend.Cell.Cell)</dt><dd><tt>Add&nbsp;the&nbsp;cell&nbsp;to&nbsp;the&nbsp;collision&nbsp;handler.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-ceil"><strong>ceil</strong></a>(...)</dt><dd><tt><a href="#-ceil">ceil</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;ceiling&nbsp;of&nbsp;x&nbsp;as&nbsp;an&nbsp;Integral.<br>
+This&nbsp;is&nbsp;the&nbsp;smallest&nbsp;integer&nbsp;&gt;=&nbsp;x.</tt></dd></dl>
+ <dl><dt><a name="-distance"><strong>distance</strong></a>(p1, p2)</dt></dl>
+ <dl><dt><a name="-sqrt"><strong>sqrt</strong></a>(...)</dt><dd><tt><a href="#-sqrt">sqrt</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;square&nbsp;root&nbsp;of&nbsp;x.</tt></dd></dl>
+</td></tr></table>
+</body></html>
