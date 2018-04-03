@@ -191,7 +191,7 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT, wildcard=".epth")
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -260,7 +260,7 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT, wildcard=".sim")
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
