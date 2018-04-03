@@ -65,6 +65,10 @@ class MainFrame(MainFrameBase):
         self.active_epithelium_file = ""
         self.active_simulation_settings_file = ""
 
+        # wild cards
+        self.sim_file_wild_card = "SIM files (*.sim) | *.SIM"
+        self.epithelium_file_wild_card = "EPTH files (.epth)|*.EPTH"
+
     # region dynamic input creation
 
     @staticmethod
@@ -191,7 +195,9 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT, wildcard=".epth")
+        save_as_dialog = FileDialog(self,
+                                    style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
+                                    wildcard=self.epithelium_file_wild_card)
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -209,7 +215,9 @@ class MainFrame(MainFrameBase):
         :param event:
         :return:
         """
-        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
+        load_dialog = FileDialog(self,
+                                 style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST,
+                                 wildcard=self.epithelium_file_wild_card)
         load_dialog.Show()
         if load_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -260,7 +268,9 @@ class MainFrame(MainFrameBase):
         """
 
         # find new file name
-        save_as_dialog = FileDialog(self, style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT, wildcard=".sim")
+        save_as_dialog = FileDialog(self,
+                                    style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
+                                    wildcard=self.sim_file_wild_card)
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
@@ -277,7 +287,7 @@ class MainFrame(MainFrameBase):
         to match the new values.
         :return:
         """
-        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST)
+        load_dialog = FileDialog(self, style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST, wildcard=self.sim_file_wild_card)
         load_dialog.Show()
         if load_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
