@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module eye_development_gui.background_workers.EpitheliumGenerationWorker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="eye_development_gui.html"><font color="#ffffff">eye_development_gui</font></a>.<a href="eye_development_gui.background_workers.html"><font color="#ffffff">background_workers</font></a>.EpitheliumGenerationWorker</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/background_workers/EpitheliumGenerationWorker.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/background_workers/EpitheliumGenerationWorker.py</a></font></td></tr></table>
+    <p><tt>Based&nbsp;on&nbsp;code&nbsp;from&nbsp;https://wiki.wxpython.org/Non-Blocking%20Gui</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="threading.html">threading</a><br>
+</td><td width="25%" valign=top><a href="wx.html">wx</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="threading.html#Thread">threading.Thread</a>(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.background_workers.EpitheliumGenerationWorker.html#EpitheliumGenerationWorker">EpitheliumGenerationWorker</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="wx._core.html#PyCommandEvent">wx._core.PyCommandEvent</a>(<a href="wx._core.html#CommandEvent">wx._core.CommandEvent</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.background_workers.EpitheliumGenerationWorker.html#EpitheliumGenerationEvent">EpitheliumGenerationEvent</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EpitheliumGenerationEvent">class <strong>EpitheliumGenerationEvent</strong></a>(<a href="wx._core.html#PyCommandEvent">wx._core.PyCommandEvent</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Event&nbsp;to&nbsp;signal&nbsp;that&nbsp;an&nbsp;epithelium&nbsp;has&nbsp;been&nbsp;created.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="eye_development_gui.background_workers.EpitheliumGenerationWorker.html#EpitheliumGenerationEvent">EpitheliumGenerationEvent</a></dd>
+<dd><a href="wx._core.html#PyCommandEvent">wx._core.PyCommandEvent</a></dd>
+<dd><a href="wx._core.html#CommandEvent">wx._core.CommandEvent</a></dd>
+<dd><a href="wx._core.html#Event">wx._core.Event</a></dd>
+<dd><a href="wx._core.html#Object">wx._core.Object</a></dd>
+<dd>sip.wrapper</dd>
+<dd>sip.simplewrapper</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-__init__"><strong>__init__</strong></a>(self, etype, eid, epithelium=None)</dt><dd><tt>initialize&nbsp;the&nbsp;event</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-get_epithelium"><strong>get_epithelium</strong></a>(self) -&gt; epithelium_backend.Epithelium.Epithelium</dt><dd><tt>Returns&nbsp;the&nbsp;epithelium&nbsp;tied&nbsp;to&nbsp;the&nbsp;event.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="wx._core.html#PyCommandEvent">wx._core.PyCommandEvent</a>:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-Clone"><strong>Clone</strong></a> = _PyCommandEvent_Clone(self)</dt><dd><tt>Make&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;the&nbsp;event&nbsp;that&nbsp;is&nbsp;a&nbsp;copy&nbsp;of&nbsp;self.<br>
+&nbsp;<br>
+Through&nbsp;the&nbsp;magic&nbsp;of&nbsp;Python&nbsp;this&nbsp;implementation&nbsp;should&nbsp;work&nbsp;for<br>
+this&nbsp;and&nbsp;all&nbsp;derived&nbsp;classes.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-__delattr__"><strong>__delattr__</strong></a>(self, name, /)</dt><dd><tt>Implement&nbsp;delattr(self,&nbsp;name).</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-__getattr__"><strong>__getattr__</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-__getattr__">__getattr__</a>(name)&nbsp;-&gt;&nbsp;PyObject</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-__setattr__"><strong>__setattr__</strong></a>(self, name, value, /)</dt><dd><tt>Implement&nbsp;setattr(self,&nbsp;name,&nbsp;value).</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="wx._core.html#CommandEvent">wx._core.CommandEvent</a>:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-GetClientData"><strong>GetClientData</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetClientData">GetClientData</a>()&nbsp;-&gt;&nbsp;ClientData<br>
+&nbsp;<br>
+Returns&nbsp;client&nbsp;object&nbsp;pointer&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event<br>
+(not&nbsp;valid&nbsp;for&nbsp;a&nbsp;deselection).</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetClientObject"><strong>GetClientObject</strong></a> = _CommandEvent_GetClientObject(self)</dt><dd><tt>Alias&nbsp;for&nbsp;:meth:`GetClientData`</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetExtraLong"><strong>GetExtraLong</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetExtraLong">GetExtraLong</a>()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Returns&nbsp;extra&nbsp;information&nbsp;dependent&nbsp;on&nbsp;the&nbsp;event&nbsp;objects&nbsp;type.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetInt"><strong>GetInt</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetInt">GetInt</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;integer&nbsp;identifier&nbsp;corresponding&nbsp;to&nbsp;a&nbsp;listbox,&nbsp;choice&nbsp;or<br>
+radiobox&nbsp;selection&nbsp;(only&nbsp;if&nbsp;the&nbsp;event&nbsp;was&nbsp;a&nbsp;selection,&nbsp;not&nbsp;a<br>
+deselection),&nbsp;or&nbsp;a&nbsp;boolean&nbsp;value&nbsp;representing&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;checkbox.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetSelection"><strong>GetSelection</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetSelection">GetSelection</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;item&nbsp;index&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event&nbsp;(not&nbsp;valid<br>
+for&nbsp;a&nbsp;deselection).</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetString"><strong>GetString</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetString">GetString</a>()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Returns&nbsp;item&nbsp;string&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-IsChecked"><strong>IsChecked</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-IsChecked">IsChecked</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;can&nbsp;be&nbsp;used&nbsp;with&nbsp;checkbox&nbsp;and&nbsp;menu&nbsp;events:&nbsp;for&nbsp;the<br>
+checkboxes,&nbsp;the&nbsp;method&nbsp;returns&nbsp;true&nbsp;for&nbsp;a&nbsp;selection&nbsp;event&nbsp;and&nbsp;false<br>
+for&nbsp;a&nbsp;deselection&nbsp;one.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-IsSelection"><strong>IsSelection</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-IsSelection">IsSelection</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+For&nbsp;a&nbsp;listbox&nbsp;or&nbsp;similar&nbsp;event,&nbsp;returns&nbsp;true&nbsp;if&nbsp;it&nbsp;is&nbsp;a&nbsp;selection,<br>
+false&nbsp;if&nbsp;it&nbsp;is&nbsp;a&nbsp;deselection.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetClientData"><strong>SetClientData</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetClientData">SetClientData</a>(data)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;client&nbsp;object&nbsp;for&nbsp;this&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetClientObject"><strong>SetClientObject</strong></a> = _CommandEvent_SetClientObject(self, data)</dt><dd><tt>Alias&nbsp;for&nbsp;:meth:`SetClientData`</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetExtraLong"><strong>SetExtraLong</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetExtraLong">SetExtraLong</a>(extraLong)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;m_extraLong&nbsp;member.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetInt"><strong>SetInt</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetInt">SetInt</a>(intCommand)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;m_commandInt&nbsp;member.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetString"><strong>SetString</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetString">SetString</a>(string)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;m_commandString&nbsp;member.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#CommandEvent">wx._core.CommandEvent</a>:<br>
+<dl><dt><strong>ClientData</strong></dt>
+<dd><tt>GetClientData()&nbsp;-&gt;&nbsp;ClientData<br>
+&nbsp;<br>
+Returns&nbsp;client&nbsp;object&nbsp;pointer&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event<br>
+(not&nbsp;valid&nbsp;for&nbsp;a&nbsp;deselection).</tt></dd>
+</dl>
+<dl><dt><strong>ExtraLong</strong></dt>
+<dd><tt>GetExtraLong()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Returns&nbsp;extra&nbsp;information&nbsp;dependent&nbsp;on&nbsp;the&nbsp;event&nbsp;objects&nbsp;type.</tt></dd>
+</dl>
+<dl><dt><strong>Int</strong></dt>
+<dd><tt>GetInt()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;integer&nbsp;identifier&nbsp;corresponding&nbsp;to&nbsp;a&nbsp;listbox,&nbsp;choice&nbsp;or<br>
+radiobox&nbsp;selection&nbsp;(only&nbsp;if&nbsp;the&nbsp;event&nbsp;was&nbsp;a&nbsp;selection,&nbsp;not&nbsp;a<br>
+deselection),&nbsp;or&nbsp;a&nbsp;boolean&nbsp;value&nbsp;representing&nbsp;the&nbsp;value&nbsp;of&nbsp;a&nbsp;checkbox.</tt></dd>
+</dl>
+<dl><dt><strong>Selection</strong></dt>
+<dd><tt>GetSelection()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;item&nbsp;index&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event&nbsp;(not&nbsp;valid<br>
+for&nbsp;a&nbsp;deselection).</tt></dd>
+</dl>
+<dl><dt><strong>String</strong></dt>
+<dd><tt>GetString()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Returns&nbsp;item&nbsp;string&nbsp;for&nbsp;a&nbsp;listbox&nbsp;or&nbsp;choice&nbsp;selection&nbsp;event.</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="wx._core.html#Event">wx._core.Event</a>:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-GetEventCategory"><strong>GetEventCategory</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetEventCategory">GetEventCategory</a>()&nbsp;-&gt;&nbsp;EventCategory<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;generic&nbsp;category&nbsp;for&nbsp;this&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetEventObject"><strong>GetEventObject</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetEventObject">GetEventObject</a>()&nbsp;-&gt;&nbsp;Object<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;object&nbsp;(usually&nbsp;a&nbsp;window)&nbsp;associated&nbsp;with&nbsp;the&nbsp;event,&nbsp;if<br>
+any.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetEventType"><strong>GetEventType</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetEventType">GetEventType</a>()&nbsp;-&gt;&nbsp;EventType<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;of&nbsp;the&nbsp;given&nbsp;event&nbsp;type,&nbsp;such&nbsp;as&nbsp;wxEVT_BUTTON.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetEventUserData"><strong>GetEventUserData</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetEventUserData">GetEventUserData</a>()&nbsp;-&gt;&nbsp;Object<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;user&nbsp;data&nbsp;associated&nbsp;with&nbsp;a&nbsp;dynamically&nbsp;connected&nbsp;event<br>
+handler.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetId"><strong>GetId</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetId">GetId</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;associated&nbsp;with&nbsp;this&nbsp;event,&nbsp;such&nbsp;as&nbsp;a&nbsp;button<br>
+command&nbsp;id.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetSkipped"><strong>GetSkipped</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetSkipped">GetSkipped</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;event&nbsp;handler&nbsp;should&nbsp;be&nbsp;skipped,&nbsp;false&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetTimestamp"><strong>GetTimestamp</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetTimestamp">GetTimestamp</a>()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;timestamp&nbsp;for&nbsp;the&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-IsCommandEvent"><strong>IsCommandEvent</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-IsCommandEvent">IsCommandEvent</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;event&nbsp;is&nbsp;or&nbsp;is&nbsp;derived&nbsp;from&nbsp;wxCommandEvent&nbsp;else&nbsp;it<br>
+returns&nbsp;false.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-ResumePropagation"><strong>ResumePropagation</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-ResumePropagation">ResumePropagation</a>(propagationLevel)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;propagation&nbsp;level&nbsp;to&nbsp;the&nbsp;given&nbsp;value&nbsp;(for&nbsp;example&nbsp;returned<br>
+from&nbsp;an&nbsp;earlier&nbsp;call&nbsp;to&nbsp;wxEvent::StopPropagation).</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetEventObject"><strong>SetEventObject</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetEventObject">SetEventObject</a>(object)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;originating&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetEventType"><strong>SetEventType</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetEventType">SetEventType</a>(type)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;event&nbsp;type.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetId"><strong>SetId</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetId">SetId</a>(id)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;identifier&nbsp;associated&nbsp;with&nbsp;this&nbsp;event,&nbsp;such&nbsp;as&nbsp;a&nbsp;button<br>
+command&nbsp;id.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetTimestamp"><strong>SetTimestamp</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetTimestamp">SetTimestamp</a>(timeStamp=0)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;timestamp&nbsp;for&nbsp;the&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-ShouldPropagate"><strong>ShouldPropagate</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-ShouldPropagate">ShouldPropagate</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Test&nbsp;if&nbsp;this&nbsp;event&nbsp;should&nbsp;be&nbsp;propagated&nbsp;or&nbsp;not,&nbsp;i.e.&nbsp;if&nbsp;the<br>
+propagation&nbsp;level&nbsp;is&nbsp;currently&nbsp;greater&nbsp;than&nbsp;0.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-Skip"><strong>Skip</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-Skip">Skip</a>(skip=True)<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;can&nbsp;be&nbsp;used&nbsp;inside&nbsp;an&nbsp;event&nbsp;handler&nbsp;to&nbsp;control&nbsp;whether<br>
+further&nbsp;event&nbsp;handlers&nbsp;bound&nbsp;to&nbsp;this&nbsp;event&nbsp;will&nbsp;be&nbsp;called&nbsp;after&nbsp;the<br>
+current&nbsp;one&nbsp;returns.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-StopPropagation"><strong>StopPropagation</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-StopPropagation">StopPropagation</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Stop&nbsp;the&nbsp;event&nbsp;from&nbsp;propagating&nbsp;to&nbsp;its&nbsp;parent&nbsp;window.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#Event">wx._core.Event</a>:<br>
+<dl><dt><strong>EventObject</strong></dt>
+<dd><tt>GetEventObject()&nbsp;-&gt;&nbsp;Object<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;object&nbsp;(usually&nbsp;a&nbsp;window)&nbsp;associated&nbsp;with&nbsp;the&nbsp;event,&nbsp;if<br>
+any.</tt></dd>
+</dl>
+<dl><dt><strong>EventType</strong></dt>
+<dd><tt>GetEventType()&nbsp;-&gt;&nbsp;EventType<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;of&nbsp;the&nbsp;given&nbsp;event&nbsp;type,&nbsp;such&nbsp;as&nbsp;wxEVT_BUTTON.</tt></dd>
+</dl>
+<dl><dt><strong>Id</strong></dt>
+<dd><tt>GetId()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;associated&nbsp;with&nbsp;this&nbsp;event,&nbsp;such&nbsp;as&nbsp;a&nbsp;button<br>
+command&nbsp;id.</tt></dd>
+</dl>
+<dl><dt><strong>Skipped</strong></dt>
+<dd><tt>GetSkipped()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;event&nbsp;handler&nbsp;should&nbsp;be&nbsp;skipped,&nbsp;false&nbsp;otherwise.</tt></dd>
+</dl>
+<dl><dt><strong>Timestamp</strong></dt>
+<dd><tt>GetTimestamp()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;timestamp&nbsp;for&nbsp;the&nbsp;event.</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="wx._core.html#Object">wx._core.Object</a>:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-Destroy"><strong>Destroy</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-Destroy">Destroy</a>()<br>
+&nbsp;<br>
+Deletes&nbsp;the&nbsp;C++&nbsp;object&nbsp;this&nbsp;Python&nbsp;object&nbsp;is&nbsp;a&nbsp;proxy&nbsp;for.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetClassName"><strong>GetClassName</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetClassName">GetClassName</a>()&nbsp;-&gt;&nbsp;Char<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;of&nbsp;the&nbsp;C++&nbsp;class&nbsp;using&nbsp;wxRTTI.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-GetRefData"><strong>GetRefData</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-GetRefData">GetRefData</a>()&nbsp;-&gt;&nbsp;ObjectRefData<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer,&nbsp;i.e.&nbsp;the&nbsp;data&nbsp;referenced&nbsp;by<br>
+this&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-IsSameAs"><strong>IsSameAs</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-IsSameAs">IsSameAs</a>(obj)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;object&nbsp;has&nbsp;the&nbsp;same&nbsp;data&nbsp;pointer&nbsp;as&nbsp;obj.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-Ref"><strong>Ref</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-Ref">Ref</a>(clone)<br>
+&nbsp;<br>
+Makes&nbsp;this&nbsp;object&nbsp;refer&nbsp;to&nbsp;the&nbsp;data&nbsp;in&nbsp;clone.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-SetRefData"><strong>SetRefData</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-SetRefData">SetRefData</a>(data)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-UnRef"><strong>UnRef</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-UnRef">UnRef</a>()<br>
+&nbsp;<br>
+Decrements&nbsp;the&nbsp;reference&nbsp;count&nbsp;in&nbsp;the&nbsp;associated&nbsp;data,&nbsp;and&nbsp;if&nbsp;it&nbsp;is<br>
+zero,&nbsp;deletes&nbsp;the&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationEvent-UnShare"><strong>UnShare</strong></a>(...)</dt><dd><tt><a href="#EpitheliumGenerationEvent-UnShare">UnShare</a>()<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;the&nbsp;same&nbsp;of&nbsp;AllocExclusive()&nbsp;but&nbsp;this&nbsp;method&nbsp;is&nbsp;public.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#Object">wx._core.Object</a>:<br>
+<dl><dt><strong>ClassName</strong></dt>
+<dd><tt>GetClassName()&nbsp;-&gt;&nbsp;Char<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;of&nbsp;the&nbsp;C++&nbsp;class&nbsp;using&nbsp;wxRTTI.</tt></dd>
+</dl>
+<dl><dt><strong>RefData</strong></dt>
+<dd><tt>GetRefData()&nbsp;-&gt;&nbsp;ObjectRefData<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer,&nbsp;i.e.&nbsp;the&nbsp;data&nbsp;referenced&nbsp;by<br>
+this&nbsp;object.</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from sip.simplewrapper:<br>
+<dl><dt><a name="EpitheliumGenerationEvent-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from sip.wrappertype</font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from sip.simplewrapper:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EpitheliumGenerationWorker">class <strong>EpitheliumGenerationWorker</strong></a>(<a href="threading.html#Thread">threading.Thread</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Background&nbsp;worker&nbsp;that&nbsp;generates&nbsp;an&nbsp;epithelium&nbsp;in&nbsp;a&nbsp;background&nbsp;thread&nbsp;then&nbsp;returns.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="eye_development_gui.background_workers.EpitheliumGenerationWorker.html#EpitheliumGenerationWorker">EpitheliumGenerationWorker</a></dd>
+<dd><a href="threading.html#Thread">threading.Thread</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="EpitheliumGenerationWorker-__init__"><strong>__init__</strong></a>(self, parent, min_cell_count, avg_cell_size, radius_divergence)</dt><dd><tt>Initialize&nbsp;this&nbsp;background&nbsp;worker.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-run"><strong>run</strong></a>(self)</dt><dd><tt>Creates&nbsp;an&nbsp;epithelium&nbsp;and&nbsp;sets&nbsp;it&nbsp;as&nbsp;the&nbsp;result&nbsp;of&nbsp;this&nbsp;worker.<br>
+Overrides&nbsp;<a href="threading.html#Thread">Thread</a>.run.&nbsp;Called&nbsp;internally&nbsp;when&nbsp;thread.<a href="#EpitheliumGenerationWorker-start">start</a>()&nbsp;is&nbsp;invoked<br>
+:return:</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><a name="EpitheliumGenerationWorker-__repr__"><strong>__repr__</strong></a>(self)</dt><dd><tt>Return&nbsp;repr(self).</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-getName"><strong>getName</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-isAlive"><strong>isAlive</strong></a> = is_alive(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#EpitheliumGenerationWorker-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#EpitheliumGenerationWorker-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;The&nbsp;module&nbsp;function&nbsp;enumerate()<br>
+returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;alive&nbsp;threads.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-isDaemon"><strong>isDaemon</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-is_alive"><strong>is_alive</strong></a>(self)</dt><dd><tt>Return&nbsp;whether&nbsp;the&nbsp;thread&nbsp;is&nbsp;alive.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;returns&nbsp;True&nbsp;just&nbsp;before&nbsp;the&nbsp;<a href="#EpitheliumGenerationWorker-run">run</a>()&nbsp;method&nbsp;starts&nbsp;until&nbsp;just<br>
+after&nbsp;the&nbsp;<a href="#EpitheliumGenerationWorker-run">run</a>()&nbsp;method&nbsp;terminates.&nbsp;The&nbsp;module&nbsp;function&nbsp;enumerate()<br>
+returns&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;alive&nbsp;threads.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-join"><strong>join</strong></a>(self, timeout=None)</dt><dd><tt>Wait&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+This&nbsp;blocks&nbsp;the&nbsp;calling&nbsp;thread&nbsp;until&nbsp;the&nbsp;thread&nbsp;whose&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;method&nbsp;is<br>
+called&nbsp;terminates&nbsp;--&nbsp;either&nbsp;normally&nbsp;or&nbsp;through&nbsp;an&nbsp;unhandled&nbsp;exception<br>
+or&nbsp;until&nbsp;the&nbsp;optional&nbsp;timeout&nbsp;occurs.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;present&nbsp;and&nbsp;not&nbsp;None,&nbsp;it&nbsp;should&nbsp;be&nbsp;a<br>
+floating&nbsp;point&nbsp;number&nbsp;specifying&nbsp;a&nbsp;timeout&nbsp;for&nbsp;the&nbsp;operation&nbsp;in&nbsp;seconds<br>
+(or&nbsp;fractions&nbsp;thereof).&nbsp;As&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;always&nbsp;returns&nbsp;None,&nbsp;you&nbsp;must&nbsp;call<br>
+<a href="#EpitheliumGenerationWorker-isAlive">isAlive</a>()&nbsp;after&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;to&nbsp;decide&nbsp;whether&nbsp;a&nbsp;timeout&nbsp;happened&nbsp;--&nbsp;if&nbsp;the<br>
+thread&nbsp;is&nbsp;still&nbsp;alive,&nbsp;the&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;call&nbsp;timed&nbsp;out.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;timeout&nbsp;argument&nbsp;is&nbsp;not&nbsp;present&nbsp;or&nbsp;None,&nbsp;the&nbsp;operation&nbsp;will<br>
+block&nbsp;until&nbsp;the&nbsp;thread&nbsp;terminates.<br>
+&nbsp;<br>
+A&nbsp;thread&nbsp;can&nbsp;be&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()ed&nbsp;many&nbsp;times.<br>
+&nbsp;<br>
+<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;raises&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;an&nbsp;attempt&nbsp;is&nbsp;made&nbsp;to&nbsp;join&nbsp;the&nbsp;current<br>
+thread&nbsp;as&nbsp;that&nbsp;would&nbsp;cause&nbsp;a&nbsp;deadlock.&nbsp;It&nbsp;is&nbsp;also&nbsp;an&nbsp;error&nbsp;to&nbsp;<a href="#EpitheliumGenerationWorker-join">join</a>()&nbsp;a<br>
+thread&nbsp;before&nbsp;it&nbsp;has&nbsp;been&nbsp;started&nbsp;and&nbsp;attempts&nbsp;to&nbsp;do&nbsp;so&nbsp;raises&nbsp;the&nbsp;same<br>
+exception.</tt></dd></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-setDaemon"><strong>setDaemon</strong></a>(self, daemonic)</dt></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-setName"><strong>setName</strong></a>(self, name)</dt></dl>
+
+<dl><dt><a name="EpitheliumGenerationWorker-start"><strong>start</strong></a>(self)</dt><dd><tt>Start&nbsp;the&nbsp;thread's&nbsp;activity.<br>
+&nbsp;<br>
+It&nbsp;must&nbsp;be&nbsp;called&nbsp;at&nbsp;most&nbsp;once&nbsp;per&nbsp;thread&nbsp;object.&nbsp;It&nbsp;arranges&nbsp;for&nbsp;the<br>
+object's&nbsp;<a href="#EpitheliumGenerationWorker-run">run</a>()&nbsp;method&nbsp;to&nbsp;be&nbsp;invoked&nbsp;in&nbsp;a&nbsp;separate&nbsp;thread&nbsp;of&nbsp;control.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;will&nbsp;raise&nbsp;a&nbsp;RuntimeError&nbsp;if&nbsp;called&nbsp;more&nbsp;than&nbsp;once&nbsp;on&nbsp;the<br>
+same&nbsp;thread&nbsp;object.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="threading.html#Thread">threading.Thread</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>daemon</strong></dt>
+<dd><tt>A&nbsp;boolean&nbsp;value&nbsp;indicating&nbsp;whether&nbsp;this&nbsp;thread&nbsp;is&nbsp;a&nbsp;daemon&nbsp;thread.<br>
+&nbsp;<br>
+This&nbsp;must&nbsp;be&nbsp;set&nbsp;before&nbsp;start()&nbsp;is&nbsp;called,&nbsp;otherwise&nbsp;RuntimeError&nbsp;is<br>
+raised.&nbsp;Its&nbsp;initial&nbsp;value&nbsp;is&nbsp;inherited&nbsp;from&nbsp;the&nbsp;creating&nbsp;thread;&nbsp;the<br>
+main&nbsp;thread&nbsp;is&nbsp;not&nbsp;a&nbsp;daemon&nbsp;thread&nbsp;and&nbsp;therefore&nbsp;all&nbsp;threads&nbsp;created&nbsp;in<br>
+the&nbsp;main&nbsp;thread&nbsp;default&nbsp;to&nbsp;daemon&nbsp;=&nbsp;False.<br>
+&nbsp;<br>
+The&nbsp;entire&nbsp;Python&nbsp;program&nbsp;exits&nbsp;when&nbsp;no&nbsp;alive&nbsp;non-daemon&nbsp;threads&nbsp;are<br>
+left.</tt></dd>
+</dl>
+<dl><dt><strong>ident</strong></dt>
+<dd><tt>Thread&nbsp;identifier&nbsp;of&nbsp;this&nbsp;thread&nbsp;or&nbsp;None&nbsp;if&nbsp;it&nbsp;has&nbsp;not&nbsp;been&nbsp;started.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;nonzero&nbsp;integer.&nbsp;See&nbsp;the&nbsp;thread.get_ident()&nbsp;function.&nbsp;Thread<br>
+identifiers&nbsp;may&nbsp;be&nbsp;recycled&nbsp;when&nbsp;a&nbsp;thread&nbsp;exits&nbsp;and&nbsp;another&nbsp;thread&nbsp;is<br>
+created.&nbsp;The&nbsp;identifier&nbsp;is&nbsp;available&nbsp;even&nbsp;after&nbsp;the&nbsp;thread&nbsp;has&nbsp;exited.</tt></dd>
+</dl>
+<dl><dt><strong>name</strong></dt>
+<dd><tt>A&nbsp;string&nbsp;used&nbsp;for&nbsp;identification&nbsp;purposes&nbsp;only.<br>
+&nbsp;<br>
+It&nbsp;has&nbsp;no&nbsp;semantics.&nbsp;Multiple&nbsp;threads&nbsp;may&nbsp;be&nbsp;given&nbsp;the&nbsp;same&nbsp;name.&nbsp;The<br>
+initial&nbsp;name&nbsp;is&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor.</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>EVT_GENERATE_EPITHELIUM</strong> = &lt;wx.core.PyEventBinder object&gt;</td></tr></table>
+</body></html>

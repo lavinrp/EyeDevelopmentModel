@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module epithelium_backend.Epithelium</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="epithelium_backend.html"><font color="#ffffff">epithelium_backend</font></a>.Epithelium</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/Epithelium.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/Epithelium.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="epithelium_backend.Cell.html">epithelium_backend.Cell</a><br>
+<a href="epithelium_backend.CellCollisionHandler.html">epithelium_backend.CellCollisionHandler</a><br>
+</td><td width="25%" valign=top><a href="quick_change.CellEvents.html">quick_change.CellEvents</a><br>
+<a href="epithelium_backend.Furrow.html">epithelium_backend.Furrow</a><br>
+</td><td width="25%" valign=top><a href="random.html">random</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="epithelium_backend.Epithelium.html#Epithelium">Epithelium</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Epithelium">class <strong>Epithelium</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;collection&nbsp;of&nbsp;cells&nbsp;that&nbsp;will&nbsp;form&nbsp;an&nbsp;eye<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Epithelium-__init__"><strong>__init__</strong></a>(self, cell_quantity:int, cell_avg_radius:float=10, cell_factory:epithelium_backend.CellFactory.CellFactory=None) -&gt; None</dt><dd><tt>Initializes&nbsp;the&nbsp;epithelium<br>
+:param&nbsp;cell_quantity:&nbsp;number&nbsp;of&nbsp;cells&nbsp;to&nbsp;be&nbsp;in&nbsp;the&nbsp;sheet<br>
+:param&nbsp;cell_avg_radius:&nbsp;average&nbsp;cell&nbsp;radius<br>
+:param&nbsp;cell_factory:&nbsp;A&nbsp;factory&nbsp;responsible&nbsp;for&nbsp;producing&nbsp;the&nbsp;initial&nbsp;cells&nbsp;in&nbsp;the&nbsp;epithelium.</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-create_cell_sheet"><strong>create_cell_sheet</strong></a>(self, cell_factory:epithelium_backend.CellFactory.CellFactory=None) -&gt; None</dt><dd><tt>creates&nbsp;the&nbsp;sheet&nbsp;of&nbsp;cells,&nbsp;populating&nbsp;self.<strong>cells</strong>,&nbsp;and&nbsp;then&nbsp;decompacts&nbsp;them<br>
+:param&nbsp;cell_factory:&nbsp;A&nbsp;factory&nbsp;responsible&nbsp;for&nbsp;producing&nbsp;the&nbsp;initial&nbsp;cells&nbsp;in&nbsp;the&nbsp;new&nbsp;cell&nbsp;sheet.</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-delete_cell"><strong>delete_cell</strong></a>(self, cell:&lt;module 'epithelium_backend.Cell' from './epithelium_backend/Cell.py'&gt;)</dt><dd><tt>Removes&nbsp;a&nbsp;cell&nbsp;from&nbsp;the&nbsp;epithelium,&nbsp;and&nbsp;then&nbsp;deregisters&nbsp;it&nbsp;from&nbsp;the&nbsp;CellCollisionHandler<br>
+:param&nbsp;cell:&nbsp;cell&nbsp;to&nbsp;delete&nbsp;from&nbsp;the&nbsp;epithelium<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-divide_cell"><strong>divide_cell</strong></a>(self, cell_from_list) -&gt; &lt;module 'epithelium_backend.Cell' from './epithelium_backend/Cell.py'&gt;</dt><dd><tt>divides&nbsp;the&nbsp;given&nbsp;cell&nbsp;and&nbsp;adds&nbsp;the&nbsp;newly&nbsp;created&nbsp;cell&nbsp;to&nbsp;the&nbsp;list<br>
+:param&nbsp;cell_from_list:&nbsp;a&nbsp;cell&nbsp;selected&nbsp;from&nbsp;self.<strong>cells</strong><br>
+:return:&nbsp;The&nbsp;newly&nbsp;created&nbsp;cell&nbsp;or&nbsp;None&nbsp;if&nbsp;the&nbsp;cell&nbsp;could&nbsp;not&nbsp;be&nbsp;divided.</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-neighboring_cells"><strong>neighboring_cells</strong></a>(self, cell:&lt;module 'epithelium_backend.Cell' from './epithelium_backend/Cell.py'&gt;, number_cells:int)</dt><dd><tt>Return&nbsp;every&nbsp;cell&nbsp;within&nbsp;a&nbsp;given&nbsp;number&nbsp;of&nbsp;cells.<br>
+:param&nbsp;cell:&nbsp;The&nbsp;target&nbsp;cell.&nbsp;This&nbsp;cells&nbsp;neighbors&nbsp;will&nbsp;be&nbsp;returned.<br>
+:param&nbsp;number_cells:&nbsp;an&nbsp;integer,&nbsp;the&nbsp;number&nbsp;of&nbsp;average&nbsp;cell&nbsp;radii.</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-run_cell_updates"><strong>run_cell_updates</strong></a>(self)</dt><dd><tt>Has&nbsp;each&nbsp;cell&nbsp;run&nbsp;all&nbsp;of&nbsp;their&nbsp;respective&nbsp;updating&nbsp;functions.<br>
+:return:</tt></dd></dl>
+
+<dl><dt><a name="Epithelium-update"><strong>update</strong></a>(self)</dt><dd><tt>Simulates&nbsp;the&nbsp;epithelium&nbsp;for&nbsp;one&nbsp;tick</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-sqrt"><strong>sqrt</strong></a>(...)</dt><dd><tt><a href="#-sqrt">sqrt</a>(x)<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;square&nbsp;root&nbsp;of&nbsp;x.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>furrow_event_list</strong> = [&lt;epithelium_backend.FurrowEvent.FurrowEvent object&gt;, &lt;epithelium_backend.FurrowEvent.FurrowEvent object&gt;, &lt;epithelium_backend.FurrowEvent.FurrowEvent object&gt;, &lt;epithelium_backend.FurrowEvent.FurrowEvent object&gt;]</td></tr></table>
+</body></html>
