@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module epithelium_backend.ImportExport</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="epithelium_backend.html"><font color="#ffffff">epithelium_backend</font></a>.ImportExport</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/ImportExport.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/ImportExport.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="quick_change.FurrowEventList.html">quick_change.FurrowEventList</a><br>
+</td><td width="25%" valign=top><a href="pickle.html">pickle</a><br>
+</td><td width="25%" valign=top><a href="wx.html">wx</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-export_epithelium"><strong>export_epithelium</strong></a>(epithelium:epithelium_backend.Epithelium.Epithelium, file_path:str) -&gt; None</dt><dd><tt>Saves&nbsp;an&nbsp;epithelium&nbsp;to&nbsp;a&nbsp;file<br>
+:param&nbsp;epithelium:&nbsp;The&nbsp;epithelium&nbsp;to&nbsp;save.<br>
+:param&nbsp;file_path:&nbsp;The&nbsp;path&nbsp;to&nbsp;the&nbsp;file&nbsp;where&nbsp;the&nbsp;epithelium&nbsp;will&nbsp;be&nbsp;saved.<br>
+:return:</tt></dd></dl>
+ <dl><dt><a name="-export_simulation_settings"><strong>export_simulation_settings</strong></a>(simulation_scroll_children:list, furrow_event_list:list, file_path:str)</dt><dd><tt>Saves&nbsp;all&nbsp;simulation&nbsp;options&nbsp;and&nbsp;specialization&nbsp;options&nbsp;to&nbsp;a&nbsp;file.<br>
+:param&nbsp;simulation_scroll_children:&nbsp;A&nbsp;list&nbsp;containing&nbsp;the&nbsp;the&nbsp;StaticText&nbsp;and&nbsp;TextCtrl&nbsp;widgets&nbsp;from&nbsp;the<br>
+simulation&nbsp;settings&nbsp;scroll&nbsp;window.<br>
+:param&nbsp;furrow_event_list:&nbsp;The&nbsp;furrow&nbsp;events&nbsp;to&nbsp;have&nbsp;options&nbsp;saved.<br>
+:param&nbsp;file_path:&nbsp;Path&nbsp;to&nbsp;the&nbsp;save&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-import_epithelium"><strong>import_epithelium</strong></a>(file_path:str) -&gt; epithelium_backend.Epithelium.Epithelium</dt><dd><tt>Loads&nbsp;an&nbsp;epithelium&nbsp;from&nbsp;a&nbsp;file.&nbsp;If&nbsp;an&nbsp;epithelium&nbsp;cannot&nbsp;be&nbsp;successfully&nbsp;loaded&nbsp;None&nbsp;is&nbsp;returned.<br>
+:param&nbsp;file_path:&nbsp;Path&nbsp;to&nbsp;epithelium&nbsp;save&nbsp;file.</tt></dd></dl>
+ <dl><dt><a name="-import_simulation_settings"><strong>import_simulation_settings</strong></a>(file_path:str) -&gt; dict</dt><dd><tt>Loads&nbsp;simulation&nbsp;options&nbsp;and&nbsp;specialization&nbsp;options&nbsp;from&nbsp;a&nbsp;file<br>
+:param&nbsp;file_path:&nbsp;Path&nbsp;to&nbsp;simulation&nbsp;save&nbsp;file.<br>
+:return:&nbsp;a&nbsp;dictionary&nbsp;with&nbsp;values&nbsp;for&nbsp;updating&nbsp;the&nbsp;simulation&nbsp;options.<br>
+The&nbsp;key&nbsp;is&nbsp;the&nbsp;label&nbsp;text&nbsp;of&nbsp;the&nbsp;StaticText&nbsp;in&nbsp;the&nbsp;simulation&nbsp;options&nbsp;scroll&nbsp;window.<br>
+The&nbsp;value&nbsp;of&nbsp;the&nbsp;dict&nbsp;is&nbsp;the&nbsp;new&nbsp;value&nbsp;to&nbsp;be&nbsp;entered&nbsp;into&nbsp;the&nbsp;TextCtrl.<br>
+&nbsp;<br>
+No&nbsp;information&nbsp;about&nbsp;the&nbsp;furrow&nbsp;event&nbsp;list&nbsp;is&nbsp;returned.&nbsp;These&nbsp;values&nbsp;are&nbsp;set&nbsp;within&nbsp;the&nbsp;function.</tt></dd></dl>
+</td></tr></table>
+</body></html>

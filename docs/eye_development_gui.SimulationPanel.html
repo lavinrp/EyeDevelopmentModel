@@ -1,0 +1,1767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module eye_development_gui.SimulationPanel</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="eye_development_gui.html"><font color="#ffffff">eye_development_gui</font></a>.SimulationPanel</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/SimulationPanel.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/SimulationPanel.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="wx.html">wx</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.SimulationPanelBase.html#SimulationPanelBase">eye_development_gui.SimulationPanelBase.SimulationPanelBase</a>(<a href="wx._core.html#Panel">wx._core.Panel</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.SimulationPanel.html#SimulationPanel">SimulationPanel</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SimulationPanel">class <strong>SimulationPanel</strong></a>(<a href="eye_development_gui.SimulationPanelBase.html#SimulationPanelBase">eye_development_gui.SimulationPanelBase.SimulationPanelBase</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Displays&nbsp;a&nbsp;simulated&nbsp;epithelium&nbsp;and&nbsp;provides&nbsp;the&nbsp;ability<br>
+to&nbsp;start,&nbsp;stop,&nbsp;and&nbsp;pause&nbsp;simulation&nbsp;of&nbsp;the&nbsp;epithelium<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="eye_development_gui.SimulationPanel.html#SimulationPanel">SimulationPanel</a></dd>
+<dd><a href="eye_development_gui.SimulationPanelBase.html#SimulationPanelBase">eye_development_gui.SimulationPanelBase.SimulationPanelBase</a></dd>
+<dd><a href="wx._core.html#Panel">wx._core.Panel</a></dd>
+<dd><a href="wx._core.html#Window">wx._core.Window</a></dd>
+<dd><a href="wx._core.html#WindowBase">wx._core.WindowBase</a></dd>
+<dd><a href="wx._core.html#EvtHandler">wx._core.EvtHandler</a></dd>
+<dd><a href="wx._core.html#Object">wx._core.Object</a></dd>
+<dd><a href="wx._core.html#Trackable">wx._core.Trackable</a></dd>
+<dd>sip.wrapper</dd>
+<dd>sip.simplewrapper</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="SimulationPanel-__init__"><strong>__init__</strong></a>(self, parent, _id, pos, _size, style)</dt><dd><tt>Initializes&nbsp;the&nbsp;<a href="#SimulationPanel">SimulationPanel</a><br>
+:param&nbsp;parent:&nbsp;The&nbsp;parent&nbsp;of&nbsp;this&nbsp;panel<br>
+:param&nbsp;_id:&nbsp;ignored,&nbsp;but&nbsp;required&nbsp;for&nbsp;wxFormBuilder<br>
+:param&nbsp;pos:&nbsp;ignored,&nbsp;but&nbsp;required&nbsp;for&nbsp;wxFormBuilder<br>
+:param&nbsp;_size:&nbsp;ignored,&nbsp;but&nbsp;required&nbsp;for&nbsp;wxFormBuilder<br>
+:param&nbsp;style:&nbsp;ignored,&nbsp;but&nbsp;required&nbsp;for&nbsp;wxFormBuilder</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-draw"><strong>draw</strong></a>(self)</dt><dd><tt>Forces&nbsp;a&nbsp;draw&nbsp;on&nbsp;the&nbsp;contained&nbsp;OpenGL&nbsp;Canvas</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-pause_simulation_callback"><strong>pause_simulation_callback</strong></a>(self, event:wx._core.Event)</dt><dd><tt>Callback&nbsp;invoked&nbsp;when&nbsp;the&nbsp;<a href="#SimulationPanel">SimulationPanel</a>'s&nbsp;'pause'&nbsp;button&nbsp;is&nbsp;pressed.<br>
+Signals&nbsp;all&nbsp;listeners&nbsp;to&nbsp;stop&nbsp;simulating.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-start_simulation_callback"><strong>start_simulation_callback</strong></a>(self, event:wx._core.Event)</dt><dd><tt>Callback&nbsp;invoked&nbsp;when&nbsp;the&nbsp;<a href="#SimulationPanel">SimulationPanel</a>'s&nbsp;'start'&nbsp;button&nbsp;is&nbsp;pressed.<br>
+Signals&nbsp;all&nbsp;listeners&nbsp;to&nbsp;begin&nbsp;simulating.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-stop_simulation_callback"><strong>stop_simulation_callback</strong></a>(self, event:wx._core.Event)</dt><dd><tt>Callback&nbsp;invoked&nbsp;when&nbsp;the&nbsp;<a href="#SimulationPanel">SimulationPanel</a>'s&nbsp;'stop'&nbsp;button&nbsp;is&nbsp;pressed.<br>
+Does&nbsp;the&nbsp;same&nbsp;as&nbsp;pause_simulation_callback&nbsp;then&nbsp;resets&nbsp;the&nbsp;simulated&nbsp;epithelium&nbsp;to&nbsp;its<br>
+pre-simulation&nbsp;state.<br>
+:param&nbsp;event:</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>epithelium</strong></dt>
+<dd><tt>returns&nbsp;the&nbsp;epithelium&nbsp;that&nbsp;is&nbsp;being&nbsp;displayed</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="eye_development_gui.SimulationPanelBase.html#SimulationPanelBase">eye_development_gui.SimulationPanelBase.SimulationPanelBase</a>:<br>
+<dl><dt><a name="SimulationPanel-__del__"><strong>__del__</strong></a>(self)</dt></dl>
+
+<hr>
+Methods inherited from <a href="wx._core.html#Panel">wx._core.Panel</a>:<br>
+<dl><dt><a name="SimulationPanel-AcceptsFocus"><strong>AcceptsFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AcceptsFocus">AcceptsFocus</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;overridden&nbsp;from&nbsp;wxWindow::<a href="#SimulationPanel-AcceptsFocus">AcceptsFocus</a>()&nbsp;and&nbsp;returns<br>
+true&nbsp;only&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;child&nbsp;window&nbsp;in&nbsp;the&nbsp;panel&nbsp;which&nbsp;can&nbsp;accept<br>
+the&nbsp;focus.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AcceptsFocusFromKeyboard"><strong>AcceptsFocusFromKeyboard</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AcceptsFocusFromKeyboard">AcceptsFocusFromKeyboard</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AcceptsFocusRecursively"><strong>AcceptsFocusRecursively</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AcceptsFocusRecursively">AcceptsFocusRecursively</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AddChild"><strong>AddChild</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AddChild">AddChild</a>(self,&nbsp;child:&nbsp;WindowBase)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Create"><strong>Create</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Create">Create</a>(parent,&nbsp;id=ID_ANY,&nbsp;pos=DefaultPosition,&nbsp;size=DefaultSize,&nbsp;style=TAB_TRAVERSAL,&nbsp;name=PanelNameStr)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Used&nbsp;for&nbsp;two-step&nbsp;panel&nbsp;construction.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Destroy"><strong>Destroy</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Destroy">Destroy</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoEnable"><strong>DoEnable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoEnable">DoEnable</a>(self,&nbsp;enable:&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoFreeze"><strong>DoFreeze</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoFreeze">DoFreeze</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetBestClientSize"><strong>DoGetBestClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetBestClientSize">DoGetBestClientSize</a>(self)&nbsp;-&gt;&nbsp;Size</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetBestSize"><strong>DoGetBestSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetBestSize">DoGetBestSize</a>(self)&nbsp;-&gt;&nbsp;Size</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetBorderSize"><strong>DoGetBorderSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetBorderSize">DoGetBorderSize</a>(self)&nbsp;-&gt;&nbsp;Size</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetClientSize"><strong>DoGetClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetClientSize">DoGetClientSize</a>(self)&nbsp;-&gt;&nbsp;Tuple[int,&nbsp;int]</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetPosition"><strong>DoGetPosition</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetPosition">DoGetPosition</a>(self)&nbsp;-&gt;&nbsp;Tuple[int,&nbsp;int]</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoGetSize"><strong>DoGetSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoGetSize">DoGetSize</a>(self)&nbsp;-&gt;&nbsp;Tuple[int,&nbsp;int]</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoMoveWindow"><strong>DoMoveWindow</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoMoveWindow">DoMoveWindow</a>(self,&nbsp;x:&nbsp;int,&nbsp;y:&nbsp;int,&nbsp;width:&nbsp;int,&nbsp;height:&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoSetClientSize"><strong>DoSetClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoSetClientSize">DoSetClientSize</a>(self,&nbsp;width:&nbsp;int,&nbsp;height:&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoSetSize"><strong>DoSetSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoSetSize">DoSetSize</a>(self,&nbsp;x:&nbsp;int,&nbsp;y:&nbsp;int,&nbsp;width:&nbsp;int,&nbsp;height:&nbsp;int,&nbsp;sizeFlags:&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoSetSizeHints"><strong>DoSetSizeHints</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoSetSizeHints">DoSetSizeHints</a>(self,&nbsp;minW:&nbsp;int,&nbsp;minH:&nbsp;int,&nbsp;maxW:&nbsp;int,&nbsp;maxH:&nbsp;int,&nbsp;incW:&nbsp;int,&nbsp;incH:&nbsp;int)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoSetWindowVariant"><strong>DoSetWindowVariant</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoSetWindowVariant">DoSetWindowVariant</a>(self,&nbsp;variant:&nbsp;WindowVariant)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoThaw"><strong>DoThaw</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoThaw">DoThaw</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetClassDefaultAttributes"><strong>GetClassDefaultAttributes</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetClassDefaultAttributes">GetClassDefaultAttributes</a>(variant:&nbsp;WindowVariant&nbsp;=&nbsp;wxWINDOW_VARIANT_NORMAL)&nbsp;-&gt;&nbsp;VisualAttributes</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetClientAreaOrigin"><strong>GetClientAreaOrigin</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetClientAreaOrigin">GetClientAreaOrigin</a>(self)&nbsp;-&gt;&nbsp;Point</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetDefaultBorder"><strong>GetDefaultBorder</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetDefaultBorder">GetDefaultBorder</a>(self)&nbsp;-&gt;&nbsp;Border</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetDefaultBorderForControl"><strong>GetDefaultBorderForControl</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetDefaultBorderForControl">GetDefaultBorderForControl</a>(self)&nbsp;-&gt;&nbsp;Border</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMainWindowOfCompositeControl"><strong>GetMainWindowOfCompositeControl</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMainWindowOfCompositeControl">GetMainWindowOfCompositeControl</a>(self)&nbsp;-&gt;&nbsp;Window</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetValidator"><strong>GetValidator</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetValidator">GetValidator</a>(self)&nbsp;-&gt;&nbsp;Validator</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasTransparentBackground"><strong>HasTransparentBackground</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasTransparentBackground">HasTransparentBackground</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-InformFirstDirection"><strong>InformFirstDirection</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-InformFirstDirection">InformFirstDirection</a>(self,&nbsp;direction:&nbsp;int,&nbsp;size:&nbsp;int,&nbsp;availableOtherDir:&nbsp;int)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-InheritAttributes"><strong>InheritAttributes</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-InheritAttributes">InheritAttributes</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-InitDialog"><strong>InitDialog</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-InitDialog">InitDialog</a>()<br>
+&nbsp;<br>
+Sends&nbsp;a&nbsp;wxInitDialogEvent,&nbsp;which&nbsp;in&nbsp;turn&nbsp;transfers&nbsp;data&nbsp;to&nbsp;the&nbsp;dialog<br>
+via&nbsp;validators.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Layout"><strong>Layout</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Layout">Layout</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+See&nbsp;wxWindow::<a href="#SimulationPanel-SetAutoLayout">SetAutoLayout</a>():&nbsp;when&nbsp;auto&nbsp;layout&nbsp;is&nbsp;on,&nbsp;this&nbsp;function<br>
+gets&nbsp;called&nbsp;automatically&nbsp;when&nbsp;the&nbsp;window&nbsp;is&nbsp;resized.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-OnInternalIdle"><strong>OnInternalIdle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-OnInternalIdle">OnInternalIdle</a>(self)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ProcessEvent"><strong>ProcessEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ProcessEvent">ProcessEvent</a>(self,&nbsp;event:&nbsp;Event)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-RemoveChild"><strong>RemoveChild</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-RemoveChild">RemoveChild</a>(self,&nbsp;child:&nbsp;WindowBase)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SendDestroyEvent"><strong>SendDestroyEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SendDestroyEvent">SendDestroyEvent</a>()<br>
+&nbsp;<br>
+Generate&nbsp;wxWindowDestroyEvent&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetCanFocus"><strong>SetCanFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetCanFocus">SetCanFocus</a>(self,&nbsp;canFocus:&nbsp;bool)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetFocus"><strong>SetFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetFocus">SetFocus</a>()<br>
+&nbsp;<br>
+Overrides&nbsp;wxWindow::<a href="#SimulationPanel-SetFocus">SetFocus</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetFocusIgnoringChildren"><strong>SetFocusIgnoringChildren</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetFocusIgnoringChildren">SetFocusIgnoringChildren</a>()<br>
+&nbsp;<br>
+In&nbsp;contrast&nbsp;to&nbsp;<a href="#SimulationPanel-SetFocus">SetFocus</a>()&nbsp;(see&nbsp;above)&nbsp;this&nbsp;will&nbsp;set&nbsp;the&nbsp;focus&nbsp;to&nbsp;the<br>
+panel&nbsp;even&nbsp;if&nbsp;there&nbsp;are&nbsp;child&nbsp;windows&nbsp;in&nbsp;the&nbsp;panel.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetValidator"><strong>SetValidator</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetValidator">SetValidator</a>(self,&nbsp;validator:&nbsp;Validator)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ShouldInheritColours"><strong>ShouldInheritColours</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ShouldInheritColours">ShouldInheritColours</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-TransferDataFromWindow"><strong>TransferDataFromWindow</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-TransferDataFromWindow">TransferDataFromWindow</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-TransferDataToWindow"><strong>TransferDataToWindow</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-TransferDataToWindow">TransferDataToWindow</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-TryAfter"><strong>TryAfter</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-TryAfter">TryAfter</a>(self,&nbsp;event:&nbsp;Event)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-TryBefore"><strong>TryBefore</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-TryBefore">TryBefore</a>(self,&nbsp;event:&nbsp;Event)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Validate"><strong>Validate</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Validate">Validate</a>(self)&nbsp;-&gt;&nbsp;bool</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="wx._core.html#Window">wx._core.Window</a>:<br>
+<dl><dt><a name="SimulationPanel-AdjustForLayoutDirection"><strong>AdjustForLayoutDirection</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AdjustForLayoutDirection">AdjustForLayoutDirection</a>(x,&nbsp;width,&nbsp;widthTotal)&nbsp;-&gt;&nbsp;Coord<br>
+&nbsp;<br>
+Mirror&nbsp;coordinates&nbsp;for&nbsp;RTL&nbsp;layout&nbsp;if&nbsp;this&nbsp;window&nbsp;uses&nbsp;it&nbsp;and&nbsp;if&nbsp;the<br>
+mirroring&nbsp;is&nbsp;not&nbsp;done&nbsp;automatically&nbsp;like&nbsp;Win32.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AlwaysShowScrollbars"><strong>AlwaysShowScrollbars</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AlwaysShowScrollbars">AlwaysShowScrollbars</a>(hflag=True,&nbsp;vflag=True)<br>
+&nbsp;<br>
+Call&nbsp;this&nbsp;function&nbsp;to&nbsp;force&nbsp;one&nbsp;or&nbsp;both&nbsp;scrollbars&nbsp;to&nbsp;be&nbsp;always&nbsp;shown,<br>
+even&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;big&nbsp;enough&nbsp;to&nbsp;show&nbsp;its&nbsp;entire&nbsp;contents&nbsp;without<br>
+scrolling.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AssociateHandle"><strong>AssociateHandle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AssociateHandle">AssociateHandle</a>(handle)<br>
+&nbsp;<br>
+Associate&nbsp;the&nbsp;window&nbsp;with&nbsp;a&nbsp;new&nbsp;native&nbsp;handle</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-BeginRepositioningChildren"><strong>BeginRepositioningChildren</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-BeginRepositioningChildren">BeginRepositioningChildren</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Prepare&nbsp;for&nbsp;changing&nbsp;positions&nbsp;of&nbsp;multiple&nbsp;child&nbsp;windows.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CacheBestSize"><strong>CacheBestSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CacheBestSize">CacheBestSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;cached&nbsp;best&nbsp;size&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CanAcceptFocus"><strong>CanAcceptFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CanAcceptFocus">CanAcceptFocus</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Can&nbsp;this&nbsp;window&nbsp;have&nbsp;focus&nbsp;right&nbsp;now?</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CanAcceptFocusFromKeyboard"><strong>CanAcceptFocusFromKeyboard</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CanAcceptFocusFromKeyboard">CanAcceptFocusFromKeyboard</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Can&nbsp;this&nbsp;window&nbsp;be&nbsp;assigned&nbsp;focus&nbsp;from&nbsp;keyboard&nbsp;right&nbsp;now?</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CanScroll"><strong>CanScroll</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CanScroll">CanScroll</a>(orient)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;can&nbsp;have&nbsp;a&nbsp;scroll&nbsp;bar&nbsp;in&nbsp;this&nbsp;orientation.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CanSetTransparent"><strong>CanSetTransparent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CanSetTransparent">CanSetTransparent</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;system&nbsp;supports&nbsp;transparent&nbsp;windows&nbsp;and&nbsp;calling<br>
+<a href="#SimulationPanel-SetTransparent">SetTransparent</a>()&nbsp;may&nbsp;succeed.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CaptureMouse"><strong>CaptureMouse</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CaptureMouse">CaptureMouse</a>()<br>
+&nbsp;<br>
+Directs&nbsp;all&nbsp;mouse&nbsp;input&nbsp;to&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Center"><strong>Center</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Center">Center</a>(dir=BOTH)<br>
+&nbsp;<br>
+A&nbsp;synonym&nbsp;for&nbsp;<a href="#SimulationPanel-Centre">Centre</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CenterOnParent"><strong>CenterOnParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CenterOnParent">CenterOnParent</a>(dir=BOTH)<br>
+&nbsp;<br>
+A&nbsp;synonym&nbsp;for&nbsp;<a href="#SimulationPanel-CentreOnParent">CentreOnParent</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Centre"><strong>Centre</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Centre">Centre</a>(direction=BOTH)<br>
+&nbsp;<br>
+Centres&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-CentreOnParent"><strong>CentreOnParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-CentreOnParent">CentreOnParent</a>(direction=BOTH)<br>
+&nbsp;<br>
+Centres&nbsp;the&nbsp;window&nbsp;on&nbsp;its&nbsp;parent.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ClearBackground"><strong>ClearBackground</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ClearBackground">ClearBackground</a>()<br>
+&nbsp;<br>
+Clears&nbsp;the&nbsp;window&nbsp;by&nbsp;filling&nbsp;it&nbsp;with&nbsp;the&nbsp;current&nbsp;background&nbsp;colour.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ClientToScreen"><strong>ClientToScreen</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ClientToScreen">ClientToScreen</a>(x,&nbsp;y)&nbsp;-&gt;&nbsp;(x,&nbsp;y)<br>
+<a href="#SimulationPanel-ClientToScreen">ClientToScreen</a>(pt)&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+Converts&nbsp;to&nbsp;screen&nbsp;coordinates&nbsp;from&nbsp;coordinates&nbsp;relative&nbsp;to&nbsp;this<br>
+window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ClientToWindowSize"><strong>ClientToWindowSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ClientToWindowSize">ClientToWindowSize</a>(size)&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Converts&nbsp;client&nbsp;area&nbsp;size&nbsp;size&nbsp;to&nbsp;corresponding&nbsp;window&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Close"><strong>Close</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Close">Close</a>(force=False)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;simply&nbsp;generates&nbsp;a&nbsp;wxCloseEvent&nbsp;whose&nbsp;handler&nbsp;usually<br>
+tries&nbsp;to&nbsp;close&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ConvertDialogPointToPixels"><strong>ConvertDialogPointToPixels</strong></a> = _Window_ConvertDialogPointToPixels(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ConvertDialogSizeToPixels"><strong>ConvertDialogSizeToPixels</strong></a> = _Window_ConvertDialogSizeToPixels(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ConvertDialogToPixels"><strong>ConvertDialogToPixels</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ConvertDialogToPixels">ConvertDialogToPixels</a>(pt)&nbsp;-&gt;&nbsp;Point<br>
+<a href="#SimulationPanel-ConvertDialogToPixels">ConvertDialogToPixels</a>(sz)&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Converts&nbsp;a&nbsp;point&nbsp;or&nbsp;size&nbsp;from&nbsp;dialog&nbsp;units&nbsp;to&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ConvertPixelsToDialog"><strong>ConvertPixelsToDialog</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ConvertPixelsToDialog">ConvertPixelsToDialog</a>(pt)&nbsp;-&gt;&nbsp;Point<br>
+<a href="#SimulationPanel-ConvertPixelsToDialog">ConvertPixelsToDialog</a>(sz)&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Converts&nbsp;a&nbsp;point&nbsp;or&nbsp;size&nbsp;from&nbsp;pixels&nbsp;to&nbsp;dialog&nbsp;units.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DLG_UNIT"><strong>DLG_UNIT</strong></a> = _Window_DLG_UNIT(self, dlg_unit)</dt><dd><tt>A&nbsp;convenience&nbsp;wrapper&nbsp;for&nbsp;:meth:`ConvertDialogToPixels`.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DestroyChildren"><strong>DestroyChildren</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DestroyChildren">DestroyChildren</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Destroys&nbsp;all&nbsp;children&nbsp;of&nbsp;a&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DestroyLater"><strong>DestroyLater</strong></a> = _Window_DestroyLater(self)</dt><dd><tt>Schedules&nbsp;the&nbsp;window&nbsp;to&nbsp;be&nbsp;destroyed&nbsp;in&nbsp;the&nbsp;near&nbsp;future.<br>
+&nbsp;<br>
+This&nbsp;should&nbsp;be&nbsp;used&nbsp;whenever&nbsp;Destroy&nbsp;could&nbsp;happen&nbsp;too&nbsp;soon,&nbsp;such<br>
+as&nbsp;when&nbsp;there&nbsp;may&nbsp;still&nbsp;be&nbsp;events&nbsp;for&nbsp;this&nbsp;window&nbsp;or&nbsp;its&nbsp;children<br>
+waiting&nbsp;in&nbsp;the&nbsp;event&nbsp;queue.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Disable"><strong>Disable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Disable">Disable</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Disables&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DissociateHandle"><strong>DissociateHandle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DissociateHandle">DissociateHandle</a>()<br>
+&nbsp;<br>
+Dissociate&nbsp;the&nbsp;current&nbsp;native&nbsp;handle&nbsp;from&nbsp;the&nbsp;window</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DoUpdateWindowUI"><strong>DoUpdateWindowUI</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DoUpdateWindowUI">DoUpdateWindowUI</a>(event)<br>
+&nbsp;<br>
+Does&nbsp;the&nbsp;window-specific&nbsp;updating&nbsp;after&nbsp;processing&nbsp;the&nbsp;update&nbsp;event.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DragAcceptFiles"><strong>DragAcceptFiles</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DragAcceptFiles">DragAcceptFiles</a>(accept)<br>
+&nbsp;<br>
+Enables&nbsp;or&nbsp;disables&nbsp;eligibility&nbsp;for&nbsp;drop&nbsp;file&nbsp;events&nbsp;(OnDropFiles).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Enable"><strong>Enable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Enable">Enable</a>(enable=True)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Enable&nbsp;or&nbsp;disable&nbsp;the&nbsp;window&nbsp;for&nbsp;user&nbsp;input.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-EndRepositioningChildren"><strong>EndRepositioningChildren</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-EndRepositioningChildren">EndRepositioningChildren</a>()<br>
+&nbsp;<br>
+Fix&nbsp;child&nbsp;window&nbsp;positions&nbsp;after&nbsp;setting&nbsp;all&nbsp;of&nbsp;them&nbsp;at&nbsp;once.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FindFocus"><strong>FindFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FindFocus">FindFocus</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Finds&nbsp;the&nbsp;window&nbsp;or&nbsp;control&nbsp;which&nbsp;currently&nbsp;has&nbsp;the&nbsp;keyboard&nbsp;focus.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FindWindow"><strong>FindWindow</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FindWindow">FindWindow</a>(id)&nbsp;-&gt;&nbsp;Window<br>
+<a href="#SimulationPanel-FindWindow">FindWindow</a>(name)&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Find&nbsp;a&nbsp;child&nbsp;of&nbsp;this&nbsp;window,&nbsp;by&nbsp;id.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FindWindowById"><strong>FindWindowById</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FindWindowById">FindWindowById</a>(id,&nbsp;parent=None)&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Find&nbsp;the&nbsp;first&nbsp;window&nbsp;with&nbsp;the&nbsp;given&nbsp;id.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FindWindowByLabel"><strong>FindWindowByLabel</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FindWindowByLabel">FindWindowByLabel</a>(label,&nbsp;parent=None)&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Find&nbsp;a&nbsp;window&nbsp;by&nbsp;its&nbsp;label.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FindWindowByName"><strong>FindWindowByName</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FindWindowByName">FindWindowByName</a>(name,&nbsp;parent=None)&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Find&nbsp;a&nbsp;window&nbsp;by&nbsp;its&nbsp;name&nbsp;(as&nbsp;given&nbsp;in&nbsp;a&nbsp;window&nbsp;constructor&nbsp;or<br>
+<a href="#SimulationPanel-Create">Create</a>()&nbsp;function&nbsp;call).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Fit"><strong>Fit</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Fit">Fit</a>()<br>
+&nbsp;<br>
+Sizes&nbsp;the&nbsp;window&nbsp;so&nbsp;that&nbsp;it&nbsp;fits&nbsp;around&nbsp;its&nbsp;subwindows.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-FitInside"><strong>FitInside</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-FitInside">FitInside</a>()<br>
+&nbsp;<br>
+Similar&nbsp;to&nbsp;<a href="#SimulationPanel-Fit">Fit</a>(),&nbsp;but&nbsp;sizes&nbsp;the&nbsp;interior&nbsp;(virtual)&nbsp;size&nbsp;of&nbsp;a&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Freeze"><strong>Freeze</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Freeze">Freeze</a>()<br>
+&nbsp;<br>
+Freezes&nbsp;the&nbsp;window&nbsp;or,&nbsp;in&nbsp;other&nbsp;words,&nbsp;prevents&nbsp;any&nbsp;updates&nbsp;from<br>
+taking&nbsp;place&nbsp;on&nbsp;screen,&nbsp;the&nbsp;window&nbsp;is&nbsp;not&nbsp;redrawn&nbsp;at&nbsp;all.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetAcceleratorTable"><strong>GetAcceleratorTable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetAcceleratorTable">GetAcceleratorTable</a>()&nbsp;-&gt;&nbsp;AcceleratorTable<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;accelerator&nbsp;table&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetAutoLayout"><strong>GetAutoLayout</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetAutoLayout">GetAutoLayout</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;of&nbsp;which&nbsp;this&nbsp;window&nbsp;is&nbsp;a&nbsp;member,&nbsp;if&nbsp;any,&nbsp;otherwise<br>
+NULL.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBackgroundColour"><strong>GetBackgroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBackgroundColour">GetBackgroundColour</a>()&nbsp;-&gt;&nbsp;Colour<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;background&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBackgroundStyle"><strong>GetBackgroundStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBackgroundStyle">GetBackgroundStyle</a>()&nbsp;-&gt;&nbsp;BackgroundStyle<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;background&nbsp;style&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBestHeight"><strong>GetBestHeight</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBestHeight">GetBestHeight</a>(width)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;best&nbsp;height&nbsp;needed&nbsp;by&nbsp;this&nbsp;window&nbsp;if&nbsp;it&nbsp;had&nbsp;the&nbsp;given<br>
+width.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBestSize"><strong>GetBestSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBestSize">GetBestSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+This&nbsp;functions&nbsp;returns&nbsp;the&nbsp;best&nbsp;acceptable&nbsp;minimal&nbsp;size&nbsp;for&nbsp;the<br>
+window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBestVirtualSize"><strong>GetBestVirtualSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBestVirtualSize">GetBestVirtualSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;largest&nbsp;of&nbsp;ClientSize&nbsp;and&nbsp;BestSize&nbsp;(as&nbsp;determined&nbsp;by&nbsp;a<br>
+sizer,&nbsp;interior&nbsp;children,&nbsp;or&nbsp;other&nbsp;means)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBestWidth"><strong>GetBestWidth</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBestWidth">GetBestWidth</a>(height)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;best&nbsp;width&nbsp;needed&nbsp;by&nbsp;this&nbsp;window&nbsp;if&nbsp;it&nbsp;had&nbsp;the&nbsp;given<br>
+height.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetBorder"><strong>GetBorder</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetBorder">GetBorder</a>(flags)&nbsp;-&gt;&nbsp;Border<br>
+<a href="#SimulationPanel-GetBorder">GetBorder</a>()&nbsp;-&gt;&nbsp;Border<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;window&nbsp;border&nbsp;style&nbsp;from&nbsp;the&nbsp;given&nbsp;flags:&nbsp;this&nbsp;is&nbsp;different<br>
+from&nbsp;simply&nbsp;doing&nbsp;flags&nbsp;&amp;&nbsp;wxBORDER_MASK&nbsp;because&nbsp;it&nbsp;uses<br>
+<a href="#SimulationPanel-GetDefaultBorder">GetDefaultBorder</a>()&nbsp;to&nbsp;translate&nbsp;wxBORDER_DEFAULT&nbsp;to&nbsp;something<br>
+reasonable.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetCapture"><strong>GetCapture</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetCapture">GetCapture</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;currently&nbsp;captured&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetCaret"><strong>GetCaret</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetCaret">GetCaret</a>()&nbsp;-&gt;&nbsp;Caret<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;caret()&nbsp;associated&nbsp;with&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetCharHeight"><strong>GetCharHeight</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetCharHeight">GetCharHeight</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;character&nbsp;height&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetCharWidth"><strong>GetCharWidth</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetCharWidth">GetCharWidth</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;average&nbsp;character&nbsp;width&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetChildren"><strong>GetChildren</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetChildren">GetChildren</a>()&nbsp;-&gt;&nbsp;WindowList<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;the&nbsp;window's&nbsp;children.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetClientRect"><strong>GetClientRect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetClientRect">GetClientRect</a>()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;client&nbsp;rectangle&nbsp;in&nbsp;window&nbsp;(i.e.&nbsp;client)&nbsp;coordinates.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetClientSize"><strong>GetClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetClientSize">GetClientSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;'client&nbsp;area'&nbsp;in&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetConstraints"><strong>GetConstraints</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetConstraints">GetConstraints</a>()&nbsp;-&gt;&nbsp;LayoutConstraints<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;pointer&nbsp;to&nbsp;the&nbsp;window's&nbsp;layout&nbsp;constraints,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there<br>
+are&nbsp;none.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetContainingSizer"><strong>GetContainingSizer</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetContainingSizer">GetContainingSizer</a>()&nbsp;-&gt;&nbsp;Sizer<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;of&nbsp;which&nbsp;this&nbsp;window&nbsp;is&nbsp;a&nbsp;member,&nbsp;if&nbsp;any,&nbsp;otherwise<br>
+NULL.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetContentScaleFactor"><strong>GetContentScaleFactor</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetContentScaleFactor">GetContentScaleFactor</a>()&nbsp;-&gt;&nbsp;double<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;magnification&nbsp;of&nbsp;the&nbsp;backing&nbsp;store&nbsp;of&nbsp;this&nbsp;window,&nbsp;eg&nbsp;2.0<br>
+for&nbsp;a&nbsp;window&nbsp;on&nbsp;a&nbsp;retina&nbsp;screen.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetCursor"><strong>GetCursor</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetCursor">GetCursor</a>()&nbsp;-&gt;&nbsp;Cursor<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;cursor&nbsp;associated&nbsp;with&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetDefaultAttributes"><strong>GetDefaultAttributes</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetDefaultAttributes">GetDefaultAttributes</a>()&nbsp;-&gt;&nbsp;VisualAttributes<br>
+&nbsp;<br>
+Currently&nbsp;this&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;calling<br>
+wxWindow::<a href="#SimulationPanel-GetClassDefaultAttributes">GetClassDefaultAttributes</a>(wxWindow::<a href="#SimulationPanel-GetWindowVariant">GetWindowVariant</a>()).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetDropTarget"><strong>GetDropTarget</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetDropTarget">GetDropTarget</a>()&nbsp;-&gt;&nbsp;DropTarget<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;associated&nbsp;drop&nbsp;target,&nbsp;which&nbsp;may&nbsp;be&nbsp;NULL.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetEffectiveMinSize"><strong>GetEffectiveMinSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetEffectiveMinSize">GetEffectiveMinSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Merges&nbsp;the&nbsp;window's&nbsp;best&nbsp;size&nbsp;into&nbsp;the&nbsp;min&nbsp;size&nbsp;and&nbsp;returns&nbsp;the<br>
+result.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetEventHandler"><strong>GetEventHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetEventHandler">GetEventHandler</a>()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;event&nbsp;handler&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetExtraStyle"><strong>GetExtraStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetExtraStyle">GetExtraStyle</a>()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;extra&nbsp;style&nbsp;bits&nbsp;for&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetFont"><strong>GetFont</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetFont">GetFont</a>()&nbsp;-&gt;&nbsp;Font<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;font&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetForegroundColour"><strong>GetForegroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetForegroundColour">GetForegroundColour</a>()&nbsp;-&gt;&nbsp;Colour<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;foreground&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetFullTextExtent"><strong>GetFullTextExtent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetFullTextExtent">GetFullTextExtent</a>(string,&nbsp;font=None)&nbsp;-&gt;&nbsp;(w,&nbsp;h,&nbsp;descent,&nbsp;externalLeading)<br>
+<a href="#SimulationPanel-GetTextExtent">GetTextExtent</a>(string)&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;dimensions&nbsp;of&nbsp;the&nbsp;string&nbsp;as&nbsp;it&nbsp;would&nbsp;be&nbsp;drawn&nbsp;on&nbsp;the&nbsp;window<br>
+with&nbsp;the&nbsp;currently&nbsp;selected&nbsp;font.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetGrandParent"><strong>GetGrandParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetGrandParent">GetGrandParent</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;grandparent&nbsp;of&nbsp;a&nbsp;window,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there&nbsp;isn't&nbsp;one.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetGtkWidget"><strong>GetGtkWidget</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetGtkWidget">GetGtkWidget</a>()&nbsp;-&gt;&nbsp;void</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetHandle"><strong>GetHandle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetHandle">GetHandle</a>()&nbsp;-&gt;&nbsp;UIntPtr<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;platform-specific&nbsp;handle&nbsp;of&nbsp;the&nbsp;physical&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetHelpText"><strong>GetHelpText</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetHelpText">GetHelpText</a>()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;help&nbsp;text&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;context-sensitive&nbsp;help&nbsp;for&nbsp;this<br>
+window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetHelpTextAtPoint"><strong>GetHelpTextAtPoint</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetHelpTextAtPoint">GetHelpTextAtPoint</a>(point,&nbsp;origin)&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;help&nbsp;text&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;context-sensitive&nbsp;help&nbsp;for&nbsp;this<br>
+window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetId"><strong>GetId</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetId">GetId</a>()&nbsp;-&gt;&nbsp;WindowID<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetLabel"><strong>GetLabel</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetLabel">GetLabel</a>()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Generic&nbsp;way&nbsp;of&nbsp;getting&nbsp;a&nbsp;label&nbsp;from&nbsp;any&nbsp;window,&nbsp;for&nbsp;identification<br>
+purposes.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetLayoutDirection"><strong>GetLayoutDirection</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetLayoutDirection">GetLayoutDirection</a>()&nbsp;-&gt;&nbsp;LayoutDirection<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;layout&nbsp;direction&nbsp;for&nbsp;this&nbsp;window,&nbsp;Note&nbsp;that<br>
+wxLayout_Default&nbsp;is&nbsp;returned&nbsp;if&nbsp;layout&nbsp;direction&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMaxClientSize"><strong>GetMaxClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMaxClientSize">GetMaxClientSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;maximum&nbsp;size&nbsp;of&nbsp;window's&nbsp;client&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMaxHeight"><strong>GetMaxHeight</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMaxHeight">GetMaxHeight</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;vertical&nbsp;component&nbsp;of&nbsp;window&nbsp;maximal&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMaxSize"><strong>GetMaxSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMaxSize">GetMaxSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;maximum&nbsp;size&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMaxWidth"><strong>GetMaxWidth</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMaxWidth">GetMaxWidth</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;horizontal&nbsp;component&nbsp;of&nbsp;window&nbsp;maximal&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMinClientSize"><strong>GetMinClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMinClientSize">GetMinClientSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;minimum&nbsp;size&nbsp;of&nbsp;window's&nbsp;client&nbsp;area,&nbsp;an&nbsp;indication&nbsp;to&nbsp;the<br>
+sizer&nbsp;layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size&nbsp;of&nbsp;its<br>
+client&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMinHeight"><strong>GetMinHeight</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMinHeight">GetMinHeight</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;vertical&nbsp;component&nbsp;of&nbsp;window&nbsp;minimal&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMinSize"><strong>GetMinSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMinSize">GetMinSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;minimum&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;an&nbsp;indication&nbsp;to&nbsp;the&nbsp;sizer<br>
+layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetMinWidth"><strong>GetMinWidth</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetMinWidth">GetMinWidth</a>()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;horizontal&nbsp;component&nbsp;of&nbsp;window&nbsp;minimal&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetName"><strong>GetName</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetName">GetName</a>()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;window's&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetNextSibling"><strong>GetNextSibling</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetNextSibling">GetNextSibling</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;next&nbsp;window&nbsp;after&nbsp;this&nbsp;one&nbsp;among&nbsp;the&nbsp;parent's&nbsp;children&nbsp;or<br>
+NULL&nbsp;if&nbsp;this&nbsp;window&nbsp;is&nbsp;the&nbsp;last&nbsp;child.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetParent"><strong>GetParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetParent">GetParent</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;parent&nbsp;of&nbsp;the&nbsp;window,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;parent.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetPopupMenuSelectionFromUser"><strong>GetPopupMenuSelectionFromUser</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetPopupMenuSelectionFromUser">GetPopupMenuSelectionFromUser</a>(menu,&nbsp;pos=DefaultPosition)&nbsp;-&gt;&nbsp;int<br>
+<a href="#SimulationPanel-GetPopupMenuSelectionFromUser">GetPopupMenuSelectionFromUser</a>(menu,&nbsp;x,&nbsp;y)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;shows&nbsp;a&nbsp;popup&nbsp;menu&nbsp;at&nbsp;the&nbsp;given&nbsp;position&nbsp;in&nbsp;this&nbsp;window<br>
+and&nbsp;returns&nbsp;the&nbsp;selected&nbsp;id.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetPosition"><strong>GetPosition</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetPosition">GetPosition</a>()&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+This&nbsp;gets&nbsp;the&nbsp;position&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels,&nbsp;relative&nbsp;to&nbsp;the&nbsp;parent<br>
+window&nbsp;for&nbsp;the&nbsp;child&nbsp;windows&nbsp;or&nbsp;relative&nbsp;to&nbsp;the&nbsp;display&nbsp;origin&nbsp;for&nbsp;the<br>
+top&nbsp;level&nbsp;windows.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetPositionTuple"><strong>GetPositionTuple</strong></a> = _Window_GetPositionTuple(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetPrevSibling"><strong>GetPrevSibling</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetPrevSibling">GetPrevSibling</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;previous&nbsp;window&nbsp;before&nbsp;this&nbsp;one&nbsp;among&nbsp;the&nbsp;parent's<br>
+children&nbsp;or&nbsp;&nbsp;NULL&nbsp;if&nbsp;this&nbsp;window&nbsp;is&nbsp;the&nbsp;first&nbsp;child.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetRect"><strong>GetRect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetRect">GetRect</a>()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;position&nbsp;and&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;as&nbsp;a&nbsp;wxRect&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetScreenPosition"><strong>GetScreenPosition</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetScreenPosition">GetScreenPosition</a>()&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;window&nbsp;position&nbsp;in&nbsp;screen&nbsp;coordinates,&nbsp;whether&nbsp;the&nbsp;window<br>
+is&nbsp;a&nbsp;child&nbsp;window&nbsp;or&nbsp;a&nbsp;top&nbsp;level&nbsp;one.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetScreenRect"><strong>GetScreenRect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetScreenRect">GetScreenRect</a>()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;position&nbsp;and&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;on&nbsp;the&nbsp;screen&nbsp;as&nbsp;a&nbsp;wxRect<br>
+object.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetScrollPos"><strong>GetScrollPos</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetScrollPos">GetScrollPos</a>(orientation)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;built-in&nbsp;scrollbar&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetScrollRange"><strong>GetScrollRange</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetScrollRange">GetScrollRange</a>(orientation)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;built-in&nbsp;scrollbar&nbsp;range.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetScrollThumb"><strong>GetScrollThumb</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetScrollThumb">GetScrollThumb</a>(orientation)&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;built-in&nbsp;scrollbar&nbsp;thumb&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetSize"><strong>GetSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetSize">GetSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;entire&nbsp;window&nbsp;in&nbsp;pixels,&nbsp;including&nbsp;title&nbsp;bar,<br>
+border,&nbsp;scrollbars,&nbsp;etc.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetSizeTuple"><strong>GetSizeTuple</strong></a> = _Window_GetSizeTuple(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetSizer"><strong>GetSizer</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetSizer">GetSizer</a>()&nbsp;-&gt;&nbsp;Sizer<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;associated&nbsp;with&nbsp;the&nbsp;window&nbsp;by&nbsp;a&nbsp;previous&nbsp;call&nbsp;to<br>
+<a href="#SimulationPanel-SetSizer">SetSizer</a>(),&nbsp;or&nbsp;NULL.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetTextExtent"><strong>GetTextExtent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetTextExtent">GetTextExtent</a>(self,&nbsp;string:&nbsp;object)&nbsp;-&gt;&nbsp;Size</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetThemeEnabled"><strong>GetThemeEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetThemeEnabled">GetThemeEnabled</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Clears&nbsp;the&nbsp;window&nbsp;by&nbsp;filling&nbsp;it&nbsp;with&nbsp;the&nbsp;current&nbsp;background&nbsp;colour.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetToolTip"><strong>GetToolTip</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetToolTip">GetToolTip</a>()&nbsp;-&gt;&nbsp;ToolTip<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;associated&nbsp;tooltip&nbsp;or&nbsp;NULL&nbsp;if&nbsp;none.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetToolTipText"><strong>GetToolTipText</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetToolTipText">GetToolTipText</a>()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;text&nbsp;of&nbsp;the&nbsp;associated&nbsp;tooltip&nbsp;or&nbsp;empty&nbsp;string&nbsp;if&nbsp;none.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetTopLevelParent"><strong>GetTopLevelParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetTopLevelParent">GetTopLevelParent</a>()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;first&nbsp;ancestor&nbsp;of&nbsp;this&nbsp;window&nbsp;which&nbsp;is&nbsp;a&nbsp;top-level&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetUpdateClientRect"><strong>GetUpdateClientRect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetUpdateClientRect">GetUpdateClientRect</a>()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;update&nbsp;rectangle&nbsp;bounding&nbsp;box&nbsp;in&nbsp;client&nbsp;coords.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetUpdateRegion"><strong>GetUpdateRegion</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetUpdateRegion">GetUpdateRegion</a>()&nbsp;-&gt;&nbsp;Region<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;region&nbsp;specifying&nbsp;which&nbsp;parts&nbsp;of&nbsp;the&nbsp;window&nbsp;have&nbsp;been<br>
+damaged.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetVirtualSize"><strong>GetVirtualSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetVirtualSize">GetVirtualSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+This&nbsp;gets&nbsp;the&nbsp;virtual&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetVirtualSizeTuple"><strong>GetVirtualSizeTuple</strong></a> = _Window_GetVirtualSizeTuple(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetWindowBorderSize"><strong>GetWindowBorderSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetWindowBorderSize">GetWindowBorderSize</a>()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;left/right&nbsp;and&nbsp;top/bottom&nbsp;borders&nbsp;of&nbsp;this<br>
+window&nbsp;in&nbsp;x&nbsp;and&nbsp;y&nbsp;components&nbsp;of&nbsp;the&nbsp;result&nbsp;respectively.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetWindowStyle"><strong>GetWindowStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetWindowStyle">GetWindowStyle</a>()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+See&nbsp;<a href="#SimulationPanel-GetWindowStyleFlag">GetWindowStyleFlag</a>()&nbsp;for&nbsp;more&nbsp;info.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetWindowStyleFlag"><strong>GetWindowStyleFlag</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetWindowStyleFlag">GetWindowStyleFlag</a>()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;window&nbsp;style&nbsp;that&nbsp;was&nbsp;passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;or&nbsp;<a href="#SimulationPanel-Create">Create</a>()<br>
+method.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetWindowVariant"><strong>GetWindowVariant</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetWindowVariant">GetWindowVariant</a>()&nbsp;-&gt;&nbsp;WindowVariant<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;value&nbsp;previously&nbsp;passed&nbsp;to&nbsp;<a href="#SimulationPanel-SetWindowVariant">SetWindowVariant</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HandleAsNavigationKey"><strong>HandleAsNavigationKey</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HandleAsNavigationKey">HandleAsNavigationKey</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;will&nbsp;generate&nbsp;the&nbsp;appropriate&nbsp;call&nbsp;to&nbsp;<a href="#SimulationPanel-Navigate">Navigate</a>()&nbsp;if&nbsp;the<br>
+key&nbsp;event&nbsp;is&nbsp;one&nbsp;normally&nbsp;used&nbsp;for&nbsp;keyboard&nbsp;navigation&nbsp;and&nbsp;return&nbsp;true<br>
+in&nbsp;this&nbsp;case.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HandleWindowEvent"><strong>HandleWindowEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HandleWindowEvent">HandleWindowEvent</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Shorthand&nbsp;for:</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasCapture"><strong>HasCapture</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasCapture">HasCapture</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;has&nbsp;the&nbsp;current&nbsp;mouse&nbsp;capture.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasExtraStyle"><strong>HasExtraStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasExtraStyle">HasExtraStyle</a>(exFlag)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;has&nbsp;the&nbsp;given&nbsp;exFlag&nbsp;bit&nbsp;set&nbsp;in&nbsp;its&nbsp;extra<br>
+styles.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasFlag"><strong>HasFlag</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasFlag">HasFlag</a>(flag)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;has&nbsp;the&nbsp;given&nbsp;flag&nbsp;bit&nbsp;set.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasFocus"><strong>HasFocus</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasFocus">HasFocus</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;(or&nbsp;in&nbsp;case&nbsp;of&nbsp;composite&nbsp;controls,&nbsp;its&nbsp;main<br>
+child&nbsp;window)&nbsp;has&nbsp;focus.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasMultiplePages"><strong>HasMultiplePages</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasMultiplePages">HasMultiplePages</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;should&nbsp;be&nbsp;overridden&nbsp;to&nbsp;return&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;has<br>
+multiple&nbsp;pages.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HasScrollbar"><strong>HasScrollbar</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HasScrollbar">HasScrollbar</a>(orient)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;currently&nbsp;has&nbsp;a&nbsp;scroll&nbsp;bar&nbsp;for&nbsp;this<br>
+orientation.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Hide"><strong>Hide</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Hide">Hide</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Equivalent&nbsp;to&nbsp;calling&nbsp;wxWindow::<a href="#SimulationPanel-Show">Show</a>(false).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HideWithEffect"><strong>HideWithEffect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HideWithEffect">HideWithEffect</a>(effect,&nbsp;timeout=0)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;hides&nbsp;a&nbsp;window,&nbsp;like&nbsp;<a href="#SimulationPanel-Hide">Hide</a>(),&nbsp;but&nbsp;using&nbsp;a&nbsp;special&nbsp;visual<br>
+effect&nbsp;if&nbsp;possible.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-HitTest"><strong>HitTest</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-HitTest">HitTest</a>(x,&nbsp;y)&nbsp;-&gt;&nbsp;HitTest<br>
+<a href="#SimulationPanel-HitTest">HitTest</a>(pt)&nbsp;-&gt;&nbsp;HitTest<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;window&nbsp;border&nbsp;style&nbsp;from&nbsp;the&nbsp;given&nbsp;flags:&nbsp;this&nbsp;is&nbsp;different<br>
+from&nbsp;simply&nbsp;doing&nbsp;flags&nbsp;&amp;&nbsp;wxBORDER_MASK&nbsp;because&nbsp;it&nbsp;uses<br>
+<a href="#SimulationPanel-GetDefaultBorder">GetDefaultBorder</a>()&nbsp;to&nbsp;translate&nbsp;wxBORDER_DEFAULT&nbsp;to&nbsp;something<br>
+reasonable.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-InheritsBackgroundColour"><strong>InheritsBackgroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-InheritsBackgroundColour">InheritsBackgroundColour</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Return&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;inherits&nbsp;the&nbsp;background&nbsp;colour&nbsp;from&nbsp;its<br>
+parent.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-InvalidateBestSize"><strong>InvalidateBestSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-InvalidateBestSize">InvalidateBestSize</a>()<br>
+&nbsp;<br>
+Resets&nbsp;the&nbsp;cached&nbsp;best&nbsp;size&nbsp;value&nbsp;so&nbsp;it&nbsp;will&nbsp;be&nbsp;recalculated&nbsp;the&nbsp;next<br>
+time&nbsp;it&nbsp;is&nbsp;needed.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsBeingDeleted"><strong>IsBeingDeleted</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsBeingDeleted">IsBeingDeleted</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;is&nbsp;in&nbsp;process&nbsp;of&nbsp;being&nbsp;destroyed.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsDescendant"><strong>IsDescendant</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsDescendant">IsDescendant</a>(win)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Check&nbsp;if&nbsp;the&nbsp;specified&nbsp;window&nbsp;is&nbsp;a&nbsp;descendant&nbsp;of&nbsp;this&nbsp;one.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsDoubleBuffered"><strong>IsDoubleBuffered</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsDoubleBuffered">IsDoubleBuffered</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;contents&nbsp;is&nbsp;double-buffered&nbsp;by&nbsp;the&nbsp;system,<br>
+i.e.&nbsp;if&nbsp;any&nbsp;drawing&nbsp;done&nbsp;on&nbsp;the&nbsp;window&nbsp;is&nbsp;really&nbsp;done&nbsp;on&nbsp;a&nbsp;temporary<br>
+backing&nbsp;surface&nbsp;and&nbsp;transferred&nbsp;to&nbsp;the&nbsp;screen&nbsp;all&nbsp;at&nbsp;once&nbsp;later.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsEnabled"><strong>IsEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsEnabled">IsEnabled</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;enabled,&nbsp;i.e.&nbsp;if&nbsp;it&nbsp;accepts&nbsp;user&nbsp;input,<br>
+false&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsExposed"><strong>IsExposed</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsExposed">IsExposed</a>(x,&nbsp;y)&nbsp;-&gt;&nbsp;bool<br>
+<a href="#SimulationPanel-IsExposed">IsExposed</a>(pt)&nbsp;-&gt;&nbsp;bool<br>
+<a href="#SimulationPanel-IsExposed">IsExposed</a>(x,&nbsp;y,&nbsp;w,&nbsp;h)&nbsp;-&gt;&nbsp;bool<br>
+<a href="#SimulationPanel-IsExposed">IsExposed</a>(rect)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;given&nbsp;point&nbsp;or&nbsp;rectangle&nbsp;area&nbsp;has&nbsp;been&nbsp;exposed<br>
+since&nbsp;the&nbsp;last&nbsp;repaint.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsFocusable"><strong>IsFocusable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsFocusable">IsFocusable</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Can&nbsp;this&nbsp;window&nbsp;itself&nbsp;have&nbsp;focus?</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsFrozen"><strong>IsFrozen</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsFrozen">IsFrozen</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;currently&nbsp;frozen&nbsp;by&nbsp;a&nbsp;call&nbsp;to&nbsp;<a href="#SimulationPanel-Freeze">Freeze</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsRetained"><strong>IsRetained</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsRetained">IsRetained</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;retained,&nbsp;false&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsScrollbarAlwaysShown"><strong>IsScrollbarAlwaysShown</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsScrollbarAlwaysShown">IsScrollbarAlwaysShown</a>(orient)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Return&nbsp;whether&nbsp;a&nbsp;scrollbar&nbsp;is&nbsp;always&nbsp;shown.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsShown"><strong>IsShown</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsShown">IsShown</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;shown,&nbsp;false&nbsp;if&nbsp;it&nbsp;has&nbsp;been&nbsp;hidden.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsShownOnScreen"><strong>IsShownOnScreen</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsShownOnScreen">IsShownOnScreen</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;physically&nbsp;visible&nbsp;on&nbsp;the&nbsp;screen,&nbsp;i.e.<br>
+it&nbsp;is&nbsp;shown&nbsp;and&nbsp;all&nbsp;its&nbsp;parents&nbsp;up&nbsp;to&nbsp;the&nbsp;toplevel&nbsp;window&nbsp;are&nbsp;shown&nbsp;as<br>
+well.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsThisEnabled"><strong>IsThisEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsThisEnabled">IsThisEnabled</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;window&nbsp;is&nbsp;intrinsically&nbsp;enabled,&nbsp;false&nbsp;otherwise,<br>
+i.e.&nbsp;if&nbsp;<a href="#SimulationPanel-Enable">Enable</a>()&nbsp;<a href="#SimulationPanel-Enable">Enable</a>(false)&nbsp;had&nbsp;been&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsTopLevel"><strong>IsTopLevel</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsTopLevel">IsTopLevel</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;given&nbsp;window&nbsp;is&nbsp;a&nbsp;top-level&nbsp;one.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsTransparentBackgroundSupported"><strong>IsTransparentBackgroundSupported</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsTransparentBackgroundSupported">IsTransparentBackgroundSupported</a>(reason=None)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Checks&nbsp;whether&nbsp;using&nbsp;transparent&nbsp;background&nbsp;might&nbsp;work.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-LineDown"><strong>LineDown</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-LineDown">LineDown</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Same&nbsp;as&nbsp;ScrollLines&nbsp;(1).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-LineUp"><strong>LineUp</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-LineUp">LineUp</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Same&nbsp;as&nbsp;ScrollLines&nbsp;(-1).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Lower"><strong>Lower</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Lower">Lower</a>()<br>
+&nbsp;<br>
+Lowers&nbsp;the&nbsp;window&nbsp;to&nbsp;the&nbsp;bottom&nbsp;of&nbsp;the&nbsp;window&nbsp;hierarchy&nbsp;(Z-order).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-MacIsWindowScrollbar"><strong>MacIsWindowScrollbar</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-MacIsWindowScrollbar">MacIsWindowScrollbar</a>(sb)<br>
+&nbsp;<br>
+Is&nbsp;the&nbsp;given&nbsp;widget&nbsp;one&nbsp;of&nbsp;this&nbsp;window's&nbsp;built-in&nbsp;scrollbars?&nbsp;&nbsp;Only<br>
+applicable&nbsp;on&nbsp;Mac.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Move"><strong>Move</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Move">Move</a>(x,&nbsp;y,&nbsp;flags=SIZE_USE_EXISTING)<br>
+<a href="#SimulationPanel-Move">Move</a>(pt,&nbsp;flags=SIZE_USE_EXISTING)<br>
+&nbsp;<br>
+Moves&nbsp;the&nbsp;window&nbsp;to&nbsp;the&nbsp;given&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-MoveAfterInTabOrder"><strong>MoveAfterInTabOrder</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-MoveAfterInTabOrder">MoveAfterInTabOrder</a>(win)<br>
+&nbsp;<br>
+Moves&nbsp;this&nbsp;window&nbsp;in&nbsp;the&nbsp;tab&nbsp;navigation&nbsp;order&nbsp;after&nbsp;the&nbsp;specified&nbsp;win.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-MoveBeforeInTabOrder"><strong>MoveBeforeInTabOrder</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-MoveBeforeInTabOrder">MoveBeforeInTabOrder</a>(win)<br>
+&nbsp;<br>
+Same&nbsp;as&nbsp;<a href="#SimulationPanel-MoveAfterInTabOrder">MoveAfterInTabOrder</a>()&nbsp;except&nbsp;that&nbsp;it&nbsp;inserts&nbsp;this&nbsp;window&nbsp;just<br>
+before&nbsp;win&nbsp;instead&nbsp;of&nbsp;putting&nbsp;it&nbsp;right&nbsp;after&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-MoveXY"><strong>MoveXY</strong></a> = _Window_MoveXY(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Navigate"><strong>Navigate</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Navigate">Navigate</a>(flags=NavigationKeyEvent.IsForward)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Performs&nbsp;a&nbsp;keyboard&nbsp;navigation&nbsp;action&nbsp;starting&nbsp;from&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-NavigateIn"><strong>NavigateIn</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-NavigateIn">NavigateIn</a>(flags=NavigationKeyEvent.IsForward)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Performs&nbsp;a&nbsp;keyboard&nbsp;navigation&nbsp;action&nbsp;inside&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-NewControlId"><strong>NewControlId</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-NewControlId">NewControlId</a>(count=1)&nbsp;-&gt;&nbsp;WindowID<br>
+&nbsp;<br>
+Create&nbsp;a&nbsp;new&nbsp;ID&nbsp;or&nbsp;range&nbsp;of&nbsp;IDs&nbsp;that&nbsp;are&nbsp;not&nbsp;currently&nbsp;in&nbsp;use.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PageDown"><strong>PageDown</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PageDown">PageDown</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Same&nbsp;as&nbsp;ScrollPages&nbsp;(1).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PageUp"><strong>PageUp</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PageUp">PageUp</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Same&nbsp;as&nbsp;ScrollPages&nbsp;(-1).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PopEventHandler"><strong>PopEventHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PopEventHandler">PopEventHandler</a>(deleteHandler=False)&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Removes&nbsp;and&nbsp;returns&nbsp;the&nbsp;top-most&nbsp;event&nbsp;handler&nbsp;on&nbsp;the&nbsp;event&nbsp;handler<br>
+stack.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PopupMenu"><strong>PopupMenu</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PopupMenu">PopupMenu</a>(menu,&nbsp;pos=DefaultPosition)&nbsp;-&gt;&nbsp;bool<br>
+<a href="#SimulationPanel-PopupMenu">PopupMenu</a>(menu,&nbsp;x,&nbsp;y)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Pops&nbsp;up&nbsp;the&nbsp;given&nbsp;menu&nbsp;at&nbsp;the&nbsp;specified&nbsp;coordinates,&nbsp;relative&nbsp;to&nbsp;this<br>
+window,&nbsp;and&nbsp;returns&nbsp;control&nbsp;when&nbsp;the&nbsp;user&nbsp;has&nbsp;dismissed&nbsp;the&nbsp;menu.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PostCreate"><strong>PostCreate</strong></a> = _Window_PostCreate(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PostSizeEvent"><strong>PostSizeEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PostSizeEvent">PostSizeEvent</a>()<br>
+&nbsp;<br>
+Posts&nbsp;a&nbsp;size&nbsp;event&nbsp;to&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PostSizeEventToParent"><strong>PostSizeEventToParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PostSizeEventToParent">PostSizeEventToParent</a>()<br>
+&nbsp;<br>
+Posts&nbsp;a&nbsp;size&nbsp;event&nbsp;to&nbsp;the&nbsp;parent&nbsp;of&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ProcessWindowEvent"><strong>ProcessWindowEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ProcessWindowEvent">ProcessWindowEvent</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Convenient&nbsp;wrapper&nbsp;for&nbsp;<a href="#SimulationPanel-ProcessEvent">ProcessEvent</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ProcessWindowEventLocally"><strong>ProcessWindowEventLocally</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ProcessWindowEventLocally">ProcessWindowEventLocally</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Wrapper&nbsp;for&nbsp;wxEvtHandler::<a href="#SimulationPanel-ProcessEventLocally">ProcessEventLocally</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-PushEventHandler"><strong>PushEventHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-PushEventHandler">PushEventHandler</a>(handler)<br>
+&nbsp;<br>
+Pushes&nbsp;this&nbsp;event&nbsp;handler&nbsp;onto&nbsp;the&nbsp;event&nbsp;stack&nbsp;for&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Raise"><strong>Raise</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Raise">Raise</a>()<br>
+&nbsp;<br>
+Raises&nbsp;the&nbsp;window&nbsp;to&nbsp;the&nbsp;top&nbsp;of&nbsp;the&nbsp;window&nbsp;hierarchy&nbsp;(Z-order).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Refresh"><strong>Refresh</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Refresh">Refresh</a>(eraseBackground=True,&nbsp;rect=None)<br>
+&nbsp;<br>
+Causes&nbsp;this&nbsp;window,&nbsp;and&nbsp;all&nbsp;of&nbsp;its&nbsp;children&nbsp;recursively&nbsp;(except&nbsp;under<br>
+wxGTK1&nbsp;where&nbsp;this&nbsp;is&nbsp;not&nbsp;implemented),&nbsp;to&nbsp;be&nbsp;repainted.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-RefreshRect"><strong>RefreshRect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-RefreshRect">RefreshRect</a>(rect,&nbsp;eraseBackground=True)<br>
+&nbsp;<br>
+Redraws&nbsp;the&nbsp;contents&nbsp;of&nbsp;the&nbsp;given&nbsp;rectangle:&nbsp;only&nbsp;the&nbsp;area&nbsp;inside&nbsp;it<br>
+will&nbsp;be&nbsp;repainted.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-RegisterHotKey"><strong>RegisterHotKey</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-RegisterHotKey">RegisterHotKey</a>(hotkeyId,&nbsp;modifiers,&nbsp;virtualKeyCode)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Registers&nbsp;a&nbsp;system&nbsp;wide&nbsp;hotkey.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ReleaseMouse"><strong>ReleaseMouse</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ReleaseMouse">ReleaseMouse</a>()<br>
+&nbsp;<br>
+Releases&nbsp;mouse&nbsp;input&nbsp;captured&nbsp;with&nbsp;<a href="#SimulationPanel-CaptureMouse">CaptureMouse</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-RemoveEventHandler"><strong>RemoveEventHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-RemoveEventHandler">RemoveEventHandler</a>(handler)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Find&nbsp;the&nbsp;given&nbsp;handler&nbsp;in&nbsp;the&nbsp;windows&nbsp;event&nbsp;handler&nbsp;stack&nbsp;and&nbsp;removes<br>
+(but&nbsp;does&nbsp;not&nbsp;delete)&nbsp;it&nbsp;from&nbsp;the&nbsp;stack.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Reparent"><strong>Reparent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Reparent">Reparent</a>(newParent)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Reparents&nbsp;the&nbsp;window,&nbsp;i.e.&nbsp;the&nbsp;window&nbsp;will&nbsp;be&nbsp;removed&nbsp;from&nbsp;its&nbsp;current<br>
+parent&nbsp;window&nbsp;(e.g.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ScreenToClient"><strong>ScreenToClient</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ScreenToClient">ScreenToClient</a>(x,&nbsp;y)&nbsp;-&gt;&nbsp;(x,&nbsp;y)<br>
+<a href="#SimulationPanel-ScreenToClient">ScreenToClient</a>(pt)&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+Converts&nbsp;from&nbsp;screen&nbsp;to&nbsp;client&nbsp;window&nbsp;coordinates.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ScrollLines"><strong>ScrollLines</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ScrollLines">ScrollLines</a>(lines)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Scrolls&nbsp;the&nbsp;window&nbsp;by&nbsp;the&nbsp;given&nbsp;number&nbsp;of&nbsp;lines&nbsp;down&nbsp;(if&nbsp;lines&nbsp;is<br>
+positive)&nbsp;or&nbsp;up.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ScrollPages"><strong>ScrollPages</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ScrollPages">ScrollPages</a>(pages)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Scrolls&nbsp;the&nbsp;window&nbsp;by&nbsp;the&nbsp;given&nbsp;number&nbsp;of&nbsp;pages&nbsp;down&nbsp;(if&nbsp;pages&nbsp;is<br>
+positive)&nbsp;or&nbsp;up.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ScrollWindow"><strong>ScrollWindow</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ScrollWindow">ScrollWindow</a>(dx,&nbsp;dy,&nbsp;rect=None)<br>
+&nbsp;<br>
+Physically&nbsp;scrolls&nbsp;the&nbsp;pixels&nbsp;in&nbsp;the&nbsp;window&nbsp;and&nbsp;move&nbsp;child&nbsp;windows<br>
+accordingly.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SendIdleEvents"><strong>SendIdleEvents</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SendIdleEvents">SendIdleEvents</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Send&nbsp;idle&nbsp;event&nbsp;to&nbsp;window&nbsp;and&nbsp;all&nbsp;subwindows.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SendSizeEvent"><strong>SendSizeEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SendSizeEvent">SendSizeEvent</a>(flags=0)<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;sends&nbsp;a&nbsp;dummy&nbsp;size&nbsp;event&nbsp;to&nbsp;the&nbsp;window&nbsp;allowing&nbsp;it&nbsp;to<br>
+re-layout&nbsp;its&nbsp;children&nbsp;positions.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SendSizeEventToParent"><strong>SendSizeEventToParent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SendSizeEventToParent">SendSizeEventToParent</a>(flags=0)<br>
+&nbsp;<br>
+Safe&nbsp;wrapper&nbsp;for&nbsp;<a href="#SimulationPanel-GetParent">GetParent</a>()-&gt;<a href="#SimulationPanel-SendSizeEvent">SendSizeEvent</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetAcceleratorTable"><strong>SetAcceleratorTable</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetAcceleratorTable">SetAcceleratorTable</a>(accel)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;accelerator&nbsp;table&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetAutoLayout"><strong>SetAutoLayout</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetAutoLayout">SetAutoLayout</a>(autoLayout)<br>
+&nbsp;<br>
+Determines&nbsp;whether&nbsp;the&nbsp;<a href="#SimulationPanel-Layout">Layout</a>()&nbsp;function&nbsp;will&nbsp;be&nbsp;called&nbsp;automatically<br>
+when&nbsp;the&nbsp;window&nbsp;is&nbsp;resized.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetBackgroundColour"><strong>SetBackgroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetBackgroundColour">SetBackgroundColour</a>(colour)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;background&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetBackgroundStyle"><strong>SetBackgroundStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetBackgroundStyle">SetBackgroundStyle</a>(style)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;background&nbsp;style&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetCaret"><strong>SetCaret</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetCaret">SetCaret</a>(caret)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;caret()&nbsp;associated&nbsp;with&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetClientRect"><strong>SetClientRect</strong></a> = _Window_SetClientRect(self, rect)</dt></dl>
+
+<dl><dt><a name="SimulationPanel-SetClientSize"><strong>SetClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetClientSize">SetClientSize</a>(width,&nbsp;height)<br>
+<a href="#SimulationPanel-SetClientSize">SetClientSize</a>(size)<br>
+<a href="#SimulationPanel-SetClientSize">SetClientSize</a>(rect)<br>
+&nbsp;<br>
+This&nbsp;sets&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;client&nbsp;area&nbsp;in&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetConstraints"><strong>SetConstraints</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetConstraints">SetConstraints</a>(constraints)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;window&nbsp;to&nbsp;have&nbsp;the&nbsp;given&nbsp;layout&nbsp;constraints.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetContainingSizer"><strong>SetContainingSizer</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetContainingSizer">SetContainingSizer</a>(sizer)<br>
+&nbsp;<br>
+This&nbsp;normally&nbsp;does&nbsp;not&nbsp;need&nbsp;to&nbsp;be&nbsp;called&nbsp;by&nbsp;user&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetCursor"><strong>SetCursor</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetCursor">SetCursor</a>(cursor)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;window's&nbsp;cursor.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetDimensions"><strong>SetDimensions</strong></a>(*args, **kw)</dt><dd><tt><a href="#SimulationPanel-SetDimensions">SetDimensions</a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;sizeFlags=SIZE_AUTO)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetDoubleBuffered"><strong>SetDoubleBuffered</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetDoubleBuffered">SetDoubleBuffered</a>(on)<br>
+&nbsp;<br>
+Turn&nbsp;on&nbsp;or&nbsp;off&nbsp;double&nbsp;buffering&nbsp;of&nbsp;the&nbsp;window&nbsp;if&nbsp;the&nbsp;system&nbsp;supports<br>
+it.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetDropTarget"><strong>SetDropTarget</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetDropTarget">SetDropTarget</a>(target)<br>
+&nbsp;<br>
+Associates&nbsp;a&nbsp;drop&nbsp;target&nbsp;with&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetEventHandler"><strong>SetEventHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetEventHandler">SetEventHandler</a>(handler)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;event&nbsp;handler&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetExtraStyle"><strong>SetExtraStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetExtraStyle">SetExtraStyle</a>(exStyle)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;extra&nbsp;style&nbsp;bits&nbsp;for&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetFocusFromKbd"><strong>SetFocusFromKbd</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetFocusFromKbd">SetFocusFromKbd</a>()<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;is&nbsp;called&nbsp;by&nbsp;wxWidgets&nbsp;keyboard&nbsp;navigation&nbsp;code&nbsp;when&nbsp;the<br>
+user&nbsp;gives&nbsp;the&nbsp;focus&nbsp;to&nbsp;this&nbsp;window&nbsp;from&nbsp;keyboard&nbsp;(e.g.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetFont"><strong>SetFont</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetFont">SetFont</a>(font)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;font&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetForegroundColour"><strong>SetForegroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetForegroundColour">SetForegroundColour</a>(colour)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;foreground&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetHelpText"><strong>SetHelpText</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetHelpText">SetHelpText</a>(helpText)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;help&nbsp;text&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;context-sensitive&nbsp;help&nbsp;for&nbsp;this<br>
+window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetId"><strong>SetId</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetId">SetId</a>(winid)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;identifier&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetInitialSize"><strong>SetInitialSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetInitialSize">SetInitialSize</a>(size=DefaultSize)<br>
+&nbsp;<br>
+A&nbsp;smart&nbsp;SetSize&nbsp;that&nbsp;will&nbsp;fill&nbsp;in&nbsp;default&nbsp;size&nbsp;components&nbsp;with&nbsp;the<br>
+window's&nbsp;best&nbsp;size&nbsp;values.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetLabel"><strong>SetLabel</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetLabel">SetLabel</a>(label)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;window's&nbsp;label.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetLayoutDirection"><strong>SetLayoutDirection</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetLayoutDirection">SetLayoutDirection</a>(dir)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;layout&nbsp;direction&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetMaxClientSize"><strong>SetMaxClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetMaxClientSize">SetMaxClientSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;maximum&nbsp;client&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;to&nbsp;indicate&nbsp;to&nbsp;the&nbsp;sizer<br>
+layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;maximum&nbsp;possible&nbsp;size&nbsp;of&nbsp;its&nbsp;client<br>
+area.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetMaxSize"><strong>SetMaxSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetMaxSize">SetMaxSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;maximum&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;to&nbsp;indicate&nbsp;to&nbsp;the&nbsp;sizer&nbsp;layout<br>
+mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;maximum&nbsp;possible&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetMinClientSize"><strong>SetMinClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetMinClientSize">SetMinClientSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;minimum&nbsp;client&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;to&nbsp;indicate&nbsp;to&nbsp;the&nbsp;sizer<br>
+layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size&nbsp;of&nbsp;window's<br>
+client&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetMinSize"><strong>SetMinSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetMinSize">SetMinSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;minimum&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;to&nbsp;indicate&nbsp;to&nbsp;the&nbsp;sizer&nbsp;layout<br>
+mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetName"><strong>SetName</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetName">SetName</a>(name)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;window's&nbsp;name.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetNextHandler"><strong>SetNextHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetNextHandler">SetNextHandler</a>(handler)<br>
+&nbsp;<br>
+wxWindows&nbsp;cannot&nbsp;be&nbsp;used&nbsp;to&nbsp;form&nbsp;event&nbsp;handler&nbsp;chains;&nbsp;this&nbsp;function<br>
+thus&nbsp;will&nbsp;assert&nbsp;when&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetOwnBackgroundColour"><strong>SetOwnBackgroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetOwnBackgroundColour">SetOwnBackgroundColour</a>(colour)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;background&nbsp;colour&nbsp;of&nbsp;the&nbsp;window&nbsp;but&nbsp;prevents&nbsp;it&nbsp;from&nbsp;being<br>
+inherited&nbsp;by&nbsp;the&nbsp;children&nbsp;of&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetOwnFont"><strong>SetOwnFont</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetOwnFont">SetOwnFont</a>(font)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;font&nbsp;of&nbsp;the&nbsp;window&nbsp;but&nbsp;prevents&nbsp;it&nbsp;from&nbsp;being&nbsp;inherited&nbsp;by<br>
+the&nbsp;children&nbsp;of&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetOwnForegroundColour"><strong>SetOwnForegroundColour</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetOwnForegroundColour">SetOwnForegroundColour</a>(colour)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;foreground&nbsp;colour&nbsp;of&nbsp;the&nbsp;window&nbsp;but&nbsp;prevents&nbsp;it&nbsp;from&nbsp;being<br>
+inherited&nbsp;by&nbsp;the&nbsp;children&nbsp;of&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetPalette"><strong>SetPalette</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetPalette">SetPalette</a>(pal)</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetPosition"><strong>SetPosition</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetPosition">SetPosition</a>(pt)<br>
+&nbsp;<br>
+Moves&nbsp;the&nbsp;window&nbsp;to&nbsp;the&nbsp;specified&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetPreviousHandler"><strong>SetPreviousHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetPreviousHandler">SetPreviousHandler</a>(handler)<br>
+&nbsp;<br>
+wxWindows&nbsp;cannot&nbsp;be&nbsp;used&nbsp;to&nbsp;form&nbsp;event&nbsp;handler&nbsp;chains;&nbsp;this&nbsp;function<br>
+thus&nbsp;will&nbsp;assert&nbsp;when&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetRect"><strong>SetRect</strong></a> = _Window_SetRect(self, rect)</dt></dl>
+
+<dl><dt><a name="SimulationPanel-SetScrollPos"><strong>SetScrollPos</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetScrollPos">SetScrollPos</a>(orientation,&nbsp;pos,&nbsp;refresh=True)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;position&nbsp;of&nbsp;one&nbsp;of&nbsp;the&nbsp;built-in&nbsp;scrollbars.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetScrollbar"><strong>SetScrollbar</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetScrollbar">SetScrollbar</a>(orientation,&nbsp;position,&nbsp;thumbSize,&nbsp;range,&nbsp;refresh=True)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;scrollbar&nbsp;properties&nbsp;of&nbsp;a&nbsp;built-in&nbsp;scrollbar.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSize"><strong>SetSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetSize">SetSize</a>(x,&nbsp;y,&nbsp;width,&nbsp;height,&nbsp;sizeFlags=SIZE_AUTO)<br>
+<a href="#SimulationPanel-SetSize">SetSize</a>(rect)<br>
+<a href="#SimulationPanel-SetSize">SetSize</a>(size)<br>
+<a href="#SimulationPanel-SetSize">SetSize</a>(width,&nbsp;height)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSizeHints"><strong>SetSizeHints</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetSizeHints">SetSizeHints</a>(minSize,&nbsp;maxSize=DefaultSize,&nbsp;incSize=DefaultSize)<br>
+<a href="#SimulationPanel-SetSizeHints">SetSizeHints</a>(minW,&nbsp;minH,&nbsp;maxW=-1,&nbsp;maxH=-1,&nbsp;incW=-1,&nbsp;incH=-1)<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;this&nbsp;function&nbsp;for&nbsp;windows&nbsp;which&nbsp;are&nbsp;not&nbsp;toplevel&nbsp;windows&nbsp;(such<br>
+as&nbsp;wxDialog&nbsp;or&nbsp;wxFrame)&nbsp;is&nbsp;discouraged.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSizeHintsSz"><strong>SetSizeHintsSz</strong></a> = _Window_SetSizeHintsSz(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSizeWH"><strong>SetSizeWH</strong></a> = _Window_SetSizeWH(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSizer"><strong>SetSizer</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetSizer">SetSizer</a>(sizer,&nbsp;deleteOld=True)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;window&nbsp;to&nbsp;have&nbsp;the&nbsp;given&nbsp;layout&nbsp;sizer.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetSizerAndFit"><strong>SetSizerAndFit</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetSizerAndFit">SetSizerAndFit</a>(sizer,&nbsp;deleteOld=True)<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;calls&nbsp;<a href="#SimulationPanel-SetSizer">SetSizer</a>()&nbsp;and&nbsp;then&nbsp;wxSizer::SetSizeHints&nbsp;which&nbsp;sets<br>
+the&nbsp;initial&nbsp;window&nbsp;size&nbsp;to&nbsp;the&nbsp;size&nbsp;needed&nbsp;to&nbsp;accommodate&nbsp;all&nbsp;sizer<br>
+elements&nbsp;and&nbsp;sets&nbsp;the&nbsp;size&nbsp;hints&nbsp;which,&nbsp;if&nbsp;this&nbsp;window&nbsp;is&nbsp;a&nbsp;top&nbsp;level<br>
+one,&nbsp;prevent&nbsp;the&nbsp;user&nbsp;from&nbsp;resizing&nbsp;it&nbsp;to&nbsp;be&nbsp;less&nbsp;than&nbsp;this&nbsp;minimal<br>
+size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetThemeEnabled"><strong>SetThemeEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetThemeEnabled">SetThemeEnabled</a>(enable)<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;tells&nbsp;a&nbsp;window&nbsp;if&nbsp;it&nbsp;should&nbsp;use&nbsp;the&nbsp;system's&nbsp;"theme"<br>
+code&nbsp;to&nbsp;draw&nbsp;the&nbsp;windows'&nbsp;background&nbsp;instead&nbsp;of&nbsp;its&nbsp;own&nbsp;background<br>
+drawing&nbsp;code.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetToolTip"><strong>SetToolTip</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetToolTip">SetToolTip</a>(tipString)<br>
+<a href="#SimulationPanel-SetToolTip">SetToolTip</a>(tip)<br>
+&nbsp;<br>
+Attach&nbsp;a&nbsp;tooltip&nbsp;to&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetToolTipString"><strong>SetToolTipString</strong></a> = _Window_SetToolTipString(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetTransparent"><strong>SetTransparent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetTransparent">SetTransparent</a>(alpha)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Set&nbsp;the&nbsp;transparency&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetVirtualSize"><strong>SetVirtualSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetVirtualSize">SetVirtualSize</a>(width,&nbsp;height)<br>
+<a href="#SimulationPanel-SetVirtualSize">SetVirtualSize</a>(size)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;virtual&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetVirtualSizeWH"><strong>SetVirtualSizeWH</strong></a> = _Window_SetVirtualSizeWH(*args, **kw)</dt><dd><tt>#&nbsp;wrap&nbsp;a&nbsp;new&nbsp;function&nbsp;around&nbsp;the&nbsp;callable</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetWindowStyle"><strong>SetWindowStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetWindowStyle">SetWindowStyle</a>(style)<br>
+&nbsp;<br>
+See&nbsp;<a href="#SimulationPanel-SetWindowStyleFlag">SetWindowStyleFlag</a>()&nbsp;for&nbsp;more&nbsp;info.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetWindowStyleFlag"><strong>SetWindowStyleFlag</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetWindowStyleFlag">SetWindowStyleFlag</a>(style)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;style&nbsp;of&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetWindowVariant"><strong>SetWindowVariant</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetWindowVariant">SetWindowVariant</a>(variant)<br>
+&nbsp;<br>
+Chooses&nbsp;a&nbsp;different&nbsp;variant&nbsp;of&nbsp;the&nbsp;window&nbsp;display&nbsp;to&nbsp;use.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Show"><strong>Show</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Show">Show</a>(show=True)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Shows&nbsp;or&nbsp;hides&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ShowWithEffect"><strong>ShowWithEffect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ShowWithEffect">ShowWithEffect</a>(effect,&nbsp;timeout=0)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;shows&nbsp;a&nbsp;window,&nbsp;like&nbsp;<a href="#SimulationPanel-Show">Show</a>(),&nbsp;but&nbsp;using&nbsp;a&nbsp;special&nbsp;visual<br>
+effect&nbsp;if&nbsp;possible.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Thaw"><strong>Thaw</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Thaw">Thaw</a>()<br>
+&nbsp;<br>
+Re-enables&nbsp;window&nbsp;updating&nbsp;after&nbsp;a&nbsp;previous&nbsp;call&nbsp;to&nbsp;<a href="#SimulationPanel-Freeze">Freeze</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ToggleWindowStyle"><strong>ToggleWindowStyle</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ToggleWindowStyle">ToggleWindowStyle</a>(flag)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Turns&nbsp;the&nbsp;given&nbsp;flag&nbsp;on&nbsp;if&nbsp;it's&nbsp;currently&nbsp;turned&nbsp;off&nbsp;and&nbsp;vice&nbsp;versa.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UnregisterHotKey"><strong>UnregisterHotKey</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UnregisterHotKey">UnregisterHotKey</a>(hotkeyId)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Unregisters&nbsp;a&nbsp;system&nbsp;wide&nbsp;hotkey.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UnreserveControlId"><strong>UnreserveControlId</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UnreserveControlId">UnreserveControlId</a>(id,&nbsp;count=1)<br>
+&nbsp;<br>
+Unreserve&nbsp;an&nbsp;ID&nbsp;or&nbsp;range&nbsp;of&nbsp;IDs&nbsp;that&nbsp;was&nbsp;reserved&nbsp;by&nbsp;<a href="#SimulationPanel-NewControlId">NewControlId</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UnsetToolTip"><strong>UnsetToolTip</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UnsetToolTip">UnsetToolTip</a>()<br>
+&nbsp;<br>
+Unset&nbsp;any&nbsp;existing&nbsp;tooltip.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Update"><strong>Update</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Update">Update</a>()<br>
+&nbsp;<br>
+Calling&nbsp;this&nbsp;method&nbsp;immediately&nbsp;repaints&nbsp;the&nbsp;invalidated&nbsp;area&nbsp;of&nbsp;the<br>
+window&nbsp;and&nbsp;all&nbsp;of&nbsp;its&nbsp;children&nbsp;recursively&nbsp;(this&nbsp;normally&nbsp;only&nbsp;happens<br>
+when&nbsp;the&nbsp;flow&nbsp;of&nbsp;control&nbsp;returns&nbsp;to&nbsp;the&nbsp;event&nbsp;loop).</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UpdateWindowUI"><strong>UpdateWindowUI</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UpdateWindowUI">UpdateWindowUI</a>(flags=UPDATE_UI_NONE)<br>
+&nbsp;<br>
+This&nbsp;function&nbsp;sends&nbsp;one&nbsp;or&nbsp;more&nbsp;wxUpdateUIEvent&nbsp;to&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UseBgCol"><strong>UseBgCol</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UseBgCol">UseBgCol</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Return&nbsp;true&nbsp;if&nbsp;a&nbsp;background&nbsp;colour&nbsp;has&nbsp;been&nbsp;set&nbsp;for&nbsp;this&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-WarpPointer"><strong>WarpPointer</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-WarpPointer">WarpPointer</a>(x,&nbsp;y)<br>
+&nbsp;<br>
+Moves&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;given&nbsp;position&nbsp;on&nbsp;the&nbsp;window.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-WindowToClientSize"><strong>WindowToClientSize</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-WindowToClientSize">WindowToClientSize</a>(size)&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Converts&nbsp;window&nbsp;size&nbsp;size&nbsp;to&nbsp;corresponding&nbsp;client&nbsp;area&nbsp;size&nbsp;In&nbsp;other<br>
+words,&nbsp;the&nbsp;returned&nbsp;value&nbsp;is&nbsp;what&nbsp;would&nbsp;<a href="#SimulationPanel-GetClientSize">GetClientSize</a>()&nbsp;return&nbsp;if&nbsp;this<br>
+window&nbsp;had&nbsp;given&nbsp;window&nbsp;size.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-__bool__"><strong>__bool__</strong></a> = _Window___nonzero__(self)</dt><dd><tt>Can&nbsp;be&nbsp;used&nbsp;to&nbsp;test&nbsp;if&nbsp;the&nbsp;C++&nbsp;part&nbsp;of&nbsp;the&nbsp;window&nbsp;still&nbsp;exists,&nbsp;with&nbsp;<br>
+code&nbsp;like&nbsp;this::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;theWindow:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doSomething()</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-__nonzero__"><strong>__nonzero__</strong></a> = _Window___nonzero__(self)</dt><dd><tt>Can&nbsp;be&nbsp;used&nbsp;to&nbsp;test&nbsp;if&nbsp;the&nbsp;C++&nbsp;part&nbsp;of&nbsp;the&nbsp;window&nbsp;still&nbsp;exists,&nbsp;with&nbsp;<br>
+code&nbsp;like&nbsp;this::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;theWindow:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;doSomething()</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#Window">wx._core.Window</a>:<br>
+<dl><dt><strong>AcceleratorTable</strong></dt>
+<dd><tt>GetAcceleratorTable()&nbsp;-&gt;&nbsp;AcceleratorTable<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;accelerator&nbsp;table&nbsp;for&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>AutoLayout</strong></dt>
+<dd><tt>GetAutoLayout()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;of&nbsp;which&nbsp;this&nbsp;window&nbsp;is&nbsp;a&nbsp;member,&nbsp;if&nbsp;any,&nbsp;otherwise<br>
+NULL.</tt></dd>
+</dl>
+<dl><dt><strong>BackgroundColour</strong></dt>
+<dd><tt>GetBackgroundColour()&nbsp;-&gt;&nbsp;Colour<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;background&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>BackgroundStyle</strong></dt>
+<dd><tt>GetBackgroundStyle()&nbsp;-&gt;&nbsp;BackgroundStyle<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;background&nbsp;style&nbsp;of&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>BestSize</strong></dt>
+<dd><tt>GetBestSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+This&nbsp;functions&nbsp;returns&nbsp;the&nbsp;best&nbsp;acceptable&nbsp;minimal&nbsp;size&nbsp;for&nbsp;the<br>
+window.</tt></dd>
+</dl>
+<dl><dt><strong>BestVirtualSize</strong></dt>
+<dd><tt>GetBestVirtualSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;largest&nbsp;of&nbsp;ClientSize&nbsp;and&nbsp;BestSize&nbsp;(as&nbsp;determined&nbsp;by&nbsp;a<br>
+sizer,&nbsp;interior&nbsp;children,&nbsp;or&nbsp;other&nbsp;means)</tt></dd>
+</dl>
+<dl><dt><strong>Border</strong></dt>
+<dd><tt>GetBorder(flags)&nbsp;-&gt;&nbsp;Border<br>
+GetBorder()&nbsp;-&gt;&nbsp;Border<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;window&nbsp;border&nbsp;style&nbsp;from&nbsp;the&nbsp;given&nbsp;flags:&nbsp;this&nbsp;is&nbsp;different<br>
+from&nbsp;simply&nbsp;doing&nbsp;flags&nbsp;&amp;&nbsp;wxBORDER_MASK&nbsp;because&nbsp;it&nbsp;uses<br>
+GetDefaultBorder()&nbsp;to&nbsp;translate&nbsp;wxBORDER_DEFAULT&nbsp;to&nbsp;something<br>
+reasonable.</tt></dd>
+</dl>
+<dl><dt><strong>Caret</strong></dt>
+<dd><tt>GetCaret()&nbsp;-&gt;&nbsp;Caret<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;caret()&nbsp;associated&nbsp;with&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>CharHeight</strong></dt>
+<dd><tt>GetCharHeight()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;character&nbsp;height&nbsp;for&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>CharWidth</strong></dt>
+<dd><tt>GetCharWidth()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;average&nbsp;character&nbsp;width&nbsp;for&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>Children</strong></dt>
+<dd><tt>GetChildren()&nbsp;-&gt;&nbsp;WindowList<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;list&nbsp;of&nbsp;the&nbsp;window's&nbsp;children.</tt></dd>
+</dl>
+<dl><dt><strong>ClientAreaOrigin</strong></dt>
+<dd><tt>GetClientAreaOrigin()&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;origin&nbsp;of&nbsp;the&nbsp;client&nbsp;area&nbsp;of&nbsp;the&nbsp;window&nbsp;relative&nbsp;to&nbsp;the&nbsp;window<br>
+top&nbsp;left&nbsp;corner&nbsp;(the&nbsp;client&nbsp;area&nbsp;may&nbsp;be&nbsp;shifted&nbsp;because&nbsp;of&nbsp;the<br>
+borders,&nbsp;scrollbars,&nbsp;other&nbsp;decorations...)</tt></dd>
+</dl>
+<dl><dt><strong>ClientRect</strong></dt>
+<dd><tt>GetClientRect()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;client&nbsp;rectangle&nbsp;in&nbsp;window&nbsp;(i.e.&nbsp;client)&nbsp;coordinates.</tt></dd>
+</dl>
+<dl><dt><strong>ClientSize</strong></dt>
+<dd><tt>GetClientSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;'client&nbsp;area'&nbsp;in&nbsp;pixels.</tt></dd>
+</dl>
+<dl><dt><strong>Constraints</strong></dt>
+<dd><tt>GetConstraints()&nbsp;-&gt;&nbsp;LayoutConstraints<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;pointer&nbsp;to&nbsp;the&nbsp;window's&nbsp;layout&nbsp;constraints,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there<br>
+are&nbsp;none.</tt></dd>
+</dl>
+<dl><dt><strong>ContainingSizer</strong></dt>
+<dd><tt>GetContainingSizer()&nbsp;-&gt;&nbsp;Sizer<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;of&nbsp;which&nbsp;this&nbsp;window&nbsp;is&nbsp;a&nbsp;member,&nbsp;if&nbsp;any,&nbsp;otherwise<br>
+NULL.</tt></dd>
+</dl>
+<dl><dt><strong>Cursor</strong></dt>
+<dd><tt>GetCursor()&nbsp;-&gt;&nbsp;Cursor<br>
+&nbsp;<br>
+Return&nbsp;the&nbsp;cursor&nbsp;associated&nbsp;with&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>DefaultAttributes</strong></dt>
+<dd><tt>GetDefaultAttributes()&nbsp;-&gt;&nbsp;VisualAttributes<br>
+&nbsp;<br>
+Currently&nbsp;this&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;calling<br>
+wxWindow::GetClassDefaultAttributes(wxWindow::GetWindowVariant()).</tt></dd>
+</dl>
+<dl><dt><strong>DropTarget</strong></dt>
+<dd><tt>GetDropTarget()&nbsp;-&gt;&nbsp;DropTarget<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;associated&nbsp;drop&nbsp;target,&nbsp;which&nbsp;may&nbsp;be&nbsp;NULL.</tt></dd>
+</dl>
+<dl><dt><strong>EffectiveMinSize</strong></dt>
+<dd><tt>GetEffectiveMinSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Merges&nbsp;the&nbsp;window's&nbsp;best&nbsp;size&nbsp;into&nbsp;the&nbsp;min&nbsp;size&nbsp;and&nbsp;returns&nbsp;the<br>
+result.</tt></dd>
+</dl>
+<dl><dt><strong>Enabled</strong></dt>
+<dd><tt>IsEnabled()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;enabled,&nbsp;i.e.&nbsp;if&nbsp;it&nbsp;accepts&nbsp;user&nbsp;input,<br>
+false&nbsp;otherwise.</tt></dd>
+</dl>
+<dl><dt><strong>EventHandler</strong></dt>
+<dd><tt>GetEventHandler()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;event&nbsp;handler&nbsp;for&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>ExtraStyle</strong></dt>
+<dd><tt>GetExtraStyle()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;extra&nbsp;style&nbsp;bits&nbsp;for&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>Font</strong></dt>
+<dd><tt>GetFont()&nbsp;-&gt;&nbsp;Font<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;font&nbsp;for&nbsp;this&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>ForegroundColour</strong></dt>
+<dd><tt>GetForegroundColour()&nbsp;-&gt;&nbsp;Colour<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;foreground&nbsp;colour&nbsp;of&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>GrandParent</strong></dt>
+<dd><tt>GetGrandParent()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;grandparent&nbsp;of&nbsp;a&nbsp;window,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there&nbsp;isn't&nbsp;one.</tt></dd>
+</dl>
+<dl><dt><strong>Handle</strong></dt>
+<dd><tt>GetHandle()&nbsp;-&gt;&nbsp;UIntPtr<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;platform-specific&nbsp;handle&nbsp;of&nbsp;the&nbsp;physical&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>HelpText</strong></dt>
+<dd><tt>GetHelpText()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;help&nbsp;text&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;context-sensitive&nbsp;help&nbsp;for&nbsp;this<br>
+window.</tt></dd>
+</dl>
+<dl><dt><strong>Id</strong></dt>
+<dd><tt>GetId()&nbsp;-&gt;&nbsp;WindowID<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;identifier&nbsp;of&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>Label</strong></dt>
+<dd><tt>GetLabel()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Generic&nbsp;way&nbsp;of&nbsp;getting&nbsp;a&nbsp;label&nbsp;from&nbsp;any&nbsp;window,&nbsp;for&nbsp;identification<br>
+purposes.</tt></dd>
+</dl>
+<dl><dt><strong>LayoutDirection</strong></dt>
+<dd><tt>GetLayoutDirection()&nbsp;-&gt;&nbsp;LayoutDirection<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;layout&nbsp;direction&nbsp;for&nbsp;this&nbsp;window,&nbsp;Note&nbsp;that<br>
+wxLayout_Default&nbsp;is&nbsp;returned&nbsp;if&nbsp;layout&nbsp;direction&nbsp;is&nbsp;not&nbsp;supported.</tt></dd>
+</dl>
+<dl><dt><strong>MaxClientSize</strong></dt>
+<dd><tt>GetMaxClientSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;maximum&nbsp;size&nbsp;of&nbsp;window's&nbsp;client&nbsp;area.</tt></dd>
+</dl>
+<dl><dt><strong>MaxHeight</strong></dt>
+<dd><tt>GetMaxHeight()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;vertical&nbsp;component&nbsp;of&nbsp;window&nbsp;maximal&nbsp;size.</tt></dd>
+</dl>
+<dl><dt><strong>MaxSize</strong></dt>
+<dd><tt>GetMaxSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;maximum&nbsp;size&nbsp;of&nbsp;the&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>MaxWidth</strong></dt>
+<dd><tt>GetMaxWidth()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;horizontal&nbsp;component&nbsp;of&nbsp;window&nbsp;maximal&nbsp;size.</tt></dd>
+</dl>
+<dl><dt><strong>MinClientSize</strong></dt>
+<dd><tt>GetMinClientSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;minimum&nbsp;size&nbsp;of&nbsp;window's&nbsp;client&nbsp;area,&nbsp;an&nbsp;indication&nbsp;to&nbsp;the<br>
+sizer&nbsp;layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size&nbsp;of&nbsp;its<br>
+client&nbsp;area.</tt></dd>
+</dl>
+<dl><dt><strong>MinHeight</strong></dt>
+<dd><tt>GetMinHeight()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;vertical&nbsp;component&nbsp;of&nbsp;window&nbsp;minimal&nbsp;size.</tt></dd>
+</dl>
+<dl><dt><strong>MinSize</strong></dt>
+<dd><tt>GetMinSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;minimum&nbsp;size&nbsp;of&nbsp;the&nbsp;window,&nbsp;an&nbsp;indication&nbsp;to&nbsp;the&nbsp;sizer<br>
+layout&nbsp;mechanism&nbsp;that&nbsp;this&nbsp;is&nbsp;the&nbsp;minimum&nbsp;required&nbsp;size.</tt></dd>
+</dl>
+<dl><dt><strong>MinWidth</strong></dt>
+<dd><tt>GetMinWidth()&nbsp;-&gt;&nbsp;int<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;horizontal&nbsp;component&nbsp;of&nbsp;window&nbsp;minimal&nbsp;size.</tt></dd>
+</dl>
+<dl><dt><strong>Name</strong></dt>
+<dd><tt>GetName()&nbsp;-&gt;&nbsp;String<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;window's&nbsp;name.</tt></dd>
+</dl>
+<dl><dt><strong>Parent</strong></dt>
+<dd><tt>GetParent()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;parent&nbsp;of&nbsp;the&nbsp;window,&nbsp;or&nbsp;NULL&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;parent.</tt></dd>
+</dl>
+<dl><dt><strong>Position</strong></dt>
+<dd><tt>GetPosition()&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+This&nbsp;gets&nbsp;the&nbsp;position&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels,&nbsp;relative&nbsp;to&nbsp;the&nbsp;parent<br>
+window&nbsp;for&nbsp;the&nbsp;child&nbsp;windows&nbsp;or&nbsp;relative&nbsp;to&nbsp;the&nbsp;display&nbsp;origin&nbsp;for&nbsp;the<br>
+top&nbsp;level&nbsp;windows.</tt></dd>
+</dl>
+<dl><dt><strong>Rect</strong></dt>
+<dd><tt>GetRect()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;position&nbsp;and&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;as&nbsp;a&nbsp;wxRect&nbsp;object.</tt></dd>
+</dl>
+<dl><dt><strong>ScreenPosition</strong></dt>
+<dd><tt>GetScreenPosition()&nbsp;-&gt;&nbsp;Point<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;window&nbsp;position&nbsp;in&nbsp;screen&nbsp;coordinates,&nbsp;whether&nbsp;the&nbsp;window<br>
+is&nbsp;a&nbsp;child&nbsp;window&nbsp;or&nbsp;a&nbsp;top&nbsp;level&nbsp;one.</tt></dd>
+</dl>
+<dl><dt><strong>ScreenRect</strong></dt>
+<dd><tt>GetScreenRect()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;position&nbsp;and&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;on&nbsp;the&nbsp;screen&nbsp;as&nbsp;a&nbsp;wxRect<br>
+object.</tt></dd>
+</dl>
+<dl><dt><strong>Shown</strong></dt>
+<dd><tt>IsShown()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;window&nbsp;is&nbsp;shown,&nbsp;false&nbsp;if&nbsp;it&nbsp;has&nbsp;been&nbsp;hidden.</tt></dd>
+</dl>
+<dl><dt><strong>Size</strong></dt>
+<dd><tt>GetSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;entire&nbsp;window&nbsp;in&nbsp;pixels,&nbsp;including&nbsp;title&nbsp;bar,<br>
+border,&nbsp;scrollbars,&nbsp;etc.</tt></dd>
+</dl>
+<dl><dt><strong>Sizer</strong></dt>
+<dd><tt>GetSizer()&nbsp;-&gt;&nbsp;Sizer<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;sizer&nbsp;associated&nbsp;with&nbsp;the&nbsp;window&nbsp;by&nbsp;a&nbsp;previous&nbsp;call&nbsp;to<br>
+SetSizer(),&nbsp;or&nbsp;NULL.</tt></dd>
+</dl>
+<dl><dt><strong>ThemeEnabled</strong></dt>
+<dd><tt>GetThemeEnabled()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Clears&nbsp;the&nbsp;window&nbsp;by&nbsp;filling&nbsp;it&nbsp;with&nbsp;the&nbsp;current&nbsp;background&nbsp;colour.</tt></dd>
+</dl>
+<dl><dt><strong>ToolTip</strong></dt>
+<dd><tt>GetToolTip()&nbsp;-&gt;&nbsp;ToolTip<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;associated&nbsp;tooltip&nbsp;or&nbsp;NULL&nbsp;if&nbsp;none.</tt></dd>
+</dl>
+<dl><dt><strong>TopLevel</strong></dt>
+<dd><tt>IsTopLevel()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;given&nbsp;window&nbsp;is&nbsp;a&nbsp;top-level&nbsp;one.</tt></dd>
+</dl>
+<dl><dt><strong>TopLevelParent</strong></dt>
+<dd><tt>GetTopLevelParent()&nbsp;-&gt;&nbsp;Window<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;first&nbsp;ancestor&nbsp;of&nbsp;this&nbsp;window&nbsp;which&nbsp;is&nbsp;a&nbsp;top-level&nbsp;window.</tt></dd>
+</dl>
+<dl><dt><strong>UpdateClientRect</strong></dt>
+<dd><tt>GetUpdateClientRect()&nbsp;-&gt;&nbsp;Rect<br>
+&nbsp;<br>
+Get&nbsp;the&nbsp;update&nbsp;rectangle&nbsp;bounding&nbsp;box&nbsp;in&nbsp;client&nbsp;coords.</tt></dd>
+</dl>
+<dl><dt><strong>UpdateRegion</strong></dt>
+<dd><tt>GetUpdateRegion()&nbsp;-&gt;&nbsp;Region<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;region&nbsp;specifying&nbsp;which&nbsp;parts&nbsp;of&nbsp;the&nbsp;window&nbsp;have&nbsp;been<br>
+damaged.</tt></dd>
+</dl>
+<dl><dt><strong>Validator</strong></dt>
+<dd><tt>GetValidator()&nbsp;-&gt;&nbsp;Validator<br>
+&nbsp;<br>
+Validator&nbsp;functions.</tt></dd>
+</dl>
+<dl><dt><strong>VirtualSize</strong></dt>
+<dd><tt>GetVirtualSize()&nbsp;-&gt;&nbsp;Size<br>
+&nbsp;<br>
+This&nbsp;gets&nbsp;the&nbsp;virtual&nbsp;size&nbsp;of&nbsp;the&nbsp;window&nbsp;in&nbsp;pixels.</tt></dd>
+</dl>
+<dl><dt><strong>WindowStyle</strong></dt>
+<dd><tt>GetWindowStyle()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+See&nbsp;GetWindowStyleFlag()&nbsp;for&nbsp;more&nbsp;info.</tt></dd>
+</dl>
+<dl><dt><strong>WindowStyleFlag</strong></dt>
+<dd><tt>GetWindowStyleFlag()&nbsp;-&gt;&nbsp;long<br>
+&nbsp;<br>
+Gets&nbsp;the&nbsp;window&nbsp;style&nbsp;that&nbsp;was&nbsp;passed&nbsp;to&nbsp;the&nbsp;constructor&nbsp;or&nbsp;Create()<br>
+method.</tt></dd>
+</dl>
+<dl><dt><strong>WindowVariant</strong></dt>
+<dd><tt>GetWindowVariant()&nbsp;-&gt;&nbsp;WindowVariant<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;value&nbsp;previously&nbsp;passed&nbsp;to&nbsp;SetWindowVariant().</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="wx._core.html#Window">wx._core.Window</a>:<br>
+<dl><dt><strong>ChildrenRepositioningGuard</strong> = &lt;class 'wx._core.ChildrenRepositioningGuard'&gt;<dd><tt><a href="#SimulationPanel-ChildrenRepositioningGuard">ChildrenRepositioningGuard</a>(win)<br>
+&nbsp;<br>
+Helper&nbsp;for&nbsp;ensuring&nbsp;<a href="#SimulationPanel-EndRepositioningChildren">EndRepositioningChildren</a>()&nbsp;is&nbsp;called&nbsp;correctly.</tt></dl>
+
+<hr>
+Methods inherited from <a href="wx._core.html#EvtHandler">wx._core.EvtHandler</a>:<br>
+<dl><dt><a name="SimulationPanel-AddFilter"><strong>AddFilter</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AddFilter">AddFilter</a>(filter)<br>
+&nbsp;<br>
+Add&nbsp;an&nbsp;event&nbsp;filter&nbsp;whose&nbsp;FilterEvent()&nbsp;method&nbsp;will&nbsp;be&nbsp;called&nbsp;for&nbsp;each<br>
+and&nbsp;every&nbsp;event&nbsp;processed&nbsp;by&nbsp;wxWidgets.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-AddPendingEvent"><strong>AddPendingEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-AddPendingEvent">AddPendingEvent</a>(event)<br>
+&nbsp;<br>
+Post&nbsp;an&nbsp;event&nbsp;to&nbsp;be&nbsp;processed&nbsp;later.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Bind"><strong>Bind</strong></a> = _EvtHandler_Bind(self, event, handler, source=None, id=-1, id2=-1)</dt><dd><tt>Bind&nbsp;an&nbsp;event&nbsp;to&nbsp;an&nbsp;event&nbsp;handler.<br>
+&nbsp;<br>
+:param&nbsp;event:&nbsp;One&nbsp;of&nbsp;the&nbsp;``EVT_*``&nbsp;event&nbsp;binder&nbsp;objects&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specifies&nbsp;the&nbsp;type&nbsp;of&nbsp;event&nbsp;to&nbsp;bind.<br>
+&nbsp;<br>
+:param&nbsp;handler:&nbsp;A&nbsp;callable&nbsp;object&nbsp;to&nbsp;be&nbsp;invoked&nbsp;when&nbsp;the<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event&nbsp;is&nbsp;delivered&nbsp;to&nbsp;self.&nbsp;&nbsp;Pass&nbsp;``None``&nbsp;to<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;disconnect&nbsp;an&nbsp;event&nbsp;handler.<br>
+&nbsp;<br>
+:param&nbsp;source:&nbsp;Sometimes&nbsp;the&nbsp;event&nbsp;originates&nbsp;from&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;different&nbsp;window&nbsp;than&nbsp;self,&nbsp;but&nbsp;you&nbsp;still<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;want&nbsp;to&nbsp;catch&nbsp;it&nbsp;in&nbsp;self.&nbsp;&nbsp;(For&nbsp;example,&nbsp;a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;button&nbsp;event&nbsp;delivered&nbsp;to&nbsp;a&nbsp;frame.)&nbsp;&nbsp;By<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;passing&nbsp;the&nbsp;source&nbsp;of&nbsp;the&nbsp;event,&nbsp;the&nbsp;event<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handling&nbsp;system&nbsp;is&nbsp;able&nbsp;to&nbsp;differentiate<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;between&nbsp;the&nbsp;same&nbsp;event&nbsp;type&nbsp;from&nbsp;different<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;controls.<br>
+&nbsp;<br>
+:param&nbsp;id:&nbsp;Used&nbsp;to&nbsp;spcify&nbsp;the&nbsp;event&nbsp;source&nbsp;by&nbsp;ID&nbsp;instead<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;instance.<br>
+&nbsp;<br>
+:param&nbsp;id2:&nbsp;Used&nbsp;when&nbsp;it&nbsp;is&nbsp;desirable&nbsp;to&nbsp;bind&nbsp;a&nbsp;handler<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;a&nbsp;range&nbsp;of&nbsp;IDs,&nbsp;such&nbsp;as&nbsp;with&nbsp;EVT_MENU_RANGE.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Connect"><strong>Connect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Connect">Connect</a>(id,&nbsp;lastId,&nbsp;eventType,&nbsp;func)<br>
+&nbsp;<br>
+Make&nbsp;an&nbsp;entry&nbsp;in&nbsp;the&nbsp;dynamic&nbsp;event&nbsp;table&nbsp;for&nbsp;an&nbsp;event&nbsp;binding.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-DeletePendingEvents"><strong>DeletePendingEvents</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-DeletePendingEvents">DeletePendingEvents</a>()<br>
+&nbsp;<br>
+Deletes&nbsp;all&nbsp;events&nbsp;queued&nbsp;on&nbsp;this&nbsp;event&nbsp;handler&nbsp;using&nbsp;<a href="#SimulationPanel-QueueEvent">QueueEvent</a>()&nbsp;or<br>
+<a href="#SimulationPanel-AddPendingEvent">AddPendingEvent</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Disconnect"><strong>Disconnect</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Disconnect">Disconnect</a>(id,&nbsp;lastId=-1,&nbsp;eventType=wxEVT_NULL,&nbsp;func=None)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Remove&nbsp;an&nbsp;event&nbsp;binding&nbsp;by&nbsp;removing&nbsp;its&nbsp;entry&nbsp;in&nbsp;the&nbsp;dynamic&nbsp;event<br>
+table.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetEvtHandlerEnabled"><strong>GetEvtHandlerEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetEvtHandlerEnabled">GetEvtHandlerEnabled</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;event&nbsp;handler&nbsp;is&nbsp;enabled,&nbsp;false&nbsp;otherwise.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetNextHandler"><strong>GetNextHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetNextHandler">GetNextHandler</a>()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;next&nbsp;handler&nbsp;in&nbsp;the&nbsp;chain.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetPreviousHandler"><strong>GetPreviousHandler</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetPreviousHandler">GetPreviousHandler</a>()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;previous&nbsp;handler&nbsp;in&nbsp;the&nbsp;chain.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsUnlinked"><strong>IsUnlinked</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsUnlinked">IsUnlinked</a>()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;next&nbsp;and&nbsp;the&nbsp;previous&nbsp;handler&nbsp;pointers&nbsp;of&nbsp;this<br>
+event&nbsp;handler&nbsp;instance&nbsp;are&nbsp;NULL.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ProcessEventLocally"><strong>ProcessEventLocally</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ProcessEventLocally">ProcessEventLocally</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Try&nbsp;to&nbsp;process&nbsp;the&nbsp;event&nbsp;in&nbsp;this&nbsp;handler&nbsp;and&nbsp;all&nbsp;those&nbsp;chained&nbsp;to&nbsp;it.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-ProcessPendingEvents"><strong>ProcessPendingEvents</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-ProcessPendingEvents">ProcessPendingEvents</a>()<br>
+&nbsp;<br>
+Processes&nbsp;the&nbsp;pending&nbsp;events&nbsp;previously&nbsp;queued&nbsp;using&nbsp;<a href="#SimulationPanel-QueueEvent">QueueEvent</a>()&nbsp;or<br>
+<a href="#SimulationPanel-AddPendingEvent">AddPendingEvent</a>();&nbsp;you&nbsp;must&nbsp;call&nbsp;this&nbsp;function&nbsp;only&nbsp;if&nbsp;you&nbsp;are&nbsp;sure<br>
+there&nbsp;are&nbsp;pending&nbsp;events&nbsp;for&nbsp;this&nbsp;handler,&nbsp;otherwise&nbsp;a&nbsp;wxCHECK&nbsp;will<br>
+fail.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-QueueEvent"><strong>QueueEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-QueueEvent">QueueEvent</a>(event)<br>
+&nbsp;<br>
+Queue&nbsp;event&nbsp;for&nbsp;a&nbsp;later&nbsp;processing.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-RemoveFilter"><strong>RemoveFilter</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-RemoveFilter">RemoveFilter</a>(filter)<br>
+&nbsp;<br>
+Remove&nbsp;a&nbsp;filter&nbsp;previously&nbsp;installed&nbsp;with&nbsp;<a href="#SimulationPanel-AddFilter">AddFilter</a>().</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SafelyProcessEvent"><strong>SafelyProcessEvent</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SafelyProcessEvent">SafelyProcessEvent</a>(event)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Processes&nbsp;an&nbsp;event&nbsp;by&nbsp;calling&nbsp;<a href="#SimulationPanel-ProcessEvent">ProcessEvent</a>()&nbsp;and&nbsp;handles&nbsp;any<br>
+exceptions&nbsp;that&nbsp;occur&nbsp;in&nbsp;the&nbsp;process.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetEvtHandlerEnabled"><strong>SetEvtHandlerEnabled</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetEvtHandlerEnabled">SetEvtHandlerEnabled</a>(enabled)<br>
+&nbsp;<br>
+Enables&nbsp;or&nbsp;disables&nbsp;the&nbsp;event&nbsp;handler.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Unbind"><strong>Unbind</strong></a> = _EvtHandler_Unbind(self, event, source=None, id=-1, id2=-1, handler=None)</dt><dd><tt>Disconnects&nbsp;the&nbsp;event&nbsp;handler&nbsp;binding&nbsp;for&nbsp;event&nbsp;from&nbsp;`self`.<br>
+Returns&nbsp;``True``&nbsp;if&nbsp;successful.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Unlink"><strong>Unlink</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Unlink">Unlink</a>()<br>
+&nbsp;<br>
+Unlinks&nbsp;this&nbsp;event&nbsp;handler&nbsp;from&nbsp;the&nbsp;chain&nbsp;it's&nbsp;part&nbsp;of&nbsp;(if&nbsp;any);&nbsp;then<br>
+links&nbsp;the&nbsp;"previous"&nbsp;event&nbsp;handler&nbsp;to&nbsp;the&nbsp;"next"&nbsp;one&nbsp;(so&nbsp;that&nbsp;the<br>
+chain&nbsp;won't&nbsp;be&nbsp;interrupted).</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#EvtHandler">wx._core.EvtHandler</a>:<br>
+<dl><dt><strong>EvtHandlerEnabled</strong></dt>
+<dd><tt>GetEvtHandlerEnabled()&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;event&nbsp;handler&nbsp;is&nbsp;enabled,&nbsp;false&nbsp;otherwise.</tt></dd>
+</dl>
+<dl><dt><strong>NextHandler</strong></dt>
+<dd><tt>GetNextHandler()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;next&nbsp;handler&nbsp;in&nbsp;the&nbsp;chain.</tt></dd>
+</dl>
+<dl><dt><strong>PreviousHandler</strong></dt>
+<dd><tt>GetPreviousHandler()&nbsp;-&gt;&nbsp;EvtHandler<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;pointer&nbsp;to&nbsp;the&nbsp;previous&nbsp;handler&nbsp;in&nbsp;the&nbsp;chain.</tt></dd>
+</dl>
+<hr>
+Methods inherited from <a href="wx._core.html#Object">wx._core.Object</a>:<br>
+<dl><dt><a name="SimulationPanel-GetClassName"><strong>GetClassName</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetClassName">GetClassName</a>()&nbsp;-&gt;&nbsp;Char<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;of&nbsp;the&nbsp;C++&nbsp;class&nbsp;using&nbsp;wxRTTI.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-GetRefData"><strong>GetRefData</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-GetRefData">GetRefData</a>()&nbsp;-&gt;&nbsp;ObjectRefData<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer,&nbsp;i.e.&nbsp;the&nbsp;data&nbsp;referenced&nbsp;by<br>
+this&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-IsSameAs"><strong>IsSameAs</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-IsSameAs">IsSameAs</a>(obj)&nbsp;-&gt;&nbsp;bool<br>
+&nbsp;<br>
+Returns&nbsp;true&nbsp;if&nbsp;this&nbsp;object&nbsp;has&nbsp;the&nbsp;same&nbsp;data&nbsp;pointer&nbsp;as&nbsp;obj.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-Ref"><strong>Ref</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-Ref">Ref</a>(clone)<br>
+&nbsp;<br>
+Makes&nbsp;this&nbsp;object&nbsp;refer&nbsp;to&nbsp;the&nbsp;data&nbsp;in&nbsp;clone.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-SetRefData"><strong>SetRefData</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-SetRefData">SetRefData</a>(data)<br>
+&nbsp;<br>
+Sets&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UnRef"><strong>UnRef</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UnRef">UnRef</a>()<br>
+&nbsp;<br>
+Decrements&nbsp;the&nbsp;reference&nbsp;count&nbsp;in&nbsp;the&nbsp;associated&nbsp;data,&nbsp;and&nbsp;if&nbsp;it&nbsp;is<br>
+zero,&nbsp;deletes&nbsp;the&nbsp;data.</tt></dd></dl>
+
+<dl><dt><a name="SimulationPanel-UnShare"><strong>UnShare</strong></a>(...)</dt><dd><tt><a href="#SimulationPanel-UnShare">UnShare</a>()<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;the&nbsp;same&nbsp;of&nbsp;AllocExclusive()&nbsp;but&nbsp;this&nbsp;method&nbsp;is&nbsp;public.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="wx._core.html#Object">wx._core.Object</a>:<br>
+<dl><dt><strong>ClassName</strong></dt>
+<dd><tt>GetClassName()&nbsp;-&gt;&nbsp;Char<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;class&nbsp;name&nbsp;of&nbsp;the&nbsp;C++&nbsp;class&nbsp;using&nbsp;wxRTTI.</tt></dd>
+</dl>
+<dl><dt><strong>RefData</strong></dt>
+<dd><tt>GetRefData()&nbsp;-&gt;&nbsp;ObjectRefData<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;wxObject::m_refData&nbsp;pointer,&nbsp;i.e.&nbsp;the&nbsp;data&nbsp;referenced&nbsp;by<br>
+this&nbsp;object.</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Methods inherited from sip.simplewrapper:<br>
+<dl><dt><a name="SimulationPanel-__new__"><strong>__new__</strong></a>(*args, **kwargs)<font color="#909090"><font face="helvetica, arial"> from sip.wrappertype</font></font></dt><dd><tt>Create&nbsp;and&nbsp;return&nbsp;a&nbsp;new&nbsp;object.&nbsp;&nbsp;See&nbsp;help(type)&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from sip.simplewrapper:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

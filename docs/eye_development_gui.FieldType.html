@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module eye_development_gui.FieldType</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="eye_development_gui.html"><font color="#ffffff">eye_development_gui</font></a>.FieldType</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/FieldType.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/eye_development_gui/FieldType.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.FieldType.html#FieldType">FieldType</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="eye_development_gui.FieldType.html#IntegerFieldType">IntegerFieldType</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FieldType">class <strong>FieldType</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>FieldTypes&nbsp;are&nbsp;used&nbsp;to&nbsp;automatically&nbsp;generate&nbsp;input&nbsp;boxes&nbsp;in&nbsp;the&nbsp;GUI,<br>
+so&nbsp;that&nbsp;when&nbsp;adding&nbsp;new&nbsp;furrow&nbsp;events,&nbsp;one&nbsp;needs&nbsp;modify&nbsp;only<br>
+the&nbsp;back-end&nbsp;by&nbsp;specifying&nbsp;the&nbsp;furrow&nbsp;event's&nbsp;parameter's&nbsp;with&nbsp;FieldTypes.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FieldType-__init__"><strong>__init__</strong></a>(self, value)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="FieldType-validate"><strong>validate</strong></a>(self, new_val)</dt><dd><tt>If&nbsp;new_val&nbsp;is&nbsp;a&nbsp;valid&nbsp;value&nbsp;for&nbsp;the&nbsp;field&nbsp;type,<br>
+set&nbsp;it&nbsp;as&nbsp;the&nbsp;current&nbsp;value&nbsp;and&nbsp;return&nbsp;True.&nbsp;Otherwise,<br>
+leave&nbsp;the&nbsp;value&nbsp;unchanged&nbsp;and&nbsp;return&nbsp;False.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="IntegerFieldType">class <strong>IntegerFieldType</strong></a>(<a href="eye_development_gui.FieldType.html#FieldType">FieldType</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;Field&nbsp;Type&nbsp;for&nbsp;integer&nbsp;inputs.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="eye_development_gui.FieldType.html#IntegerFieldType">IntegerFieldType</a></dd>
+<dd><a href="eye_development_gui.FieldType.html#FieldType">FieldType</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="IntegerFieldType-__init__"><strong>__init__</strong></a>(self, value)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+
+<dl><dt><a name="IntegerFieldType-validate"><strong>validate</strong></a>(self, new_val)</dt><dd><tt>If&nbsp;new_val&nbsp;is&nbsp;a&nbsp;valid&nbsp;value&nbsp;for&nbsp;the&nbsp;field&nbsp;type,<br>
+set&nbsp;it&nbsp;as&nbsp;the&nbsp;current&nbsp;value&nbsp;and&nbsp;return&nbsp;True.&nbsp;Otherwise,<br>
+leave&nbsp;the&nbsp;value&nbsp;unchanged&nbsp;and&nbsp;return&nbsp;False.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="eye_development_gui.FieldType.html#FieldType">FieldType</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

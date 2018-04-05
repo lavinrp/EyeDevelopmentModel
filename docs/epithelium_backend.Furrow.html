@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module epithelium_backend.Furrow</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="epithelium_backend.html"><font color="#ffffff">epithelium_backend</font></a>.Furrow</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/Furrow.py">/home/lavinrp/Documents/UC/SnrDesign/EyeDevelopmentModel/EyeDevelopmentModel/epithelium_backend/Furrow.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;from&nbsp;epithelium_backend.Epithelium&nbsp;import&nbsp;Epithelium</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="epithelium_backend.Furrow.html#Furrow">Furrow</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Furrow">class <strong>Furrow</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Simulates&nbsp;a&nbsp;morphogenetic&nbsp;furrow.&nbsp;Stores&nbsp;and&nbsp;maintains&nbsp;all&nbsp;information&nbsp;related&nbsp;to&nbsp;the<br>
+morphogenetic&nbsp;furrow&nbsp;(movement&nbsp;speed,&nbsp;position,&nbsp;etc...).&nbsp;Used&nbsp;to&nbsp;apply&nbsp;a&nbsp;sequence&nbsp;of&nbsp;development<br>
+events&nbsp;to&nbsp;an&nbsp;Epithelium.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="Furrow-__init__"><strong>__init__</strong></a>(self, position:float=0, velocity:float=0, events:list=None) -&gt; None</dt><dd><tt>Initialize&nbsp;this&nbsp;instance&nbsp;of&nbsp;<a href="#Furrow">Furrow</a>.<br>
+:param&nbsp;position:&nbsp;The&nbsp;horizontal&nbsp;position&nbsp;of&nbsp;this&nbsp;<a href="#Furrow">Furrow</a>.<br>
+:param&nbsp;velocity:&nbsp;how&nbsp;many&nbsp;units&nbsp;the&nbsp;furrow&nbsp;moves&nbsp;in&nbsp;one&nbsp;'tick'.<br>
+:param&nbsp;events:&nbsp;Specialization&nbsp;events&nbsp;(stored&nbsp;as&nbsp;callable&nbsp;objects)&nbsp;triggered&nbsp;by&nbsp;the&nbsp;progression&nbsp;of&nbsp;the&nbsp;furrow.</tt></dd></dl>
+
+<dl><dt><a name="Furrow-advance"><strong>advance</strong></a>(self, distance:float=0) -&gt; None</dt><dd><tt>Moves&nbsp;the&nbsp;furrow&nbsp;forward&nbsp;by&nbsp;the&nbsp;specified&nbsp;amount.<br>
+:param&nbsp;distance:&nbsp;how&nbsp;far&nbsp;to&nbsp;move&nbsp;this&nbsp;<a href="#Furrow">Furrow</a></tt></dd></dl>
+
+<dl><dt><a name="Furrow-update"><strong>update</strong></a>(self, epithelium) -&gt; None</dt><dd><tt>Simulates&nbsp;this&nbsp;<a href="#Furrow">Furrow</a>&nbsp;for&nbsp;one&nbsp;tick.<br>
+:param&nbsp;epithelium:&nbsp;The&nbsp;epithelium&nbsp;to&nbsp;be&nbsp;updated&nbsp;by&nbsp;this&nbsp;furrow.</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>inf</strong> = inf</td></tr></table>
+</body></html>
