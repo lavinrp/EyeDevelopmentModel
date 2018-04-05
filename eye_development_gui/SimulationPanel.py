@@ -17,7 +17,6 @@ class SimulationPanel(SimulationPanelBase):
         """
         SimulationPanelBase.__init__(self, parent)
         self.simulation_listeners = []
-        self.temporary_epithelium_path = r"temp/temp_epithelium.epth"
 
     @property
     def epithelium(self) -> Epithelium:
