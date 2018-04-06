@@ -207,8 +207,6 @@ class CellCollisionHandler(object):
             s = self.spring_constant*(dist-self.allow_overlap*rest_length)/dist
             scxnx = s*cxnx
             scyny = s*cyny
-            if dist==self.avg_radius/100:
-                print(scxnx)
             cell1.next_x -= scxnx
             cell1.next_y -= scyny
             cell2.next_x += scxnx
@@ -219,6 +217,9 @@ class CellCollisionHandler(object):
         Push overlapping cells apart, with a tendency to keep them barely overlapping.
 
         """
+
+        self.fill_grid()
+
         # This actually results in a non-trivial speed up because
         # resolving local variables is faster than resolving
         # member variables.
@@ -244,7 +245,8 @@ class CellCollisionHandler(object):
                             self.push_pull(cell1, cell2)
 
         for cell in self.cells:
-            self.move_cell(cell, cell.next_x, cell.next_y)
+            cell.position_x = cell.next_x
+            cell.position_y = cell.next_y
 
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
