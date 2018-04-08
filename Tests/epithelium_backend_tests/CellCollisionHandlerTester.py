@@ -15,14 +15,14 @@ class CellCollisionHandlerTester(unittest.TestCase):
         init_dimension = handler.dimension
         self.assertEqual(handler.center_x, 0.5, "The center is (0.5, 0.5)")
         self.assertEqual(handler.center_y, 0.5, "The center is (0.5, 0.5)")
-        self.assertEqual(cells[0].bin, center_bin, "Cell 0 is in the center bin")
-        self.assertEqual(cells[1].bin, center_bin, "Cell 1 is in the center bin")
+        self.assertEqual(handler.bin(cells[0]), center_bin, "Cell 0 is in the center bin")
+        self.assertEqual(handler.bin(cells[1]), center_bin, "Cell 1 is in the center bin")
 
         # Register a new cell that fits within the grid
         cell_2 = Cell((0.5, 0.5, 0), 1)
         handler.register(cell_2)
         self.assertEqual(handler.dimension, init_dimension, "The handler didn't grow.")
-        self.assertEqual(cell_2.bin, center_bin, "Cell 2 is in the center bin.")
+        self.assertEqual(handler.bin(cell_2), center_bin, "Cell 2 is in the center bin.")
 
         # Register a cell that doesn't fit within the grid
         cell_3 = Cell((5, 5, 0), 1)
@@ -39,8 +39,8 @@ class CellCollisionHandlerTester(unittest.TestCase):
             cells = [cell1, cell2]
             handler = CellCollisionHandler(cells)
             handler.push_pull(cell1, cell2)
-            current_distance = distance((cell1.next_x, cell1.next_y, 0),
-                                        (cell2.next_x, cell2.next_y, 0))
+            current_distance = distance((cell1.position_x, cell1.position_y, 0),
+                                        (cell2.position_x, cell2.position_y, 0))
             return initial_distance, current_distance
 
         init_dist, new_dist = push_pull((0,0,0), (0,0,0))

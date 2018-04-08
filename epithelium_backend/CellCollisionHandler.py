@@ -112,15 +112,14 @@ class CellCollisionHandler(object):
     def register(self, cell: Cell):
         """Add the cell to the collision handler."""
         self.cells.append(cell)
-        cell.next_x = cell.position_x
-        cell.next_y = cell.position_y
-        cell.bin = self.bin(cell)
-        self.grids[cell.bin].append(cell)
-        self.non_empty.add(cell.bin)
+        bin = self.bin(cell)
+        self.grids[bin].append(cell)
+        self.non_empty.add(bin)
 
     def deregister(self, cell: Cell):
         """Remove the cell from the collision handler."""
-        self.grids[cell.bin].remove(cell)
+        bin = self.bin(cell)
+        self.grids[bin].remove(cell)
         self.cells.remove(cell)
         # May want to remove from non_empty
 
@@ -192,10 +191,10 @@ class CellCollisionHandler(object):
             s = self.spring_constant*(dist-self.allow_overlap*rest_length)/dist
             scxnx = s*cxnx
             scyny = s*cyny
-            cell1.next_x -= scxnx
-            cell1.next_y -= scyny
-            cell2.next_x += scxnx
-            cell2.next_y += scyny
+            cell1.position_x -= scxnx
+            cell1.position_y -= scyny
+            cell2.position_x += scxnx
+            cell2.position_y += scyny
 
     def decompact(self):
         """
@@ -228,10 +227,6 @@ class CellCollisionHandler(object):
                     if 0 < j < len_grids:
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
-
-        for cell in self.cells:
-            cell.position_x = cell.next_x
-            cell.position_y = cell.next_y
 
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
