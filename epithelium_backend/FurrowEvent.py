@@ -1,11 +1,14 @@
 class FurrowEvent(object):
     def __init__(self,
+                 name,
                  # or should this be a field type? tricky
                  distance_from_furrow: float,
                  field_types: dict,
                  run):
         """
         A FurrowEvent represents a process that happens in the furrow.
+
+        :param name: The name of the furrow event that will appear in the GUI
 
         :param distance_from_furrow: the distance (in number of cell radii) of
         this process from the furrow's frontier. The higher this distance,
@@ -19,6 +22,7 @@ class FurrowEvent(object):
         this function is run on the subset of cells that the furrow is visiting, adjusted
         for the event's distance from the furrow.
         """
+        self.name = name
         self.last_processed = set()
         self.distance_from_furrow = distance_from_furrow
         self.field_types = field_types

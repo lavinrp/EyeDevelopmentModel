@@ -23,7 +23,8 @@ def run_r8_selector(field_types, epithelium, cells):
             cell.growth_rate = 0
 
 
-r8_selection_event = FurrowEvent(distance_from_furrow=0,
+r8_selection_event = FurrowEvent("R8 Selection",
+                                 distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
 
@@ -53,7 +54,8 @@ def run_r2_r5_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r2_r5_selection_event = FurrowEvent(distance_from_furrow=100,
+r2_r5_selection_event = FurrowEvent("R2 and R5 Selection",
+                                    distance_from_furrow=100,
                                     field_types=dict(),
                                     run=run_r2_r5_selector)
 
@@ -83,7 +85,8 @@ def run_r3_r4_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r3_r4_selection_event = FurrowEvent(distance_from_furrow=150,
+r3_r4_selection_event = FurrowEvent("R3 and R4 Selection",
+                                    distance_from_furrow=150,
                                     field_types=dict(),
                                     run=run_r3_r4_selector)
 
@@ -117,7 +120,8 @@ def run_r1_r6_r7_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r1_r6_r7_selection_event = FurrowEvent(distance_from_furrow=200,
+r1_r6_r7_selection_event = FurrowEvent("R1, R6, and R7 Selection",
+                                       distance_from_furrow=200,
                                        field_types=dict(),
                                        run=run_r1_r6_r7_selector)
 # All Furrow Events ordered from first to last
