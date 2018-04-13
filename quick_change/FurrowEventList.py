@@ -1,6 +1,7 @@
 import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
+from epithelium_backend.SupportCellType import SupportCellType
 
 
 def run_r8_selector(field_types, epithelium, cells):
@@ -117,8 +118,25 @@ r1_r6_selection_event = FurrowEvent(distance_from_furrow=200,
                                     field_types={"r1, r6 selection count": FieldType.IntegerFieldType(2)},
                                     run=run_r1_r6_selector)
 
+
+def run_border_cell_selection(field_types, epithelium, cells):
+    for cell in cells:
+        if cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
+            neighbors = epithelium.neighboring_cells(cell, field_types["border radius (cells)"].value)
+            for neighbor in neighbors:
+                if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
+                    # make support
+                    cell.support_specializations.add(SupportCellType.BORDER_CELL)
+
+
+
+border_cell_selection_event = FurrowEvent(distance_from_furrow=250,
+                                          field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
+                                          run=run_border_cell_selection)
+
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event,
                      r2_r5_selection_event,
                      r3_r4_selection_event,
-                     r1_r6_selection_event]
+                     r1_r6_selection_event,
+                     border_cell_selection_event]
