@@ -127,15 +127,29 @@ def run_border_cell_selection(field_types, epithelium, cells):
                 if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
                     # make support
                     cell.support_specializations.add(SupportCellType.BORDER_CELL)
+                    cell.dividable = False
 
 
 border_cell_selection_event = FurrowEvent(distance_from_furrow=250,
                                           field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
                                           run=run_border_cell_selection)
 
+
+def run_cell_death(field_types, epithelium, cells):
+    for cell in cells:
+        if SupportCellType.BORDER_CELL not in cell.support_specializations \
+                and cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
+            epithelium.delete_cell(cell)
+
+
+cell_death_event = FurrowEvent(distance_from_furrow=400,
+                               field_types=dict(),
+                               run=run_cell_death)
+
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event,
                      r2_r5_selection_event,
                      r3_r4_selection_event,
                      r1_r6_selection_event,
-                     border_cell_selection_event]
+                     border_cell_selection_event,
+                     cell_death_event]

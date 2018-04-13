@@ -26,7 +26,7 @@ def determine_cell_color(cell: Cell) -> tuple:
         return 1, 0, 0
     elif cell.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR \
             and SupportCellType.BORDER_CELL in cell.support_specializations:
-        return 0, 1, 1
+        return .9, .77, 0.47
     else:
         return 0, 0, 1
 
@@ -44,7 +44,8 @@ def determine_cell_fill(cell: Cell) -> bool:
        cell.photoreceptor_type == PhotoreceptorType.R5 or \
        cell.photoreceptor_type == PhotoreceptorType.R6 or \
        cell.photoreceptor_type == PhotoreceptorType.R7 or \
-       cell.photoreceptor_type == PhotoreceptorType.R8:
+       cell.photoreceptor_type == PhotoreceptorType.R8 or \
+       SupportCellType.BORDER_CELL in cell.support_specializations:
         return True
     else:
         return False
