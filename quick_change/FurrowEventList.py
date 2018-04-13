@@ -129,7 +129,6 @@ def run_border_cell_selection(field_types, epithelium, cells):
                     cell.support_specializations.add(SupportCellType.BORDER_CELL)
 
 
-
 border_cell_selection_event = FurrowEvent(distance_from_furrow=250,
                                           field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
                                           run=run_border_cell_selection)
