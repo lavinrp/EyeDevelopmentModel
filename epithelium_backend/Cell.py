@@ -87,3 +87,13 @@ class Cell(object):
         (x1, y1, z1) = (self.position_x, self.position_y, self.position_z)
         (x2, y2, z2) = (neighbor.position_x, neighbor.position_y, neighbor.position_z)
         return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+
+    def touches(self, neighbor) -> bool:
+        """
+        Returns true if the passed cell is colliding with this one
+        :param neighbor: Cell to check for collision
+        :return: True if the cells collide. False otherwise.
+        """
+        if self.distance_to_other(neighbor) <= self.radius + neighbor.radius:
+            return True
+        return False
