@@ -22,9 +22,8 @@ class ModernDisplayCanvas(glcanvas.GLCanvas):
                                    size=(parent.GetSize()),
                                    name='epithelium_display_canvas',
                                    attribList=[glcanvas.WX_GL_CORE_PROFILE,
-                                               glcanvas.WX_GL_RGBA,
                                                glcanvas.WX_GL_DOUBLEBUFFER,
-                                               glcanvas.WX_GL_DEPTH_SIZE, 16, 0])
+                                               0])
         # GL
         self.wx_context = None  # type:  glcanvas.GLContext
         self.context = None  # type: moderngl.Context
