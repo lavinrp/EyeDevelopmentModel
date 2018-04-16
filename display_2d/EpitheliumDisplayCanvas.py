@@ -17,13 +17,16 @@ from legacy_display_2d.LegacyDisplayCanvas import LegacyDisplayCanvas
 class ModernDisplayCanvas(glcanvas.GLCanvas):
     """OpenGL canvas used to display an epithelium"""
     def __init__(self, parent: wx.Panel):
+        if not os.getenv("eye_develop_model_no_ogl_core"):
+            attribute_list = [glcanvas.WX_GL_CORE_PROFILE, glcanvas.WX_GL_DOUBLEBUFFER, 0]
+        else:
+            attribute_list = None
+
         glcanvas.GLCanvas.__init__(self,
                                    parent,
                                    size=(parent.GetSize()),
                                    name='epithelium_display_canvas',
-                                   attribList=[glcanvas.WX_GL_CORE_PROFILE,
-                                               glcanvas.WX_GL_DOUBLEBUFFER,
-                                               0])
+                                   attribList=attribute_list)
         # GL
         self.wx_context = None  # type:  glcanvas.GLContext
         self.context = None  # type: moderngl.Context
