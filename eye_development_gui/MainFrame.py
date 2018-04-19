@@ -566,6 +566,7 @@ class MainFrame(MainFrameBase):
         self.__active_epithelium = value
         self.has_simulated = False
         self.simulating = False
+        self.active_epithelium.furrow.events = furrow_event_list
 
         # notify listeners of change
         for listener in self.epithelium_listeners:
