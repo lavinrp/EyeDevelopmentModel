@@ -1,11 +1,17 @@
+from eye_development_gui.FieldType import IntegerFieldType
+
+
 class FurrowEvent(object):
     def __init__(self,
+                 name: str,
                  # or should this be a field type? tricky
                  distance_from_furrow: float,
                  field_types: dict,
                  run):
         """
         A FurrowEvent represents a process that happens in the furrow.
+
+        :param name: The name for this event that will be displayed in the GUI.
 
         :param distance_from_furrow: the distance (in number of cell radii) of
         this process from the furrow's frontier. The higher this distance,
@@ -19,9 +25,12 @@ class FurrowEvent(object):
         this function is run on the subset of cells that the furrow is visiting, adjusted
         for the event's distance from the furrow.
         """
+
+        self.__distance_from_furrow_key = "distance from furrow"
+        self.name = name
         self.last_processed = set()
-        self.distance_from_furrow = distance_from_furrow
         self.field_types = field_types
+        self.field_types[self.__distance_from_furrow_key] = IntegerFieldType(distance_from_furrow)
         self.run = run
 
     def __call__(self, furrow_last_position:float, furrow_position:float, epithelium):
@@ -48,3 +57,13 @@ class FurrowEvent(object):
         candidates = epithelium.cell_collision_handler.cells_between(left_bound, last_right_bound)
         self.last_processed = set(candidates) - self.last_processed
         self.run(self.field_types, epithelium, self.last_processed)
+
+    @property
+    def distance_from_furrow(self):
+        return self.field_types[self.__distance_from_furrow_key].value
+
+    @distance_from_furrow.setter
+    def distance_from_furrow(self, value):
+        field = self.field_types[self.__distance_from_furrow_key]  # type: IntegerFieldType
+        if field.validate(value):
+            field.value = value

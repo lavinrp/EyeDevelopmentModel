@@ -38,10 +38,9 @@ class CellTester(unittest.TestCase):
         photoreceptor_type = PhotoreceptorType.NOT_RECEPTOR
         support_specializations = set()
         cell = Cell((x, y, z), radius, photoreceptor_type, support_specializations)
-        cell_collision_handler = CellCollisionHandler([cell])
 
         # divide
-        child = cell.divide(cell_collision_handler)
+        child = cell.divide()
 
         # check radii
         self.assertEqual(cell.radius, radius/2, "Incorrect radii after cell.divide")

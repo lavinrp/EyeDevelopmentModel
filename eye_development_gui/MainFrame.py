@@ -106,7 +106,12 @@ class MainFrame(MainFrameBase):
         # This was copied from the dynamically generated code that wxFormBuilder spits out.
         # I don't totally understand it.
         g_sizer = wx.GridSizer(0, 2, 0, 0)
+        event_label_font = wx.Font(wx.FontInfo().Bold())
         for event in events:
+            event_label = wx.StaticText(window, wx.ID_ANY, event.name, wx.DefaultPosition, wx.DefaultSize, 0)
+            event_label.SetFont(event_label_font)
+            g_sizer.Add(event_label)
+            g_sizer.Add((0, 0), 1, wx.EXPAND, 5)
             for param_name, field_type in event.field_types.items():
                 # The left hand side -- the label of the input
                 static_text = wx.StaticText(window, wx.ID_ANY, param_name, wx.DefaultPosition, wx.DefaultSize, 0)
@@ -234,13 +239,35 @@ class MainFrame(MainFrameBase):
         active_epithelium_file = load_dialog.GetFilename()
         imported_epithelium = import_epithelium(active_epithelium_file)
         if imported_epithelium:
+
+            # check if the furrow events of the imported epithelium match the local furrow events
+            furrow_events_match = True
+            if len(furrow_event_list) == len(imported_epithelium.furrow.events):
+                for i in range(len(furrow_event_list)):
+                    if imported_epithelium.furrow.events[i].name != furrow_event_list[i].name:
+                        furrow_events_match = False
+                        break
+            else:
+                furrow_events_match = False
+
+            if not furrow_events_match:
+                # warn that different furrow events may lead to different results
+                dlg = wx.MessageDialog(self,
+                                       "The furrow_event_list paired with the loaded epithelium does not match the "
+                                       "local furrow event list. This may impact simulation results.",
+                                       "Furrow Events Don't Match",
+                                       wx.OK | wx.ICON_WARNING)
+                dlg.ShowModal()
+                dlg.Destroy()
+
+            # update epithelium
             self.active_epithelium_file = active_epithelium_file
             self.active_epithelium = imported_epithelium
-
             # update gui
             self.update_gui_to_active_epithelium()
+
         else:
-            dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_WARNING)
+            dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_ERROR)
             dlg.ShowModal()
             dlg.Destroy()
 
@@ -566,6 +593,7 @@ class MainFrame(MainFrameBase):
         self.__active_epithelium = value
         self.has_simulated = False
         self.simulating = False
+        self.active_epithelium.furrow.events = furrow_event_list
 
         # notify listeners of change
         for listener in self.epithelium_listeners:

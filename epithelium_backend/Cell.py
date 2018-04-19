@@ -41,7 +41,7 @@ class Cell(object):
         else:
             self.cell_events = cell_events  # type: set
 
-    def divide(self, cell_collision_handler):
+    def divide(self):
         """
         Divides this cell into a new cell with half of this cell's radius.
         Then divides this parent cell's radius in half.
@@ -59,7 +59,8 @@ class Cell(object):
         # Divide the original cell size in half
         self.radius /= 2
         # Move the parent cell to complete the division
-        cell_collision_handler.move_cell(self, self.position_x - delta_x, self.position_y - delta_y)
+        self.position_x -= delta_x
+        self.position_y -= delta_y
         return child_cell
 
     def grow_cell(self, growth_amount):

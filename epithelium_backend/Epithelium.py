@@ -1,6 +1,3 @@
-import random
-from math import sqrt
-
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from epithelium_backend.CellFactory import CellFactory
@@ -46,7 +43,7 @@ class Epithelium(object):
         """
 
         if cell_from_list.dividable:
-            new_cell = cell_from_list.divide(self.cell_collision_handler)
+            new_cell = cell_from_list.divide()
             if new_cell is not None:
                 self.cells.append(new_cell)
                 self.cell_collision_handler.register(new_cell)

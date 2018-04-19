@@ -24,7 +24,8 @@ def run_r8_selector(field_types, epithelium, cells):
             cell.dividable = False
 
 
-r8_selection_event = FurrowEvent(distance_from_furrow=0,
+r8_selection_event = FurrowEvent(name="R8 Selection",
+                                 distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
 
@@ -54,7 +55,8 @@ def run_r2_r5_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r2_r5_selection_event = FurrowEvent(distance_from_furrow=100,
+r2_r5_selection_event = FurrowEvent(name="R2, R5 Selection",
+                                    distance_from_furrow=100,
                                     field_types={"r2, r5 selection count": FieldType.IntegerFieldType(2)},
                                     run=run_r2_r5_selector)
 
@@ -84,7 +86,8 @@ def run_r3_r4_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r3_r4_selection_event = FurrowEvent(distance_from_furrow=150,
+r3_r4_selection_event = FurrowEvent(name="R3, R4 Selection",
+                                    distance_from_furrow=150,
                                     field_types={"r3, r4 selection count": FieldType.IntegerFieldType(2)},
                                     run=run_r3_r4_selector)
 
@@ -114,7 +117,8 @@ def run_r1_r6_selector(field_types, epithelium, cells):
                     chosen_count += 1
 
 
-r1_r6_selection_event = FurrowEvent(distance_from_furrow=200,
+r1_r6_selection_event = FurrowEvent(name="R1, R6 Selection",
+                                    distance_from_furrow=200,
                                     field_types={"r1, r6 selection count": FieldType.IntegerFieldType(2)},
                                     run=run_r1_r6_selector)
 
@@ -139,7 +143,8 @@ def run_border_cell_selection(field_types, epithelium, cells):
                         cell.dividable = False
 
 
-border_cell_selection_event = FurrowEvent(distance_from_furrow=250,
+border_cell_selection_event = FurrowEvent(name="Border Cell Selection",
+                                          distance_from_furrow=250,
                                           field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
                                           run=run_border_cell_selection)
 
@@ -151,9 +156,11 @@ def run_cell_death(field_types, epithelium, cells):
             epithelium.delete_cell(cell)
 
 
-cell_death_event = FurrowEvent(distance_from_furrow=400,
+cell_death_event = FurrowEvent(name="Cell Death",
+                               distance_from_furrow=400,
                                field_types=dict(),
                                run=run_cell_death)
+
 
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event,
