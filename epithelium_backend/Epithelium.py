@@ -1,6 +1,3 @@
-import random
-from math import sqrt
-
 from epithelium_backend import Cell
 from epithelium_backend import CellCollisionHandler
 from epithelium_backend.CellFactory import CellFactory
