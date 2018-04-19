@@ -237,16 +237,20 @@ class MainFrame(MainFrameBase):
 
             # check if the furrow events of the imported epithelium match the local furrow events
             furrow_events_match = True
-            for i in range(len(furrow_event_list)):
-                if imported_epithelium.furrow.events[i].name != furrow_event_list[i].name:
-                    furrow_events_match = False
-                    break
+            if len(furrow_event_list) == len(imported_epithelium.furrow.events):
+                for i in range(len(furrow_event_list)):
+                    if imported_epithelium.furrow.events[i].name != furrow_event_list[i].name:
+                        furrow_events_match = False
+                        break
+            else:
+                furrow_events_match = False
 
             if not furrow_events_match:
                 # warn that different furrow events may lead to different results
-                dlg = wx.MessageDialog(self, "Furrow Events Don't Match",
-                                       "The furrow_event_list paired with the loaded epithelium does not match the"
+                dlg = wx.MessageDialog(self,
+                                       "The furrow_event_list paired with the loaded epithelium does not match the "
                                        "local furrow event list. This may impact simulation results.",
+                                       "Furrow Events Don't Match",
                                        wx.OK | wx.ICON_WARNING)
                 dlg.ShowModal()
                 dlg.Destroy()
