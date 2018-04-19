@@ -1,4 +1,4 @@
-#version 330
+#version 330 core
 in vec2 vert;
 in vec3 vert_color;
 in float vert_radius;
