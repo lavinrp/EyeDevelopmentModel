@@ -153,7 +153,13 @@ def run_cell_death(field_types, epithelium, cells):
     for cell in cells:
         if SupportCellType.BORDER_CELL not in cell.support_specializations \
                 and cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
-            epithelium.delete_cell(cell)
+            try:
+                epithelium.delete_cell(cell)
+            except ValueError as e:
+                #  TODO: Don't pass cells that are dead
+                # this is an awful hack to get around the fact that cells can be killed, but still sent to the
+                # furrow (b/c they were in the last iterations group of cells)
+                pass
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
