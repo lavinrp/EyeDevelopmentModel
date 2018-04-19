@@ -234,13 +234,31 @@ class MainFrame(MainFrameBase):
         active_epithelium_file = load_dialog.GetFilename()
         imported_epithelium = import_epithelium(active_epithelium_file)
         if imported_epithelium:
+
+            # check if the furrow events of the imported epithelium match the local furrow events
+            furrow_events_match = True
+            for i in range(len(furrow_event_list)):
+                if imported_epithelium.furrow.events[i].name != furrow_event_list[i].name:
+                    furrow_events_match = False
+                    break
+
+            if not furrow_events_match:
+                # warn that different furrow events may lead to different results
+                dlg = wx.MessageDialog(self, "Furrow Events Don't Match",
+                                       "The furrow_event_list paired with the loaded epithelium does not match the"
+                                       "local furrow event list. This may impact simulation results.",
+                                       wx.OK | wx.ICON_WARNING)
+                dlg.ShowModal()
+                dlg.Destroy()
+
+            # update epithelium
             self.active_epithelium_file = active_epithelium_file
             self.active_epithelium = imported_epithelium
-
             # update gui
             self.update_gui_to_active_epithelium()
+
         else:
-            dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_WARNING)
+            dlg = wx.MessageDialog(self, "Could not load epithelium!", "Unable To Load", wx.OK | wx.ICON_ERROR)
             dlg.ShowModal()
             dlg.Destroy()
 

@@ -1,5 +1,6 @@
 class FurrowEvent(object):
     def __init__(self,
+                 name: str,
                  # or should this be a field type? tricky
                  distance_from_furrow: float,
                  field_types: dict,
@@ -7,6 +8,7 @@ class FurrowEvent(object):
         """
         A FurrowEvent represents a process that happens in the furrow.
 
+        :param name: The name of this furrow event.
         :param distance_from_furrow: the distance (in number of cell radii) of
         this process from the furrow's frontier. The higher this distance,
         the longer it takes for this event to start walking across the epithelium.
