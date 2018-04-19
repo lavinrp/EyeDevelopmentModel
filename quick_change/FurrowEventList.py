@@ -23,7 +23,7 @@ def run_r8_selector(field_types, epithelium, cells):
             cell.growth_rate = 0
 
 
-r8_selection_event = FurrowEvent(name = "R8 Selection",
+r8_selection_event = FurrowEvent(name="R8 Selection",
                                  distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
