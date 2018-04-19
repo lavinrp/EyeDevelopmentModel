@@ -25,6 +25,7 @@ class FurrowEvent(object):
         self.distance_from_furrow = distance_from_furrow
         self.field_types = field_types
         self.run = run
+        self.name = name
 
     def __call__(self, furrow_last_position:float, furrow_position:float, epithelium):
         """
