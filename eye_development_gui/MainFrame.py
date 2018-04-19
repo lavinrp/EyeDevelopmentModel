@@ -106,7 +106,12 @@ class MainFrame(MainFrameBase):
         # This was copied from the dynamically generated code that wxFormBuilder spits out.
         # I don't totally understand it.
         g_sizer = wx.GridSizer(0, 2, 0, 0)
+        event_label_font = wx.Font(wx.FontInfo().Bold())
         for event in events:
+            event_label = wx.StaticText(window, wx.ID_ANY, event.name, wx.DefaultPosition, wx.DefaultSize, 0)
+            event_label.SetFont(event_label_font)
+            g_sizer.Add(event_label)
+            g_sizer.Add((0, 0), 1, wx.EXPAND, 5)
             for param_name, field_type in event.field_types.items():
                 # The left hand side -- the label of the input
                 static_text = wx.StaticText(window, wx.ID_ANY, param_name, wx.DefaultPosition, wx.DefaultSize, 0)
