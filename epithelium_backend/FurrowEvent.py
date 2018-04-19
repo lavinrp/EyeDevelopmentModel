@@ -32,7 +32,6 @@ class FurrowEvent(object):
         self.field_types = field_types
         self.field_types[self.__distance_from_furrow_key] = IntegerFieldType(distance_from_furrow)
         self.run = run
-        self.name = name
 
     def __call__(self, furrow_last_position:float, furrow_position:float, epithelium):
         """
