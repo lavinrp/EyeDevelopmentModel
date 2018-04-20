@@ -124,6 +124,14 @@ r1_r6_selection_event = FurrowEvent(name="R1, R6 Selection",
 
 
 def run_border_cell_selection(field_types, epithelium, cells):
+    """
+    Select the cells that border the photoreceptor cells.
+    :param field_types: Input parameters:
+    'border radius (cells)' -> The radius (in cells) around the photoreceptor cells to specialize as border cells.
+    :param epithelium: Epithelium where selection is taking place
+    :param cells: Cells to run selection on (should be part of passed epithelium)
+    :return:
+    """
     for cell in cells:
         if cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
             distance = field_types["border radius (cells)"].value
@@ -150,6 +158,13 @@ border_cell_selection_event = FurrowEvent(name="Border Cell Selection",
 
 
 def run_cell_death(field_types, epithelium, cells):
+    """
+    Kill all unspecialized cells
+    :param field_types: Input parameters
+    :param epithelium: Epithelium where selection is taking place
+    :param cells: Cells to run selection on (should be part of passed epithelium)
+    :return:
+    """
     for cell in cells:
         if SupportCellType.BORDER_CELL not in cell.support_specializations \
                 and cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
