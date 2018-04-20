@@ -38,6 +38,8 @@ Note that simulation and specialization options cannot be changed after a simula
 
 ___
 ## Changing the Code
+Some users may want to change the way that simulations behave or the way that the epithelium is displayed in ways that cannot adequately be achieved through changing settings in the GUI. The **quick_change** module contains all the tools that most users should need to achieve their desired simulation.
 ### Custom Furrow Events
+As the furrow moves across the epithelium *furrow events* are applied to all of the cells in its wake.
 ### Custom Cell Events
 ### Custom Rendering
