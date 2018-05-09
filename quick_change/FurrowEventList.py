@@ -2,7 +2,7 @@ import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.SupportCellType import SupportCellType
-
+from quick_change.CellEvents import TryCellDeath
 
 def run_r8_selector(field_types, epithelium, cells):
     """R8 cell selection logic
@@ -168,18 +168,22 @@ def run_cell_death(field_types, epithelium, cells):
     for cell in cells:
         if SupportCellType.BORDER_CELL not in cell.support_specializations \
                 and cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
-            try:
-                epithelium.delete_cell(cell)
-            except ValueError as e:
-                #  TODO: Don't pass cells that are dead
-                # this is an awful hack to get around the fact that cells can be killed, but still sent to the
-                # furrow (b/c they were in the last iterations group of cells)
-                pass
+
+            # only add cell event if it hasn't already been added
+            # we must do this instead of letting set take care of it b/c each TryCellDeath is a different
+            # instance of the class
+            add_event = True
+            for event in cell.cell_events:
+                if isinstance(event, TryCellDeath):
+                    add_event = False
+            if add_event:
+                cell.cell_events.add(TryCellDeath(epithelium=epithelium,
+                                                  death_chance=float(field_types["death  (%)"].value) / 100.0))
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
                                distance_from_furrow=400,
-                               field_types=dict(),
+                               field_types={"death  (%)": FieldType.IntegerFieldType(1)},
                                run=run_cell_death)
 
 
