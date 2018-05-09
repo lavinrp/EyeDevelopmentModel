@@ -178,12 +178,12 @@ def run_cell_death(field_types, epithelium, cells):
                     add_event = False
             if add_event:
                 cell.cell_events.add(TryCellDeath(epithelium=epithelium,
-                                                  death_chance=float(field_types["death  (%)"].value) / 100.0))
+                                                  death_chance=float(field_types["death rate (0-100)"].value) / 100.0))
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
                                distance_from_furrow=400,
-                               field_types={"death  (%)": FieldType.IntegerFieldType(1)},
+                               field_types={"death rate (0-100)": FieldType.IntegerFieldType(1)},
                                run=run_cell_death)
 
 
