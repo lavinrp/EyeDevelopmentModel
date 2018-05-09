@@ -67,7 +67,7 @@ The final step to adding a new furrow event is appending your new event into the
 
 Cell events are a function or a callable class that takes a single parameter: the cell to operate on.
 
- After a cell event is added to a cellwith
+ After a cell event is added to a cell with
  > def event (cell): pass
 
 > cell.cell_events.append(event)
