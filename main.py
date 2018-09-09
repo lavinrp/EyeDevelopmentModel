@@ -1,9 +1,18 @@
-import wx
-from eye_development_gui.MainFrame import MainFrame
+import sys
 
-if __name__ == '__main__':
-    # Run the app
-    app = wx.App()  # type: wx.App
-    frame = MainFrame(None)
-    frame.Show(True)
-    app.MainLoop()
+from PySide2 import QtWidgets
+
+from eye_development_gui_pyside.MainWidget import MainWidget
+
+
+if __name__ == "__main__":
+
+    app = QtWidgets.QApplication(sys.argv)
+
+
+    widget = MainWidget()
+
+    widget.show()
+
+
+    sys.exit(app.exec_())
