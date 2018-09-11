@@ -228,6 +228,8 @@ class CellCollisionHandler(object):
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
 
+        self.fill_grid()
+
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
         cells = []
