@@ -15,8 +15,6 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         self.epithelium_display = QtWidgets.QWidget()
         self.epithelium_display.setMinimumSize(200, 200)
         self.epithelium_display.setAutoFillBackground(True)
-        oglStandinBackgroud = QtGui.QPalette()
-        oglStandinBackgroud.setColor(QtGui.QPalette.Background, QtGui.QColor(0, 1, 0))
 
         ###################################################
         # generation controls
@@ -62,7 +60,10 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         ###################################################
         # Combine control and display widgets
         ###################################################
-        self.layout = QtWidgets.QHBoxLayout()
-        self.layout.addWidget(self.epithelium_display)
-        self.layout.addWidget(self.generation_control_panel)
-        self.setLayout(self.layout)
+        overall_layout = QtWidgets.QHBoxLayout()
+        overall_layout.addWidget(self.epithelium_display)
+        overall_layout.addWidget(self.generation_control_panel)
+        self.setLayout(overall_layout)
+
+    def on_create(self):
+        pass
