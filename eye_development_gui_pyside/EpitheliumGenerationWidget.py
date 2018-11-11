@@ -1,5 +1,6 @@
 from PySide2 import QtCore
 from PySide2 import QtWidgets
+from PySide2 import QtGui
 
 from eye_development_gui_pyside.SimulationWidget import SimulationWidget
 
@@ -12,6 +13,10 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         # epithelium display
         ###################################################
         self.epithelium_display = QtWidgets.QWidget()
+        self.epithelium_display.setMinimumSize(200, 200)
+        self.epithelium_display.setAutoFillBackground(True)
+        oglStandinBackgroud = QtGui.QPalette()
+        oglStandinBackgroud.setColor(QtGui.QPalette.Background, QtGui.QColor(0, 1, 0))
 
         ###################################################
         # generation controls
@@ -19,48 +24,45 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         ###
         # Generation action button placement
         ###
-        self.generation_actions_button_group = QtWidgets.QButtonGroup()
         self.create_button = QtWidgets.QPushButton("Create")
         self.save_button = QtWidgets.QPushButton("Save")
         self.save_as_button = QtWidgets.QPushButton("Save As")
         self.load_button = QtWidgets.QPushButton("Load")
-        self.generation_actions_button_group.addButton(self.create_button)
-        self.generation_actions_button_group.addButton(self.save_button)
-        self.generation_actions_button_group.addButton(self.save_as_button)
-        self.generation_actions_button_group.addButton(self.load_button)
+        generation_actions_layout = QtWidgets.QHBoxLayout()
+        generation_actions_layout.addWidget(self.create_button)
+        generation_actions_layout.addWidget(self.save_button)
+        generation_actions_layout.addWidget(self.save_as_button)
+        generation_actions_layout.addWidget(self.load_button)
         ###
         # generation options
         ###
-        # self.generation_options_widget = QtWidgets.QWidget()
-        # self.min_cell_count_label = QtWidgets.QLabel("Min Cell Count")
-        # self.min_cell_count_line_edit = QtWidgets.QLineEdit("100")
-        # self.average_cell_size_label = QtWidgets.QLabel("Average Cell Size")
-        # self.average_cell_size__line_edit = QtWidgets.QLineEdit("10")
-        # self.cell_size_variance_label = QtWidgets.QLabel("Cell Size Variance")
-        # self.cell_size_variance_line_edit = QtWidgets.QLineEdit("2")
-        # generation_options_layout = QtWidgets.QGridLayout()
-        # generation_options_layout.addWidget(self.min_cell_count_label, 0, 0)
-        # generation_options_layout.addWidget(self.min_cell_count_line_edit, 0, 1)
-        # generation_options_layout.addWidget(self.average_cell_size_label, 1, 0)
-        # generation_options_layout.addWidget(self.average_cell_size__line_edit, 1, 1)
-        # generation_options_layout.addWidget(self.cell_size_variance_label, 2, 0)
-        # generation_options_layout.addWidget(self.cell_size_variance_line_edit, 2, 1)
-        # self.generation_options_widget.setLayout(generation_options_layout)
+        self.min_cell_count_label = QtWidgets.QLabel("Min Cell Count")
+        self.min_cell_count_line_edit = QtWidgets.QLineEdit("100")
+        self.average_cell_size_label = QtWidgets.QLabel("Average Cell Size")
+        self.average_cell_size__line_edit = QtWidgets.QLineEdit("10")
+        self.cell_size_variance_label = QtWidgets.QLabel("Cell Size Variance")
+        self.cell_size_variance_line_edit = QtWidgets.QLineEdit("2")
+        generation_options_layout = QtWidgets.QGridLayout()
+        generation_options_layout.addWidget(self.min_cell_count_label, 0, 0)
+        generation_options_layout.addWidget(self.min_cell_count_line_edit, 0, 1)
+        generation_options_layout.addWidget(self.average_cell_size_label, 1, 0)
+        generation_options_layout.addWidget(self.average_cell_size__line_edit, 1, 1)
+        generation_options_layout.addWidget(self.cell_size_variance_label, 2, 0)
+        generation_options_layout.addWidget(self.cell_size_variance_line_edit, 2, 1)
         ###
         # combined generation controls
         ###
         self.generation_control_panel = QtWidgets.QWidget()
         generation_control_panel_layout = QtWidgets.QVBoxLayout()
-        # generation_options_layout.addWidget(self.generation_actions_button_group)
-        # generation_options_layout.addWidget(self.generation_options_widget)
+        generation_control_panel_layout.addLayout(generation_actions_layout)
+        generation_control_panel_layout.addLayout(generation_options_layout)
+        generation_control_panel_layout.setAlignment(QtCore.Qt.TopEdge)
         self.generation_control_panel.setLayout(generation_control_panel_layout)
 
         ###################################################
         # Combine control and display widgets
         ###################################################
         self.layout = QtWidgets.QHBoxLayout()
-        #self.layout.addWidget(self.epithelium_display)
+        self.layout.addWidget(self.epithelium_display)
         self.layout.addWidget(self.generation_control_panel)
         self.setLayout(self.layout)
-
-
