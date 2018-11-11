@@ -1,32 +1,22 @@
 
-import random
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2 import QtCore
+from PySide2 import QtWidgets
+
+from eye_development_gui_pyside.EpitheliumGenerationWidget import EpitheliumGenerationWidget
+from epithelium_backend.SimulationController import SimulationController
 
 
-class MainWidget(QtWidgets.QWidget):
+class MainWidget(QtWidgets.QTabWidget):
 
     def __init__(self):
+        """
+        Initializes this
+        """
 
-        QtWidgets.QWidget.__init__(self)
+        QtWidgets.QTabWidget.__init__(self)
 
-        self.hello = ["Hallo Welt", "你好，世界", "Hei maailma",
-            "Hola Mundo", "Привет мир"]
+        self.simulation_controller = SimulationController()  # type: SimulationController
 
-        self.button = QtWidgets.QPushButton("Click me!")
+        self.epithelium_generation_widget = EpitheliumGenerationWidget()  # type: EpitheliumGenerationWidget
 
-        self.text = QtWidgets.QLabel("Hello World")
-
-        self.text.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.layout = QtWidgets.QVBoxLayout()
-
-        self.layout.addWidget(self.text)
-
-        self.layout.addWidget(self.button)
-
-        self.setLayout(self.layout)
-
-        self.button.clicked.connect(self.magic)
-
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
+        self.addTab(self.epithelium_generation_widget, "Epithelium Generation")
