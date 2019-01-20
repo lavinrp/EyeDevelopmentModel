@@ -31,6 +31,10 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         generation_actions_layout.addWidget(self.save_button)
         generation_actions_layout.addWidget(self.save_as_button)
         generation_actions_layout.addWidget(self.load_button)
+        generation_actions_bar = QtWidgets.QWidget()
+        generation_actions_bar_layout = QtWidgets.QVBoxLayout()
+        generation_actions_bar_layout.addLayout(generation_actions_layout)
+        generation_actions_bar.setLayout(generation_actions_bar_layout)
         ###
         # generation options
         ###
@@ -52,9 +56,9 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         ###
         self.generation_control_panel = QtWidgets.QWidget()
         generation_control_panel_layout = QtWidgets.QVBoxLayout()
-        generation_control_panel_layout.addLayout(generation_actions_layout)
+        generation_control_panel_layout.addWidget(generation_actions_bar)
         generation_control_panel_layout.addLayout(generation_options_layout)
-        generation_control_panel_layout.setAlignment(QtCore.Qt.TopEdge)
+        generation_control_panel_layout.setAlignment(QtCore.Qt.AlignTop)
         self.generation_control_panel.setLayout(generation_control_panel_layout)
         self.generation_control_panel.setMaximumWidth(300)
 
