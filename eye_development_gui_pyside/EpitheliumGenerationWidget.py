@@ -56,6 +56,7 @@ class EpitheliumGenerationWidget(QtWidgets.QWidget):
         generation_control_panel_layout.addLayout(generation_options_layout)
         generation_control_panel_layout.setAlignment(QtCore.Qt.TopEdge)
         self.generation_control_panel.setLayout(generation_control_panel_layout)
+        self.generation_control_panel.setMaximumWidth(300)
 
         ###################################################
         # Combine control and display widgets
