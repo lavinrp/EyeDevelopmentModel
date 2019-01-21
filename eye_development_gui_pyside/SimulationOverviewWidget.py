@@ -21,6 +21,7 @@ class SimulationOverviewWidget(QtWidgets.QWidget):
         # Simulation Options
         #############################################
         simulation_options_group_box = QtWidgets.QGroupBox("Simulation Options")
+        simulation_options_group_box.setMaximumHeight(151)
         simulation_options_widget = QtWidgets.QWidget()
         simulation_options_scroll_area = QtWidgets.QScrollArea()
         simulation_options_layout = QtWidgets.QGridLayout()
@@ -43,12 +44,29 @@ class SimulationOverviewWidget(QtWidgets.QWidget):
         simulation_options_widget.setLayout(simulation_options_layout)
         simulation_options_scroll_area.setWidget(simulation_options_widget)
         simulation_options_group_box_layout = QtWidgets.QHBoxLayout()
-        simulation_options_group_box_layout.addWidget(simulation_options_widget)
+        simulation_options_group_box_layout.addWidget(simulation_options_scroll_area)
         simulation_options_group_box.setLayout(simulation_options_group_box_layout)
 
         #############################################
         # Specialization Options
         #############################################
+        specialization_options_group_box = QtWidgets.QGroupBox("Specilization Options")
+        specialization_options_widget = QtWidgets.QWidget()
+        specialization_options_layout = QtWidgets.QFormLayout()
+        specialization_options_scroll_area = QtWidgets.QScrollArea()
+        # TODO: remove this -- add a bunch of things for testing
+        for i in range(0, 10):
+            label_name = "Specialization Option " + str(i)
+            label = QtWidgets.QLabel(label_name)
+            line_edit = QtWidgets.QLineEdit(str(i))
+            specialization_options_layout.addWidget(label)
+            specialization_options_layout.addWidget(line_edit)
+        specialization_options_widget.setLayout(specialization_options_layout)
+        specialization_options_scroll_area.setWidget(specialization_options_widget)
+        specialization_options_group_box_layout = QtWidgets.QVBoxLayout()
+        specialization_options_group_box_layout.addWidget(specialization_options_scroll_area)
+        specialization_options_group_box.setLayout(specialization_options_group_box_layout)
+
 
         #############################################
         # Combined Options
@@ -56,7 +74,9 @@ class SimulationOverviewWidget(QtWidgets.QWidget):
         combined_options_widget = QtWidgets.QWidget()
         combined_options_layout = QtWidgets.QVBoxLayout()
         combined_options_layout.addWidget(simulation_options_group_box)
+        combined_options_layout.addWidget(specialization_options_group_box)
         combined_options_widget.setLayout(combined_options_layout)
+        combined_options_widget.setMaximumWidth(300)
 
         #############################################
         # Combined Options and Simulation
