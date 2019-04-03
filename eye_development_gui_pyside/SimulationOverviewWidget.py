@@ -67,7 +67,6 @@ class SimulationOverviewWidget(QtWidgets.QWidget):
         specialization_options_group_box_layout.addWidget(specialization_options_scroll_area)
         specialization_options_group_box.setLayout(specialization_options_group_box_layout)
 
-
         #############################################
         # Combined Options
         #############################################
