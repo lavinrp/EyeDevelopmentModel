@@ -26,7 +26,7 @@ class FurrowEventTester(unittest.TestCase):
         distance_from_furrow = 10
         field_types = {}
         run = RunFunctor()
-        furrow_event = FurrowEvent(distance_from_furrow, field_types, run)
+        furrow_event = FurrowEvent("test event", distance_from_furrow, field_types, run)
 
         self.assertEqual(distance_from_furrow, furrow_event.distance_from_furrow,
                          "Incorrect distance from furrow set in FurrowEvent.__init__")

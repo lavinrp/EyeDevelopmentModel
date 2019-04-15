@@ -14,13 +14,11 @@ class TestEventFunctor(FurrowEvent):
     def __init__(self):
         """init the test functor"""
         self.call_count = 0
-        distance_from_furrow = 10
-        FurrowEvent.__init__(self, distance_from_furrow, dict(), self.run_func)
         self.field_types = {}
         self.epithelium = None
         self.cells = []
 
-    def run_func(self, field_types, epithelium, cells):
+    def __call__(self, field_types, epithelium, cells):
         """function called whenever this functor is called"""
         self.epithelium = epithelium
         self.field_types = field_types
@@ -57,11 +55,18 @@ class FurrowTester(unittest.TestCase):
 
     def test_update(self):
 
+        test_functor = TestEventFunctor()
+        test_event = FurrowEvent(
+            name="Test Event",
+            distance_from_furrow=0,
+            field_types={},
+            run=test_functor
+        )
+
         # init furrow
         pos = 10
         velocity = 10
-        test_functor = TestEventFunctor()
-        events = [test_functor]
+        events = [test_event]
         furrow = Furrow(pos, velocity, events)  # type: Furrow
 
         # init epithelium

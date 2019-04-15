@@ -4,6 +4,7 @@ from epithelium_backend.Cell import Cell
 from epithelium_backend.CellCollisionHandler import distance
 from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 
+
 class CellCollisionHandlerTester(unittest.TestCase):
 
     def test_resizing(self):
@@ -97,3 +98,4 @@ class CellCollisionHandlerTester(unittest.TestCase):
             for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
                 self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
             old_pairwise_distances = new_pairwise_distances
+
