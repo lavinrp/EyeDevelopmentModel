@@ -7,7 +7,7 @@ from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.Furrow import Furrow
 
 
-class TestEventFunctor(FurrowEvent):
+class TestEventFunctor(object):
     """
     Fake FurrowEvent used for testing furrows.
     """
