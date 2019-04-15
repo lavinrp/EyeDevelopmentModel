@@ -120,4 +120,37 @@ class CellCollisionHandlerTester(unittest.TestCase):
         self.assertGreaterEqual(
             collision_handler.box_size,
             big_cell_size,
-            "The collision handler box size is smaller than the largest cell.")
+            "The collision handler box size is smaller than the largest cell."
+        )
+
+    def test_decompact_with_big_cell(self):
+        # fill a collision handler with cells
+        big_cell_size = 100
+        big_cell = Cell((1, 70, 0), big_cell_size)
+        cell_positions = [
+            (1, 1, 0),
+            (1, 1, 0),
+            (1, 1, 0),
+            big_cell_size
+        ]
+        cells = [
+            Cell(cell_positions[0], 1),
+            Cell(cell_positions[1], 1),
+            Cell(cell_positions[2], 1),
+            big_cell
+        ]
+        collision_handler = CellCollisionHandler(cells)
+        collision_handler.decompact()
+
+        # the cells were overlapping significantly ensure that they got moved
+        for i in range(len(cells)):
+            cell = cells[i]
+            orig_cell_position = cell_positions[i]
+            if cell is not big_cell:
+                cell_position = (
+                    cell.position_x,
+                    cell.position_y,
+                    cell.position_z
+                )
+                self.assertTrue(orig_cell_position != cell_position, "Overlapping cells were not moved")
+
