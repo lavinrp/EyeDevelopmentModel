@@ -99,3 +99,25 @@ class CellCollisionHandlerTester(unittest.TestCase):
                 self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
             old_pairwise_distances = new_pairwise_distances
 
+    def test_minimum_bin_size_is_max_cell_size(self):
+        """
+        Bin sizes cannot be smaller than the size of hte largest cell without
+        incorrect collision calsucations
+        """
+
+        # fill a collision handler with cells
+        big_cell_size = 100
+        cells = [
+            Cell((1, 1, 0), 1),
+            Cell((1, 70, 0), big_cell_size),
+            Cell((1, 2, 0), 1),
+            Cell((1, 3, 0), 1)
+        ]
+        collision_handler = CellCollisionHandler(cells)
+        collision_handler.fill_grid()
+
+        # ensure that the the cells
+        self.assertGreaterEqual(
+            collision_handler.box_size,
+            big_cell_size,
+            "The collision handler box size is smaller than the largest cell.")
