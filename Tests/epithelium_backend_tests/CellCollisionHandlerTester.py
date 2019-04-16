@@ -126,11 +126,12 @@ class CellCollisionHandlerTester(unittest.TestCase):
     def test_decompact_with_big_cell(self):
         # fill a collision handler with cells
         big_cell_size = 100
-        big_cell = Cell((1, 70, 0), big_cell_size)
+        big_cell_position = (0, 0, 0)
+        big_cell = Cell(big_cell_position, big_cell_size)
         cell_positions = [
-            (1, 1, 0),
-            (1, 1, 0),
-            (1, 1, 0),
+            (-90, 0, 0),
+            (90, 0, 0),
+            (90, 90, 0),
             big_cell_size
         ]
         cells = [
@@ -152,5 +153,13 @@ class CellCollisionHandlerTester(unittest.TestCase):
                     cell.position_y,
                     cell.position_z
                 )
-                self.assertTrue(orig_cell_position != cell_position, "Overlapping cells were not moved")
+                new_big_cell_position = (
+                    big_cell.position_x,
+                    big_cell.position_y,
+                    big_cell.position_z
+                )
+                old_distance = distance(cell_positions[i], big_cell_position)
+                new_distance = distance(cell_position, new_big_cell_position)
+                self.assertGreater(new_distance, old_distance, "Overlapping cells were not moved")
+
 
