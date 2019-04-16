@@ -39,7 +39,7 @@ class FurrowEventTester(unittest.TestCase):
         cell_count = 10
         epithelium = Epithelium(cell_count)
         run = RunFunctor()
-        furrow_event = FurrowEvent(distance_from_furrow, field_types, run)
+        furrow_event = FurrowEvent("Test Event", distance_from_furrow, field_types, run)
         furrow_event(10000, -1000, epithelium)
 
         self.assertEqual(run.call_count, 1, "Incorrect call count of run function in FurrowEvent.__call__")

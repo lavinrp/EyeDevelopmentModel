@@ -30,7 +30,7 @@ class CellCollisionHandler(object):
     to it that we need to consider when computing forces.
 
     We partition R^2 into a grid of boxes, where each box is a little
-    bigger than the average cell diameter, and define a mapping from
+    bigger than the largest cell diameter, and define a mapping from
     cell positions to the corresponding box. Then, to get the neighbors
     of a cell, we get the coordinates of its box in the grid and do
     simple arithmetic to find its neighboring boxes, and get the cells
@@ -168,7 +168,8 @@ class CellCollisionHandler(object):
         # pushed apart and stopped colliding, we'd like them to stop
         # moving, not to continue to move apart with high velocities.
 
-        min_dist = self.avg_radius/100
+        # cells should
+        min_dist = min(cell1.radius, cell2.radius) / 100
         cxnx = max(cell1.position_x - cell2.position_x, min_dist, key=abs)
         cyny = max(cell1.position_y - cell2.position_y, min_dist, key=abs)
         # If they're on top of each other, they should push each other apart.
