@@ -124,6 +124,11 @@ class CellCollisionHandlerTester(unittest.TestCase):
         )
 
     def test_decompact_with_big_cell(self):
+        """
+        Ensure that cells get pushed and pulled even if one cell is
+        significantly larger than the rest
+        """
+
         # fill a collision handler with cells
         big_cell_size = 100
         big_cell_position = (0, 0, 0)
