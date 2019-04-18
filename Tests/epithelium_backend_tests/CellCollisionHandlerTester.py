@@ -1,8 +1,10 @@
 import unittest
+import numpy as np
 
 from epithelium_backend.Cell import Cell
 from epithelium_backend.CellCollisionHandler import distance
 from epithelium_backend.CellCollisionHandler import CellCollisionHandler
+from epithelium_backend.CellCollisionHandler import create_cell_grid
 
 class CellCollisionHandlerTester(unittest.TestCase):
 
@@ -97,3 +99,107 @@ class CellCollisionHandlerTester(unittest.TestCase):
             for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
                 self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
             old_pairwise_distances = new_pairwise_distances
+
+    def test_create_cell_grid_same_size_cells_no_children_grid_dimentions(self):
+        cell_radius = 10
+        cells = [
+            Cell((0, 0, 0), cell_radius),
+            Cell((20, 0, 0), cell_radius),
+            Cell((40, 0, 0), cell_radius),
+            Cell((60, 0, 0), cell_radius),
+            Cell((80, 0, 0), cell_radius),
+            Cell((20, 20, 0), cell_radius),
+            Cell((40, 20, 0), cell_radius),
+            Cell((60, 20, 0), cell_radius),
+            Cell((80, 20, 0), cell_radius),
+            Cell((0, 20, 0), cell_radius)
+        ]
+
+        # create the grid
+        grid = create_cell_grid(cells)  # type: np.ndarray
+
+        # check the shape of the grid
+        grid_shape = grid.shape
+        self.assertEqual((5,2), grid_shape, "The grid was created with incorrect dimensions.")
+
+    def test_create_cell_grid_same_size_cells_no_children_cell_positions(self):
+        cell_radius = 10
+        cells = [
+            Cell((0, 0, 0), cell_radius),
+            Cell((20, 0, 0), cell_radius),
+            Cell((40, 0, 0), cell_radius),
+            Cell((60, 0, 0), cell_radius),
+            Cell((80, 0, 0), cell_radius),
+            Cell((0, 20, 0), cell_radius),
+            Cell((20, 20, 0), cell_radius),
+            Cell((40, 20, 0), cell_radius),
+            Cell((60, 20, 0), cell_radius),
+            Cell((80, 20, 0), cell_radius)
+        ]
+
+        # create the grid
+        grid = create_cell_grid(cells)  # type: np.ndarray
+
+        # assert that all the bins have exactly one cell in them
+        self.assertEqual(len(grid[0][0]), 1)
+        self.assertEqual(len(grid[1][0]), 1)
+        self.assertEqual(len(grid[2][0]), 1)
+        self.assertEqual(len(grid[3][0]), 1)
+        self.assertEqual(len(grid[4][0]), 1)
+        self.assertEqual(len(grid[0][1]), 1)
+        self.assertEqual(len(grid[1][1]), 1)
+        self.assertEqual(len(grid[2][1]), 1)
+        self.assertEqual(len(grid[3][1]), 1)
+        self.assertEqual(len(grid[4][1]), 1)
+
+        # assert that the cells ended up in the correct bin
+        self.assertIs(cells[0], grid[0][0][0])
+        self.assertIs(cells[1], grid[1][0][0])
+        self.assertIs(cells[2], grid[2][0][0])
+        self.assertIs(cells[3], grid[3][0][0])
+        self.assertIs(cells[4], grid[4][0][0])
+        self.assertIs(cells[5], grid[0][1][0])
+        self.assertIs(cells[6], grid[1][1][0])
+        self.assertIs(cells[7], grid[2][1][0])
+        self.assertIs(cells[8], grid[3][1][0])
+        self.assertIs(cells[9], grid[4][1][0])
+
+    def test_create_cell_grid_same_size_cells_no_children_cell_positions_with_gaps_between_cells(self):
+        cell_radius = 10
+        cells = [
+            Cell((0, 0, 0), cell_radius),
+            Cell((40, 0, 0), cell_radius),
+            Cell((80, 0, 0), cell_radius),
+            Cell((0, 40, 0), cell_radius),
+            Cell((40, 40, 0), cell_radius),
+            Cell((80, 40, 0), cell_radius)
+        ]
+
+        # create the grid
+        grid = create_cell_grid(cells)  # type: np.ndarray
+
+        # assert that the correct bins have cells in them
+        self.assertEqual(len(grid[0][0]), 1)
+        self.assertEqual(len(grid[1][0]), 0)
+        self.assertEqual(len(grid[2][0]), 1)
+        self.assertEqual(len(grid[3][0]), 0)
+        self.assertEqual(len(grid[4][0]), 1)
+        self.assertEqual(len(grid[0][1]), 0)
+        self.assertEqual(len(grid[1][1]), 0)
+        self.assertEqual(len(grid[2][1]), 0)
+        self.assertEqual(len(grid[3][1]), 0)
+        self.assertEqual(len(grid[4][1]), 0)
+        self.assertEqual(len(grid[0][2]), 1)
+        self.assertEqual(len(grid[1][2]), 0)
+        self.assertEqual(len(grid[2][2]), 1)
+        self.assertEqual(len(grid[3][2]), 0)
+        self.assertEqual(len(grid[4][2]), 1)
+
+        # assert that the cells ended up in the correct bin
+        self.assertIs(cells[0], grid[0][0][0])
+        self.assertIs(cells[1], grid[2][0][0])
+        self.assertIs(cells[2], grid[4][0][0])
+        self.assertIs(cells[3], grid[0][2][0])
+        self.assertIs(cells[4], grid[2][2][0])
+        self.assertIs(cells[5], grid[4][2][0])
+

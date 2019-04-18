@@ -1,14 +1,92 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
 
-from math import sqrt, ceil
+from math import sqrt, ceil, floor
 from epithelium_backend.Cell import Cell
+import numpy as np
 
 
 def distance(p1, p2):
     (x1,y1,z1) = p1
     (x2,y2,z2) = p2
     return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+
+
+def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
+    """
+    Create a grid of cells. Each grid square within the same grid
+    has equal dimensions. Each grid square represents a discrete section
+    of 2D space. Cells within each grid square have centers that exist in
+    within that space.
+
+    A grid square can also store another cell grid. In this scenario the entire
+    child cell grid (and therefore every cell within it) exists within the space
+    represented by the parent grid square.
+
+    Child grids are stored as ndarrays. If a child grid holds only once cell the child grid
+    will be represented as a python list containing only that cell. Child grids with no cells will
+    be represented as an empty python list.
+
+    Each grid square within a cell grid may have a different number of child grids within it.
+
+    :param cells: The cells to place into a grid
+    :param maximum_layers: The maximum layers of child grid squares that can exist
+    under a square of the current grid. (a value of 1 indicates that every grid square
+    in this grid can have a child grid, but that those child grids cannot have any
+    children of their own).
+    A value of -1 indicates that there is no limit to the number of child grids
+    and that more child grids should be created until the lowest level child grid only contains one cell
+    :return: A numpy ndarray representing cells or other ndarrays
+    """
+
+    maximum_cell_diameter = 2 * max(map(lambda x: x.radius, cells))
+    max_cell_x = 0
+    min_cell_x = 0
+    max_cell_y = 0
+    min_cell_y = 0
+
+    # find the boundaries of the grid
+    for cell in cells:
+        if max_cell_x < cell.position_x:
+            max_cell_x = cell.position_x
+        elif min_cell_x > cell.position_x:
+            min_cell_x = cell.position_x
+        if max_cell_y < cell.position_y:
+            max_cell_y = cell.position_y
+        elif min_cell_y > cell.position_y:
+            min_cell_y = cell.position_y
+
+    # create a grid that will fit all of the cells
+    minimum_grid_width = ceil((max_cell_x - min_cell_x) / maximum_cell_diameter) + 1
+    minimum_grid_height = ceil((max_cell_y - min_cell_y) / maximum_cell_diameter) + 1
+    cell_grid = np.ndarray((minimum_grid_width, minimum_grid_height), dtype=object)
+    # fill the grid with lists to hold cells
+    for i in range(minimum_grid_width):
+        for j in range(minimum_grid_height):
+            cell_grid[i][j] = []
+
+    # place the cells in the correct bin
+    for cell in cells:
+        bin_x = floor((cell.position_x - min_cell_x) / maximum_cell_diameter)
+        bin_y = floor((cell.position_y - min_cell_y) / maximum_cell_diameter)
+        cell_grid[bin_x][bin_y].append(cell)
+
+    if maximum_layers == 0:
+        # we want to return all the cells
+        return cell_grid
+
+    else:
+        # create child grids for each grid square
+        parent_grid = np.ndarray((minimum_grid_width, minimum_grid_height), dtype=object)
+        for i in range(minimum_grid_width):
+            for j in range(minimum_grid_height):
+                cells_in_current_grid = len(cell_grid[i][j])
+                if cells_in_current_grid > 1:
+                    parent_grid[i][j] = create_cell_grid(cell_grid[i][j], maximum_layers - 1)
+                else :
+                    parent_grid[i][j] = cell_grid[i][j]
+
+        return parent_grid
 
 
 class CellCollisionHandler(object):
@@ -277,3 +355,4 @@ class CellCollisionHandler(object):
         # sort posterior to anterior
         result.sort(key=lambda c: -c.position_x)
         return result
+
