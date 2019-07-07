@@ -3,6 +3,7 @@
 
 from math import sqrt, ceil, floor
 from epithelium_backend.Cell import Cell
+from quick_change.CellAdhesionRules import determine_cell_adhesion
 import numpy as np
 
 
@@ -133,18 +134,14 @@ class CellCollisionHandler(object):
        cells overlap a lot (since cells would exert non-local pulling forces)
     :param allow_overlap: If less than 1, cells exert pulling forces on
        each other when colliding, making them overlap in equilibrium.
-    :param spring_constant: determines spring stiffness; linearly correlated
-       to the magnitude of the force cells exert on each other.
     """
     def __init__(self,
                  cells: list,
                  force_escape: float = 1.05,
-                 allow_overlap: float = 0.95,
-                 spring_constant: float = 0.32):
+                 allow_overlap: float = 0.95):
         # Constants
         self.force_escape = force_escape
         self.allow_overlap = allow_overlap
-        self.spring_constant = spring_constant
 
         self.cells = list(cells)
         self.cell_quantity = 0
@@ -259,6 +256,10 @@ class CellCollisionHandler(object):
         # close. Force decreases linearly with distance between cells.
         rest_length = cell1.radius + cell2.radius
         if dist <= self.force_escape * rest_length:
+            # determines spring stiffness; linearly correlated to the magnitude of the
+            # force cells exert on each other.
+            spring_constant = determine_cell_adhesion(cell1, cell2)  # type: float
+
             # the difference between the distance and rest_length
             # determines the directionality of the force.
             # If the springs are farther apart than their rest_length,
@@ -269,7 +270,7 @@ class CellCollisionHandler(object):
             # by allow_overlap means springs will be at equilibrium
             # when overlapping, since it makes the rest_length
             # smaller.
-            s = self.spring_constant*(dist-self.allow_overlap*rest_length)/dist
+            s = spring_constant*(dist-self.allow_overlap*rest_length)/dist
             scxnx = s*cxnx
             scyny = s*cyny
             cell1.position_x -= scxnx
@@ -297,12 +298,15 @@ class CellCollisionHandler(object):
             down_left = i+dimension-1
             down = i+dimension
             down_right = i+dimension+1
+
+            # Interact with cells in current box
             for m in range(0, len(box)):
                 cell1 = box[m]
                 for n in range(m+1, len(box)):
                     cell2 = box[n]
                     self.push_pull(cell1, cell2)
 
+            # Interact with cells in adjacent boxes
             for cell1 in box:
                 for j in [right, down_left, down, down_right]:
                     if 0 < j < len_grids:
