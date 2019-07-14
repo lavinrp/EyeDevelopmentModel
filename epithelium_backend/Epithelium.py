@@ -69,12 +69,7 @@ class Epithelium(object):
         if cell_factory is None:
             cell_factory = CellFactory()
 
-        # This is the list of functions which are each cell should start out with.
-        # They are run once per tick of the simulation.
-        default_cell_events = {CellEvents.PassiveGrowth(self)}
-
         # create cells for sheet
-        cell_factory.cell_events = default_cell_events
         self.cells = cell_factory.create_cells(self.cell_quantity)
 
         # run initial decompaction of cells cells
@@ -82,6 +77,14 @@ class Epithelium(object):
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
             for i in range(0, 50):
                 self.cell_collision_handler.decompact()
+
+            for cell in self.cells:
+                # This is the set of events should start out with.
+                # They are run once per tick of the simulation.
+                # Each cell gets its own copy of each event
+                default_cell_events = {CellEvents.PassiveGrowth(self)}
+                for cell_event in default_cell_events:
+                    cell.cell_events.add(cell_event)
 
     def neighboring_cells(self, cell: Cell, number_cells: int):
         """
