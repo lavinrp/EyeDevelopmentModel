@@ -13,7 +13,7 @@ def distance(p1, p2):
     return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
 
-def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
+def create_cell_grid(cells: list, square_width: int, maximum_layers: int = 0) -> np.ndarray:
     """
     Create a grid of cells. Each grid square within the same grid
     has equal dimensions. Each grid square represents a discrete section
@@ -31,6 +31,7 @@ def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
     Each grid square within a cell grid may have a different number of child grids within it.
 
     :param cells: The cells to place into a grid
+    :param square_width: The size of each square in the grid
     :param maximum_layers: The maximum layers of child grid squares that can exist
     under a square of the current grid. (a value of 1 indicates that every grid square
     in this grid can have a child grid, but that those child grids cannot have any
@@ -58,8 +59,8 @@ def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
             min_cell_y = cell.position_y
 
     # create a grid that will fit all of the cells
-    minimum_grid_width = ceil((max_cell_x - min_cell_x) / maximum_cell_diameter) + 1
-    minimum_grid_height = ceil((max_cell_y - min_cell_y) / maximum_cell_diameter) + 1
+    minimum_grid_width = ceil((max_cell_x - min_cell_x) / square_width) + 1
+    minimum_grid_height = ceil((max_cell_y - min_cell_y) / square_width) + 1
     cell_grid = np.ndarray((minimum_grid_width, minimum_grid_height), dtype=object)
     # fill the grid with lists to hold cells
     for i in range(minimum_grid_width):
@@ -68,8 +69,8 @@ def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
 
     # place the cells in the correct bin
     for cell in cells:
-        bin_x = floor((cell.position_x - min_cell_x) / maximum_cell_diameter)
-        bin_y = floor((cell.position_y - min_cell_y) / maximum_cell_diameter)
+        bin_x = floor((cell.position_x - min_cell_x) / square_width)
+        bin_y = floor((cell.position_y - min_cell_y) / square_width)
         cell_grid[bin_x][bin_y].append(cell)
 
     if maximum_layers == 0:

@@ -2,6 +2,7 @@ import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.SupportCellType import SupportCellType
+from epithelium_backend.CellCollisionHandler import create_cell_grid
 from quick_change.CellEvents import TryCellDeath
 
 def run_r8_selector(field_types, epithelium, cells):
@@ -12,17 +13,30 @@ def run_r8_selector(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
 
+    if len(cells) == 0:
+        return
+
+    # get excluded cells
+    average_cell_size = (2 * sum(map(lambda x: x.radius, cells))) / len(cells)
+    grid = create_cell_grid(cells, average_cell_size)
+    grid_width = len(grid)
+    grid_height = len(grid[0])
+    excluded_cells = []
+    for grid_square in grid:
+        for cell in grid_square:
+            excluded_cells.append(cell)
+
     r8_exclusion_radius = field_types['r8 exclusion radius'].value
     for cell in cells:
-        neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
-        assign = True
-        for neighbor in neighbors:
-            if neighbor.photoreceptor_type == PhotoreceptorType.R8:
-                assign = False
+        if cell not in excluded_cells:
+            neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
+            assign = True
+            for neighbor in neighbors:
+                if neighbor.photoreceptor_type == PhotoreceptorType.R8:
+                    assign = False
         if assign:
             cell.photoreceptor_type = PhotoreceptorType.R8
             cell.dividable = False
-
 
 r8_selection_event = FurrowEvent(name="R8 Selection",
                                  distance_from_furrow=0,
