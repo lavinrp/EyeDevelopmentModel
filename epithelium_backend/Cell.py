@@ -9,7 +9,7 @@ class Cell(object):
     """A single cell"""
     def __init__(self,
                  position: tuple = (0, 0, 0),
-                 radius: float = 1,
+                 radius: float = 1.0,
                  photoreceptor_type: PhotoreceptorType = PhotoreceptorType.NOT_RECEPTOR,
                  support_specializations: set = None,
                  cell_events: set = None) -> None:
@@ -49,15 +49,17 @@ class Cell(object):
         """
         # Choose some radian for direction of placement of new cell
         rand_rad = random.uniform(0, 6.283)
+        # New Cells Size
+        child_radius = sqrt((self.radius**2) / 2)
         # Find position for new cell on original cell's circle
-        delta_x = self.radius/2 * cos(rand_rad)
-        delta_y = self.radius/2 * sin(rand_rad)
+        delta_x = child_radius * cos(rand_rad)
+        delta_y = child_radius * sin(rand_rad)
         rand_pos = (self.position_x + delta_x, self.position_y + delta_y, 0)
-        child_cell = Cell(position=rand_pos, radius=self.radius / 2.0, cell_events=set(self.cell_events))
+        child_cell = Cell(position=rand_pos, radius=child_radius, cell_events=set(self.cell_events)) # 2.0
         child_cell.growth_rate = self.growth_rate
         child_cell.max_radius = self.max_radius
-        # Divide the original cell size in half
-        self.radius /= 2
+        # Set the original cell's size
+        self.radius = child_radius
         # Move the parent cell to complete the division
         self.position_x -= delta_x
         self.position_y -= delta_y
