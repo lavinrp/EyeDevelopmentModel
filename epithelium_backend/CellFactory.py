@@ -45,8 +45,12 @@ class CellFactory(object):
                           random.random() * approx_grid_size,
                           0)
 
+            # Create events for each cell
+            cell_events = set()
+            for cell_event in self.cell_events:
+                cell_events.add(cell_event)
+
             # create the cell
-            cell_events = copy.deepcopy(self.cell_events)
             cell = Cell(position=random_pos,
                         radius=rand_radius,
                         cell_events=cell_events)

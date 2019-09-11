@@ -6,6 +6,7 @@ from epithelium_backend.CellCollisionHandler import distance
 from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 from epithelium_backend.CellCollisionHandler import create_cell_grid
 
+
 class CellCollisionHandlerTester(unittest.TestCase):
 
     def test_resizing(self):
@@ -202,4 +203,73 @@ class CellCollisionHandlerTester(unittest.TestCase):
         self.assertIs(cells[3], grid[0][2][0])
         self.assertIs(cells[4], grid[2][2][0])
         self.assertIs(cells[5], grid[4][2][0])
+
+    def test_minimum_bin_size_is_max_cell_size(self):
+        """
+        Bin sizes cannot be smaller than the size of hte largest cell without
+        incorrect collision calsucations
+        """
+
+        # fill a collision handler with cells
+        big_cell_size = 100
+        cells = [
+            Cell((1, 1, 0), 1),
+            Cell((1, 70, 0), big_cell_size),
+            Cell((1, 2, 0), 1),
+            Cell((1, 3, 0), 1)
+        ]
+        collision_handler = CellCollisionHandler(cells)
+        collision_handler.fill_grid()
+
+        # ensure that the the cells
+        self.assertGreaterEqual(
+            collision_handler.box_size,
+            big_cell_size,
+            "The collision handler box size is smaller than the largest cell."
+        )
+
+    def test_decompact_with_big_cell(self):
+        """
+        Ensure that cells get pushed and pulled even if one cell is
+        significantly larger than the rest
+        """
+
+        # fill a collision handler with cells
+        big_cell_size = 100
+        big_cell_position = (0, 0, 0)
+        big_cell = Cell(big_cell_position, big_cell_size)
+        cell_positions = [
+            (-90, 0, 0),
+            (90, 0, 0),
+            (90, 90, 0),
+            big_cell_size
+        ]
+        cells = [
+            Cell(cell_positions[0], 1),
+            Cell(cell_positions[1], 1),
+            Cell(cell_positions[2], 1),
+            big_cell
+        ]
+        collision_handler = CellCollisionHandler(cells)
+        collision_handler.decompact()
+
+        # the cells were overlapping significantly ensure that they got moved
+        for i in range(len(cells)):
+            cell = cells[i]
+            orig_cell_position = cell_positions[i]
+            if cell is not big_cell:
+                cell_position = (
+                    cell.position_x,
+                    cell.position_y,
+                    cell.position_z
+                )
+                new_big_cell_position = (
+                    big_cell.position_x,
+                    big_cell.position_y,
+                    big_cell.position_z
+                )
+                old_distance = distance(cell_positions[i], big_cell_position)
+                new_distance = distance(cell_position, new_big_cell_position)
+                self.assertGreater(new_distance, old_distance, "Overlapping cells were not moved")
+
 

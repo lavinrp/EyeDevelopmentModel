@@ -108,7 +108,7 @@ class CellCollisionHandler(object):
     to it that we need to consider when computing forces.
 
     We partition R^2 into a grid of boxes, where each box is a little
-    bigger than the average cell diameter, and define a mapping from
+    bigger than the largest cell diameter, and define a mapping from
     cell positions to the corresponding box. Then, to get the neighbors
     of a cell, we get the coordinates of its box in the grid and do
     simple arithmetic to find its neighboring boxes, and get the cells
@@ -149,6 +149,7 @@ class CellCollisionHandler(object):
         self.cells = list(cells)
         self.cell_quantity = 0
         self.avg_radius = 0
+        self.max_cell_radius = 0
         self.center_x = 0
         self.center_y = 0
         self.max_grid_size = 0
@@ -210,15 +211,16 @@ class CellCollisionHandler(object):
         # Compute the average radius and center so we know how to partition
         # the space.
         self.cell_quantity = len(self.cells)
-        self.avg_radius = sum(map(lambda x : x.radius, self.cells))/len(self.cells)
-        self.center_x = sum(map(lambda x : x.position_x, self.cells))/len(self.cells)
-        self.center_y = sum(map(lambda x : x.position_y, self.cells))/len(self.cells)
+        self.avg_radius = sum(map(lambda x: x.radius, self.cells))/len(self.cells)
+        self.max_cell_radius = max(map(lambda x: x.radius, self.cells))
+        self.center_x = sum(map(lambda x: x.position_x, self.cells))/len(self.cells)
+        self.center_y = sum(map(lambda x: x.position_y, self.cells))/len(self.cells)
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
-        self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
+        self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
         # The width of each box. Chosen so that two cells can exert forces
         # on each other only if they're in adjacent boxes.
-        self.box_size = self.avg_radius * 2 * self.force_escape
+        self.box_size = self.max_cell_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
         self.dimension = ceil(self.max_grid_size / self.box_size)
@@ -244,7 +246,8 @@ class CellCollisionHandler(object):
         # pushed apart and stopped colliding, we'd like them to stop
         # moving, not to continue to move apart with high velocities.
 
-        min_dist = self.avg_radius/100
+        # cells should
+        min_dist = min(cell1.radius, cell2.radius) / 100
         cxnx = max(cell1.position_x - cell2.position_x, min_dist, key=abs)
         cyny = max(cell1.position_y - cell2.position_y, min_dist, key=abs)
         # If they're on top of each other, they should push each other apart.

@@ -69,12 +69,13 @@ class Epithelium(object):
         if cell_factory is None:
             cell_factory = CellFactory()
 
-        # This is the list of functions which are each cell should start out with.
+        # This is the set of events should start out with.
         # They are run once per tick of the simulation.
+        # Each cell gets its own copy of each event
         default_cell_events = {CellEvents.PassiveGrowth(self)}
+        cell_factory.cell_events = default_cell_events
 
         # create cells for sheet
-        cell_factory.cell_events = default_cell_events
         self.cells = cell_factory.create_cells(self.cell_quantity)
 
         # run initial decompaction of cells cells
