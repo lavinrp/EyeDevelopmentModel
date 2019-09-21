@@ -216,7 +216,7 @@ class MainFrame(MainFrameBase):
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
-        self.active_epithelium_file = save_as_dialog.GetFilename()
+        self.active_epithelium_file = save_as_dialog.GetPath()
 
         # save to new file name
         self.on_epithelium_save(event)
@@ -236,7 +236,7 @@ class MainFrame(MainFrameBase):
             return  # the user changed their mind
 
         # load the file
-        active_epithelium_file = load_dialog.GetFilename()
+        active_epithelium_file = load_dialog.GetPath()
         imported_epithelium = import_epithelium(active_epithelium_file)
         if imported_epithelium:
 
@@ -307,7 +307,7 @@ class MainFrame(MainFrameBase):
         save_as_dialog.Show()
         if save_as_dialog.ShowModal() == wx.ID_CANCEL:
             return  # the user changed their mind
-        self.active_simulation_settings_file = save_as_dialog.GetFilename()
+        self.active_simulation_settings_file = save_as_dialog.GetPath()
 
         # save to new file name
         self.on_sim_overview_save(event)
@@ -326,7 +326,7 @@ class MainFrame(MainFrameBase):
             return  # the user changed their mind
 
         # load the file
-        active_simulation_settings_file = load_dialog.GetFilename()
+        active_simulation_settings_file = load_dialog.GetPath()
         imported_settings = import_simulation_settings(active_simulation_settings_file)
 
         # update with values from loaded file
