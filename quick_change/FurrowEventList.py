@@ -153,18 +153,21 @@ def run_border_cell_selection(field_types, epithelium, cells):
                         if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
                             # make support
                             cell.support_specializations.add(SupportCellType.BORDER_CELL)
+                            cell.target_radius = field_types["target radius"].value
                             cell.dividable = False
             else:
                 for neighbor in neighbors:
                     if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
                         # make support
                         cell.support_specializations.add(SupportCellType.BORDER_CELL)
+                        cell.target_radius = field_types["target radius"].value
                         cell.dividable = False
 
 
 border_cell_selection_event = FurrowEvent(name="Border Cell Selection",
                                           distance_from_furrow=250,
-                                          field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
+                                          field_types={"border radius (cells)": FieldType.IntegerFieldType(1),
+                                                       "target radius": FieldType.IntegerFieldType(20)},
                                           run=run_border_cell_selection)
 
 
