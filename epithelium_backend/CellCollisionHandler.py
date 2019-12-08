@@ -202,7 +202,7 @@ class CellCollisionHandler(object):
         self.cells.remove(cell)
         # May want to remove from non_empty
 
-    def fill_grid(self):
+    def fill_grid(self, by_max_radius: bool = True):
         """
         Create or resize the collision handler's grid and
         add every cell to it.
@@ -217,10 +217,16 @@ class CellCollisionHandler(object):
         self.center_y = sum(map(lambda x: x.position_y, self.cells))/len(self.cells)
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
-        self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
+        #
         # The width of each box. Chosen so that two cells can exert forces
-        # on each other only if they're in adjacent boxes.
-        self.box_size = self.max_cell_radius * 2 * self.force_escape
+        # on each other only if they're in adjacent boxes
+        # TODO EMS VERIFY.
+        if by_max_radius:
+            self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
+            self.box_size = self.max_cell_radius * 2 * self.force_escape
+        else:
+            self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
+            self.box_size = self.avg_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
         self.dimension = ceil(self.max_grid_size / self.box_size)
