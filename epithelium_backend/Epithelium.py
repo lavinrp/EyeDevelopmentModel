@@ -81,7 +81,9 @@ class Epithelium(object):
         # run initial decompaction of cells cells
         if self.cell_quantity > 0:
             self.cell_collision_handler = CellCollisionHandler.CellCollisionHandler(self.cells)
-            for i in range(0, 50):
+            # Scale decompactions to epithelium size
+            decompactions = len(self.cells) // 2
+            for _ in range(decompactions):
                 self.cell_collision_handler.decompact()
 
     def neighboring_cells(self, cell: Cell, number_cells: int):
