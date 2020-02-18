@@ -47,14 +47,13 @@ def run_r2_r5_selector(field_types, epithelium, cells):
             for neighbor in neighbors:
                 if chosen_count is field_types["r2, r5 selection count"].value:
                     break
+                neighbor.target_radius = field_types["r2, r5 target radius"].value
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R2
-                    neighbor.target_radius = field_types["r2, r5 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
                 elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
                     neighbor.photoreceptor_type = PhotoreceptorType.R5
-                    neighbor.target_radius = field_types["r2, r5 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
 
@@ -81,14 +80,13 @@ def run_r3_r4_selector(field_types, epithelium, cells):
             for neighbor in neighbors:
                 if chosen_count is field_types["r3, r4 selection count"].value:
                     break
+                neighbor.target_radius = field_types["r3, r4 target radius"].value
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R3
-                    neighbor.target_radius = field_types["r3, r4 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
                 elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
                     neighbor.photoreceptor_type = PhotoreceptorType.R4
-                    neighbor.target_radius = field_types["r3, r4 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
 
@@ -115,14 +113,13 @@ def run_r1_r6_selector(field_types, epithelium, cells):
             for neighbor in neighbors:
                 if chosen_count is field_types["r1, r6 selection count"].value:
                     break
+                neighbor.target_radius = field_types["r1, r6 target radius"].value
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R1
-                    neighbor.target_radius = field_types["r1, r6 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
                 elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
                     neighbor.photoreceptor_type = PhotoreceptorType.R6
-                    neighbor.target_radius = field_types["r1, r6 target radius"].value
                     neighbor.dividable = False
                     chosen_count += 1
 
