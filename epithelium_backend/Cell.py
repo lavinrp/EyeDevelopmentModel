@@ -66,7 +66,7 @@ class Cell(object):
 
     def grow(self, growth_amount=None):
         """
-        Increases the cell's radius by growth_amount or the cell's growth_rate
+        Increases the cell's radius by growth_amount or its internal growth_rate when no input is provided
         :param growth_amount: The amount to grow the radius
         :return:
         """
@@ -74,7 +74,7 @@ class Cell(object):
 
     def shrink(self, growth_amount=None):
         """
-        Decreases the cell's radius by growth_amount or the cell's growth_rate
+        Decreases the cell's radius by growth_amount or its internal growth_rate when no input is provided
         :param growth_amount: The amount to shrink the radius
         :return:
         """
