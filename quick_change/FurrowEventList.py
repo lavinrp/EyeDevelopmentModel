@@ -1,4 +1,5 @@
 import eye_development_gui.FieldType as FieldType
+from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.SupportCellType import SupportCellType
@@ -13,12 +14,31 @@ def run_r8_selector(field_types, epithelium, cells):
     """
 
     r8_exclusion_radius = field_types['r8 exclusion radius'].value
+    r8_min_from_edge = field_types['min distance from edge'].value
+
+    collision_handler = CellCollisionHandler(epithelium.cells, by_max_radius=False)  # Make optional argument
+    min_row = min(map(lambda x: collision_handler.compute_row(x), collision_handler.cells))
+    min_col = min(map(lambda x: collision_handler.compute_col(x), collision_handler.cells))
+    max_row = max(map(lambda x: collision_handler.compute_row(x), collision_handler.cells))
+    max_col = max(map(lambda x: collision_handler.compute_col(x), collision_handler.cells))
+
     for cell in cells:
+
         neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
         assign = True
         for neighbor in neighbors:
             if neighbor.photoreceptor_type == PhotoreceptorType.R8:
                 assign = False
+
+        # Todo find max, Evan
+        row = collision_handler.compute_row(cell.position_y)
+        col = collision_handler.compute_col(cell.position_x)
+
+        print(len(collision_handler.grids))
+        print(len(collision_handler.grids[1]))
+        if col < min_col + r8_min_from_edge or row < min_row + r8_min_from_edge or col > max_col - r8_min_from_edge or row > max_row - r8_min_from_edge:
+            assign = False
+
         if assign:
             cell.photoreceptor_type = PhotoreceptorType.R8
             cell.dividable = False
@@ -26,7 +46,8 @@ def run_r8_selector(field_types, epithelium, cells):
 
 r8_selection_event = FurrowEvent(name="R8 Selection",
                                  distance_from_furrow=0,
-                                 field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
+                                 field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4),
+                                              'min distance from edge': FieldType.IntegerFieldType(0)},
                                  run=run_r8_selector)
 
 

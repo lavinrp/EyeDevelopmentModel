@@ -135,12 +135,16 @@ class CellCollisionHandler(object):
        each other when colliding, making them overlap in equilibrium.
     :param spring_constant: determines spring stiffness; linearly correlated
        to the magnitude of the force cells exert on each other.
+    :param by_max_radius: If True, grid square sizes will be determined by the
+        biggest cell. If False, grid square sizes will be determined by the
+        average cell size.
     """
     def __init__(self,
                  cells: list,
                  force_escape: float = 1.05,
                  allow_overlap: float = 0.95,
-                 spring_constant: float = 0.32):
+                 spring_constant: float = 0.32,
+                 by_max_radius: bool = True):
         # Constants
         self.force_escape = force_escape
         self.allow_overlap = allow_overlap
@@ -158,6 +162,7 @@ class CellCollisionHandler(object):
         self.grids = []
         self.non_empty = set()
 
+        self.by_max_radius = by_max_radius
         self.fill_grid()
 
     def compute_row(self, y):
@@ -202,7 +207,7 @@ class CellCollisionHandler(object):
         self.cells.remove(cell)
         # May want to remove from non_empty
 
-    def fill_grid(self, by_max_radius: bool = True):
+    def fill_grid(self):
         """
         Create or resize the collision handler's grid and
         add every cell to it.
@@ -220,8 +225,8 @@ class CellCollisionHandler(object):
         #
         # The width of each box. Chosen so that two cells can exert forces
         # on each other only if they're in adjacent boxes
-        # TODO EMS VERIFY.
-        if by_max_radius:
+        # TODO VERIFY EVAN_FLAG
+        if self.by_max_radius:
             self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
             self.box_size = self.max_cell_radius * 2 * self.force_escape
         else:
