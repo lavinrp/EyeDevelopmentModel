@@ -1,4 +1,3 @@
-import eye_development_gui.FieldType as FieldType
 from epithelium_backend.PhotoreceptorType import PhotoreceptorType
 from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.SupportCellType import SupportCellType
@@ -12,7 +11,7 @@ def run_r8_selector(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
 
-    r8_exclusion_radius = field_types['r8 exclusion radius'].value
+    r8_exclusion_radius = field_types['r8 exclusion radius']
     for cell in cells:
         neighbors = epithelium.neighboring_cells(cell, r8_exclusion_radius)
         assign = True
@@ -26,7 +25,7 @@ def run_r8_selector(field_types, epithelium, cells):
 
 r8_selection_event = FurrowEvent(name="R8 Selection",
                                  distance_from_furrow=0,
-                                 field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4)},
+                                 field_types={'r8 exclusion radius': 4},
                                  run=run_r8_selector)
 
 
@@ -43,7 +42,7 @@ def run_r2_r5_selector(field_types, epithelium, cells):
             neighbors.sort(key=cell.distance_to_other)
             chosen_count = 0
             for neighbor in neighbors:
-                if chosen_count is field_types["r2, r5 selection count"].value:
+                if chosen_count is field_types["r2, r5 selection count"]:
                     break
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R2
@@ -57,7 +56,7 @@ def run_r2_r5_selector(field_types, epithelium, cells):
 
 r2_r5_selection_event = FurrowEvent(name="R2, R5 Selection",
                                     distance_from_furrow=100,
-                                    field_types={"r2, r5 selection count": FieldType.IntegerFieldType(2)},
+                                    field_types={"r2, r5 selection count": 2},
                                     run=run_r2_r5_selector)
 
 
@@ -74,7 +73,7 @@ def run_r3_r4_selector(field_types, epithelium, cells):
             neighbors.sort(key=cell.distance_to_other)
             chosen_count = 0
             for neighbor in neighbors:
-                if chosen_count is field_types["r3, r4 selection count"].value:
+                if chosen_count is field_types["r3, r4 selection count"]:
                     break
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R3
@@ -88,7 +87,7 @@ def run_r3_r4_selector(field_types, epithelium, cells):
 
 r3_r4_selection_event = FurrowEvent(name="R3, R4 Selection",
                                     distance_from_furrow=150,
-                                    field_types={"r3, r4 selection count": FieldType.IntegerFieldType(2)},
+                                    field_types={"r3, r4 selection count": 2},
                                     run=run_r3_r4_selector)
 
 
@@ -105,7 +104,7 @@ def run_r1_r6_selector(field_types, epithelium, cells):
             neighbors.sort(key=cell.distance_to_other)
             chosen_count = 0
             for neighbor in neighbors:
-                if chosen_count is field_types["r1, r6 selection count"].value:
+                if chosen_count is field_types["r1, r6 selection count"]:
                     break
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R1
@@ -119,7 +118,7 @@ def run_r1_r6_selector(field_types, epithelium, cells):
 
 r1_r6_selection_event = FurrowEvent(name="R1, R6 Selection",
                                     distance_from_furrow=200,
-                                    field_types={"r1, r6 selection count": FieldType.IntegerFieldType(2)},
+                                    field_types={"r1, r6 selection count": 2},
                                     run=run_r1_r6_selector)
 
 
@@ -134,7 +133,7 @@ def run_border_cell_selection(field_types, epithelium, cells):
     """
     for cell in cells:
         if cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
-            distance = field_types["border radius (cells)"].value
+            distance = field_types["border radius (cells)"]
             neighbors = epithelium.neighboring_cells(cell, distance)
             if distance == 1:
                 for neighbor in neighbors:
@@ -153,7 +152,7 @@ def run_border_cell_selection(field_types, epithelium, cells):
 
 border_cell_selection_event = FurrowEvent(name="Border Cell Selection",
                                           distance_from_furrow=250,
-                                          field_types={"border radius (cells)": FieldType.IntegerFieldType(1)},
+                                          field_types={"border radius (cells)": 1},
                                           run=run_border_cell_selection)
 
 
@@ -178,12 +177,12 @@ def run_cell_death(field_types, epithelium, cells):
                     add_event = False
             if add_event:
                 cell.cell_events.add(TryCellDeath(epithelium=epithelium,
-                                                  death_chance=float(field_types["death chance (0-100)"].value) / 100.0))
+                                                  death_chance=float(field_types["death chance (0-100)"]) / 100.0))
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
                                distance_from_furrow=400,
-                               field_types={"death chance (0-100)": FieldType.IntegerFieldType(1)},
+                               field_types={"death chance (0-100)": 1},
                                run=run_cell_death)
 
 

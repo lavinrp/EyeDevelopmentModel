@@ -1,6 +1,3 @@
-from eye_development_gui.FieldType import IntegerFieldType
-
-
 class FurrowEvent(object):
     def __init__(self,
                  name: str,
@@ -30,7 +27,7 @@ class FurrowEvent(object):
         self.name = name
         self.last_processed = set()
         self.field_types = field_types
-        self.field_types[self.__distance_from_furrow_key] = IntegerFieldType(distance_from_furrow)
+        self.field_types[self.__distance_from_furrow_key] = distance_from_furrow
         self.run = run
 
     def __call__(self, furrow_last_position:float, furrow_position:float, epithelium):
@@ -60,10 +57,10 @@ class FurrowEvent(object):
 
     @property
     def distance_from_furrow(self):
-        return self.field_types[self.__distance_from_furrow_key].value
+        return self.field_types[self.__distance_from_furrow_key]
 
     @distance_from_furrow.setter
     def distance_from_furrow(self, value):
-        field = self.field_types[self.__distance_from_furrow_key]  # type: IntegerFieldType
+        field = self.field_types[self.__distance_from_furrow_key]
         if field.validate(value):
             field.value = value

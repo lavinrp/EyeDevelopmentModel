@@ -1,0 +1,5 @@
+pyopengl
+moderngl==5.5.4
+numpy
+pyrr
+pyqt5

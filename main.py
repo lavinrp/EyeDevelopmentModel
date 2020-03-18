@@ -1,9 +1,11 @@
-import wx
-from eye_development_gui.MainFrame import MainFrame
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QIcon
+import sys
 
-if __name__ == '__main__':
-    # Run the app
-    app = wx.App()  # type: wx.App
-    frame = MainFrame(None)
-    frame.Show(True)
-    app.MainLoop()
+from gui import Window
+
+app = QtWidgets.QApplication(sys.argv)
+app.setWindowIcon(QIcon("gui/resources/icon.png"))
+window = Window()
+window.show()
+sys.exit(app.exec_())

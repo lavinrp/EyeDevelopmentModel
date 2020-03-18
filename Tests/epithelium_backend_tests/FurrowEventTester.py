@@ -2,7 +2,6 @@ import unittest
 
 from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.Epithelium import Epithelium
-from eye_development_gui.FieldType import IntegerFieldType
 
 
 class RunFunctor(object):
@@ -35,7 +34,7 @@ class FurrowEventTester(unittest.TestCase):
 
     def test_call(self):
         distance_from_furrow = 10
-        field_types = {"test": IntegerFieldType(1)}
+        field_types = {"test": 1}
         cell_count = 10
         epithelium = Epithelium(cell_count)
         run = RunFunctor()
