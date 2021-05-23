@@ -1,14 +1,92 @@
 # Inspired by http://paulbourke.net/miscellaneous/particle/
 
 
-from math import sqrt, ceil
+from math import sqrt, ceil, floor
 from epithelium_backend.Cell import Cell
+import numpy as np
 
 
 def distance(p1, p2):
     (x1,y1,z1) = p1
     (x2,y2,z2) = p2
     return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+
+
+def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
+    """
+    Create a grid of cells. Each grid square within the same grid
+    has equal dimensions. Each grid square represents a discrete section
+    of 2D space. Cells within each grid square have centers that exist in
+    within that space.
+
+    A grid square can also store another cell grid. In this scenario the entire
+    child cell grid (and therefore every cell within it) exists within the space
+    represented by the parent grid square.
+
+    Child grids are stored as ndarrays. If a child grid holds only once cell the child grid
+    will be represented as a python list containing only that cell. Child grids with no cells will
+    be represented as an empty python list.
+
+    Each grid square within a cell grid may have a different number of child grids within it.
+
+    :param cells: The cells to place into a grid
+    :param maximum_layers: The maximum layers of child grid squares that can exist
+    under a square of the current grid. (a value of 1 indicates that every grid square
+    in this grid can have a child grid, but that those child grids cannot have any
+    children of their own).
+    A value of -1 indicates that there is no limit to the number of child grids
+    and that more child grids should be created until the lowest level child grid only contains one cell
+    :return: A numpy ndarray representing cells or other ndarrays
+    """
+
+    maximum_cell_diameter = 2 * max(map(lambda x: x.radius, cells))
+    max_cell_x = 0
+    min_cell_x = 0
+    max_cell_y = 0
+    min_cell_y = 0
+
+    # find the boundaries of the grid
+    for cell in cells:
+        if max_cell_x < cell.position_x:
+            max_cell_x = cell.position_x
+        elif min_cell_x > cell.position_x:
+            min_cell_x = cell.position_x
+        if max_cell_y < cell.position_y:
+            max_cell_y = cell.position_y
+        elif min_cell_y > cell.position_y:
+            min_cell_y = cell.position_y
+
+    # create a grid that will fit all of the cells
+    minimum_grid_width = ceil((max_cell_x - min_cell_x) / maximum_cell_diameter) + 1
+    minimum_grid_height = ceil((max_cell_y - min_cell_y) / maximum_cell_diameter) + 1
+    cell_grid = np.ndarray((minimum_grid_width, minimum_grid_height), dtype=object)
+    # fill the grid with lists to hold cells
+    for i in range(minimum_grid_width):
+        for j in range(minimum_grid_height):
+            cell_grid[i][j] = []
+
+    # place the cells in the correct bin
+    for cell in cells:
+        bin_x = floor((cell.position_x - min_cell_x) / maximum_cell_diameter)
+        bin_y = floor((cell.position_y - min_cell_y) / maximum_cell_diameter)
+        cell_grid[bin_x][bin_y].append(cell)
+
+    if maximum_layers == 0:
+        # we want to return all the cells
+        return cell_grid
+
+    else:
+        # create child grids for each grid square
+        parent_grid = np.ndarray((minimum_grid_width, minimum_grid_height), dtype=object)
+        for i in range(minimum_grid_width):
+            for j in range(minimum_grid_height):
+                cells_in_current_grid = len(cell_grid[i][j])
+                if cells_in_current_grid > 1:
+                    parent_grid[i][j] = create_cell_grid(cell_grid[i][j], maximum_layers - 1)
+                else :
+                    parent_grid[i][j] = cell_grid[i][j]
+
+        return parent_grid
 
 
 class CellCollisionHandler(object):
@@ -30,7 +108,7 @@ class CellCollisionHandler(object):
     to it that we need to consider when computing forces.
 
     We partition R^2 into a grid of boxes, where each box is a little
-    bigger than the average cell diameter, and define a mapping from
+    bigger than the largest cell diameter, and define a mapping from
     cell positions to the corresponding box. Then, to get the neighbors
     of a cell, we get the coordinates of its box in the grid and do
     simple arithmetic to find its neighboring boxes, and get the cells
@@ -57,12 +135,16 @@ class CellCollisionHandler(object):
        each other when colliding, making them overlap in equilibrium.
     :param spring_constant: determines spring stiffness; linearly correlated
        to the magnitude of the force cells exert on each other.
+    :param by_max_radius: If True, grid square sizes will be determined by the
+        biggest cell. If False, grid square sizes will be determined by the
+        average cell size.
     """
     def __init__(self,
                  cells: list,
                  force_escape: float = 1.05,
                  allow_overlap: float = 0.95,
-                 spring_constant: float = 0.32):
+                 spring_constant: float = 0.32,
+                 by_max_radius: bool = True):
         # Constants
         self.force_escape = force_escape
         self.allow_overlap = allow_overlap
@@ -71,6 +153,7 @@ class CellCollisionHandler(object):
         self.cells = list(cells)
         self.cell_quantity = 0
         self.avg_radius = 0
+        self.max_cell_radius = 0
         self.center_x = 0
         self.center_y = 0
         self.max_grid_size = 0
@@ -79,6 +162,7 @@ class CellCollisionHandler(object):
         self.grids = []
         self.non_empty = set()
 
+        self.by_max_radius = by_max_radius
         self.fill_grid()
 
     def compute_row(self, y):
@@ -132,15 +216,21 @@ class CellCollisionHandler(object):
         # Compute the average radius and center so we know how to partition
         # the space.
         self.cell_quantity = len(self.cells)
-        self.avg_radius = sum(map(lambda x : x.radius, self.cells))/len(self.cells)
-        self.center_x = sum(map(lambda x : x.position_x, self.cells))/len(self.cells)
-        self.center_y = sum(map(lambda x : x.position_y, self.cells))/len(self.cells)
+        self.avg_radius = sum(map(lambda x: x.radius, self.cells))/len(self.cells)
+        self.max_cell_radius = max(map(lambda x: x.radius, self.cells))
+        self.center_x = sum(map(lambda x: x.position_x, self.cells))/len(self.cells)
+        self.center_y = sum(map(lambda x: x.position_y, self.cells))/len(self.cells)
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
-        self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
+        #
         # The width of each box. Chosen so that two cells can exert forces
-        # on each other only if they're in adjacent boxes.
-        self.box_size = self.avg_radius * 2 * self.force_escape
+        # on each other only if they're in adjacent boxes
+        if self.by_max_radius:
+            self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
+            self.box_size = self.max_cell_radius * 2 * self.force_escape
+        else:
+            self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
+            self.box_size = self.avg_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
         self.dimension = ceil(self.max_grid_size / self.box_size)
@@ -166,7 +256,8 @@ class CellCollisionHandler(object):
         # pushed apart and stopped colliding, we'd like them to stop
         # moving, not to continue to move apart with high velocities.
 
-        min_dist = self.avg_radius/100
+        # cells should
+        min_dist = min(cell1.radius, cell2.radius) / 100
         cxnx = max(cell1.position_x - cell2.position_x, min_dist, key=abs)
         cyny = max(cell1.position_y - cell2.position_y, min_dist, key=abs)
         # If they're on top of each other, they should push each other apart.
@@ -228,6 +319,8 @@ class CellCollisionHandler(object):
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
 
+        self.fill_grid()
+
     def cells_within_distance(self, cell, r):
         box_number = ceil(r/self.box_size)
         cells = []
@@ -275,3 +368,4 @@ class CellCollisionHandler(object):
         # sort posterior to anterior
         result.sort(key=lambda c: -c.position_x)
         return result
+

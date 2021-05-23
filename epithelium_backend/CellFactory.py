@@ -3,6 +3,7 @@ from epithelium_backend.Cell import Cell
 import random
 from math import sqrt
 import math
+import copy
 
 
 class CellFactory(object):
@@ -44,10 +45,15 @@ class CellFactory(object):
                           random.random() * approx_grid_size,
                           0)
 
+            # Create events for each cell
+            cell_events = set()
+            for cell_event in self.cell_events:
+                cell_events.add(cell_event)
+
             # create the cell
             cell = Cell(position=random_pos,
                         radius=rand_radius,
-                        cell_events=self.cell_events)
+                        cell_events=cell_events)
             cell.max_radius = self.max_radius
             cell.growth_rate = self.growth_rate
             cells.append(cell)
