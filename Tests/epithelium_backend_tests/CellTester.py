@@ -62,7 +62,7 @@ class CellTester(unittest.TestCase):
         cell = Cell((x, y, z), radius, photoreceptor_type, support_specializations)
 
         growth_amount = 0.6
-        cell.grow_cell(growth_amount)
+        cell.grow(growth_amount)
 
         self.assertEqual(cell.radius, radius+growth_amount, "Cell.grow_cell incorrectly changes cell size")
 
