@@ -26,6 +26,7 @@ class Cell(object):
         self.position_z = position[2]  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
+        self.target_radius = 25  # type: float
         self.dividable = True  # type: bool
         self.growth_rate = .01  # type: float
         self.photoreceptor_type = photoreceptor_type  # type: photoreceptor_type
@@ -63,13 +64,21 @@ class Cell(object):
         self.position_y -= delta_y
         return child_cell
 
-    def grow_cell(self, growth_amount):
+    def grow(self, growth_amount=None):
         """
-        Increases the cell's radius by growth_amount
-        :param growth_amount:
+        Increases the cell's radius by growth_amount or its internal growth_rate when no input is provided
+        :param growth_amount: The amount to grow the radius
         :return:
         """
-        self.radius += growth_amount
+        self.radius += growth_amount if growth_amount else self.growth_rate
+
+    def shrink(self, growth_amount=None):
+        """
+        Decreases the cell's radius by growth_amount or its internal growth_rate when no input is provided
+        :param growth_amount: The amount to shrink the radius
+        :return:
+        """
+        self.radius -= growth_amount if growth_amount else self.growth_rate
 
     def dispatch_updates(self):
         """
