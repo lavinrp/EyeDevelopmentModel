@@ -16,7 +16,7 @@ def run_r8_selector(field_types, epithelium, cells):
     r8_exclusion_radius = field_types['r8 exclusion radius'].value
     r8_min_from_edge = field_types['min distance from edge'].value
 
-    collision_handler = CellCollisionHandler(epithelium.cells, by_max_radius=False)  # Make optional argument
+    collision_handler = CellCollisionHandler(epithelium.cells, by_max_radius=False)
     min_row = min(map(lambda x: collision_handler.compute_row(x.position_x), collision_handler.cells))
     min_col = min(map(lambda x: collision_handler.compute_col(x.position_y), collision_handler.cells))
     max_row = max(map(lambda x: collision_handler.compute_row(x.position_x), collision_handler.cells))
@@ -46,7 +46,7 @@ r8_selection_event = FurrowEvent(name="R8 Selection",
                                  distance_from_furrow=0,
                                  field_types={'r8 exclusion radius': FieldType.IntegerFieldType(4),
                                               'r8 target radius': FieldType.IntegerFieldType(20),
-                                              'min distance from edge': FieldType.IntegerFieldType(0)},
+                                              'min distance from edge': FieldType.IntegerFieldType(4)},
                                  run=run_r8_selector)
 
 

@@ -225,7 +225,6 @@ class CellCollisionHandler(object):
         #
         # The width of each box. Chosen so that two cells can exert forces
         # on each other only if they're in adjacent boxes
-        # TODO VERIFY EVAN_FLAG
         if self.by_max_radius:
             self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
             self.box_size = self.max_cell_radius * 2 * self.force_escape
