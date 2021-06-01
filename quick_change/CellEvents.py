@@ -57,3 +57,19 @@ class TryCellDeath(object):
 
         if random.random() <= self.death_chance:
             self.epithelium.delete_cell(cell)
+
+
+class UpdateCellPosition(object):
+    """
+    Functor that moves cells by their position deltas
+    """
+
+    def __call__(self, cell: Cell) -> None:
+        """
+        Update the cells position with its position delta. Set the position delta to 0
+        :param cell: The cell to update
+        """
+        cell.position_x += cell.position_delta_x
+        cell.position_y += cell.position_delta_y
+        cell.position_delta_x = 0
+        cell.position_delta_y = 0

@@ -5,6 +5,7 @@ from epithelium_backend.FurrowEvent import FurrowEvent
 from epithelium_backend.SupportCellType import SupportCellType
 from quick_change.CellEvents import TryCellDeath
 
+
 def run_r8_selector(field_types, epithelium, cells):
     """R8 cell selection logic
     :param field_types: Input parameters.
@@ -207,14 +208,14 @@ def run_cell_death(field_types, epithelium, cells):
                     add_event = False
             if add_event:
                 cell.cell_events.add(TryCellDeath(epithelium=epithelium,
-                                                  death_chance=float(field_types["death chance (0-100)"].value) / 100.0))
+                                                  death_chance=float(
+                                                      field_types["death chance (0-100)"].value) / 100.0))
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
                                distance_from_furrow=400,
                                field_types={"death chance (0-100)": FieldType.IntegerFieldType(1)},
                                run=run_cell_death)
-
 
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event,
