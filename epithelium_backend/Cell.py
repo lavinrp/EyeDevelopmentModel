@@ -44,6 +44,9 @@ class Cell(object):
         else:
             self.cell_events = cell_events  # type: set
 
+        # cells recruited by this cell, or that recruited this cell
+        self.related_cells = list()  # type: list
+
     def divide(self):
         """
         Divides this cell into a new cell with half of this cell's radius.

@@ -34,6 +34,7 @@ def run_r8_selector(field_types, epithelium, cells):
         row = collision_handler.compute_row(cell.position_y)
         col = collision_handler.compute_col(cell.position_x)
 
+        # Don't specialize cells if they are too close to the edge of the simulation
         if col < min_col + r8_min_from_edge or row < min_row + r8_min_from_edge or col > max_col - r8_min_from_edge or row > max_row - r8_min_from_edge:
             assign = False
 
@@ -59,14 +60,28 @@ def run_r2_r5_selector(field_types, epithelium, cells):
     """
 
     for cell in cells:
+        # r2 and r5 cells are recruited by R8 cells
         if cell.photoreceptor_type is PhotoreceptorType.R8:
             neighbors = epithelium.neighboring_cells(cell, 2)
             neighbors.sort(key=cell.distance_to_other)
-            chosen_count = 0
+
+            # Get the number of r2 or r5 cells already selected by the R8
+            selected_r2_r5_cells = \
+                [x for x in cell.related_cells
+                 if x.photoreceptor_type is PhotoreceptorType.R2 or x.photoreceptor_type is PhotoreceptorType.R5]
+            chosen_count = len(selected_r2_r5_cells)
+
+            # Finish specializing r2 and r5 cells
             for neighbor in neighbors:
+
+                # Only specialize the specified number of cells
                 if chosen_count is field_types["r2, r5 selection count"].value:
                     break
+
+                # Start specialising the cell
                 neighbor.target_radius = field_types["r2, r5 target radius"].value
+                cell.related_cells.append(neighbor)
+                neighbor.related_cells.append(cell)
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R2
                     neighbor.dividable = False
@@ -92,14 +107,26 @@ def run_r3_r4_selector(field_types, epithelium, cells):
     """
 
     for cell in cells:
+        # r3 and r4 cells are recruited an the R8
         if cell.photoreceptor_type is PhotoreceptorType.R8:
             neighbors = epithelium.neighboring_cells(cell, 2)
             neighbors.sort(key=cell.distance_to_other)
-            chosen_count = 0
+
+            # Get the number of r2 or r5 cells already selected by the R8
+            selected_r3_r4_cells = \
+                [x for x in cell.related_cells
+                 if x.photoreceptor_type is PhotoreceptorType.R3 or x.photoreceptor_type is PhotoreceptorType.R4]
+            chosen_count = len(selected_r3_r4_cells)
+
             for neighbor in neighbors:
+                # Only specialize the specified number of cells
                 if chosen_count is field_types["r3, r4 selection count"].value:
                     break
+
+                # Start specialising the cell
                 neighbor.target_radius = field_types["r3, r4 target radius"].value
+                cell.related_cells.append(neighbor)
+                neighbor.related_cells.append(cell)
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R3
                     neighbor.dividable = False
@@ -125,13 +152,25 @@ def run_r1_r6_selector(field_types, epithelium, cells):
     """
 
     for cell in cells:
+        # r1 and r6 cells are recruited an the R8
         if cell.photoreceptor_type is PhotoreceptorType.R8:
             neighbors = epithelium.neighboring_cells(cell, 4)
             neighbors.sort(key=cell.distance_to_other)
-            chosen_count = 0
+
+            # Get the number of r2 or r5 cells already selected by the R8
+            selected_r1_r6_cells = \
+                [x for x in cell.related_cells
+                 if x.photoreceptor_type is PhotoreceptorType.R1 or x.photoreceptor_type is PhotoreceptorType.R6]
+            chosen_count = len(selected_r1_r6_cells)
+
             for neighbor in neighbors:
+                # Only specialize the specified number of cells
                 if chosen_count is field_types["r1, r6 selection count"].value:
                     break
+
+                # Start specialising the cell
+                cell.related_cells.append(neighbor)
+                neighbor.related_cells.append(cell)
                 neighbor.target_radius = field_types["r1, r6 target radius"].value
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R1
