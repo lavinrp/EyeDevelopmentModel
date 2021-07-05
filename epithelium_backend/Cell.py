@@ -24,6 +24,8 @@ class Cell(object):
         self.position_x = position[0]  # type: float
         self.position_y = position[1]  # type: float
         self.position_z = position[2]  # type: float
+        self.position_delta_x = 0  # type: float
+        self.position_delta_y = 0  # type: float
         self.radius = radius  # type: float
         self.max_radius = 25  # type: float
         self.target_radius = 25  # type: float
