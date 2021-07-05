@@ -3,6 +3,7 @@
 
 from math import sqrt, ceil, floor
 from epithelium_backend.Cell import Cell
+from quick_change.CellEvents import UpdateCellPosition
 import numpy as np
 
 
@@ -12,7 +13,7 @@ def distance(p1, p2):
     return sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
 
 
-def create_cell_grid(cells: list, maximum_layers:int = 0) -> np.ndarray:
+def create_cell_grid(cells: list, maximum_layers: int = 0) -> np.ndarray:
     """
     Create a grid of cells. Each grid square within the same grid
     has equal dimensions. Each grid square represents a discrete section
@@ -275,17 +276,17 @@ class CellCollisionHandler(object):
             # they pull each other together. If closer, they push.
             # So, defining rest_length as the sum of the cells'
             # radii means that they are at equilibrium when their
-            # circumfrences are touching. Multiplying the rest_length
+            # circumferences are touching. Multiplying the rest_length
             # by allow_overlap means springs will be at equilibrium
             # when overlapping, since it makes the rest_length
             # smaller.
             s = self.spring_constant*(dist-self.allow_overlap*rest_length)/dist
             scxnx = s*cxnx
             scyny = s*cyny
-            cell1.position_x -= scxnx
-            cell1.position_y -= scyny
-            cell2.position_x += scxnx
-            cell2.position_y += scyny
+            cell1.position_delta_x -= scxnx
+            cell1.position_delta_y -= scyny
+            cell2.position_delta_x += scxnx
+            cell2.position_delta_y += scyny
 
     def decompact(self):
         """
@@ -318,6 +319,11 @@ class CellCollisionHandler(object):
                     if 0 < j < len_grids:
                         for cell2 in grids[j]:
                             self.push_pull(cell1, cell2)
+
+        # Now that we have the deltas for each cell update their positions
+        position_updater = UpdateCellPosition()  # type: UpdateCellPosition
+        for cell in self.cells:
+            position_updater(cell)
 
         self.fill_grid()
 

@@ -16,6 +16,7 @@ def run_r8_selector(field_types, epithelium, cells):
 
     r8_exclusion_radius = field_types['r8 exclusion radius'].value
     r8_min_from_edge = field_types['min distance from edge'].value
+    r8_target_radius = field_types['r8 target radius'].value
 
     collision_handler = CellCollisionHandler(epithelium.cells, by_max_radius=False)
     min_row = min(map(lambda x: collision_handler.compute_row(x.position_x), collision_handler.cells))
@@ -40,7 +41,7 @@ def run_r8_selector(field_types, epithelium, cells):
 
         if assign:
             cell.photoreceptor_type = PhotoreceptorType.R8
-            cell.target_radius = field_types['r8 target radius'].value
+            cell.target_radius = r8_target_radius
             cell.dividable = False
 
 
@@ -59,10 +60,14 @@ def run_r2_r5_selector(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
 
+    r2_r5_selection_count = field_types["r2, r5 selection count"].value
+    r2_r5_target_radius = field_types["r2, r5 target radius"].value
+    max_distance_from_r8 = field_types["max distance from R8"].value
+
     for cell in cells:
         # r2 and r5 cells are recruited by R8 cells
         if cell.photoreceptor_type is PhotoreceptorType.R8:
-            neighbors = epithelium.neighboring_cells(cell, 2)
+            neighbors = epithelium.neighboring_cells(cell, max_distance_from_r8)
             neighbors.sort(key=cell.distance_to_other)
 
             # Get the number of r2 or r5 cells already selected by the R8
@@ -75,11 +80,11 @@ def run_r2_r5_selector(field_types, epithelium, cells):
             for neighbor in neighbors:
 
                 # Only specialize the specified number of cells
-                if chosen_count is field_types["r2, r5 selection count"].value:
+                if chosen_count is r2_r5_selection_count:
                     break
 
                 # Start specialising the cell
-                neighbor.target_radius = field_types["r2, r5 target radius"].value
+                neighbor.target_radius = r2_r5_target_radius
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
@@ -95,7 +100,8 @@ def run_r2_r5_selector(field_types, epithelium, cells):
 r2_r5_selection_event = FurrowEvent(name="R2, R5 Selection",
                                     distance_from_furrow=100,
                                     field_types={"r2, r5 selection count": FieldType.IntegerFieldType(2),
-                                                 "r2, r5 target radius": FieldType.IntegerFieldType(20)},
+                                                 "r2, r5 target radius": FieldType.IntegerFieldType(20),
+                                                 "max distance from R8": FieldType.IntegerFieldType(2)},
                                     run=run_r2_r5_selector)
 
 
@@ -106,10 +112,14 @@ def run_r3_r4_selector(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
 
+    r3_r4_selection_count = field_types["r3, r4 selection count"].value
+    r3_r4_target_radius = field_types["r3, r4 target radius"].value
+    max_distance_from_r8 = field_types["max distance from R8"].value
+
     for cell in cells:
         # r3 and r4 cells are recruited an the R8
         if cell.photoreceptor_type is PhotoreceptorType.R8:
-            neighbors = epithelium.neighboring_cells(cell, 2)
+            neighbors = epithelium.neighboring_cells(cell, max_distance_from_r8)
             neighbors.sort(key=cell.distance_to_other)
 
             # Get the number of r2 or r5 cells already selected by the R8
@@ -120,11 +130,11 @@ def run_r3_r4_selector(field_types, epithelium, cells):
 
             for neighbor in neighbors:
                 # Only specialize the specified number of cells
-                if chosen_count is field_types["r3, r4 selection count"].value:
+                if chosen_count is r3_r4_selection_count:
                     break
 
                 # Start specialising the cell
-                neighbor.target_radius = field_types["r3, r4 target radius"].value
+                neighbor.target_radius = r3_r4_target_radius
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
@@ -140,7 +150,8 @@ def run_r3_r4_selector(field_types, epithelium, cells):
 r3_r4_selection_event = FurrowEvent(name="R3, R4 Selection",
                                     distance_from_furrow=150,
                                     field_types={"r3, r4 selection count": FieldType.IntegerFieldType(2),
-                                                 "r3, r4 target radius": FieldType.IntegerFieldType(25)},
+                                                 "r3, r4 target radius": FieldType.IntegerFieldType(25),
+                                                 "max distance from R8": FieldType.IntegerFieldType(2)},
                                     run=run_r3_r4_selector)
 
 
@@ -151,10 +162,14 @@ def run_r1_r6_selector(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium).
     """
 
+    r1_r6_selection_count = field_types["r1, r6 selection count"].value
+    r1_r6_target_radius = field_types["r1, r6 target radius"].value
+    max_distance_from_r8 = field_types["max distance from R8"].value
+
     for cell in cells:
         # r1 and r6 cells are recruited an the R8
         if cell.photoreceptor_type is PhotoreceptorType.R8:
-            neighbors = epithelium.neighboring_cells(cell, 4)
+            neighbors = epithelium.neighboring_cells(cell, max_distance_from_r8)
             neighbors.sort(key=cell.distance_to_other)
 
             # Get the number of r2 or r5 cells already selected by the R8
@@ -171,7 +186,7 @@ def run_r1_r6_selector(field_types, epithelium, cells):
                 # Start specialising the cell
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
-                neighbor.target_radius = field_types["r1, r6 target radius"].value
+                neighbor.target_radius = r1_r6_target_radius
                 if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
                     neighbor.photoreceptor_type = PhotoreceptorType.R1
                     neighbor.dividable = False
@@ -185,7 +200,8 @@ def run_r1_r6_selector(field_types, epithelium, cells):
 r1_r6_selection_event = FurrowEvent(name="R1, R6 Selection",
                                     distance_from_furrow=200,
                                     field_types={"r1, r6 selection count": FieldType.IntegerFieldType(2),
-                                                 "r1, r6 target radius": FieldType.IntegerFieldType(25)},
+                                                 "r1, r6 target radius": FieldType.IntegerFieldType(25),
+                                                 "max distance from R8": FieldType.IntegerFieldType(4)},
                                     run=run_r1_r6_selector)
 
 
@@ -198,9 +214,13 @@ def run_border_cell_selection(field_types, epithelium, cells):
     :param cells: Cells to run selection on (should be part of passed epithelium)
     :return:
     """
+
+    border_radius = field_types["border radius (cells)"].value
+    border_cell_target_radius = field_types["target radius"].value
+
     for cell in cells:
         if cell.photoreceptor_type is PhotoreceptorType.NOT_RECEPTOR:
-            distance = field_types["border radius (cells)"].value
+            distance = border_radius
             neighbors = epithelium.neighboring_cells(cell, distance)
             if distance == 1:
                 for neighbor in neighbors:
@@ -208,14 +228,14 @@ def run_border_cell_selection(field_types, epithelium, cells):
                         if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
                             # make support
                             cell.support_specializations.add(SupportCellType.BORDER_CELL)
-                            cell.target_radius = field_types["target radius"].value
+                            cell.target_radius = border_cell_target_radius
                             cell.dividable = False
             else:
                 for neighbor in neighbors:
                     if neighbor.photoreceptor_type is not PhotoreceptorType.NOT_RECEPTOR:
                         # make support
                         cell.support_specializations.add(SupportCellType.BORDER_CELL)
-                        cell.target_radius = field_types["target radius"].value
+                        cell.target_radius = border_cell_target_radius
                         cell.dividable = False
 
 
@@ -247,14 +267,14 @@ def run_cell_death(field_types, epithelium, cells):
                     add_event = False
             if add_event:
                 cell.cell_events.add(TryCellDeath(epithelium=epithelium,
-                                                  death_chance=float(field_types["death chance (0-100)"].value) / 100.0))
+                                                  death_chance=float(
+                                                      field_types["death chance (0-100)"].value) / 100.0))
 
 
 cell_death_event = FurrowEvent(name="Cell Death",
                                distance_from_furrow=400,
                                field_types={"death chance (0-100)": FieldType.IntegerFieldType(1)},
                                run=run_cell_death)
-
 
 # All Furrow Events ordered from first to last
 furrow_event_list = [r8_selection_event,

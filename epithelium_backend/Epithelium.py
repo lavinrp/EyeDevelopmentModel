@@ -72,7 +72,7 @@ class Epithelium(object):
         # This is the set of events should start out with.
         # They are run once per tick of the simulation.
         # Each cell gets its own copy of each event
-        default_cell_events = {CellEvents.PassiveGrowth(self)}
+        default_cell_events = {CellEvents.PassiveGrowth(self), CellEvents.UpdateCellPosition()}
         cell_factory.cell_events = default_cell_events
 
         # create cells for sheet
