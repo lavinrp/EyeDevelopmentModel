@@ -121,7 +121,7 @@ Epithelium *-- "1" Furrow
 Furrow "1" o-- "0..*" FurrowEvent
 FurrowEvent -- Epithelium : operates on >
 
-note "The active furrow events are specified in quick_change.FurrowEventList" as FurrowEventListNote
+note "The active furrow events are specified\n in quick_change.FurrowEventList" as FurrowEventListNote
 FurrowEventListNote -- FurrowEvent
 
 note as CellEventNote

@@ -1,0 +1,31 @@
+@startuml
+MainEventLoop -> Epithelium : update
+Epithelium -> Furrow : update
+Furrow -> Furrow : advance
+loop for each furrow event
+  Furrow -> FurrowEvent : invoke
+  FurrowEvent -> CellCollisionHandler : Get cells to operate on
+  FurrowEvent <-- CellCollisionHandler : Cells
+  FurrowEvent -> FurrowEvent : Select cells to specialize
+  loop for each cell to specialize
+  FurrowEvent -> Cell : Specialize
+  FurrowEvent <-- Cell
+  end
+  Furrow <-- FurrowEvent
+end
+Epithelium <-- Furrow
+loop for each cell
+  Epithelium -> Cell : dispatch_updates
+  loop for each cell event
+    Cell -> CellEvent : invoke
+    Cell <-- CellEvent
+  end
+  Epithelium <-- Cell
+end
+Epithelium -> CellCollisionHandler : decompact
+loop for each cell
+CellCollisionHandler -> Cell : Update position
+CellCollisionHandler <-- Cell
+end
+Epithelium <-- CellCollisionHandler
+@enduml
