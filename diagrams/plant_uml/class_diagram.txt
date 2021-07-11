@@ -1,0 +1,133 @@
+@startuml
+class Cell{
+  +float position_x
+  +float position_y
+  +float position_z
+  +float position_delta_x
+  +float position_delta_y
+  +float radius
+  +float max_radius
+  +float target_radius
+  +bool dividable
+  +float growth_rate
+  +photoreceptor_type photoreceptor_type
+  +set support_specializations
+  +set cell_events
+  +list related_cells
+  +divide()
+  +grow(growth_amount)
+  +shrink(growth_amount)
+  +dispatch_updates()
+  +distance_to_other()
+  +touhes(neighbor)
+}
+
+enum SupportCellType {
+  BORDER_CELL
+  PIGMENT_CELL
+}
+
+enum PhotoreceptorType{
+  NOT_RECEPTOR
+  R1
+  R2
+  R3
+  R4
+  R5
+  R6
+  R7
+  R8
+}
+
+
+Class CellCollisionHandler {
+  +force_escape
+  +allow_overlap
+  +spring_constant
+  +cells
+  +cell_quantity
+  +avg_radius
+  +max_cell_radius
+  +center_x
+  +center_y
+  +max_grid_size
+  +box_size
+  +dimension
+  +grids
+  +non_empty
+  +by_max_radius
+  +compute_row(y)
+  +compute_col(x)
+  +bin(cell)
+  +register(cell)
+  +deregister(cell)
+  +fill_grid()
+  +push_pull(cell1, cell2)
+  +decompact()
+  +cells_within_distance(cell, r)
+  +posterior_to_anterior()
+  +cells_between(min_x, max_x)
+}
+
+class CellFactory{
+  +int max_radius
+  +float growth_rate
+  +set cell_events
+  +float radius_divergence
+  +float average_radius
+  +create_cells(int quantity)
+}
+
+class Epithelium {
+  +list cells
+  +int cell_quantity
+  +float cell_avg_radius
+  +CellCollisionHandler cell_collision_handler
+  +float furrow_initial_position
+  +Furrow furrow
+  +divide_cell(cell_from_list)
+  +delete_cell(cell)
+  +create_cell_sheet(cell_factory)
+  +neighboring_cells(cell, number_cells)
+  +update()
+  +run_cell_updates()
+}
+
+class Furrow {
+  +float position
+  +float velocity
+  +list events
+  +advance(distance)
+  +update(epithelium)
+}
+
+class FurrowEvent {
+  +name
+  +last_processed
+  +field_types
+  +run
+  +distance_from_furrow
+  +__call__(furrow_last_position furrow_position, epithelium)
+}
+
+Cell *-- "1" PhotoreceptorType
+Cell o-- "0..*" SupportCellType
+CellCollisionHandler "1" o-- "0..*" Cell
+CellFactory -- Cell : creates >
+Epithelium -- CellFactory : uses >
+Epithelium "1" *-- "1..*" Cell
+Epithelium *-- "1" CellCollisionHandler
+Epithelium *-- "1" Furrow
+Furrow "1" o-- "0..*" FurrowEvent
+FurrowEvent -- Epithelium : operates on >
+
+note "The active furrow events are specified in quick_change.FurrowEventList" as FurrowEventListNote
+FurrowEventListNote -- FurrowEvent
+
+note as CellEventNote
+  Any callable that can be invoked with a cell as its only parameter can be a
+  cell event. Cell events are specified in quick_change.CellEvents
+end note
+
+Cell::cell_events -- CellEventNote
+@enduml
