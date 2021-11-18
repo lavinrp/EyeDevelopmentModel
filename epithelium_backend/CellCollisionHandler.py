@@ -186,7 +186,7 @@ class CellCollisionHandler(object):
         row = self.compute_row(cell.position_y)
         # Map the row,col to an index in our one dimensional grid vector.
         bin = self.dimension*row + col
-        if bin >= len(self.grids):
+        if bin >= len(self.grids) or bin < 0:
             # Resize the grid and re-bin all the cells.
             self.fill_grid()
             # Because the dimensions and centers have changed,
@@ -217,10 +217,11 @@ class CellCollisionHandler(object):
         # Compute the average radius and center so we know how to partition
         # the space.
         self.cell_quantity = len(self.cells)
-        self.avg_radius = sum(map(lambda x: x.radius, self.cells))/len(self.cells)
+
+        self.avg_radius = sum(map(lambda x: x.radius, self.cells))/self.cell_quantity
         self.max_cell_radius = max(map(lambda x: x.radius, self.cells))
-        self.center_x = sum(map(lambda x: x.position_x, self.cells))/len(self.cells)
-        self.center_y = sum(map(lambda x: x.position_y, self.cells))/len(self.cells)
+        self.center_x = sum(map(lambda x: x.position_x, self.cells))/self.cell_quantity
+        self.center_y = sum(map(lambda x: x.position_y, self.cells))/self.cell_quantity
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
         #
@@ -234,7 +235,9 @@ class CellCollisionHandler(object):
             self.box_size = self.avg_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
-        self.dimension = ceil(self.max_grid_size / self.box_size)
+        # Ran into max recursion depth problem so,
+        # add some buffer space so that we don't need to go through this routine so often.
+        self.dimension = ceil((self.max_grid_size * 1.3) / self.box_size)
         # The one dimensional list representing our grid.
         self.grids = [[] for x in range(0,self.dimension**2)]
         # The set of non-empty boxes -- the only ones we need
