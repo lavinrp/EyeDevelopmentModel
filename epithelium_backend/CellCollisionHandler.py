@@ -146,7 +146,10 @@ class CellCollisionHandler(object):
                  allow_overlap: float = 0.95,
                  spring_constant: float = 0.32,
                  by_max_radius: bool = True):
+
         # Constants
+        self.max_delta_x = 0
+        self.max_delta_y = 0
         self.force_escape = force_escape
         self.allow_overlap = allow_overlap
         self.spring_constant = spring_constant
@@ -185,14 +188,14 @@ class CellCollisionHandler(object):
         col = self.compute_col(cell.position_x)
         row = self.compute_row(cell.position_y)
         # Map the row,col to an index in our one dimensional grid vector.
-        bin = self.dimension*row + col
-        if bin >= len(self.grids) or bin < 0:
+        cell_bin = self.dimension*row + col
+        if cell_bin >= len(self.grids) or cell_bin < 0:
             # Resize the grid and re-bin all the cells.
             self.fill_grid()
             # Because the dimensions and centers have changed,
             # we have to recompute the bin.
             return self.bin(cell)
-        return self.dimension*row + col
+        return cell_bin
 
     def register(self, cell: Cell):
         """Add the cell to the collision handler."""
@@ -222,22 +225,26 @@ class CellCollisionHandler(object):
         self.max_cell_radius = max(map(lambda x: x.radius, self.cells))
         self.center_x = sum(map(lambda x: x.position_x, self.cells))/self.cell_quantity
         self.center_y = sum(map(lambda x: x.position_y, self.cells))/self.cell_quantity
+
         # Twice the maximum x and y coordinates we can handle.
         # Choose a space big enough to hold 4x more cells than we have.
         #
         # The width of each box. Chosen so that two cells can exert forces
         # on each other only if they're in adjacent boxes
         if self.by_max_radius:
-            self.max_grid_size = 2 * sqrt(self.max_cell_radius**2 * 3.14 * self.cell_quantity)
             self.box_size = self.max_cell_radius * 2 * self.force_escape
         else:
-            self.max_grid_size = 2 * sqrt(self.avg_radius**2 * 3.14 * self.cell_quantity)
             self.box_size = self.avg_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
-        # Ran into max recursion depth problem so,
-        # add some buffer space so that we don't need to go through this routine so often.
-        self.dimension = ceil((self.max_grid_size * 1.3) / self.box_size)
+        # Find the largest cell position delta in x direction and then furthest in the y direction.
+        self.max_delta_x = 0
+        self.max_delta_y = 0
+        self.max_delta_x = max(map(lambda x: abs(x.position_x - self.center_x), self.cells))
+        self.max_delta_y = max(map(lambda x: abs(x.position_y - self.center_y), self.cells))
+        # Use the largest delta * 2 as the side-length/dimension of our grid
+        # pad with the radius for kicks
+        self.dimension = ceil(( self.max_cell_radius * 2 + max(self.max_delta_x, self.max_delta_y) * 2) / self.box_size)
         # The one dimensional list representing our grid.
         self.grids = [[] for x in range(0,self.dimension**2)]
         # The set of non-empty boxes -- the only ones we need
