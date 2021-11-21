@@ -7,6 +7,17 @@ from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 from epithelium_backend.CellCollisionHandler import create_cell_grid
 
 
+def get_pairwise_distances(cells: list):
+    distances = []
+    for i in range(0, len(cells)):
+        for j in range(i + 1, len(cells)):
+            c1 = cells[i]
+            c2 = cells[j]
+            distances.append(distance((c1.position_x, c1.position_y, 0),
+                               (c2.position_x, c2.position_y, 0)))
+    return distances
+
+
 class CellCollisionHandlerTester(unittest.TestCase):
 
     def test_resizing(self):
@@ -14,23 +25,17 @@ class CellCollisionHandlerTester(unittest.TestCase):
         # longer fit in its grid
         cells = [Cell((0,0,0), 1), Cell((1,1,0), 1)]
         handler = CellCollisionHandler(cells)
-        center_bin = (handler.dimension*handler.dimension - 1)/2
-        init_dimension = handler.dimension
-        self.assertEqual(handler.center_x, 0.5, "The center is (0.5, 0.5)")
-        self.assertEqual(handler.center_y, 0.5, "The center is (0.5, 0.5)")
-        self.assertEqual(handler.bin(cells[0]), center_bin, "Cell 0 is in the center bin")
-        self.assertEqual(handler.bin(cells[1]), center_bin, "Cell 1 is in the center bin")
+        initial_dimension = handler.dimension
 
         # Register a new cell that fits within the grid
         cell_2 = Cell((0.5, 0.5, 0), 1)
         handler.register(cell_2)
-        self.assertEqual(handler.dimension, init_dimension, "The handler didn't grow.")
-        self.assertEqual(handler.bin(cell_2), center_bin, "Cell 2 is in the center bin.")
+        self.assertEqual(handler.dimension, initial_dimension, "The handler didn't grow.")
 
         # Register a cell that doesn't fit within the grid
         cell_3 = Cell((5, 5, 0), 1)
         handler.register(cell_3)
-        self.assertTrue(handler.dimension > init_dimension, "The handler grew.")
+        self.assertTrue(handler.dimension > initial_dimension, "The handler grew.")
         self.assertEqual(handler.center_x, 1.625, "The center was adjusted.")
         self.assertEqual(handler.center_y, 1.625, "The center was adjusted.")
 
@@ -74,34 +79,84 @@ class CellCollisionHandlerTester(unittest.TestCase):
         self.assertTrue(new_dist_close - init_dist_close > new_dist_far - init_dist_far,
                         "Push/pull forces are greater when cells are closer together.")
 
-    def test_decompact(self):
-        cells = [Cell((0,0,0), 1),
-                 Cell((1,1,0), 1),
-                 Cell((1,0,0), 1),
-                 Cell((0,1,0), 1)]
+    def test_decompact_line_coincident_cells(self):
+        cells = [Cell((0, 0, 0), 1),
+                 Cell((0, 0, 0), 1)]
         handler = CellCollisionHandler(cells)
 
-        def get_pairwise_distances():
-            ds = []
-            for i in range(0, len(cells)):
-                for j in range(i+1, len(cells)):
-                    c1 = cells[i]
-                    c2 = cells[j]
-                    ds.append(distance((c1.position_x, c1.position_y, 0),
-                                       (c2.position_x, c2.position_y, 0)))
-            return ds
+        old_pairwise_distances = get_pairwise_distances(cells)
 
-        old_pairwise_distances = get_pairwise_distances()
-        new_pairwise_distances = old_pairwise_distances
         # Every time we decompact, the cells should move farther apart.
-        for i in range(0,10):
-            handler.decompact()
-            new_pairwise_distances = get_pairwise_distances()
-            for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
-                self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
-            old_pairwise_distances = new_pairwise_distances
+        handler.decompact()
+        new_pairwise_distances = get_pairwise_distances(cells)
+        for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
+            self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
+        old_pairwise_distances = new_pairwise_distances
 
-    def test_create_cell_grid_same_size_cells_no_children_grid_dimentions(self):
+    def test_decompact_2cell(self):
+        cells = [Cell((0, 0, 0), 1),
+                 Cell((0, 1, 0), 1)]
+        handler = CellCollisionHandler(cells)
+
+        old_pairwise_distances = get_pairwise_distances(cells)
+
+        # Every time we decompact, the cells should move farther apart.
+        handler.decompact()
+        new_pairwise_distances = get_pairwise_distances(cells)
+        for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
+            self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
+        old_pairwise_distances = new_pairwise_distances
+
+    def test_decompact_line_3cell(self):
+        cells = [Cell((0, 0, 0), 1),
+                 Cell((0, 1, 0), 1),
+                 Cell((0, 2, 0), 1),
+                 ]
+        handler = CellCollisionHandler(cells)
+
+        old_pairwise_distances = get_pairwise_distances(cells)
+
+        # Every time we decompact, the cells should move farther apart.
+        handler.decompact()
+        new_pairwise_distances = get_pairwise_distances(cells)
+        for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
+            self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
+        old_pairwise_distances = new_pairwise_distances
+
+
+
+# todo break test into smaller tests (2 cells, 3 in line, triangle, square, plus sign)
+
+#     def test_decompact(self):
+#         cells = [Cell((0,0,0), 1),
+#                  Cell((1,1,0), 1),
+#                  Cell((1,0,0), 1),
+#                  Cell((0,1,0), 1)]
+#         handler = CellCollisionHandler(cells)
+#
+#         def get_pairwise_distances():
+#             ds = []
+#             for i in range(0, len(cells)):
+#                 for j in range(i+1, len(cells)):
+#                     c1 = cells[i]
+#                     c2 = cells[j]
+#                     ds.append(distance((c1.position_x, c1.position_y, 0),
+#                                        (c2.position_x, c2.position_y, 0)))
+#             return ds
+#
+#         old_pairwise_distances = get_pairwise_distances()
+#         new_pairwise_distances = old_pairwise_distances
+#         # Every time we decompact, the cells should move farther apart.
+#         for i in range(0,10):
+#             handler.decompact()
+#             new_pairwise_distances = get_pairwise_distances()
+#             for new_dist, old_dist in zip(new_pairwise_distances, old_pairwise_distances):
+#                 self.assertTrue(new_dist > old_dist, "The cells moved farther apart.")
+#             old_pairwise_distances = new_pairwise_distances
+#             print(old_pairwise_distances)
+#             print(new_pairwise_distances)
+
+    def test_create_cell_grid_same_size_cells_no_children_grid_dimensions(self):
         cell_radius = 10
         cells = [
             Cell((0, 0, 0), cell_radius),
