@@ -237,9 +237,7 @@ class CellCollisionHandler(object):
             self.box_size = self.avg_radius * 2 * self.force_escape
 
         # The number of rows and columns needed.
-        # Find the largest cell position delta in x direction and then furthest in the y direction.
-        self.max_delta_x = 0
-        self.max_delta_y = 0
+        # Find the largest cell position delta in x direction and then furthest in the y direction from center.
         self.max_delta_x = max(map(lambda x: abs(x.position_x - self.center_x), self.cells))
         self.max_delta_y = max(map(lambda x: abs(x.position_y - self.center_y), self.cells))
         # Use the largest delta * 2 as the side-length/dimension of our grid
