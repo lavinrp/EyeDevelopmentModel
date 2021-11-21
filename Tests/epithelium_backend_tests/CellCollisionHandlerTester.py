@@ -5,6 +5,7 @@ from epithelium_backend.Cell import Cell
 from epithelium_backend.CellCollisionHandler import distance
 from epithelium_backend.CellCollisionHandler import CellCollisionHandler
 from epithelium_backend.CellCollisionHandler import create_cell_grid
+from quick_change.CellEvents import UpdateCellPosition
 
 
 def get_pairwise_distances(cells: list):
@@ -47,6 +48,9 @@ class CellCollisionHandlerTester(unittest.TestCase):
             cells = [cell1, cell2]
             handler = CellCollisionHandler(cells)
             handler.push_pull(cell1, cell2)
+            position_updater = UpdateCellPosition()  # type: UpdateCellPosition
+            for cell in cells:
+                position_updater(cell)
             current_distance = distance((cell1.position_x, cell1.position_y, 0),
                                         (cell2.position_x, cell2.position_y, 0))
             return initial_distance, current_distance
