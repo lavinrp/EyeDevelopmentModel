@@ -1,8 +1,11 @@
-# Senior Design Project - Eye Development Model
+# Eye Development Model
 
-## Advisor:
-Dr. Annexstein  
-annexsfs@ucmail.uc.edu
+## Introduction:
+Eye Development Model (EDM) is a python application used to model and simulate the growth and development of eyes given different
+parameters.  The model is based mainly on what is known about the development of D. melanogaster eyes.  By changing the
+parameters, the user can even observe behaviour similar to the development of eyes in different species.  The 
+application is developed to not only allow the user to change input but also define their own events to occur to the
+epithelium of the eye.
 
 ## Team Members:
 ### Nick Moseley:
