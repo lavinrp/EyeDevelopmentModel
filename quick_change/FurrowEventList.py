@@ -80,7 +80,7 @@ def run_r2_r5_selector(field_types, epithelium, cells):
             for neighbor in neighbors:
 
                 # Only specialize the specified number of cells
-                if chosen_count is r2_r5_selection_count:
+                if chosen_count == r2_r5_selection_count:
                     break
 
                 # Start specialising the cell
