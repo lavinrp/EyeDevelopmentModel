@@ -22,8 +22,9 @@ Quick version:
    * pyrr - version 0.9.2 or greater
    * wxPython - version 4.0.1 or greater
    >PyCharm uses requirements.txt to automatically get the needed packages. 
-4) Clone this repo with ```git clone https://github.com/lavinrp/EyeDevelopmentModel.git  ```
-    >Tutorial of [clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
+4) Get EDM with [git clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
+   
+   `git clone https://github.com/lavinrp/EyeDevelopmentModel.git`
 5) Open the project in PyCharm
 6) After that everything should just work&trade; when you run main.py
 
