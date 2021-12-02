@@ -37,13 +37,13 @@ An Epithelium can be generated or loaded from the _Epithelium Generation_ tab in
 ### Simulation Overview
 The _simulation Overview_ tab will let you start, stop, and pause a simulation as well as change any of the simulation's parameters, or any of the parameters used for cell specialization.
 <p align="center">
-  <img src="./resources/SimOverviewTab.png">
+  <img src="./resources/SimOverviewTab.PNG">
 </p>
 
 ### Simulation
 The _Simulation_ tab will only let you start, pause, and stop the simulation, but it provides a better view.
 <p align="center">
-  <img src="./resources/SimulationTab.png">
+  <img src="./resources/SimulationTab.PNG">
 </p>
 
 
