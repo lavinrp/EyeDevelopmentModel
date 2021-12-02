@@ -8,10 +8,10 @@ the cells.  The application is designed to also allow the user to define their o
 of the eye.
 
 <p align="center">
-  <img alt="Budibase automations" src="https://github.com/bauerbp/EyeDevelopmentModel/resource/">
+  <img src="./resources/developmentPathways.png">
 </p>
 <br /><br />
-![image](/resources/developmentPathways.png?raw=true "example")
+![image](https://raw.github.com/lavinrp/EyeDevelopmentModel/resources/developmentPathways.png?raw=true "example")
 
 
 ## Team Members:
