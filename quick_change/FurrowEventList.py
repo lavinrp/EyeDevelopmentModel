@@ -218,6 +218,10 @@ def run_border_cell_selection(field_types, epithelium, cells):
     border_radius = field_types["border radius (cells)"].value
     border_cell_target_radius = field_types["target radius"].value
 
+    # no work needs to be done with a 0 input
+    if border_radius == 0:
+        return
+
     for cell in cells:
         if cell.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR:
             distance = border_radius
