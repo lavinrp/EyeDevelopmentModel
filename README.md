@@ -13,19 +13,19 @@ Eye Development Model (EDM) is a python application used to model and simulate t
 
 ## Starting EDM
 Quick version:
-1) [Download](https://www.python.org/downloads/) Python version 3.4 or greater
+1) [Download](https://www.python.org/downloads/) Python version 3.7 or greater
 2) Install [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows).  If you opt to _not_ use PyCharm, you will need to install dependencies with something like [pip](https://docs.python.org/3/installing/).:
-   * pyopengl - version 3.1.0 or greater
-   * moderngl - version 5 or greater
-   * numpy - version 1.13.3 or greater
-   * pyrr - version 0.9.2 or greater
-   * wxPython - version 4.0.1 or greater
+   * pyopengl - version 3.1.0
+   * moderngl - version 5.5.3
+   * numpy - version 1.17.2
+   * pyrr - version 0.10.3
+   * wxPython - version 4.0.6
    >PyCharm uses requirements.txt to automatically get the needed packages. 
 3) Get EDM with [git clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
    
    `git clone https://github.com/lavinrp/EyeDevelopmentModel.git`
 4) Open the project in PyCharm
-5) After that everything should just work&trade; when you run main.py
+5) Run main.py
 
 For a more detailed description of how to get up and running see [this user guide](user_guide.md).
 
@@ -47,3 +47,6 @@ The _Simulation_ tab will only let you start, pause, and stop the simulation, bu
 <p align="center">
   <img src="./resources/SimulationTab.PNG">
 </p>
+
+## Reporting Bugs
+Please report any and all bugs to the [GitHub Issue Tracker](https://github.com/lavinrp/EyeDevelopmentModel/issues)
