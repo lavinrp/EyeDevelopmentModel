@@ -87,14 +87,17 @@ def run_r2_r5_selector(field_types, epithelium, cells):
                 neighbor.target_radius = r2_r5_target_radius
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
-                if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R2
-                    neighbor.dividable = False
-                    chosen_count += 1
-                elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R5
-                    neighbor.dividable = False
-                    chosen_count += 1
+                if (neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and
+                        len(neighbor.support_specializations) == 0):
+
+                    if chosen_count % 2 == 0:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R2
+                        neighbor.dividable = False
+                        chosen_count += 1
+                    elif chosen_count % 2 == 1:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R5
+                        neighbor.dividable = False
+                        chosen_count += 1
 
 
 r2_r5_selection_event = FurrowEvent(name="R2, R5 Selection",
@@ -137,14 +140,16 @@ def run_r3_r4_selector(field_types, epithelium, cells):
                 neighbor.target_radius = r3_r4_target_radius
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
-                if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R3
-                    neighbor.dividable = False
-                    chosen_count += 1
-                elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R4
-                    neighbor.dividable = False
-                    chosen_count += 1
+                if (neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and
+                        len(neighbor.support_specializations) == 0):
+                    if chosen_count % 2 == 0:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R3
+                        neighbor.dividable = False
+                        chosen_count += 1
+                    elif chosen_count % 2 == 1:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R4
+                        neighbor.dividable = False
+                        chosen_count += 1
 
 
 r3_r4_selection_event = FurrowEvent(name="R3, R4 Selection",
@@ -187,14 +192,16 @@ def run_r1_r6_selector(field_types, epithelium, cells):
                 cell.related_cells.append(neighbor)
                 neighbor.related_cells.append(cell)
                 neighbor.target_radius = r1_r6_target_radius
-                if neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 0:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R1
-                    neighbor.dividable = False
-                    chosen_count += 1
-                elif neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and chosen_count % 2 == 1:
-                    neighbor.photoreceptor_type = PhotoreceptorType.R6
-                    neighbor.dividable = False
-                    chosen_count += 1
+                if (neighbor.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR and
+                        len(neighbor.support_specializations) == 0):
+                    if chosen_count % 2 == 0:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R1
+                        neighbor.dividable = False
+                        chosen_count += 1
+                    elif chosen_count % 2 == 1:
+                        neighbor.photoreceptor_type = PhotoreceptorType.R6
+                        neighbor.dividable = False
+                        chosen_count += 1
 
 
 r1_r6_selection_event = FurrowEvent(name="R1, R6 Selection",
