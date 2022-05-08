@@ -9,24 +9,24 @@ def determine_cell_color(cell: Cell) -> tuple:
     :param cell: The cell whose color will be determined.
     """
     if cell.photoreceptor_type == PhotoreceptorType.R1:
-        return 0, .5, .4  # turquoise
+        return .98, .72, 96
     elif cell.photoreceptor_type == PhotoreceptorType.R2:
-        return .5, 0, .25  # Burgundy
+        return .85, .3, 0.9
     elif cell.photoreceptor_type == PhotoreceptorType.R3:
-        return .5, .5, 0   # olive
+        return .95, .45, .9
     elif cell.photoreceptor_type == PhotoreceptorType.R4:
-        return .25, .25, 0   # forest green
+        return .95, .45, .9
     elif cell.photoreceptor_type == PhotoreceptorType.R5:
-        return .25, 0, .25   # Dark Purple
+        return .85, .3, .9
     elif cell.photoreceptor_type == PhotoreceptorType.R6:
-        return .5, .25, .5  # Lavender
+        return .98, .72, .96
     elif cell.photoreceptor_type == PhotoreceptorType.R7:
-        return .5, 70, .5  # Pistachio
+        return .8, .3, 1
     elif cell.photoreceptor_type == PhotoreceptorType.R8:
-        return 1, 0, 0
+        return .65, .03, .65
     elif cell.photoreceptor_type == PhotoreceptorType.NOT_RECEPTOR \
             and SupportCellType.BORDER_CELL in cell.support_specializations:
-        return .9, .77, 0.47
+        return .2, 1, .2
     else:
         return 0, 0, 1
 
