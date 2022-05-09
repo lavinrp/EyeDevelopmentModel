@@ -10,12 +10,12 @@
   * pyrr - version 0.9.2 or greater
   * wxPython - version 4.0.1 or greater
 
-3. [Clone](https://help.github.com/articles/cloning-a-repository/) or download the latest version of [Eye Development Model](https://github.uc.edu/lavinrp/EyeDevelopmentModel)
-  * Most people should stay on the stable [master](https://github.uc.edu/lavinrp/EyeDevelopmentModel/tree/master) branch
-  * Some brave souls may wish to use the unstable [develop](https://github.uc.edu/lavinrp/EyeDevelopmentModel/tree/develop) branch
+3. [Clone](https://help.github.com/articles/cloning-a-repository/) or download the latest version of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
+  * Most people should stay on the stable [master](https://github.com/lavinrp/EyeDevelopmentModel/tree/master) branch
+  * Some brave souls may wish to use the unstable [develop](https://github.com/lavinrp/EyeDevelopmentModel/tree/develop) branch
 ___
-## Settings
-Eye Development Model currently only supports altering settings via environment variables.
+## Troubleshooting
+If you are having trouble rendering, try setting some of these settings.  Eye Development Model currently only supports altering settings via environment variables.
 
 The settings available are:
   * disable OpenGL core profile -> eye_develop_model_no_ogl_core
@@ -28,13 +28,26 @@ The settings available are:
     * This forces Eye Development Model to use OpenGL imediate mode to do all of its rendering. This mode is **very** slow and minimally supported. It is advised that users only use this mode if they cannot render an epithelium using either of the two settings above
 ___
 ## General Use
-### Getting an epithelium
-An Epithelium can be generated or loaded from the _Epithelium Generation_ tab. After an epithelium is generated it can be saved for later use from this tab.
-### Running a simulation
-After selectin an epithelium you can simulate it via the _Simulation Overview_ and _Simulation_ tabs.
-The _simulation Overview_ tab will let you start, stop and pause a simulation as well as change any of the simulations parameters, or any of the parameters used for cell specialization. The _Simulation_ tab will only let you start, pause, and stop the simulation, but it provides a better view.
+### Epithelium Generation
+An Epithelium can be generated or loaded from the _Epithelium Generation_ tab in the top left. After an epithelium is generated it can be saved to be loaded later or sent to someone else to load.
+<p align="center">
+  <img src="./resources/EpitheliumGenerationTab.png">
+</p>
 
-Note that simulation and specialization options cannot be changed after a simulation has started.
+### Simulation Overview
+The _simulation Overview_ tab will let you start, stop, and pause a simulation as well as change any of the simulation's parameters, or any of the parameters used for cell specialization.
+<p align="center">
+  <img src="./resources/SimOverviewTab.PNG">
+</p>
+
+### Simulation
+The _Simulation_ tab will only let you start, pause, and stop the simulation, but it provides a better view.
+<p align="center">
+  <img src="./resources/SimulationTab.PNG">
+</p>
+
+
+>Note that simulation and specialization options cannot be changed after a simulation has started.
 
 ___
 ## Changing the Code

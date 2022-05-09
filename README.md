@@ -1,74 +1,52 @@
-# Senior Design Project - Eye Development Model
+<p align="center">
+  <img src="./resources/EDM-1.png" width="200px" height="200px">
+</p>
 
-## Advisor:
-Dr. Annexstein  
-annexsfs@ucmail.uc.edu
+# Eye Development Model
 
-## Team Members:
-### Nick Moseley:
-__Contact:__  
-moselenw@mail.uc.edu  
-moselenw1@gmail.com
+## Introduction:
+Eye Development Model (EDM) is a python application used to model and simulate the growth and development of eyes given different parameters.  The model is based mainly on what is known about the development of D. melanogaster eyes.  The user can observe in 2D what causes differentiation between different eye types by changing individual parameters of the cells.  The application is designed to also allow the user to define their own events to occur to on the epithelium of the eye.
 
-__Skills:__  
-- Research Background  
-- Data Science  
-- Backend Development (python, c++)
+<p align="center">
+  <img src="./resources/developmentPathways.png">
+</p>
 
-__Interests:__  
-- Simulation Design and Implementation
+## Starting EDM
+Quick version:
+1) [Download](https://www.python.org/downloads/) Python version 3.7 or greater
+2) Install [PyCharm](https://www.jetbrains.com/pycharm/download/#section=windows).  If you opt to _not_ use PyCharm, you will need to install dependencies with something like [pip](https://docs.python.org/3/installing/).:
+   * pyopengl - version 3.1.0
+   * moderngl - version 5.5.3
+   * numpy - version 1.17.2
+   * pyrr - version 0.10.3
+   * wxPython - version 4.0.6
+   >PyCharm uses requirements.txt to automatically get the needed packages. 
+3) Get EDM with [git clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
+   
+   `git clone https://github.com/lavinrp/EyeDevelopmentModel.git`
+4) Open the project in PyCharm
+5) Run main.py
 
-### Ryan Lavin:
-__Contact:__  
-lavinrp@mail.uc.edu  
-lavinrp@gmail.com
+For a more detailed description of how to get up and running see [this user guide](user_guide.md).
 
-__Skills:__  
-- Object Oriented and Data Oriented Design  
-- Parallel Computing  
-- Gpgpu
+## General Use
+### Epithelium Generation
+An Epithelium can be generated or loaded from the _Epithelium Generation_ tab in the top left. After an epithelium is generated it can be saved to be loaded later or sent to someone else to load.
+<p align="center">
+  <img src="./resources/EpitheliumGenerationTab.png">
+</p>
 
-__Interests:__  
-- NeuroBio
-- Requirements Engineering
-- Software Engineering
-- Parallel Computing
+### Simulation Overview
+The _simulation Overview_ tab will let you start, stop, and pause a simulation as well as change any of the simulation's parameters, or any of the parameters used for cell specialization.
+<p align="center">
+  <img src="./resources/SimOverviewTab.PNG">
+</p>
 
-### Brian Bauer:
-__Contact:__  
-bauerbp@mail.uc.edu  
-baubaubrian@gmail.com
+### Simulation
+The _Simulation_ tab will only let you start, pause, and stop the simulation, but it provides a better view.
+<p align="center">
+  <img src="./resources/SimulationTab.PNG">
+</p>
 
-__Skills:__  
-- C++  
-- OO programming
-
-__Interests:__  
-- Network Analysis  
-- Biology
-
-### Joe Disalvo:
-__Contact:__  
-DiSalvoJoe@gmail.com  
-
-__Skills:__  
-- Functional Programming
-- DSL design
-- Backend Development
-- Eliciting Requirements
-
-__Interests:__  
-- Programming Language Design
-- Parallel Computing
-
-## Project Background Description
-The underlying biological processes and patterns of early eye development are known for fruit flies and a few other species; however, a comprehensive model for all species has not been built. This project aims to use known rules to predict the development of any species� eyes by applying said rules to variable biological constraints. The simulated structure can then be compared to real samples to determine if this model can be used to correctly predict eye development in other species.
-
-## Problem Statement
-Simulating the development of eyes by projecting known growth models onto variable biological constraints.
-
-## Inadequacy of Current Solutions
-Existing simulations either do not adequately simulate the macro level growth of the eye, or do not adequately use what is known about current models to predict the growth of different eye types.  
-
-## Project Goals and Approach
-We plan to work directly with the neurobiology department based on an incremental delivery plan. This will allow us to quality check the rules governing the simulation and to revise as needed. To start, our group will research popular technologies based on the initial requirements of the customer. These include specification requirements such as developing a Python based simulation. Our first goal is to develop a 2-D solution. We plan to separate the behavioral simulation and the visual presentation of the project to allow for a seamless transition into a 3-D model. The final phase will be to revise and fine-tune the 3-D model based on customer review. This will mark the end of our senior design project.
+## Reporting Bugs
+Please report any and all bugs to the [GitHub Issue Tracker](https://github.com/lavinrp/EyeDevelopmentModel/issues)

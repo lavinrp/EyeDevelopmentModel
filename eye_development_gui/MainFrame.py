@@ -81,6 +81,8 @@ class MainFrame(MainFrameBase):
 
         self.Bind(EVT_GENERATE_EPITHELIUM, self.on_epithelium_generated)
 
+        self.init_settings_with_default_values()
+
     # region dynamic input creation
 
     @staticmethod
@@ -770,5 +772,17 @@ class MainFrame(MainFrameBase):
         icon = wx.Icon()  # type: wx.Icon
         icon.CopyFromBitmap(bitmap)
         self.SetIcon(icon)
+
+    def init_settings_with_default_values(self):
+        """
+        initializes all epithelium generation and simulation settings
+        """
+        self.min_cell_count_text_ctrl.SetValue("10000")
+        self.avg_cell_size_text_ctrl.SetValue("8")
+        self.cell_size_variance_text_ctrl.SetValue("0.1")
+        self.cell_max_size_text_ctrl.SetValue("15")
+        self.cell_growth_rate_text_ctrl.SetValue("0.005")
+        self.furrow_velocity_text_ctrl.SetValue("20")
+        self.simulation_speed_text_ctrl.SetValue("100")
 
     # endregion misc
