@@ -21,9 +21,9 @@ Quick version:
    * pyrr - version 0.10.3
    * wxPython - version 4.0.6
    >PyCharm uses requirements.txt to automatically get the needed packages. 
-3) Get EDM with [git clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
+3) Get EDM with [git clone](https://help.github.com/articles/cloning-a-repository/). Or download a zip of [Eye Development Model](https://github.com/buschbeck-lab/EyeDevelopmentModel/archive/refs/heads/master.zip)
    
-   `git clone https://github.com/lavinrp/EyeDevelopmentModel.git`
+   `git clone https://github.com/buschbeck-lab/EyeDevelopmentModel.git`
 4) Open the project in PyCharm
 5) Run main.py
 
@@ -49,4 +49,4 @@ The _Simulation_ tab will only let you start, pause, and stop the simulation, bu
 </p>
 
 ## Reporting Bugs
-Please report any and all bugs to the [GitHub Issue Tracker](https://github.com/lavinrp/EyeDevelopmentModel/issues)
+Please report any and all bugs to the [GitHub Issue Tracker](https://github.com/buschbeck-lab/EyeDevelopmentModel/issues)
