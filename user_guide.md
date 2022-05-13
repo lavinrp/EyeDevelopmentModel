@@ -10,9 +10,9 @@
   * pyrr - version 0.9.2 or greater
   * wxPython - version 4.0.1 or greater
 
-3. [Clone](https://help.github.com/articles/cloning-a-repository/) or download the latest version of [Eye Development Model](https://github.com/lavinrp/EyeDevelopmentModel)
-  * Most people should stay on the stable [master](https://github.com/lavinrp/EyeDevelopmentModel/tree/master) branch
-  * Some brave souls may wish to use the unstable [develop](https://github.com/lavinrp/EyeDevelopmentModel/tree/develop) branch
+3. [Clone](https://help.github.com/articles/cloning-a-repository/) or download the latest version of [Eye Development Model](https://github.com/buschbeck-lab/EyeDevelopmentModel/archive/refs/heads/master.zip)
+  * Most people should stay on the stable [master](https://github.com/buschbeck-lab/EyeDevelopmentModel/tree/master) branch
+  * Some brave souls may wish to use the unstable [develop](https://github.com/buschbeck-lab/EyeDevelopmentModel/tree/develop) branch
 ___
 ## Troubleshooting
 If you are having trouble rendering, try setting some of these settings.  Eye Development Model currently only supports altering settings via environment variables.
